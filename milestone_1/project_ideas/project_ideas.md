@@ -71,7 +71,11 @@
     Solution: Offer suggestions of new characters to play based on the 
     characteristics of frequently played characters, analyse characters 
     or players you work well with and against and poorly against, etc. 
-    using Riot Games API (and others?)
+    using Riot Games API (and others?). Data is extrapolated primarily
+    from list of N previous matches retrieved for a particular user.
+    This can be repeated to a set depth, to increase the quality of data 
+    available. Players can be profiled based on this collected data, and
+    perhaps stored in a database for faster reference in later searches.
 
 ## Beer Garden Loyalty Application
     Need: I want to try all the beers, keep track of the ones I like, 
