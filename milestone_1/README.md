@@ -25,20 +25,16 @@ Team Star Lane Milestone 1
 ## Resume for each team member
 ![Image](img/derek_resume.png)
 ![Image](img/baltazar_resume.png)
+![Image](img/rafael_resume.png)
 
 ## Team Schedule
 | Monday | Tuesday | Wednesday | Thursday | Friday | 
 |:--- |:--- |:--- | :--- | :--- |
-| Meeting 1-2pm | Meeting w/ Scot 1-2pm  | Meeting 1-2pm  | | Meeting 1-2pm 
-| Class Lecture 2-4pm |Meeting 1-2pm  |Class Lecture 2-4pm  | | | 
+| *Meeting 1-2pm* | Meeting w/ Scot 1-2pm  | *Meeting 1-2pm*  | | *Meeting 1-2pm* 
+| Class Lecture 2-4pm |*Meeting 2-3pm*  |Class Lecture 2-4pm  | | | 
+  
 
-
-## Git Repository for Team Project
-
-
-
-## Team Project Ideas 
-
+# Team Project Ideas 
 ## COVID Probability Tracker -- 
 
     Need: Where did I get COVID-19 from? 
