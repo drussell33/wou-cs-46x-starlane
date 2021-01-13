@@ -76,6 +76,9 @@
     This can be repeated to a set depth, to increase the quality of data 
     available. Players can be profiled based on this collected data, and
     perhaps stored in a database for faster reference in later searches.
+    These may be best separated into different features.
+    
+    Primary Limitation: endpoint rate limits
 
 ## Beer Garden Loyalty Application
     Need: I want to try all the beers, keep track of the ones I like, 
