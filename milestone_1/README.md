@@ -26,6 +26,7 @@ Team Star Lane Milestone 1
 ![Image](img/derek_resume.png)
 ![Image](img/baltazar_resume.png)
 ![Image](img/rafael_resume.png)
+![Image](img/cuauhtemoc_resume.PNG)
 
 ## Team Schedule
 | Monday | Tuesday | Wednesday | Thursday | Friday | 
@@ -106,7 +107,11 @@ Team Star Lane Milestone 1
     Solution: Offer suggestions of new characters to play based on the 
     characteristics of frequently played characters, analyse characters 
     or players you work well with and against and poorly against, etc. 
-    using Riot Games API (and others?)
+    using Riot Games API (and others?). Data is extrapolated primarily
+    from list of N previous matches retrieved for a particular user.
+    This can be repeated to a set depth, to increase the quality of data 
+    available. Players can be profiled based on this collected data, and
+    perhaps stored in a database for faster reference in later searches.
 
 ## Beer Garden Loyalty Application
     Need: I want to try all the beers, keep track of the ones I like, 
@@ -115,3 +120,23 @@ Team Star Lane Milestone 1
     Solution: Basically a social media platform that allows a user to 
     search or add beverages to their profile, and displays they for other 
     users to view or comment on. 
+
+## Tutor matchmaker --
+    Need: I’m a university student in need of tutoring that involves 
+    specialized knowledge that only a mentor or peer that is following a 
+    similar educational path would possess.
+
+    Solution: A matchmaking social site that would match potential students 
+    to tutors that possess similar education paths, knowledge, and interests 
+    in order for the student to maximize their sense of relatedness to the tutor 
+    and ensure their ability to learn.
+
+## Body Composition Guide --
+    Need: As a fitness enthusiast, my goal is to shape my body into a specific 
+    composition, balanced  between a certain percentage of fat and muscle, for example. 
+
+    Solution: Create an application where the user will be able to input various 
+    details about their composition and what their end goals are. The application 
+    will use a database to give the user facts about what (diet, exercise, daily habits) 
+    people at their size implement and then what  (diet, exercise, daily habits) people 
+    at their goal size implement, allowing the user to utilize the info as a guide.
