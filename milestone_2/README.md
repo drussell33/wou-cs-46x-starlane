@@ -73,12 +73,14 @@ The Milestone 2 Rubric
         + [T] If legit data, update database
         + [T] Else print error message
     5. [U] As a general public user I want to be able to search for data by member, peak, expedition, and other criteria so that I can find the information I want.
+        + [T] If not authenticated user or admin, show only data about members, peaks, expeditions, etc.
+        + [T] See below #5.
     6. [U] As a user I don't want my personal data to be leaked to the public to ensure my privacy.
         + [T] 
 4. [E] We want to be able to search for data on the website, and have an accurate result sent back to us. 
     1. [U] As a general public user I want to be able 
 
-5. [E] As a user, I want to be able to filter the content so I can find the information I seek.
+5. [E] Users want to be able to filter the content so they can find the information they seek.
     1. [U] As a user, when I open the "see expeditions" page, I want to see the last 100 expeditions done so that I can see how the data is rendered and not overwhelm other users with potentially thousands of expeditions at once. Note: do this for peaks and members too.
     2. [U] As a user, I want to filter expeditions by year, season, nation, leader, sponsor/name, and host so that I need not fill out a giant form with data I may not know beforehand.
         + [T] Have a side panel with all filters. The text entry filters will be year, nation, leader, and sponser. The drop down menu filters will be season and host.
