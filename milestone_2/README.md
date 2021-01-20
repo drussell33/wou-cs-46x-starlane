@@ -10,7 +10,7 @@ The Milestone 2 Rubric
 
 # Evidence of everyone following Git workflow for real work. (10pts)
 
-    When we look at the contributors sidebar, we can see that everyone has contributed, and when we look at the repos network stats to see the commits in graph format 
+    When we look at the contributors sidebar, we can see that everyone has contributed, and when we look at the repos network stats to see the commits in graph format. 
 
 # Refined and expanded list of primary needs and features (10pts)
 ## List of Needs and Features
@@ -59,24 +59,47 @@ The Milestone 2 Rubric
    5. [T] Manually test register and login; user should easily be able to see that they are logged in
 3. [E] We want a secure and reliable website where the general public, administrators, and authenticated users can each have appropriate level access to the web application.
     1. [U] As a user I want to be able to log in to my account.
-        a. [T] Make a login page
-        b. [T] Get POST request and parse it
-        c. [T] Compare hashed password
+        + [T] Make a login page
+        + [T] Get POST request and parse it
+        + [T] Compare hashed password
     2. [U] As a user I want to be able to sign out. 
-        a. [T] Add a menu on the top left of page when signed in
-        b. [T] When user clicks, “sign out” send POST request
-        c. [T] Transition user state to “signed out”
+        + [T] Add a menu on the top left of page when signed in
+        + [T] When user clicks, “sign out” send POST request
+        + [T] Transition user state to “signed out”
     3. [U] As an administrator I want to be able to monitor the usage of our members to ensure the accuracy of their expedition data.
     4. [U] As a member I want to be able to submit my latest or upcoming expeditions so that my data is saved and submitted once.
-        a. [T] When user submits form data, send POST request
-        b. [T] Parse POST request data model and error check
-        c. [T] If legit data, update database
-        d. [T] Else print error message
+        + [T] When user submits form data, send POST request
+        + [T] Parse POST request data model and error check
+        + [T] If legit data, update database
+        + [T] Else print error message
     5. [U] As a general public user I want to be able to search for data by member, peak, expedition, and other criteria so that I can find the information I want.
+        + [T] If not authenticated user or admin, show only data about members, peaks, expeditions, etc.
+        + [T] See below #5.
     6. [U] As a user I don't want my personal data to be leaked to the public to ensure my privacy.
-        a. [T] 
+        + [T] 
 4. [E] We want to be able to search for data on the website, and have an accurate result sent back to us. 
     1. [U] As a general public user I want to be able 
+
+5. [E] Users want to be able to filter the content so they can find the information they seek.
+    1. [U] As a user, when I open the "see expeditions" page, I want to see the last 100 expeditions done so that I can see how the data is rendered and not overwhelm other users with potentially thousands of expeditions at once. Note: do this for peaks and members too.
+    2. [U] As a user, I want to filter expeditions by year, season, nation, leader, sponsor/name, and host so that I need not fill out a giant form with data I may not know beforehand.
+        + [T] Have a side panel with all filters. The text entry filters will be year, nation, leader, and sponser. The drop down menu filters will be season and host.
+        + [T] When a user applies the filters by clicking a button, a GET request is sent along with a query string of the filters.
+        + [T] The server parses the query string and gets the parameters.
+        + [T] It does a select query and populates the list of expeditions.
+        + [T] It sends the list back to the view. The view renders the list.
+    3. [U] As a user, I want to filter peaks by peak name so that I need not fill out a giant form with data I may not know beforehand.
+        + [T] Have a side panel with all filters. The text entry filters will be peak name.
+        + [T] When a user applies the filters by clicking a button, a GET request is sent along with a query string of the filters.
+        + [T] The server parses the query string and gets the parameters.
+        + [T] It does a select query and populates the list of peaks.
+        + [T] It sends the list back to the view. The view renders the list.
+    4. [U] As a user, I want to filter members by last name, citizenship, and agency so that I need not fill out a giant form with data I may not know beforehand.
+        + [T] Have a side panel with all filters. The text entry filters will be last name, citizenship, and agency.
+        + [T] When a user applies the filters by clicking a button, a GET request is sent along with a query string of the filters.
+        + [T] The server parses the query string and gets the parameters.
+        + [T] It does a select query and populates the list of members.
+        + [T] It sends the list back to the view. The view renders the list.
         
 
 # Appropriate initial modeling outputs UML (10pts)
