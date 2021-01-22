@@ -13,6 +13,8 @@ namespace HimalayanProject
 {
     public class Startup
     {
+        private string connectionString = null;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,6 +26,8 @@ namespace HimalayanProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            var builder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("HimalayaDBConnection"));
+            services.AddDbContext
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
