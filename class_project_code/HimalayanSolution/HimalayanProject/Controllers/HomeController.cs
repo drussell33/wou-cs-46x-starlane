@@ -39,10 +39,18 @@ namespace HimalayanProject.Controllers
 
         public IActionResult Search(string search_term)
         {
+            if (search_term != null)
+            {
 
-
-
-            return View();
+                //Search expeditions by peak name or trekking agency name. 
+                IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term)).OrderByDescending(O => O.Year).AsEnumerable();
+                return View("Index", result);
+            }
+            else 
+            {
+                return View("Index");
+            }
+            
         }
     }
 }
