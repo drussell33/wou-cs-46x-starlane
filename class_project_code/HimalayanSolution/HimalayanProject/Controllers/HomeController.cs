@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HimalayanProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HimalayanProject.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private HimalayanContext db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, HimalayanContext context)
         {
             _logger = logger;
+            db = context;
         }
 
         public IActionResult Index()
@@ -32,6 +35,14 @@ namespace HimalayanProject.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Search(string search_term)
+        {
+
+
+
+            return View();
         }
     }
 }
