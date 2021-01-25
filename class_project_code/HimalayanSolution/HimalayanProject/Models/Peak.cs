@@ -15,7 +15,6 @@ namespace HimalayanProject.Models
         {
             Expeditions = new HashSet<Expedition>();
         }
-
         [Key]
         [Column("ID")]
         public int Id { get; set; }

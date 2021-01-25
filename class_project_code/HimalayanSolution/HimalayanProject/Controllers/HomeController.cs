@@ -13,12 +13,12 @@ namespace HimalayanProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private HimalayanContext db;
+        private HimalayaDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger, HimalayanContext context)
+        public HomeController(ILogger<HomeController> logger, HimalayaDbContext db)
         {
             _logger = logger;
-            db = context;
+            _db = db;
         }
 
         public IActionResult Index()
@@ -26,7 +26,8 @@ namespace HimalayanProject.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Index(int id)
         {
             return View();
         }
