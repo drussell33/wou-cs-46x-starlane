@@ -26,10 +26,13 @@ namespace HimalayanProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<HimalayaDbContext>(opts =>
+            services.AddDbContext<HimalayanContext>(options =>
             {
-                opts.UseSqlServer(Configuration["ConnectionStrings:HimalayaDBConnection"]);
-                //opts.UseSqlServer(builder.ConnectionString);
+                //Azure db service connection
+                //options.UseSqlServer(Configuration["ConnectionStrings:HimalayaDBConnection"]);
+
+                //Rafael Local Db connection config
+                options.UseSqlServer(Configuration["ConnectionStrings:HimalayanDBConnection"]);
             });
         }
 
