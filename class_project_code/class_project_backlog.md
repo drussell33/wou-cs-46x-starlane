@@ -55,7 +55,7 @@ We will be using <a href="https://pivotaltracker.com">Pivotal Tracker</a> to mak
             <td>Building the basic models in the ASP.NET Core project from the azure database.</td>
             <td>Task for User Story ID: 2</td>
         </tr>
-                <tr>
+        <tr>
             <td>8</td> <td>Not Started</td> <td>T</td> <td>-</td> <td></td>
             <td>Deploy it on Azure</td>
             <td></td>
