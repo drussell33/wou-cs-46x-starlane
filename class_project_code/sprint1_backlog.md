@@ -19,25 +19,25 @@ This Sprint is built from the top level PBI: Getting Shared Development Environm
             <td>Tasks: ID 2-6</td>
         </tr>
         <tr>
-            <td>2</td> <td>Started</td> <td>T</td> <td>-</td> <td>Derek</td>
+            <td>2</td> <td>Completed</td> <td>T</td> <td>-</td> <td>Derek</td>
             <td>Create starter ASP dot NET Core MVC Web Application with Individual User Accounts and no unit test project</td>
             <td>Building the basic ASP.NET CORE MVC 3.1 application template </td>
             <td>Task for User Story ID: 1</td>
         </tr>
         <tr>
-            <td>3</td> <td>-</td> <td>T</td> <td>-</td> <td>Baltazar</td>
+            <td>3</td> <td>Completed</td> <td>T</td> <td>-</td> <td>Baltazar</td>
             <td>Create SQL Server database on Azure and configure web app to use it. Hide credentials.</td>
             <td>Building the azure database and deploying for everyone to use. </td>
             <td>Task for User Story ID: 1</td>
         </tr>
         <tr>
-            <td>4</td> <td>Not Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
+            <td>4</td> <td>Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
             <td>Choose CSS library (Bootstrap 4, or ?) and use it for all pages</td>
             <td>We could always re-do this later on, so anything works.</td>
             <td>Task for User Story ID: 1</td>
         </tr>
         <tr>
-            <td>5</td> <td>Not Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
+            <td>5</td> <td>Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
             <td>Create nice bare homepage: write initial welcome content, customize navbar, hide links to login/register</td>
             <td>Building some basic page views and navbar that are essentially empty right now, but will be filled later. </td>
             <td>Task for User Story ID: 1</td>
