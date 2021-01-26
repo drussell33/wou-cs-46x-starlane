@@ -22,63 +22,112 @@ The Milestone 3 Rubric
     </thead>
     <tbody>
         <tr>
-            <td>1</td> <td>Started</td> <td>E</td> <td>-</td> <td>Everyone</td>
+            <td>1</td> <td>Delivered</td> <td>E</td> <td>-</td> <td>Everyone</td>
             <td>I want to visit a website about Himalayan mountain climbing</td>
             <td>We Need to create a shared development evironment and create the basic model of a website that will be deployed on Azure</td>
             <td>Sprint 1 & ID: 2-8 </td>
         <tr>
-            <td>2</td> <td>Started</td> <td>U</td> <td>-</td> <td>Everyone</td>
+            <td>2</td> <td>Delivered</td> <td>E</td> <td>-</td> <td>Everyone</td>
             <td>As a visitor to the site I would like to see a fantastic and modern homepage that introduces me to the site and the features currently available.</td>
             <td>We will be developing this project using ASP.NET Core MVC 3.1, with our Database being deployed on Azure. We need to create a project, database, and basic template website that shows the database is connected.</td>
             <td>Tasks: ID 3-8</td>
         </tr>
         <tr>
-            <td>3</td> <td>Started</td> <td>T</td> <td>-</td> <td>Derek</td>
+            <td>3</td> <td>Delivered</td> <td>U</td> <td>-</td> <td>Derek</td>
             <td>Create starter ASP dot NET Core MVC Web Application with Individual User Accounts and no unit test project</td>
             <td>Building the basic ASP.NET CORE MVC 3.1 application template </td>
             <td>Task for User Story ID: 2</td>
         </tr>
         <tr>
-            <td>4</td> <td>-</td> <td>T</td> <td>-</td> <td>Baltazar</td>
+            <td>4</td> <td>Delivered</td> <td>U</td> <td>-</td> <td>Baltazar</td>
             <td>Create SQL Server database on Azure and configure web app to use it. Hide credentials.</td>
             <td>Building the azure database and deploying for everyone to use. </td>
             <td>Task for User Story ID: 2</td>
         </tr>
         <tr>
-            <td>5</td> <td>Not Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
+            <td>5</td> <td>Delivered</td> <td>U</td> <td>-</td> <td>Cuauhtemoc</td>
             <td>Choose CSS library (Bootstrap 4, or ?) and use it for all pages</td>
             <td>We could always re-do this later on, so anything works.</td>
             <td>Task for User Story ID: 2</td>
         </tr>
         <tr>
-            <td>6</td> <td>Not Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
+            <td>6</td> <td>Delivered</td> <td>U</td> <td>-</td> <td>Cuauhtemoc</td>
             <td>Create nice bare homepage: write initial welcome content, customize navbar, hide links to login/register</td>
             <td>Building some basic page views and navbar that are essentially empty right now, but will be filled later. </td>
             <td>Task for User Story ID: 2</td>
         </tr>
         <tr>
-            <td>7</td> <td>Not Started</td> <td>T</td> <td>-</td> <td>Rafael</td>
+            <td>7</td> <td>Delivered</td> <td>U</td> <td>-</td> <td>Rafael</td>
             <td>Create simple search to query the database and show connectivity</td>
             <td>Building the basic models in the ASP.NET Core project from the azure database.</td>
             <td>Task for User Story ID: 2</td>
         </tr>
                 <tr>
-            <td>8</td> <td>Not Started</td> <td>T</td> <td>-</td> <td></td>
+            <td>8</td> <td>Delivered</td> <td>T</td> <td>-</td> <td></td>
             <td>Deploy it on Azure</td>
             <td></td>
             <td>Task for User Story ID: 2</td>
         </tr>
         <tr>
-            <td>9</td> <td>-</td> <td></td> <td>-</td> <td></td>
+            <td>9</td> <td>Not Started</td> <td>E</td> <td>-</td> <td>Un-Assigned</td>
+            <td>As someone who wishes to submit new information on an expedition I would like to be able to register an account so I will be able to use your services (once they're built)</td>
             <td></td>
             <td></td>
-            <td></td>
+        </tr>
+        <tr>
+            <td>11</td> <td>Not Started</td> <td>E</td> <td>-</td> <td>Un-Assigned</td>
+            <td>We want a secure and reliable website where the general public, administrators, and authenticated users can each have appropriate level access to the web application.</td>
+            <td>Decription</td>
+            <td>Links</td>
+        </tr>
+        <tr>
+            <td>12</td> <td>Not Started</td> <td>U</td> <td>-</td> <td>Un-Assigned</td>
+            <td>As a general public user I want to be able to search for data by member, peak, expedition, and other criteria so that I can find the information I want.</td>
+            <td>Decription</td>
+            <td>Links</td>
+        </tr>
+        <tr>
+            <td>13</td> <td>Not Started</td> <td>U</td> <td>-</td> <td>Un-Assigned</td>
+            <td> As a user, when I open the "see expeditions" page, I want to see the last 100 expeditions done so that I can see how the data is rendered and not overwhelm other users with potentially thousands of expeditions at once. Note: do this for peaks and members too.</td>
+            <td>Decription</td>
+            <td>Links</td>
+        </tr>
+        <tr>
+            <td>14</td> <td>Not Started</td> <td>U</td> <td>-</td> <td>Un-Assigned</td>
+            <td>As a user, I want to filter expeditions by year, season, nation, leader, sponsor/name, and host so that I need not fill out a giant form with data I may not know beforehand.</td>
+            <td>Decription</td>
+            <td>Links</td>
+        </tr>
+        <tr>
+            <td>15</td> <td>Not Started</td> <td>U</td> <td>-</td> <td>Un-Assigned</td>
+            <td>As a user, I want to filter peaks by peak name so that I need not fill out a giant form with data I may not know beforehand.</td>
+            <td>Decription</td>
+            <td>Links</td>
+        </tr>
+        <tr>
+            <td>16</td> <td>Not Started</td> <td>U</td> <td>-</td> <td>Un-Assigned</td>
+            <td>As a user, I want to filter members by last name, citizenship, and agency so that I need not fill out a giant form with data I may not know beforehand.</td>
+            <td>Decription</td>
+            <td>Links</td>
+        </tr>
+        <tr>
+            <td>17</td> <td>Not Started</td> <td>E</td> <td>-</td> <td>Un-Assigned</td>
+            <td>Title</td>
+            <td>Decription</td>
+            <td>Links</td>
+        </tr>
+        <tr>
+            <td>18</td> <td>Not Started</td> <td>E</td> <td>-</td> <td>Un-Assigned</td>
+            <td>Title</td>
+            <td>Decription</td>
+            <td>Links</td>
         </tr>
     </tbody>
 </table>
 
 
-## The following needs to be developed and entered into the Sprint 2 (final sprint) product backlog.
+## The following also contains the discussed TASKS that need to be entered into the Sprint 2 (final sprint) product backlog.
+
 2. [U] As someone who wishes to submit new information on an expedition I would like to be able to register an account so I will be able to use your services (once they're built)
    1. [T] Copy SQL schema from an existing ASP.NET Identity database and integrate it into our UP, DOWN scripts
    2. [T] Configure web app to use our db with Identity tables in it
@@ -145,70 +194,46 @@ This Sprint is built from the top level PBI: Getting Shared Development Environm
     </thead>
     <tbody>
         <tr>
-            <td>1</td> <td>Started</td> <td>U</td> <td>-</td> <td>Everyone</td>
+            <td>1</td> <td>Started</td> <td>E</td> <td>-</td> <td>Everyone</td>
             <td>As a visitor to the site I would like to see a fantastic and modern homepage that introduces me to the site and the features currently available.</td>
             <td>We will be developing this project using ASP.NET Core MVC 3.1, with our Database being deployed on Azure. We need to create a project, database, and basic template website that shows the database is connected.</td>
             <td>Tasks: ID 2-6</td>
         </tr>
         <tr>
-            <td>2</td> <td>Completed</td> <td>T</td> <td>-</td> <td>Derek</td>
+            <td>2</td> <td>Completed</td> <td>U</td> <td>-</td> <td>Derek</td>
             <td>Create starter ASP dot NET Core MVC Web Application with Individual User Accounts and no unit test project</td>
             <td>Building the basic ASP.NET CORE MVC 3.1 application template </td>
             <td>Task for User Story ID: 1</td>
         </tr>
         <tr>
-            <td>3</td> <td>Completed</td> <td>T</td> <td>-</td> <td>Baltazar</td>
+            <td>3</td> <td>Completed</td> <td>U</td> <td>-</td> <td>Baltazar</td>
             <td>Create SQL Server database on Azure and configure web app to use it. Hide credentials.</td>
             <td>Building the azure database and deploying for everyone to use. </td>
             <td>Task for User Story ID: 1</td>
         </tr>
         <tr>
-            <td>4</td> <td>Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
+            <td>4</td> <td>Completed</td> <td>U</td> <td>-</td> <td>Cuauhtemoc</td>
             <td>Choose CSS library (Bootstrap 4, or ?) and use it for all pages</td>
             <td>We could always re-do this later on, so anything works.</td>
             <td>Task for User Story ID: 1</td>
         </tr>
         <tr>
-            <td>5</td> <td>Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
+            <td>5</td> <td>Completed</td> <td>U</td> <td>-</td> <td>Cuauhtemoc</td>
             <td>Create nice bare homepage: write initial welcome content, customize navbar, hide links to login/register</td>
             <td>Building some basic page views and navbar that are essentially empty right now, but will be filled later. </td>
             <td>Task for User Story ID: 1</td>
         </tr>
         <tr>
-            <td>6</td> <td>Completed</td> <td>T</td> <td>-</td> <td>Rafael</td>
+            <td>6</td> <td>Completed</td> <td>U</td> <td>-</td> <td>Rafael</td>
             <td>Create simple search to query the database and show connectivity</td>
             <td>Building the basic models in the ASP.NET Core project from the azure database.</td>
             <td>Task for User Story ID: 1</td>
         </tr>
-                <tr>
-            <td>7</td> <td>Not Started</td> <td>T</td> <td>-</td> <td></td>
+        <tr>
+            <td>7</td> <td>Not Started</td> <td>U</td> <td>-</td> <td></td>
             <td>Deploy it on Azure</td>
             <td></td>
             <td>Task for User Story ID: 1</td>
-        </tr>
-        <tr>
-            <td>8</td> <td>-</td> <td></td> <td>-</td> <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>9</td> <td>-</td> <td></td> <td>-</td> <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>10</td> <td>-</td> <td></td> <td>-</td> <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>11</td> <td>-</td> <td></td> <td>-</td> <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
         </tr>
     </tbody>
 </table>
@@ -233,13 +258,69 @@ This Sprint is built from the top level PBI: Getting Shared Development Environm
 
 # Team Project Inception: Vision statement (10pts)
 
-**For** anyone **who** wants to request or submit information requarding, **the** moutaining climbing peaks, members, and expeditions data, **can** use a dynamic updating website **that** will provide a single point of access to the Himalayan Database. The system will store the data available for mountain peaks, registered members, and expeditions, and it will allow the general public the abilitiy to search for this data, while having the most up to date info, news stories, publications, ect., so that it will be the central hub for all up to date climbing information. **Unlike** the current website, **our users** will be able to have the most up to date information in a much more user friendly and dynamic way, and our data can become a trusted resource.
+**For** anyone **who** wants a easy and fun way to share with others their collections or collectables, **the** 360 iCollectables Creator **can** upload and render photos of their collectable items **that** will be displayed in 2D, 360 degree, or possibly 360 full virtual environment. The system will store the users uploaded photos of items, allow user selection of the available environments, and give the ability to place their items into the environment at specific locations, and then allow others to view their environments filled with their collectable items. **Unlike** albums of photos **our users** will be able to show off large collections of items in a single format that can easily show the scale of the collection, while maintaining the ability to inspect individual items closely. 
 
 # Team Project Inception: Needs and Features (15pts)
-    - Users have private accounts that store any data they upload.
-    - Users can upload photos of their items.
-    - An API removes the background of the item photo, or can render the object in 3D, and with further development prepare the object for Augmented Reality Viewing.
-    - Users can select various backgrounds to use to display their items.
-    - The backgrounds can either be a 2D view, a 360 degree view, and with further development reach an Augmented Reality View.
-    - The backgrounds have specific slots that allows the user to change their layout with ease.
-    - Users can make their collections public, or private and share only with their friends.
+# Needs &rarr; Features &rarr; Epics &rarr; User Stories
+
+1. **Need:** We need to design the database that needs to store the user data, as well as the photos, environments, and other associated data.
+    - **Feature:** Show Users the selection of pre-made environments ready to be filled with photos of collectables
+    - **Feature:** The Photos will be uploaded by the user and rendered into the appropriate format depending on the environment.
+    - **Feature:** Provide Users the ability to store there photos to be rendered into different environments.
+        1. **E:** As a ...
+            - **U:** As a ...
+                1. Description ...
+                2. Unsuccessful search, ...
+                3. Successful ...
+                4. Description of Datat
+                5. Description of progress
+                6. AJAX or traditional page load?
+                7. Write tasks...
+                8. Acceptance criteria [later]
+            - **U:** As a ..
+
+2. **Need:** We need user dashboard that can show exisiting collections the user has made, and links to create a new collection, edit their exisiting ones, or browser their friends and public collections 
+    - **Feature:** Show Users can select various backgrounds to use to display their items.
+    - **Feature:** Better way for users to view their creations, raw photo uploads, and decide upon which activity they want to do.
+    - **Feature:** Provide ..
+        1. **E:** As a ...
+            - **U:** As a ...
+            - **U:** As a ..
+
+
+
+3. **Need:** We need to Create the 2D collectables environment viewer, creator, and template, and allow the templates to be filled with either unaltered photos, or background removed photos.
+    - **Feature:** Show 2D environments that they can select like a wall with frames, or card table,
+    - **Feature:** Better way to view a whole collection of items in one view, being able to scroll around and zoom just like in the miro environment.
+    - **Feature:** Raw photos or background removed photos can go into predesigned slots.
+        1. **E:** As a ...
+            - **U:** As a ...
+            - **U:** As a ..
+
+
+4. **Need:** We need to Create the 360 collectables environment viewer, creator, and templates, and allow the templates to be filled with either unaltered photos, background removed photos, and 3D rendered photos.
+    - **Feature:** Show The 360 environment templates that are available for the user to choose from.
+    - **Feature:** A User can place rendered photos into the 360 environment in pre-designed slots.
+    - **Feature:** 360 degree viewer is in the browser so that the finished collectables can be viewed.
+    - **Feature:** Use on mobile photo to physically view the 360 environments by moving the phone around.
+        1. **E:** As a ...
+            - **U:** As a ...
+            - **U:** As a ..
+
+5. **Need:** We need to create an augmented reality / virtual collectables environment viewer, creator, and templates, and allow the templates to be filled with either unaltered photos, background removed photos, or 3D rendered photos.
+    - **Feature:** Show the rendered environments that the user can select to fill with their collectables.
+    - **Feature:** photos need to be rendered in 3D to be placed with the virutal environement.
+    - **Feature:** Provide users the ability to navigate the virtual environment to view the items that it contains.
+        1. **E:** As a ...
+            - **U:** As a ...
+            - **U:** As a ..
+
+
+1. **Need:** We need to set levels of visibility for our users so that they can choose who they want to share their collections environments with.
+    - **Feature:** Allowing the users to either have a private collections, unlisted collection, or public collection.
+    - **Feature:** Better way ...
+    - **Feature:** Provide ..
+        1. **E:** As a ...
+            - **U:** As a ...
+            - **U:** As a ..
+
