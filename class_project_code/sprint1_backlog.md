@@ -43,7 +43,7 @@ This Sprint is built from the top level PBI: Getting Shared Development Environm
             <td>Task for User Story ID: 1</td>
         </tr>
         <tr>
-            <td>6</td> <td>Completed</td> <td>T</td> <td>-</td> <td>Rafael</td>
+            <td>6</td> <td>Started</td> <td>T</td> <td>-</td> <td>Rafael</td>
             <td>Create simple search to query the database and show connectivity</td>
             <td>Building the basic models in the ASP.NET Core project from the azure database.</td>
             <td>Task for User Story ID: 1</td>

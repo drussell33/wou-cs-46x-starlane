@@ -38,13 +38,13 @@ We will be using <a href="https://pivotaltracker.com">Pivotal Tracker</a> to mak
             <td>Task for User Story ID: 2</td>
         </tr>
         <tr>
-            <td>5</td> <td>Not Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
+            <td>5</td> <td>Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
             <td>Choose CSS library (Bootstrap 4, or ?) and use it for all pages</td>
             <td>We could always re-do this later on, so anything works.</td>
             <td>Task for User Story ID: 2</td>
         </tr>
         <tr>
-            <td>6</td> <td>Not Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
+            <td>6</td> <td>Started</td> <td>T</td> <td>-</td> <td>Cuauhtemoc</td>
             <td>Create nice bare homepage: write initial welcome content, customize navbar, hide links to login/register</td>
             <td>Building some basic page views and navbar that are essentially empty right now, but will be filled later. </td>
             <td>Task for User Story ID: 2</td>

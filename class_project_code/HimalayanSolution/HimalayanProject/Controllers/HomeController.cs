@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HimalayanProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HimalayanProject.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private HimalayaDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, HimalayaDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
@@ -23,7 +26,8 @@ namespace HimalayanProject.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Index(int id)
         {
             return View();
         }
@@ -32,6 +36,22 @@ namespace HimalayanProject.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Search(string search_term)
+        {
+            if (search_term != null)
+            {
+
+                //Search expeditions by peak name or trekking agency name. 
+                IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term)).OrderByDescending(O => O.Year).AsEnumerable();
+                return View("Index", result);
+            }
+            else 
+            {
+                return View("Index");
+            }
+            
         }
     }
 }
