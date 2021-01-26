@@ -13,12 +13,12 @@ namespace HimalayanProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private HimalayaDbContext _db;
+        private HimalayanContext db;
 
-        public HomeController(ILogger<HomeController> logger, HimalayaDbContext db)
+        public HomeController(ILogger<HomeController> logger, HimalayanContext db)
         {
             _logger = logger;
-            _db = db;
+            this.db = db;
         }
 
         public IActionResult Index()

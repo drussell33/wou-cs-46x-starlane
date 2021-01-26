@@ -11,9 +11,9 @@ namespace HimalayanProject.Controllers
 {
     public class ExpeditionController : Controller
     {
-        private readonly HimalayaDbContext _context;
+        private readonly HimalayanContext _context;
 
-        public ExpeditionController(HimalayaDbContext context)
+        public ExpeditionController(HimalayanContext context)
         {
             _context = context;
         }
