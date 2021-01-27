@@ -1,22 +1,27 @@
-## As a user, when I open the "see peaks" page, I want to see the last 40 peaks climbed so that I can see how good the data is rendered and not overwhelm other users with potentially thousands of peaks at once.
+# As a user, when I open the "see peaks" page, I want to see the last 40 peaks climbed so that I can see how good the data is rendered and not overwhelm other users with potentially thousands of peaks at once.
 
-## ID: 13
+## ID: __
 ## Effort Points: 2
 ## Owner: Baltazar Ortiz
 ## Feature branch name: peak_list
 
 ## Assumptions/Preconditions
-I assume there is a 
+I assume this is similar to the "see expeditions" page.
 
 ## Description
-The database contains hundreds of expeditions. Users do not want to be overwhelmed with so many results at once when they open the expeditions page. Plus, the bigger our models, the slower our page will load. Our stakeholders want a good looking expedition page. They want a modern-looking UI, not a web page that looks like it was made in 2004. This is easy to implement as the current deployment already retreives less than 100 expeditions and has some Bootstrap styling. Also, the stakeholders wanted 40 expeditions shown, not 100; thus, this user story was amended.
+The database contains many peaks. Users do not want to be overwhelmed with so many results at once when they open the peaks page. Plus, the bigger our models, the slower our page will load. Our stakeholders want a good looking peaks page. They want a modern-looking UI, not a web page that looks like it was made in 2004. The only challenging thing will be designing the query to get the relevant data. I also need to create a web page to put this data in.
 
 ## Acceptance Criteria
 If you go to the expeditions page, you should see 40 expeditions with more updated styling after the page loads.
 
 ## Tasks
-1. Change controller to query 40 expeditions from database by year
-2. Style web page using Bootstrap
+1. Make a new controller
+2. Link the link to the new controller
+3. In the new controller, make an endpoint
+4. Make a new web page for peaks
+5. New endpoint queries database and sends result to peak page
+6. Render the results
+7. Style web page
 
 ## Effort Points: 2
 
