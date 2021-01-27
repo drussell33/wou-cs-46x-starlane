@@ -1,7 +1,7 @@
 # As a user, when I open the "see expeditions" page, I want to see the last 40 expeditions done so that I can see how good the data is rendered and not overwhelm other users with potentially thousands of expeditions at once. Note: do this for peaks and members too.
 
 ## ID: 13
-## Effort Points: 2
+## Effort Points: 1
 ## Owner: Baltazar Ortiz
 ## Feature branch name: exp_list
 
@@ -17,8 +17,6 @@ If you go to the expeditions page, you should see 40 expeditions with more updat
 ## Tasks
 1. Change controller to query 40 expeditions from database by year
 2. Style web page using Bootstrap
-
-## Effort Points: 2
 
 ## Dependencies
 None other user stories in this sprint 

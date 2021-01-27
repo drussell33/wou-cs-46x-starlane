@@ -23,8 +23,6 @@ If you go to the expeditions page, you should see 40 expeditions with more updat
 6. Render the results
 7. Style web page
 
-## Effort Points: 2
-
 ## Dependencies
 None other user stories in this sprint 
 
