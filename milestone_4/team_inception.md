@@ -55,7 +55,7 @@ Starlane Project Inception
             - **U:** As a ..
 
 
-1. **Need:** We need to set levels of visibility for our users so that they can choose who they want to share their collections environments with.
+6. **Need:** We need to set levels of visibility for our users so that they can choose who they want to share their collections environments with.
     - **Feature:** Allowing the users to either have a private collections, unlisted collection, or public collection.
     - **Feature:** Better way ...
     - **Feature:** Provide ..
@@ -64,15 +64,26 @@ Starlane Project Inception
             - **U:** As a ..
 
 ## Identify Non-Functional Requirements
-1. English is the default language, but we must support visitors and data in other character sets
+1. 
 2.
 3.
 
 ## Initial Architecture Envisioning
-    Diagrams and drawings, lists of components
+    Desktop computer: PC or Mac
+        Internet access
+        Internet browser
+        
+    Cloud: Azure 
+        web server
+            .NET Core
+            C#
+        SQL server
+        SQL database
+            DBMS: Microsoft SQL Server
+    
+    API: photo background remover
 
-## Initial Modeling
-    Diagrams
+
 
 ## Agile Data Modeling
     Diagrams, SQL modeling (dbdiagram.io), UML diagrams
@@ -93,18 +104,8 @@ Starlane Project Inception
 E: Epic  
 U: User Story  
 T: Task  
-1. [U] As a visitor to the site I would like to see a fantastic and modern homepage that introduces me to the site and the features currently available.
-   1. [T] Create starter ASP dot NET Core MVC Web Application with Individual User Accounts and no unit test project
-   2. [T] Choose CSS library (Bootstrap 4, or ?) and use it for all pages
-   3. [T] Create nice bare homepage: write initial welcome content, customize navbar, hide links to login/register
-   4. [T] Create SQL Server database on Azure and configure web app to use it. Hide credentials.
-   5. [T] Deploy it on Azure
-2. [U] As someone who wishes to submit new information on an expedition I would like to be able to register an account so I will be able to use your services (once they're built)
-   1. [T] Copy SQL schema from an existing ASP.NET Identity database and integrate it into our UP, DOWN scripts
-   2. [T] Configure web app to use our db with Identity tables in it
-   3. [T] Create a user table and customize user pages to display additional data
-   4. [T] Re-enable login/register links
-   5. [T] Manually test register and login; user should easily be able to see that they are logged in
+1. 
+2. 
 3. [E] 
     1. [U]
         a. [T]
@@ -115,3 +116,6 @@ T: Task
 ## Team Project Inception: Vision statement
 
 **For** anyone **who** wants a easy and fun way to share with others their collections or collectables, **the** 360 iCollectables Creator **can** upload and render photos of their collectable items **that** will be displayed in 2D, 360 degree, or possibly 360 full virtual environment. The system will store the users uploaded photos of items, allow user selection of the available environments, and give the ability to place their items into the environment at specific locations, and then allow others to view their environments filled with their collectable items. **Unlike** albums of photos **our users** will be able to show off large collections of items in a single format that can easily show the scale of the collection, while maintaining the ability to inspect individual items closely. 
+
+## Identification of Risks
+
