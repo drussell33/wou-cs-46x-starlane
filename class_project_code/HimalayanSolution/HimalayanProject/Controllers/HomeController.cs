@@ -53,5 +53,13 @@ namespace HimalayanProject.Controllers
             }
             
         }
+
+        public IActionResult GetStats()
+        {
+            int numExpeditions = db.Expeditions.Count();
+            int numPeaks = db.Peaks.Count();
+            int numUnclimbedPeaks = db.Peaks.Where(p => p.ClimbingStatus == false).Count();
+            return Json(new { NumExp = numExpeditions, NumPeaks = numPeaks, NumUnclimbed = numUnclimbedPeaks });
+        }
     }
 }

@@ -4,6 +4,11 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div id="statsSection">
+
+</div>
+
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -21,7 +26,7 @@
     <div class="col">
         <table class=".table-sm table-borderless">
 
-            @if(Model != null)
+            @if (Model != null)
             {
                 <tr>
                     <th>Peak</th>
@@ -32,7 +37,7 @@
                     <th><span>  </span></th>
                     <th>Year</th>
                 </tr>
-                @foreach(Expedition e in Model)
+                @foreach (Expedition e in Model)
                 {
                     <tr>
                         <td>@e.Peak.Name</td>
@@ -42,7 +47,7 @@
                         <td>@e.Season</td>
                         <td><span>  </span></td>
                         <td>@e.Year</td>
-                        
+
                     </tr>
                 }
             }
@@ -51,3 +56,8 @@
         </table>
     </div>
 </div>
+
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/site.js"></script>
+}
