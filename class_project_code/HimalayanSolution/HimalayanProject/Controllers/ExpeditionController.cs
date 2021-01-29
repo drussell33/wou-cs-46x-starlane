@@ -22,7 +22,7 @@ namespace HimalayanProject.Controllers
         public async Task<IActionResult> Index()
         {
             var expeditionsDbContext = _context.Expeditions.Include(e => e.Peak).Include(e => e.TrekkingAgency);
-            return View(await expeditionsDbContext.OrderByDescending(x => x.StartDate).Take(50).ToListAsync());
+            return View(await expeditionsDbContext.OrderByDescending(x => x.StartDate).Take(40).ToListAsync());
         }
 
         // GET: Expedition/Details/5
