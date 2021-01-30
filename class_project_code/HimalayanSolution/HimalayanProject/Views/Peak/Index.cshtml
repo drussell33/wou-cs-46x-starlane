@@ -1,53 +1,53 @@
-@model IEnumerable<HimalayanProject.Models.Expedition>
+@model IEnumerable<HimalayanProject.Models.Peak>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Peaks";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Peaks</h1>
 
-<div class="row">
-    <div class="col">
-        <h3>Expedition Search</h3>
-        <form method="get" class="valid" asp-controller="Home" asp-action="Search">
-            <input class="form-control col-md-8" type="text" minlength="2" title="Use at least 2 characters" name="search_term" required pattern=".*\S+.*" />
-            <p>(Enter search by peak name)</p>
-            <button type="submit" class="btn btn-outline-dark"> Search </button>
-        </form>
-    </div>
-    <div class="col">
-        <table class=".table-sm table-borderless">
-
-            @if(Model != null)
-            {
-                <tr>
-                    <th>Peak</th>
-                    <th><span>  </span></th>
-                    <th>Height</th>
-                    <th><span>  </span></th>
-                    <th>Season</th>
-                    <th><span>  </span></th>
-                    <th>Year</th>
-                </tr>
-                @foreach(Expedition e in Model)
-                {
-                    <tr>
-                        <td>@e.Peak.Name</td>
-                        <td><span>  </span></td>
-                        <td>@e.Peak.Height</td>
-                        <td><span>  </span></td>
-                        <td>@e.Season</td>
-                        <td><span>  </span></td>
-                        <td>@e.Year</td>
-                        
-                    </tr>
-                }
-            }
-
-
-        </table>
-    </div>
-</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Height (m)
+            </th>
+            <th>
+                Climbing Status
+            </th>
+            <th>
+                First Ascent Year
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Height)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClimbingStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstAscentYear)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
