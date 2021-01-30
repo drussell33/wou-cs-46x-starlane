@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HimalayanProject.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace HimalayanProject.Controllers
 {
@@ -61,5 +62,39 @@ namespace HimalayanProject.Controllers
             int numUnclimbedPeaks = db.Peaks.Where(p => p.ClimbingStatus == false).Count();
             return Json(new { NumExp = numExpeditions, NumPeaks = numPeaks, NumUnclimbed = numUnclimbedPeaks });
         }
+
+        public IActionResult MostRecentExpeditionGenerator()
+        {
+            var singleExpedition = db.Expeditions.Include(e => e.Peak)
+                .Include(e => e.TrekkingAgency)
+                .OrderByDescending(O => O.Year).FirstOrDefault();
+            string peakName = "N/A";
+            int expeditionId = 0;
+            string trekkingName = "N/A";
+            string terminationReason = "N/A";
+
+            if (singleExpedition != null)
+            {
+                peakName = singleExpedition.Peak.Name;
+                expeditionId = singleExpedition.Id;
+                trekkingName = singleExpedition.TrekkingAgency.Name;
+                terminationReason = singleExpedition.TerminationReason;
+            }
+            
+            return Json(new {PeakName = peakName, ExpeditionId = expeditionId, TrekkingName = trekkingName, TerminationReason = terminationReason });
+        }
+
+        public IActionResult RandomPeakGenerator()
+        {
+
+            int total = db.Peaks.Count();
+            Random r = new Random();
+            int offset = r.Next(0, total);
+
+            var threePeaks = db.Peaks.Skip(offset).Take(3);
+
+            return Json(threePeaks);
+        }
+
     }
 }

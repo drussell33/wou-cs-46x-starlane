@@ -72,8 +72,37 @@ body {
 
 
 
-/*Home Page Styling */
+/*Home Page Styling Stats section */
 
 #statsSection {
-    margin: 5px;
+    margin-bottom: 20px;
+}
+
+.statsHeader {
+    margin-bottom: 10px;
+}
+
+.card {
+    margin-bottom: 10px;
+    background-color: #edf1f1;
+}
+
+.largerCardText {
+    font-size: 1rem;
+}
+
+.numberCardText {
+    font-size: 1.5rem;
+}
+
+.statsTitleSection {
+    margin-bottom: 5px;
+}
+
+#latestSection {
+    margin-bottom: 20px;
+}
+
+#randomPeaks {
+    margin-bottom: 5px;
 }
