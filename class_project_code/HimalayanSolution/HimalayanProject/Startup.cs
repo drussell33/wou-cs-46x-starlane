@@ -61,6 +61,22 @@ namespace HimalayanProject
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "Home Page Stats",
+                    pattern: "api/stats",
+                    defaults: new { controller = "Home", action = "GetStats" });
+
+                endpoints.MapControllerRoute(
+                    name: "Latest DB Stats",
+                    pattern: "api/latest",
+                    defaults: new { controller = "Home", action = "MostRecentExpeditionGenerator" });
+
+                endpoints.MapControllerRoute(
+                    name: "Random Peak",
+                    pattern: "api/random_peak",
+                    defaults: new { controller = "Home", action = "RandomPeakGenerator" });
+
             });
         }
     }
