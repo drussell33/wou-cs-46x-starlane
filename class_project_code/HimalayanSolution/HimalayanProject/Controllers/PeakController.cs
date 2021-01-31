@@ -30,147 +30,134 @@ namespace HimalayanProject.Controllers
                                 .Include(e => e.Peak)
                                 .OrderByDescending(e => e.StartDate)
                                 .Select(e => e.Peak)
-                                .Distinct()
                                 .Take(40);
 
             return View(await newPeaks.ToListAsync());
         }
 
-//         // GET: Peak/Details/5
-//         public async Task<IActionResult> Details(int? id)
-//         {
-//             if (id == null)
-//             {
-//                 return NotFound();
-//             }
+        // GET: Peak/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-//             var expedition = await _context.Expeditions
-//                 .Include(e => e.Peak)
-//                 .Include(e => e.TrekkingAgency)
-//                 .FirstOrDefaultAsync(m => m.Id == id);
-//             if (expedition == null)
-//             {
-//                 return NotFound();
-//             }
+            var peak = await _context.Peaks
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (peak == null)
+            {
+                return NotFound();
+            }
 
-//             return View(expedition);
-//         }
+            return View(peak);
+        }
 
-//         // GET: Peak/Create
-//         public IActionResult Create()
-//         {
-//             ViewData["PeakId"] = new SelectList(_context.Peaks, "Id", "Name");
-//             ViewData["TrekkingAgencyId"] = new SelectList(_context.TrekkingAgencies, "Id", "Name");
-//             return View();
-//         }
+        // GET: Peak/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-//         // POST: Peak/Create
-//         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-//         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-//         [HttpPost]
-//         [ValidateAntiForgeryToken]
-//         public async Task<IActionResult> Create([Bind("Id,Season,Year,StartDate,TerminationReason,OxygenUsed,PeakId,TrekkingAgencyId")] Expedition expedition)
-//         {
-//             if (ModelState.IsValid)
-//             {
-//                 _context.Add(expedition);
-//                 await _context.SaveChangesAsync();
-//                 return RedirectToAction(nameof(Index));
-//             }
-//             ViewData["PeakId"] = new SelectList(_context.Peaks, "Id", "Name", expedition.PeakId);
-//             ViewData["TrekkingAgencyId"] = new SelectList(_context.TrekkingAgencies, "Id", "Name", expedition.TrekkingAgencyId);
-//             return View(expedition);
-//         }
+        // POST: Peak/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Name,Height,ClimbingStatus,FirstAscentYear")] Peak peak)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(peak);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(peak);
+        }
 
-//         // GET: Peak/Edit/5
-//         public async Task<IActionResult> Edit(int? id)
-//         {
-//             if (id == null)
-//             {
-//                 return NotFound();
-//             }
+        // GET: Peak/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-//             var expedition = await _context.Expeditions.FindAsync(id);
-//             if (expedition == null)
-//             {
-//                 return NotFound();
-//             }
-//             ViewData["PeakId"] = new SelectList(_context.Peaks, "Id", "Name", expedition.PeakId);
-//             ViewData["TrekkingAgencyId"] = new SelectList(_context.TrekkingAgencies, "Id", "Name", expedition.TrekkingAgencyId);
-//             return View(expedition);
-//         }
+            var peak = await _context.Peaks.FindAsync(id);
+            if (peak == null)
+            {
+                return NotFound();
+            }
+            return View(peak);
+        }
 
-//         // POST: Peak/Edit/5
-//         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-//         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-//         [HttpPost]
-//         [ValidateAntiForgeryToken]
-//         public async Task<IActionResult> Edit(int id, [Bind("Id,Season,Year,StartDate,TerminationReason,OxygenUsed,PeakId,TrekkingAgencyId")] Expedition expedition)
-//         {
-//             if (id != expedition.Id)
-//             {
-//                 return NotFound();
-//             }
+        // POST: Peak/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Height,ClimbingStatus,FirstAscentYear")] Peak peak)
+        {
+            if (id != peak.Id)
+            {
+                return NotFound();
+            }
 
-//             if (ModelState.IsValid)
-//             {
-//                 try
-//                 {
-//                     _context.Update(expedition);
-//                     await _context.SaveChangesAsync();
-//                 }
-//                 catch (DbUpdateConcurrencyException)
-//                 {
-//                     if (!ExpeditionExists(expedition.Id))
-//                     {
-//                         return NotFound();
-//                     }
-//                     else
-//                     {
-//                         throw;
-//                     }
-//                 }
-//                 return RedirectToAction(nameof(Index));
-//             }
-//             ViewData["PeakId"] = new SelectList(_context.Peaks, "Id", "Name", expedition.PeakId);
-//             ViewData["TrekkingAgencyId"] = new SelectList(_context.TrekkingAgencies, "Id", "Name", expedition.TrekkingAgencyId);
-//             return View(expedition);
-//         }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(peak);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PeakExists(peak.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(peak);
+        }
 
-//         // GET: Peak/Delete/5
-//         public async Task<IActionResult> Delete(int? id)
-//         {
-//             if (id == null)
-//             {
-//                 return NotFound();
-//             }
+        // GET: Peak/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-//             var expedition = await _context.Expeditions
-//                 .Include(e => e.Peak)
-//                 .Include(e => e.TrekkingAgency)
-//                 .FirstOrDefaultAsync(m => m.Id == id);
-//             if (expedition == null)
-//             {
-//                 return NotFound();
-//             }
+            var peak = await _context.Peaks
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (peak == null)
+            {
+                return NotFound();
+            }
 
-//             return View(expedition);
-//         }
+            return View(peak);
+        }
 
-//         // POST: Peak/Delete/5
-//         [HttpPost, ActionName("Delete")]
-//         [ValidateAntiForgeryToken]
-//         public async Task<IActionResult> DeleteConfirmed(int id)
-//         {
-//             var expedition = await _context.Expeditions.FindAsync(id);
-//             _context.Expeditions.Remove(expedition);
-//             await _context.SaveChangesAsync();
-//             return RedirectToAction(nameof(Index));
-//         }
+        // POST: Peak/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var peak = await _context.Peaks.FindAsync(id);
+            _context.Peaks.Remove(peak);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
-//         private bool ExpeditionExists(int id)
-//         {
-//             return _context.Expeditions.Any(e => e.Id == id);
-//         }
+        private bool PeakExists(int id)
+        {
+            return _context.Peaks.Any(p => p.Id == id);
+        }
     }
 }
