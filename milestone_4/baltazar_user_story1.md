@@ -1,4 +1,4 @@
-# As a user, when I open the "see expeditions" page, I want to see the last 40 expeditions done so that I can see how good the data is rendered and not overwhelm other users with potentially thousands of expeditions at once. Note: do this for peaks and members too.
+# As a user, when I open the "see expeditions" page, I want to see the last 40 expeditions done so that I can see how good the data is rendered and not overwhelm other users with potentially thousands of expeditions at once.
 
 ## ID: 13
 ## Effort Points: 1
@@ -22,9 +22,9 @@ If you go to the expeditions page, you should see 40 expeditions with more updat
 None other user stories in this sprint 
 
 ## Any notes written while implementing this story
-I: Yes
-N: Not quite, it looks more like a contract
-V: Good aesthetic could make it more user-friendly and attract more users
-E: Given an effort score
-S: Couple person-days work
-T: Yes
++ I: Yes
++ N: Not quite, it looks more like a contract
++ V: Good aesthetic could make it more user-friendly and attract more users
++ E: Given an effort score
++ S: Couple person-days work
++ T: Yes
