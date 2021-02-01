@@ -71,6 +71,27 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+/*--More styles - move to another file?--*/
+
+.table-search {
+    width:75%;
+}
+
+.table-search tbody {
+    width: 100%;
+}
+
+.table-search tr, .table-search td {
+    text-align:center;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-bottom: 0.25em;
+    padding-top: 0.25em;
+}
+
+/*---------------------------------------*/
+
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
