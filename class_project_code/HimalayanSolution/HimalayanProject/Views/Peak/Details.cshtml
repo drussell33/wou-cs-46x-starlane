@@ -1,0 +1,38 @@
+﻿@model HimalayanProject.Models.Peak
+
+@{
+    ViewData["Title"] = "Peak Details";
+}
+
+<h1>Peak Details</h1>
+
+<div>
+    <h4>Peak</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Height)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Height) meters
+        </dd>
+        <dt class = "col-sm-2">Climbing Status</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClimbingStatus)
+        </dd>
+        <dt class = "col-sm-2">First Ascent Year</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstAscentYear)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
