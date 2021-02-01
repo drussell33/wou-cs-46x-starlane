@@ -14,7 +14,6 @@ namespace HimalayanProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private HimalayanContext db;
-
         public HomeController(ILogger<HomeController> logger, HimalayanContext db)
         {
             _logger = logger;
@@ -23,7 +22,10 @@ namespace HimalayanProject.Controllers
 
         public IActionResult Index()
         {
-            return View();
+
+            IEnumerable<Expedition> result = db.Expeditions.Select(e => e.Year).Distinct().Select(y => db.Expeditions.First(Ex => Ex.Year == y)).OrderBy(yr => yr.Year).ToList();
+
+            return View(result);
         }
 
         [HttpPost]
@@ -38,8 +40,19 @@ namespace HimalayanProject.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Search(string search_term)
+        public IActionResult Search(string search_term, string collection, string outcome, string season, string year)
         {
+            Console.WriteLine(search_term);
+            Console.WriteLine(collection);
+            Console.WriteLine(outcome);
+            Console.WriteLine(season);
+            Console.WriteLine(year);
+
+            if (search_term == "")
+            {
+                
+            }
+
             if (search_term != null)
             {
 

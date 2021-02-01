@@ -4,6 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
@@ -17,7 +18,7 @@
 
                 <div class="col">
                     <h3>Expedition Search</h3>
-                    <input class="form-control col-md-8" type="text" minlength="2" title="Use at least 2 characters" name="search_term" required pattern=".*\S+.*" />
+                    <input class="form-control col-md-8" type="text" name="search_term" />
                     <br />
                 </div>
 
@@ -29,13 +30,13 @@
 
                     <label>Search By:</label>
                     <div class="form-inline align-top">
-                        <div class="list-group list-group-horizontal" >
+                        <div class="list-group list-group-horizontal">
                             <label class="list-group-item" aria-label="">
-                                <input class="form-check-input me-1" type="checkbox"   value="">
+                                <input class="form-check-input me-1" name="collection" type="radio"   value="Peak">
                                 Peak
                             </label>
                             <label class="list-group-item" aria-label="">
-                                <input class="form-check-input me-1" type="checkbox" value="">
+                                <input class="form-check-input me-1" name="collection" type="radio" value="Trekking Agency">
                                 Trekking Agency
                             </label>
                         </div>
@@ -56,20 +57,26 @@
                         <label for="cars"></label>
                         <select class="custom-select" name="outcome" id="outcome">
                             <option selected>Outcome?:</option>
-                            <option value="Success">Success</option>
-                            <option value="Failure">Failure</option>
+                            <option value="success">Success</option>
+                            <option value="failure">Failure</option>
                         </select>
 
                         <label for="cars"></label>
                         <select class="custom-select" name="season" id="season">
                             <option selected>Season:</option>
-                            <option value="season">fall</option>
+                            <option value="spring">Spring</option>
+                            <option value="summer">Summer</option>
+                            <option value="autumn">Autumn</option>
+                            <option value="winter">Winter</option>
                         </select>
 
                         <label for="cars"></label>
                         <select class="custom-select" name="year" id="year">
                             <option selected>Year:</option>
-                            <option value="year">year</option>
+                            @foreach (Expedition e in Model)
+                            {
+                                <option value="@e.Year">@e.Year</option>
+                            }
                         </select>
 
                     </div>
@@ -97,8 +104,18 @@
     <div class="col">
 
         <table class=".table-sm table-borderless">
+            @{
+                int init = 0;
+            }
+            @foreach (Expedition ex in Model)
+            {
+                if (ex.Peak != null)
+                {
+                    init = 1;
+                }
 
-            @if (Model != null)
+            }
+            @if (init != 0)
             {
                 <tr>
                     <th>Peak</th>
@@ -123,6 +140,8 @@
                     </tr>
                 }
             }
+
+
 
         </table>
 
