@@ -29,10 +29,10 @@ namespace HimalayanProject
             services.AddDbContext<HimalayanContext>(options =>
             {
                 //Azure db service connection
-                //options.UseSqlServer(Configuration["ConnectionStrings:HimalayaDBConnection"]);
+                options.UseSqlServer(Configuration["ConnectionStrings:HimalayaDBConnection"]);
 
                 //Rafael Local Db connection config
-                options.UseSqlServer(Configuration["ConnectionStrings:HimalayanDBConnection"]);
+                //options.UseSqlServer(Configuration["ConnectionStrings:HimalayanDBConnection"]);
             });
         }
 
