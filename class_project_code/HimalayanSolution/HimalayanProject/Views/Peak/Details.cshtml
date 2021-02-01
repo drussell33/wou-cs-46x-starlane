@@ -7,7 +7,7 @@
 <h1>Peak Details</h1>
 
 <div>
-    <h4>Peak</h4>
+    <h4>Peak @Model.Name</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -23,12 +23,27 @@
             @Html.DisplayFor(model => model.Height) meters
         </dd>
         <dt class = "col-sm-2">Climbing Status</dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClimbingStatus)
+        <dd class="col-sm-10">
+            @if (Model.ClimbingStatus)
+            {
+                @Html.DisplayFor(model => model.ClimbingStatus)
+            }
+            else
+            {
+                <span>Never Climbed</span>
+            }
         </dd>
         <dt class = "col-sm-2">First Ascent Year</dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstAscentYear)
+        <dd class="col-sm-10">
+            @if (Model.FirstAscentYear.HasValue)
+            {
+                @Html.DisplayFor(model => model.FirstAscentYear)
+            }
+            else
+            {
+                <span>N/A</span>
+            }
+
         </dd>
     </dl>
 </div>
