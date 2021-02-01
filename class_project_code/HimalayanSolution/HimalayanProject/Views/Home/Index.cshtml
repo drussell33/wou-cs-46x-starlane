@@ -18,7 +18,7 @@
 
                 <div class="col">
                     <h3>Expedition Search</h3>
-                    <input class="form-control col-md-8" type="text" name="search_term" />
+                    <input class="form-control col-md-8" type="text" minlength="2" title="Use at least 2 characters" name="search_term" required pattern=".*\S+.*" />
                     <br />
                 </div>
 
@@ -32,7 +32,7 @@
                     <div class="form-inline align-top">
                         <div class="list-group list-group-horizontal">
                             <label class="list-group-item" aria-label="">
-                                <input class="form-check-input me-1" name="collection" type="radio"   value="Peak">
+                                <input class="form-check-input me-1" name="collection" type="radio"   value="Peak" checked required>
                                 Peak
                             </label>
                             <label class="list-group-item" aria-label="">
@@ -54,23 +54,23 @@
 
                     <div class="form-inline align-top">
 
-                        <label for="cars"></label>
+                        <label for="outcome"></label>
                         <select class="custom-select" name="outcome" id="outcome">
                             <option selected>Outcome?:</option>
-                            <option value="success">Success</option>
+                            <option value="Success">Success</option>
                             <option value="failure">Failure</option>
                         </select>
 
-                        <label for="cars"></label>
+                        <label for="season"></label>
                         <select class="custom-select" name="season" id="season">
                             <option selected>Season:</option>
-                            <option value="spring">Spring</option>
-                            <option value="summer">Summer</option>
-                            <option value="autumn">Autumn</option>
-                            <option value="winter">Winter</option>
+                            <option value="Spring">Spring</option>
+                            <option value="Summer">Summer</option>
+                            <option value="Autumn">Autumn</option>
+                            <option value="Winter">Winter</option>
                         </select>
 
-                        <label for="cars"></label>
+                        <label for="year"></label>
                         <select class="custom-select" name="year" id="year">
                             <option selected>Year:</option>
                             @foreach (Expedition e in Model)
@@ -120,7 +120,7 @@
                 <tr>
                     <th>Peak</th>
                     <th><span>  </span></th>
-                    <th>Height</th>
+                    <th>Outcome</th>
                     <th><span>  </span></th>
                     <th>Season</th>
                     <th><span>  </span></th>
@@ -131,7 +131,7 @@
                     <tr>
                         <td>@e.Peak.Name</td>
                         <td><span>  </span></td>
-                        <td>@e.Peak.Height</td>
+                        <td>@e.TerminationReason</td>
                         <td><span>  </span></td>
                         <td>@e.Season</td>
                         <td><span>  </span></td>

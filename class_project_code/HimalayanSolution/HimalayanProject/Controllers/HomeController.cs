@@ -40,31 +40,182 @@ namespace HimalayanProject.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Search(string search_term, string collection, string outcome, string season, string year)
+        public IActionResult Search(string search_term, string collection, string outcome, string season, int? year)
         {
-            Console.WriteLine(search_term);
-            Console.WriteLine(collection);
-            Console.WriteLine(outcome);
-            Console.WriteLine(season);
-            Console.WriteLine(year);
 
-            if (search_term == "")
+            if (collection == "Peak")
             {
-                
+                if (outcome != "Outcome?:" && season != "Season:" && year > 0)
+                {
+                    if (outcome == "Success")
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term) && p.TerminationReason.Contains(outcome) && p.Year == year && p.Season == season).AsEnumerable();
+                        return View("Index", result);
+                    }
+                    else
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term) && !p.TerminationReason.Contains(outcome) && p.Year == year && p.Season == season).AsEnumerable();
+                        return View("Index", result);
+                    }
+                }
+
+                else if (outcome != "Outcome?:" && season != "Season:")
+                {
+                    if (outcome == "Success")
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term) && p.TerminationReason.Contains(outcome) && p.Season == season).AsEnumerable();
+                        return View("Index", result);
+                    }
+                    else
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term) && !p.TerminationReason.Contains(outcome) && p.Season == season).AsEnumerable();
+                        return View("Index", result);
+                    }
+                }
+
+                else if (outcome != "Outcome?:" && year > 0)
+                {
+                    if (outcome == "Success")
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term) && p.TerminationReason.Contains(outcome) && p.Year == year).AsEnumerable();
+                        return View("Index", result);
+                    }
+                    else
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term) && !p.TerminationReason.Contains(outcome) && p.Year == year).AsEnumerable();
+                        return View("Index", result);
+                    }
+                }
+
+                else if (season != "Season:" && year > 0)
+                {
+                    IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(e => e.Peak.Name.Contains(search_term) && e.Season == season && e.Year == year).AsEnumerable();
+                    return View("Index", result);
+                }
+
+                else if (outcome != "Outcome?:")
+                {
+
+
+                    if (outcome == "Success")
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term) && p.TerminationReason.Contains(outcome)).AsEnumerable();
+                        return View("Index", result);
+                    }
+                    else
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term) && !p.TerminationReason.Contains(outcome)).AsEnumerable();
+                        return View("Index", result);
+                    }
+
+                }
+
+                else if (season != "Season:")
+                {
+                    IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term) && p.Season == season).AsEnumerable();
+                    return View("Index", result);
+                }
+
+                else if (year > 0)
+                {
+                    IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term) && p.Year == year).AsEnumerable();
+                    return View("Index", result);
+                }
+
+
+                IEnumerable<Expedition> results = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term)).AsEnumerable();
+                return View("Index", results);
+
             }
 
-            if (search_term != null)
+            else if (collection == "Trekking Agency")
             {
 
-                //Search expeditions by peak name or trekking agency name. 
-                IEnumerable<Expedition> result = db.Expeditions.Include(p => p.Peak).Where(p => p.Peak.Name.Contains(search_term)).OrderByDescending(O => O.Year).AsEnumerable();
-                return View("Index", result);
+                if (outcome != "Outcome?:" && season != "Season:" && year > 0)
+                {
+                    if (outcome == "Success")
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term) && p.TerminationReason.Contains(outcome) && p.Year == year && p.Season == season).AsEnumerable();
+                        return View("Index", result);
+                    }
+                    else
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term) && !p.TerminationReason.Contains(outcome) && p.Year == year && p.Season == season).AsEnumerable();
+                        return View("Index", result);
+                    }
+                }
+
+                else if (outcome != "Outcome?:" && season != "Season:")
+                {
+
+                    if (outcome == "Success")
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term) && p.TerminationReason.Contains(outcome) && p.Season == season).AsEnumerable();
+                        return View("Index", result);
+                    }
+                    else
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term) && !p.TerminationReason.Contains(outcome) && p.Season == season).AsEnumerable();
+                        return View("Index", result);
+                    }
+                }
+
+                else if (outcome != "Outcome?:" && year > 0)
+                {
+
+                    if (outcome == "Success")
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term) && p.TerminationReason.Contains(outcome) && p.Year == year).AsEnumerable();
+                        return View("Index", result);
+                    }
+                    else
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term) && !p.TerminationReason.Contains(outcome) && p.Year == year).AsEnumerable();
+                        return View("Index", result);
+                    }
+                }
+
+                else if (season != "Season:" && year > 0)
+                {
+                    IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(e => e.TrekkingAgency.Name.Contains(search_term) && e.Season == season && e.Year == year).AsEnumerable();
+                    return View("Index", result);
+                }
+
+                else if (outcome != "Outcome?:")
+                {
+
+                    if (outcome == "Success")
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term) && p.TerminationReason.Contains(outcome)).AsEnumerable();
+                        return View("Index", result);
+                    }
+                    else
+                    {
+                        IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term) && !p.TerminationReason.Contains(outcome)).AsEnumerable();
+                        return View("Index", result);
+                    }
+
+                }
+
+                else if (season != "Season:")
+                {
+                    IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term) && p.Season == season).AsEnumerable();
+                    return View("Index", result);
+                }
+
+                else if (year > 0)
+                {
+                    IEnumerable<Expedition> result = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term) && p.Year == year).AsEnumerable();
+                    return View("Index", result);
+                }
+
+                IEnumerable<Expedition> results = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term)).AsEnumerable();
+                return View("Index", results);
             }
-            else 
-            {
-                return View("Index");
-            }
-            
+
+            IEnumerable<Expedition> res = db.Expeditions.Select(e => e.Year).Distinct().Select(y => db.Expeditions.First(Ex => Ex.Year == y)).OrderBy(yr => yr.Year).ToList();
+            return View("Index", res);
         }
+
     }
 }
