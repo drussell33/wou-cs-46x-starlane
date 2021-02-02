@@ -68,6 +68,7 @@ Starlane Project Inception
         4. **E:** As a user of this site, I want to be able to be able to render a photo so that it can be placed into a 360 degree iCollections environemnt. 
         5. **E:** As a user of this site, I want to be able to be able to render a photo so that it can be placed into a virtual iCollections environemnt. 
 3. **Need:** We need to Create the 2D collectables environment viewer, creator, and template, and allow the templates to be filled with either unaltered photos, or background removed photos.
+<img src="img/2d_feature_concept.png" alt="mindmap" width="400"/>
     - **Feature:** Users can selecte either an unaltered photo or a background removed photo and a flood-file algorithm will insert all of the images as tightly as possible into the shape outline. 
     - **Feature:** besides a simple square, there are other shapes like circles, arrows, or mazes that can be filled in with photos.
     - **Feature:** I can view the final iCollections 2D environment in the browser, with the ability to zoom and navigate across the 2D surface. 
@@ -76,8 +77,8 @@ Starlane Project Inception
         3. **E:** As a user of this site, when I create a 2D iCollections I want to select different environments to input my photos into. 
         4. **E:** As a user of this site, when I create a 2D iCollections I want to upload a high quality photo to be used as the 2D background. 
         5. **E:** As a user of this site, when I create a 2D iCollections like an arrow or a maze, I want the photos to be filled in order of the date that they were taken. 
-
 4. **Need:** We need to create an virtual iCollections environment viewer, creator, and templates, and allow the templates to be filled with either unaltered photos, background removed photos, or 3D rendered photos.
+<img src="img/virtual_concept.png" alt="mindmap" width="400"/>
     - **Feature:** Using three.js there needs a be a small selection of environments that the user can select for a virtual iCollection.
     - **Feature:** Provide users the ability to view the empty iCollection virtual environment selections so that they can preview selections.
         1. **E:** As a user of this site, I want to be able to create an iCollection that is in a small virutal environment that contains the photos I uploaded.
@@ -113,6 +114,7 @@ Starlane Project Inception
     
     API: photo background remover
 
+![Image](img/initial_arch_2.png)
 
 
 # Agile Data Modeling
@@ -141,20 +143,20 @@ U: User Story
 T: Task  
 
 1. [E] We need a database that can hold the user account data, profile data, photos, altered photos, and published collections. 
-    1. [U] 
-        - [T]
+    1. [U] We need to take the rough DB design Baltazar made and research and expand it.
+        - [T] [dbdiagram initial data model ](https://dbdiagram.io/d/6019335180d742080a38d1e9) 
 2. [E] We need to make sure that our complex database can be hosted on azure, and not cost a bunch of money. 
-    1. [U] 
-        - [T]
+    1. [U] We might need to do this that Cuauhtemoc found but should wait until Scot goes over the ASP .NET auth accounts stuff 
+        - [T] [Adding Users to Your SQL Azure Database](https://azure.microsoft.com/en-us/blog/adding-users-to-your-sql-azure-database/)
 3. [E] We need to make sure that we can use Entity Framework and properly encapsulate the photos so that they can be called easily, and in groups. 
-    1. [U] 
-        - [T]
+    1. [U] We need to find a framework for this and test it out. 
+        - [T] [store images in SQL Server using EF Core and ASP.NET core](http://www.binaryintellect.net/articles/2f55345c-1fcb-4262-89f4-c4319f95c5bd.aspx)
 4. [E] Photos are associated with a user account so that the user can perform CRUD operations.
-    1. [U] 
+    1. [U]   
         - [T]
 5. [E] We need to make sure that we can remove the background from photos.
-    1. [U] 
-        - [T]
+    1. [U] We need to test this background removal algorithm that Cuauhtemoc found 
+        - [T] [background removal implementation in python](https://github.com/danielgatis/rembg)
 6. [E] We need a flood fill algorithm that can insert a lot of photos into a shape as tightly as possible.
     1. [U] 
         - [T]
@@ -162,19 +164,24 @@ T: Task
     1. [U] 
         - [T]
 8. [E] Three.js needs to be confirmed that it can be used for the environment creations, browser viewer, and capability to insert photos.
-    1. [U] 
-        - [T]
+    1. [U] three.js seems like the best option for a virtual environment, but it needs to be tested.
+        - [T] [three.js Getting Started Tutorial for creating and viewing a scene](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
+        - [T] [example of the environment we would have.](https://threejs.org/examples/#webgl_animation_cloth)
 9. [E] We need to decide on the best method / API / code to render photos into 3D objects.
     1. [U] 
         - [T]
 10. [E] We need to decide on the best method / API / code create an iCollection in a 360 degree view environment.
-    1. [U] 
-        - [T]
+    1. [U] We need to decide if we want to implement this feature, which option is the best one to try, and if that best option worked or does another option need to be tried.
+        - [T] [Options for 360 degree environment](https://ourcodeworld.com/articles/read/843/top-7-best-360-degrees-equirectangular-image-viewer-javascript-plugins)
 
 
 # Identification of Risks
+    1. The most basic 2D feature might be the best we can do.
+    2. The 360 enviornment might not be possible 
+    3. The virutal environment might be too difficult to add objects into.
+    4. To many unknowns that could break the most advanced features of this project. 
 
-
+[words](url)
 
 
 <a href="README.md">Return to Milestone 4 README file</a>

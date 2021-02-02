@@ -108,15 +108,15 @@ The Milestone 3 Rubric
             <td> <a href="">Exemplar Link</a></td>
         </tr>
         <tr>
-            <td>14</td> <td>Un-Assigned</td> <td>U</td> <td>2</td> <td>-</td>
-            <td>The title</td>
-            <td>the description</td>
+            <td>14</td> <td>Un-Assigned</td> <td>U</td> <td>1</td> <td>-</td>
+            <td>Create a new landing page logo that has the mountain picture and our name.</td>
+            <td>include Himalayan Database in large font when you first load the page.</td>
             <td> <a href="">Exemplar Link</a></td>
         </tr>
         <tr>
-            <td>14</td> <td>Un-Assigned</td> <td>U</td> <td>2</td> <td>-</td>
-            <td>The title</td>
-            <td>the description</td>
+            <td>14</td> <td>Un-Assigned</td> <td>U</td> <td>4</td> <td>-</td>
+            <td>Create user accounts</td>
+            <td>have accounts that allow different levels of privledges.</td>
             <td> <a href="">Exemplar Link</a></td>
         </tr>
     </tbody>
