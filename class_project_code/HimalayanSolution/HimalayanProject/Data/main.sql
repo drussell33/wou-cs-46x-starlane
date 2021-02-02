@@ -1,0 +1,12 @@
+-- GET LAST 40 PEAKS ATTEMPTED BY AN EXPEDITION
+
+-- SELECT TOP 40 Name, Height, MIN(StartDate) FROM Peak
+-- LEFT JOIN Expedition ON PeakID = Peak.ID
+-- WHERE StartDate IS NOT NULL
+-- GROUP BY Name
+-- ORDER BY StartDate DESC;
+
+-- GET LAST 
+SELECT TOP 40 * FROM Expedition
+WHERE StartDate IS NOT NULL
+ORDER BY StartDate DESC;
