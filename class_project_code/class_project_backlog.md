@@ -88,6 +88,9 @@ We will be using <a href="https://pivotaltracker.com">Pivotal Tracker</a> to mak
         + [T] When user clicks, “sign out” send POST request
         + [T] Transition user state to “signed out”
     3. [U] As an administrator I want to be able to monitor the usage of our members to ensure the accuracy of their expedition data.
+        + [T] Have access to users' activity history
+        + [T] 
+        + [T]
     4. [U] As a member I want to be able to submit my latest or upcoming expeditions so that my data is saved and submitted once.
         + [T] When user submits form data, send POST request
         + [T] Parse POST request data model and error check
@@ -97,12 +100,20 @@ We will be using <a href="https://pivotaltracker.com">Pivotal Tracker</a> to mak
         + [T] If not authenticated user or admin, show only data about members, peaks, expeditions, etc.
         + [T] See below #5.
     6. [U] As a user I don't want my personal data to be leaked to the public to ensure my privacy.
-        + [T] 
+        + [T] Keep user data in a secure format
+        + [T] Limit access to user data
+        + [T] Give users the option to show or hide information
+        
 4. [E] We want to be able to search for data on the website, and have an accurate result sent back to us. 
-    1. [U] As a general public user I want to be able 
+    1. [U] As a general public user I want to be able search for expeditions etc.
+    2. [U] As a general public user I want to be able to customize my search for more detailed requests
+    3. [U] As a general public user I want to know more what each piece of data means so I can search more knowledgeably
 
 5. [E] Users want to be able to filter the content so they can find the information they seek.
     1. [U] As a user, when I open the "see expeditions" page, I want to see the last 100 expeditions done so that I can see how the data is rendered and not overwhelm other users with potentially thousands of expeditions at once. Note: do this for peaks and members too.
+        + [T] Allow users to select how many entries to display per page
+        + [T] Display records in a concise and easy-to-navigate format
+        + [T] Allow reordering of results by certain attributes
     2. [U] As a user, I want to filter expeditions by year, season, nation, leader, sponsor/name, and host so that I need not fill out a giant form with data I may not know beforehand.
         + [T] Have a side panel with all filters. The text entry filters will be year, nation, leader, and sponser. The drop down menu filters will be season and host.
         + [T] When a user applies the filters by clicking a button, a GET request is sent along with a query string of the filters.
@@ -121,4 +132,4 @@ We will be using <a href="https://pivotaltracker.com">Pivotal Tracker</a> to mak
         + [T] The server parses the query string and gets the parameters.
         + [T] It does a select query and populates the list of members.
         + [T] It sends the list back to the view. The view renders the list.
- 
+        
