@@ -1,0 +1,48 @@
+﻿@model HimalayanProject.Models.Peak
+
+@{
+    ViewData["Title"] = "Create Peak";
+}
+
+<h1>Create Peak</h1>
+
+<h4>Peak</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreatePeak">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Height" class="control-label"></label>
+                <input asp-for="Height" class="form-control" />
+                <span asp-validation-for="Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClimbingStatus" class="control-label"></label>
+                <input asp-for="ClimbingStatus" class="form-control" />
+                <span asp-validation-for="ClimbingStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstAscentYear" class="control-label"></label>
+                <input asp-for="FirstAscentYear" class="form-control" />
+                <span asp-validation-for="FirstAscentYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
