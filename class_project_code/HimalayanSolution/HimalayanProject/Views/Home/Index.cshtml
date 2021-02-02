@@ -1,9 +1,8 @@
-@model IEnumerable<HimalayanProject.Models.Expedition>
+﻿@model IEnumerable<HimalayanProject.Models.Expedition>
 
 @{
     ViewData["Title"] = "Home Page";
 }
-
 
 <div class="row">
     <div class="col">
@@ -13,43 +12,175 @@
     </div>
 </div>
 
-
 <div class="row">
-    <div class="col">
-        <h3>Expedition Search</h3>
-        <form method="get" class="valid" asp-controller="Home" asp-action="Search">
-            <input class="form-control col-md-8" type="text" minlength="2" title="Use at least 2 characters" name="search_term" required pattern=".*\S+.*" />
-            <p>(Enter search by peak name)</p>
-            <button type="submit" class="btn btn-outline-dark"> Search </button>
-        </form>
-    </div>
-    <div class="col">
-        <table class="table-striped table-borderless table-search">
+    <div class="col-lg">
 
-            @if (Model != null)
+        <form method="get" class="valid" asp-controller="Home" asp-action="Search">
+
+            <div class="row">
+
+                <div class="col">
+                    <br />
+                    <h3>Expedition Search</h3>
+                    <input class="form-control col-md-8" type="text" minlength="2" title="Use at least 2 characters" name="search_term" required pattern=".*\S+.*" />
+                    <br />
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-auto">
+
+                    <label>Search By:</label>
+                    <div class="form-inline align-top">
+                        <div class="list-group list-group-horizontal">
+                            <label class="list-group-item" aria-label="">
+                                <input class="form-check-input me-1" name="collection" type="radio" value="Peak" checked required>
+                                Peak
+                            </label>
+                            <label class="list-group-item" aria-label="">
+                                <input class="form-check-input me-1" name="collection" type="radio" value="Trekking Agency">
+                                Trekking Agency
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-auto">
+
+                    <br />
+
+                    <div class="form-inline align-top">
+
+                        <label for="outcome"></label>
+                        <select class="custom-select" name="outcome" id="outcome">
+                            <option selected>Outcome?:</option>
+                            <option value="Success">Success</option>
+                            <option value="failure">Failure</option>
+                        </select>
+
+                        <label for="season"></label>
+                        <select class="custom-select" name="season" id="season">
+                            <option selected>Season:</option>
+                            <option value="Spring">Spring</option>
+                            <option value="Summer">Summer</option>
+                            <option value="Autumn">Autumn</option>
+                            <option value="Winter">Winter</option>
+                        </select>
+
+                        <label for="year"></label>
+                        <select class="custom-select" name="year" id="year">
+                            <option selected>Year:</option>
+                            @foreach (Expedition e in Model)
+                            {
+                                <option value="@e.Year">@e.Year</option>
+                            }
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-auto">
+
+                    <br />
+                    <button type="submit" class="btn btn-dark"> Search </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <div class="col">
+
+        <table class=".table-sm table-borderless">
+            @{
+                int peak_init = 0;
+                int trek_init = 0;
+            }
+            @foreach (Expedition ex in Model)
             {
-            <tr>
-                <th>Peak</th>
-                <th>Height</th>
-                <th>Season</th>
-                <th>Year</th>
-                <th></th>
-            </tr>
-                @foreach(Expedition e in Model)
+                if (ex.Peak != null)
+                {
+                    peak_init = 1;
+                    trek_init = 0;
+                }
+                else if (ex.TrekkingAgency != null)
+                {
+                    trek_init = 1;
+                    peak_init = 0;
+                }
+
+            }
+            @if (peak_init != 0)
+            {
+                <tr>
+                    <th>Peak</th>
+                    <th><span>  </span></th>
+                    <th>Outcome</th>
+                    <th><span>  </span></th>
+                    <th>Season</th>
+                    <th><span>  </span></th>
+                    <th>Year</th>
+                </tr>
+                @foreach (Expedition e in Model)
                 {
                     <tr>
-                        <td><a asp-controller="Peak" asp-action="Details" asp-route-id="@e.PeakId">@e.Peak.Name</a></td>
-                        <td>@e.Peak.Height</td>
+                        <td>@e.Peak.Name</td>
+                        <td><span>  </span></td>
+                        <td>@e.TerminationReason</td>
+                        <td><span>  </span></td>
                         <td>@e.Season</td>
+                        <td><span>  </span></td>
                         <td>@e.Year</td>
-                        <td><a asp-controller="Expedition" asp-action="Details" asp-route-id="@e.Id">Details</a></td>
+
+                    </tr>
+                }
+            }
+            @if (trek_init != 0)
+            {
+                <tr>
+                    <th>Trekking Agency</th>
+                    <th><span>  </span></th>
+                    <th>Outcome</th>
+                    <th><span>  </span></th>
+                    <th>Season</th>
+                    <th><span>  </span></th>
+                    <th>Year</th>
+                </tr>
+                @foreach (Expedition e in Model)
+                {
+                    <tr>
+                        <td>@e.TrekkingAgency.Name</td>
+                        <td><span>  </span></td>
+                        <td>@e.TerminationReason</td>
+                        <td><span>  </span></td>
+                        <td>@e.Season</td>
+                        <td><span>  </span></td>
+                        <td>@e.Year</td>
+
                     </tr>
                 }
             }
 
-
         </table>
+
     </div>
+
 </div>
 
 
