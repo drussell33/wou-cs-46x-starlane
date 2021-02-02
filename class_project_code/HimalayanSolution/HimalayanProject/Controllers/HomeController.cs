@@ -130,7 +130,7 @@ namespace HimalayanProject.Controllers
 
             else if (collection == "Trekking Agency")
             {
-
+                
                 if (outcome != "Outcome?:" && season != "Season:" && year > 0)
                 {
                     if (outcome == "Success")
@@ -213,7 +213,7 @@ namespace HimalayanProject.Controllers
                 return View("Index", results);
             }
 
-            IEnumerable<Expedition> res = db.Expeditions.Select(e => e.Year).Distinct().Select(y => db.Expeditions.First(Ex => Ex.Year == y)).OrderBy(yr => yr.Year).ToList();
+            IEnumerable<Expedition> res = db.Expeditions.Include(p => p.TrekkingAgency).Where(p => p.TrekkingAgency.Name.Contains(search_term)).AsEnumerable();
             return View("Index", res);
         }
 

@@ -105,17 +105,24 @@
 
         <table class=".table-sm table-borderless">
             @{
-                int init = 0;
+                int peak_init = 0;
+                int trek_init = 0;
             }
             @foreach (Expedition ex in Model)
             {
                 if (ex.Peak != null)
                 {
-                    init = 1;
+                    peak_init = 1;
+                    trek_init = 0;
+                }
+                else if (ex.TrekkingAgency != null)
+                {
+                    trek_init = 1;
+                    peak_init = 0;
                 }
 
             }
-            @if (init != 0)
+            @if (peak_init != 0)
             {
                 <tr>
                     <th>Peak</th>
@@ -140,8 +147,31 @@
                     </tr>
                 }
             }
+            @if (trek_init != 0)
+            {
+                <tr>
+                    <th>Trekking Agency</th>
+                    <th><span>  </span></th>
+                    <th>Outcome</th>
+                    <th><span>  </span></th>
+                    <th>Season</th>
+                    <th><span>  </span></th>
+                    <th>Year</th>
+                </tr>
+                @foreach (Expedition e in Model)
+                {
+                    <tr>
+                        <td>@e.TrekkingAgency.Name</td>
+                        <td><span>  </span></td>
+                        <td>@e.TerminationReason</td>
+                        <td><span>  </span></td>
+                        <td>@e.Season</td>
+                        <td><span>  </span></td>
+                        <td>@e.Year</td>
 
-
+                    </tr>
+                }
+            }
 
         </table>
 
