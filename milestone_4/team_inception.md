@@ -1,7 +1,11 @@
 Starlane Project Inception
 =====================================
 
-## List of Needs and Features
+# Team Project Inception: Vision statement
+
+**For** anyone **who** wants a easy and fun way to share with others their collections or collectables, **the** 360 iCollectables Creator **can** upload and render photos of their collectable items **that** will be displayed in 2D, 360 degree, or possibly 360 full virtual environment. The system will store the users uploaded photos of items, allow user selection of the available environments, and give the ability to place their items into the environment at specific locations, and then allow others to view their environments filled with their collectable items. **Unlike** albums of photos **our users** will be able to show off large collections of items in a single format that can easily show the scale of the collection, while maintaining the ability to inspect individual items closely. 
+
+# List of Needs and Features
 1. **Need:** We need to design the database that needs to store the user data, as well as the photos, environments, and other associated data.
     - **Feature:** Show Users the selection of pre-made environments ready to be filled with photos of collectables
     - **Feature:** The Photos will be uploaded by the user and rendered into the appropriate format depending on the environment.
@@ -63,12 +67,12 @@ Starlane Project Inception
             - **U:** As a ...
             - **U:** As a ..
 
-## Identify Non-Functional Requirements
+# Identify Non-Functional Requirements
 1. 
 2.
 3.
 
-## Initial Architecture Envisioning
+# Initial Architecture Envisioning
     Desktop computer: PC or Mac
         Internet access
         Internet browser
@@ -85,21 +89,26 @@ Starlane Project Inception
 
 
 
-## Agile Data Modeling
-    Diagrams, SQL modeling (dbdiagram.io), UML diagrams
+# Agile Data Modeling
+    Diagrams, SQL modeling (dbdiagram.io), UML diagrams, UI wireframes, page flows, ...
 
-### Use Case Diagrams
-    Diagrams
+[Flow Chart / Mindmap ](https://miro.com/app/board/o9J_lXPB2mE=/) 
+<img src="img/miro_mindmap.png" alt="mindmap" width=""/>
 
-### Sequence Diagrams
+<!-- ![Image](img/miro_mindmap.png) -->
 
-### Other Modeling
-    Diagrams, UI wireframes, page flows, ...
+[dbdiagram initial data model ](https://dbdiagram.io/d/6019335180d742080a38d1e9) 
 
-## Timeline and Release Plan
-    Schedule: meaningful dates, milestones, sprint cadence, how releases are made (CI/CD, or fixed releases, or ?)
+![Image](img/dbdiagram.png)
 
-## Identify Functional Requirements (In User Story Format)
+## DB Designing Brainstorming txt file.
+[DB Designing Work Link to seperate txt file.](DB_design.txt) 
+
+
+# Timeline and Release Plan
+![Image](img/timeline.png)
+
+# Identify Functional Requirements (In User Story Format)
 
 E: Epic  
 U: User Story  
@@ -113,9 +122,9 @@ T: Task
     2. [U]
         a. [T]
 
-## Team Project Inception: Vision statement
+# Identification of Risks
 
-**For** anyone **who** wants a easy and fun way to share with others their collections or collectables, **the** 360 iCollectables Creator **can** upload and render photos of their collectable items **that** will be displayed in 2D, 360 degree, or possibly 360 full virtual environment. The system will store the users uploaded photos of items, allow user selection of the available environments, and give the ability to place their items into the environment at specific locations, and then allow others to view their environments filled with their collectable items. **Unlike** albums of photos **our users** will be able to show off large collections of items in a single format that can easily show the scale of the collection, while maintaining the ability to inspect individual items closely. 
 
-## Identification of Risks
 
+
+<a href="README.md">Return to Milestone 4 README file</a>
