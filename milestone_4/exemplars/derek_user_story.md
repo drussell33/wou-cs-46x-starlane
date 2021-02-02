@@ -1,6 +1,6 @@
 # As a user, when I open the home page, I want a dynamic engaging experience. I want to see I want to see live stats and data about expeditions and peaks. I also want to  obtain all the basic information about the website itself so I can full utilize it. 
 
-## ID: 14
+## ID: 11
 ## Effort Points: 2
 ## Owner: Derek Russell
 ## Feature branch name: ajax_feature

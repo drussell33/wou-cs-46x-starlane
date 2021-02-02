@@ -1,6 +1,6 @@
 # As a user, when I open the "see expeditions" page, I want to see the last 40 expeditions done so that I can see how good the data is rendered and not overwhelm other users with potentially thousands of expeditions at once.
 
-## ID: 13
+## ID: 9
 ## Effort Points: 1
 ## Owner: Baltazar Ortiz
 ## Feature branch name: exp_list
