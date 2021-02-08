@@ -1,24 +1,118 @@
-Team **Star Lane** Group Project
-===========================
 
-## Milestone 1 Link
-[Milestone 1](https://github.com/reilly-cuauhtemoc-8178/wou-cs-46x-starlane/tree/main/milestone_1) 
+<br />
+<p align="center">
+<img src="img/starlane_logo.png" alt="Logo" >
+<h1 align="center"><strong>360 iCollections</strong></h1>
+  <h1 align="center">
+    CS 461 & CS 462
+    <br />
+    Senior Capstone Project
+    <br />
+    Western Oregon Univeristy
+    <br />
+  </h1>
+  <h3 align="center">
+    Team Members:
+    <br />
+    <a href="https://github.com/baltazarO" ><strong>Baltazar Ortiz</strong></a>
+    <br />
+    <a href="https://github.com/reilly-cuauhtemoc-8178" ><strong>Cuauhtemoc Reilly</strong></a>
+    <br />
+    <a href="https://github.com/drussell33" ><strong>Derek Russell</strong></a>
+    <br />
+    <a href="https://github.com/Rafarell" ><strong>Rafael Arellano</strong></a>
+    <br />
+  </h3>
+</p>
 
-## Milestone 2 Link
-[Milestone 2](https://github.com/reilly-cuauhtemoc-8178/wou-cs-46x-starlane/tree/main/milestone_2) 
 
-## Milestone 3 Link
-[Milestone 3](https://github.com/reilly-cuauhtemoc-8178/wou-cs-46x-starlane/tree/main/milestone_3) 
 
-## Milestone 4 Link
-[Milestone 4](https://github.com/reilly-cuauhtemoc-8178/wou-cs-46x-starlane/tree/main/milestone_4) 
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#guidelines">Guidelines</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
 
-## Milestone 5 Link
-[Milestone 5](https://github.com/reilly-cuauhtemoc-8178/wou-cs-46x-starlane/tree/main/milestone_5) 
-=======
-# wou-cs-46x-starlane
 
-Members: Baltasar, Cuauhtemoc, Derek, Rafael
-Project description:
 
-small change to advance main before merging
+<!-- ABOUT THE PROJECT -->
+# About The Project
+
+**For** anyone **who** wants a easy and fun way to share with others their collections or collectables, **the** 360 iCollectables Creator **can** upload and render photos of their collectable items **that** will be displayed in 2D, 360 degree, or possibly 360 full virtual environment. The system will store the users uploaded photos of items, allow user selection of the available environments, and give the ability to place their items into the environment at specific locations, and then allow others to view their environments filled with their collectable items. **Unlike** albums of photos **our users** will be able to show off large collections of items in a single format that can easily show the scale of the collection, while maintaining the ability to inspect individual items closely. 
+
+## Built With
+
+This section lists any major frameworks that we used to build this project
+* [ASP.Net Core MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/overview?view=aspnetcore-5.0)
+* [Azure](https://azure.microsoft.com/en-us/)
+* [Three.js](https://threejs.org/)
+* [Bootstrap](https://getbootstrap.com)
+* [JQuery](https://jquery.com)
+
+
+<!-- USAGE EXAMPLES -->
+# Usage
+
+    This projects purpose is for our group to finish our education in computer science by demonstrating our ability to take a project of our choosing and develop it by using Agile and Scrum methods for team development.
+
+
+<!-- ROADMAP -->
+# Roadmap
+
+<img src="img/timeline.png" alt="Roadmap">
+
+<!-- CONTRIBUTING -->
+# Contributing
+
+As this is a educational project, we are the only contributing members at this time. We as a team follow a specific workflow <a href="Workflow.md" ><strong>As seen here...</strong></a>
+
+
+<!-- LICENSE -->
+# License
+
+    None
+
+<!-- CONTACT -->
+# Contact
+
+    Any of us through Github.
+
+<!-- Guidelines -->
+# Guidelines
+
+Please follow the guidelines listed below when contributing code to this project.  Please keep in mind that this project was started as a University class and some decisions have been made with students and teaching in mind.
+
+
+## Overall ##
+
+* Write code in C# unless JavaScript is needed for a library.
+* We follow all the conventions and naming practices commonly accepted for an ASP.Net Core MVC Wed App Project.
+* We will use bootstrap for all view styling.
+
+
+
+<!-- ACKNOWLEDGEMENTS -->
+# Acknowledgements
+* [mrdoob Three.js library](https://github.com/mrdoob/three.js)
+* [stemkoski Three.js library](https://github.com/stemkoski/stemkoski.github.com)
+
+
+
+
+
+
+
