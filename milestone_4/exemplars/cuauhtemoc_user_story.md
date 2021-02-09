@@ -6,7 +6,8 @@
 ## Feature branch name: expanded_search
 
 ## Assumptions/Preconditions
-- Expeditions search feature has the ability to search.
+- Expeditions search feature works.
+- Models are scaffolded.
 
 ## Description
 - Add links to pages with more details about parts of each search.
@@ -19,8 +20,8 @@
 
 ## Tasks
 
-1. Add dynamic links to search results
-2. Create pages for each of the entities to be displayed
+1. Add dynamic links to search results.
+2. Create pages for each of the entities to be displayed.
 3. Add styling to search and detail pages.
 
 ## Dependencies
@@ -29,7 +30,7 @@
 
 ## Any notes written while implementing this story
 
-- It might be worth seeing if I can add data that isn't included in the specific model
+- It might be worth seeing if I can add data that isn't included in the specific model.
 
 
 <a href="../README.md">Return to Backlog</a>
