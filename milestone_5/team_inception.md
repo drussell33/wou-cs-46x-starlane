@@ -68,7 +68,6 @@ Starlane Project Inception
         4. **E:** As a user of this site, I want to be able to be able to render a photo so that it can be placed into a 360 degree iCollections environemnt. 
         5. **E:** As a user of this site, I want to be able to be able to render a photo so that it can be placed into a virtual iCollections environemnt. 
 3. **Need:** We need to Create the 2D collectables environment viewer, creator, and template, and allow the templates to be filled with either unaltered photos, or background removed photos.
-<img src="img/2d_feature_concept.png" alt="mindmap" width="400"/>
     - **Feature:** Users can selecte either an unaltered photo or a background removed photo and a flood-file algorithm will insert all of the images as tightly as possible into the shape outline. 
     - **Feature:** besides a simple square, there are other shapes like circles, arrows, or mazes that can be filled in with photos.
     - **Feature:** I can view the final iCollections 2D environment in the browser, with the ability to zoom and navigate across the 2D surface. 
@@ -78,7 +77,6 @@ Starlane Project Inception
         4. **E:** As a user of this site, when I create a 2D iCollections I want to upload a high quality photo to be used as the 2D background. 
         5. **E:** As a user of this site, when I create a 2D iCollections like an arrow or a maze, I want the photos to be filled in order of the date that they were taken. 
 4. **Need:** We need to create an virtual iCollections environment viewer, creator, and templates, and allow the templates to be filled with either unaltered photos, background removed photos, or 3D rendered photos.
-<img src="img/virtual_concept.png" alt="mindmap" width="400"/>
     - **Feature:** Using three.js there needs a be a small selection of environments that the user can select for a virtual iCollection.
     - **Feature:** Provide users the ability to view the empty iCollection virtual environment selections so that they can preview selections.
         1. **E:** As a user of this site, I want to be able to create an iCollection that is in a small virutal environment that contains the photos I uploaded.
