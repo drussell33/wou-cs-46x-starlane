@@ -109,7 +109,9 @@ Please follow the guidelines listed below when contributing code to this project
 # Acknowledgements
 * [mrdoob Three.js library](https://github.com/mrdoob/three.js)
 * [stemkoski Three.js library](https://github.com/stemkoski/stemkoski.github.com)
-
+* [Getting Started With WebGL](https://bridge.net/docs/getting-started-with-webgl/)
+* [how to use unity3d webgl content in a asp.net mvc view?](https://gamedev.stackexchange.com/questions/124124/how-to-use-unity3d-webgl-content-in-a-asp-net-mvc-view)
+* [Hosting Unity WebGL App in Azure ASP.NET Core](https://ritchielozada.com/2016/12/05/hosting-unity-webgl-app-in-azure-asp-net-core/amp/)
 
 
 
