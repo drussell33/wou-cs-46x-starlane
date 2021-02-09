@@ -1,9 +1,4 @@
-# wou-cs-46x-starlane
-
-Project description:
-=======
 Team **Star Lane** Group Project
-===========================
 
 ## Milestone 1 Link
 [Milestone 1](https://github.com/reilly-cuauhtemoc-8178/wou-cs-46x-starlane/tree/main/milestone_1) 

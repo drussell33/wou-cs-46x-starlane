@@ -1,0 +1,146 @@
+@model IEnumerable<HimalayanProject.Models.Expedition>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="row">
+    <div class="col">
+        <div class="text-center">
+            <img src="~/images/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg" alt="Mount Everst as seen from Drukair2" width="1024" />
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+        <h3>Expedition Search</h3>
+        <form method="get" class="valid" asp-controller="Home" asp-action="Search">
+            <input class="form-control col-md-8" type="text" minlength="2" title="Use at least 2 characters" name="search_term" required pattern=".*\S+.*" />
+            <p>(Enter search by peak name)</p>
+            <button type="submit" class="btn btn-outline-dark"> Search </button>
+        </form>
+    </div>
+    <div class="col">
+        <table class="table-striped table-borderless table-search">
+
+            @if (Model != null)
+            {
+            <tr>
+                <th>Peak</th>
+                <th>Height</th>
+                <th>Season</th>
+                <th>Year</th>
+                <th></th>
+            </tr>
+                @foreach(Expedition e in Model)
+                {
+                    <tr>
+                        <td><a asp-controller="Peak" asp-action="Details" asp-route-id="@e.PeakId">@e.Peak.Name</a></td>
+                        <td>@e.Peak.Height</td>
+                        <td>@e.Season</td>
+                        <td>@e.Year</td>
+                        <td><a asp-controller="Expedition" asp-action="Details" asp-route-id="@e.Id">Details</a></td>
+                    </tr>
+                }
+            }
+
+
+        </table>
+    </div>
+</div>
+
+
+<div class="statsTitleSection text-center">
+
+</div>
+
+<div class="container">
+    <div id="statsSection" class="card-columns statsHeader">
+
+    </div>
+</div>
+
+<div class="container">
+    <div id="latestSection" class="card-deck statsHeader">
+
+    </div>
+</div>
+
+<div class="container">
+    <div id="randomPeaks" class="card-columns statsHeader">
+
+    </div>
+</div>
+
+
+
+<div class="container">
+    <h2>Our Partners</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/aac_logo.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://americanalpineclub.org/">American Alpine Club</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/climbing_logo.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://climbingthesevensummits.com/">Climbing the 7 Summits</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/petzl_logo.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://www.petzl.com/fondation/fondation-petzl?language=en#.WqwSl2a-JoO">Petzl Foundation</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/seven_summits_logo.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://7summitsclub.com/">Seven Summits Club</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/summit_climb_logo.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://www.summitclimb.com/">SummitClimb</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/valandre_logo.jpeg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://www.valandre.com//">Valandre</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.container -->
+
+
+
+
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/site.js"></script>
+}

@@ -1,0 +1,56 @@
+@model IEnumerable<HimalayanProject.Models.Peak>
+
+@{
+    ViewData["Title"] = "Peaks";
+}
+
+<h1>Peaks</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="row">
+
+    <div class="col">
+        <div class="card shadow">
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">@Html.DisplayNameFor(model => model.Name)</th>
+                            <th scope="col">Height (m)</th>
+                            <th scope="col">Climbing Status</th>
+                            <th scope="col">First Ascent Year</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Height)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClimbingStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FirstAscentYear)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a><br>
+                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a><br>
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

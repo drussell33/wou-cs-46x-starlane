@@ -1,0 +1,139 @@
+Below, I am listing the entities and their values
+
+Enitities in DB:
+
+User Logins (Logins and authentication perhaps included in .NET Core already)
+
+User (profile info)
+    id
+    first name
+    last name
+    user login???
+
+Collection
+    id
+    name
+    Owner???
+
+
+Keyword
+    id
+    word
+
+Photo
+    id
+    name
+    bytes
+
+Rank???
+    id
+    Collection???
+    Photo???
+
+The entities are: User, Collection, Keyword, Photo, and maybe Rank.
+
+Now the relationships.
+
+User:
+
+Users can have many collections.
+Users can have many photos.
+Users can have many friends (Users).
+
+Collection:
+
+Collections can have only one user owning it.   -- Must have
+Collections can have many keywords.
+Collections can have many photos.
+
+Keyword:
+
+Keywords can have many collections.
+
+Photo:
+
+Photos can have only one owner.     -- Must have
+Photos can be in many collections.  -- Must have    
+
+Schema:
+
+User
+id first_name last_name user_name date_joined
+
+Collection
+id name visibility user_id date_made
+
+Keyword
+id word
+
+Photo
+id name data user_id date_uploaded
+
+FriendsWith
+user1_id user2_id began
+
+CollectionPhoto
+collect_id photo_id photo_rank date_added
+
+CollectionKeyword
+collect_id keyword_id
+
+DBDiagram.io:
+
+Table User {
+  id int [pk, increment]
+  first_name varchar [not null]
+  last_name varchar [not null]
+  user_name varchar [not null]
+  date_joined timestamp
+}
+
+Table Collection {
+  id int [pk, increment]
+  name varchar [not null]
+  visibility int [not null]
+  user_id int [not null]
+  date_made timestamp
+}
+
+Table Keyword {
+  id int [pk, increment]
+  name varchar [not null]
+}
+
+Table Photo {
+  id int [pk, increment]
+  name varchar [not null]
+  data bytes [not null]
+  user_id int [not null]
+  date_uploaded timestamp
+}
+
+Table FriendsWith {
+  user1_id int [pk, increment]
+  user2_id int [pk, increment]
+  began timestamp
+}
+
+Table CollectionPhoto {
+  collect_id int [pk, increment]
+  photo_id int [pk, increment]
+  photo_rank int [not null]
+  date_added timestamp
+}
+
+Table CollectionKeyword {
+  collect_id int [pk, increment]
+  keyword_id int [pk, increment]
+  date_added timestamp
+}
+
+Ref : User.id < FriendsWith.user1_id
+Ref : User.id < FriendsWith.user2_id
+Ref : User.id < Photo.user_id
+Ref : Collection.user_id > User.id
+Ref : Collection.id < CollectionPhoto.collect_id
+Ref : Photo.id < CollectionPhoto.photo_id
+Ref : Collection.id < CollectionKeyword.collect_id
+Ref : Keyword.id < CollectionKeyword.keyword_id
+
