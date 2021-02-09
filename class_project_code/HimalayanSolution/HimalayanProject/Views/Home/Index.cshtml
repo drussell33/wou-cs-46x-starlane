@@ -1,0 +1,277 @@
+﻿@model IEnumerable<HimalayanProject.Models.Expedition>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col">
+        <div class="text-center">
+            <img src="~/images/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg" alt="Mount Everst as seen from Drukair2" width="1024" />
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg">
+
+        <form method="get" class="valid" asp-controller="Home" asp-action="Search">
+
+            <div class="row">
+
+                <div class="col">
+                    <br />
+                    <h3>Expedition Search</h3>
+                    <input class="form-control col-md-8" type="text" minlength="2" title="Use at least 2 characters" name="search_term" required pattern=".*\S+.*" />
+                    <br />
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-auto">
+
+                    <label>Search By:</label>
+                    <div class="form-inline align-top">
+                        <div class="list-group list-group-horizontal">
+                            <label class="list-group-item" aria-label="">
+                                <input class="form-check-input me-1" name="collection" type="radio" value="Peak" checked required>
+                                Peak
+                            </label>
+                            <label class="list-group-item" aria-label="">
+                                <input class="form-check-input me-1" name="collection" type="radio" value="Trekking Agency">
+                                Trekking Agency
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-auto">
+
+                    <br />
+
+                    <div class="form-inline align-top">
+
+                        <label for="outcome"></label>
+                        <select class="custom-select" name="outcome" id="outcome">
+                            <option selected>Outcome?:</option>
+                            <option value="Success">Success</option>
+                            <option value="failure">Failure</option>
+                        </select>
+
+                        <label for="season"></label>
+                        <select class="custom-select" name="season" id="season">
+                            <option selected>Season:</option>
+                            <option value="Spring">Spring</option>
+                            <option value="Summer">Summer</option>
+                            <option value="Autumn">Autumn</option>
+                            <option value="Winter">Winter</option>
+                        </select>
+
+                        <label for="year"></label>
+                        <select class="custom-select" name="year" id="year">
+                            <option selected>Year:</option>
+                            @foreach (Expedition e in Model)
+                            {
+                                <option value="@e.Year">@e.Year</option>
+                            }
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-auto">
+
+                    <br />
+                    <button type="submit" class="btn btn-dark"> Search </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <div class="col">
+
+        <table class=".table-sm table-borderless">
+            @{
+                int peak_init = 0;
+                int trek_init = 0;
+            }
+            @foreach (Expedition ex in Model)
+            {
+                if (ex.Peak != null)
+                {
+                    peak_init = 1;
+                    trek_init = 0;
+                }
+                else if (ex.TrekkingAgency != null)
+                {
+                    trek_init = 1;
+                    peak_init = 0;
+                }
+
+            }
+            @if (peak_init != 0)
+            {
+                <tr>
+                    <th>Peak</th>
+                    <th><span>  </span></th>
+                    <th>Outcome</th>
+                    <th><span>  </span></th>
+                    <th>Season</th>
+                    <th><span>  </span></th>
+                    <th>Year</th>
+                </tr>
+                @foreach (Expedition e in Model)
+                {
+                    <tr>
+                        <td>@e.Peak.Name</td>
+                        <td><span>  </span></td>
+                        <td>@e.TerminationReason</td>
+                        <td><span>  </span></td>
+                        <td>@e.Season</td>
+                        <td><span>  </span></td>
+                        <td>@e.Year</td>
+
+                    </tr>
+                }
+            }
+            @if (trek_init != 0)
+            {
+                <tr>
+                    <th>Trekking Agency</th>
+                    <th><span>  </span></th>
+                    <th>Outcome</th>
+                    <th><span>  </span></th>
+                    <th>Season</th>
+                    <th><span>  </span></th>
+                    <th>Year</th>
+                </tr>
+                @foreach (Expedition e in Model)
+                {
+                    <tr>
+                        <td>@e.TrekkingAgency.Name</td>
+                        <td><span>  </span></td>
+                        <td>@e.TerminationReason</td>
+                        <td><span>  </span></td>
+                        <td>@e.Season</td>
+                        <td><span>  </span></td>
+                        <td>@e.Year</td>
+
+                    </tr>
+                }
+            }
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<div class="statsTitleSection text-center">
+
+</div>
+
+<div class="container">
+    <div id="statsSection" class="card-columns statsHeader">
+
+    </div>
+</div>
+
+<div class="container">
+    <div id="latestSection" class="card-deck statsHeader">
+
+    </div>
+</div>
+
+<div class="container">
+    <div id="randomPeaks" class="card-columns statsHeader">
+
+    </div>
+</div>
+
+
+
+<div class="container">
+    <h2>Our Partners</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/aac_logo.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://americanalpineclub.org/">American Alpine Club</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/climbing_logo.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://climbingthesevensummits.com/">Climbing the 7 Summits</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/petzl_logo.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://www.petzl.com/fondation/fondation-petzl?language=en#.WqwSl2a-JoO">Petzl Foundation</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/seven_summits_logo.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://7summitsclub.com/">Seven Summits Club</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/summit_climb_logo.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://www.summitclimb.com/">SummitClimb</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <img src="images/valandre_logo.jpeg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title" href="https://www.valandre.com//">Valandre</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.container -->
+
+
+
+
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/site.js"></script>
+}

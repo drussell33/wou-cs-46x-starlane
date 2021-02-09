@@ -1,0 +1,81 @@
+﻿@model IEnumerable<HimalayanProject.Models.Expedition>
+
+@{
+    ViewData["Title"] = "Expeditions";
+}
+
+<h1>Expeditions</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="row">
+
+    <div class="col">
+        <div class="card shadow">
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">@Html.DisplayNameFor(model => model.Season)
+                            </th>
+                            <th scope="col"> @Html.DisplayNameFor(model => model.Year)
+                            </th>
+                            <th scope="col">Start</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.Peak)</th>
+                            <th scope="col">Oxygen</th>
+                            <th scope="col">Termination Reason</th>
+                            <th scope="col">Agency</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    @Html.DisplayFor(modelItem => item.Season)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Year)
+                                </td>
+                                @if (item.StartDate.HasValue)
+                                {
+                                    <td>@item.StartDate.Value.ToString("d")</td>
+                                }
+                                else
+                                {
+                                    <td>N/A</td>
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Peak.Name)
+                                </td>
+                                @if (item.OxygenUsed.HasValue)
+                                {
+                                    var isOxygen = item.OxygenUsed.Value ? "Yes" : "No";
+                                    <td>@isOxygen</td>
+                                }
+                                else
+                                {
+                                    <td>N/A</td>
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TerminationReason)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TrekkingAgency.Id)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a><br>
+                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a><br>
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
