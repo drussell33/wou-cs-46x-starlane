@@ -5,7 +5,7 @@ Main Project Code
 
 dotnet new globaljson --output TeamProject/iCollections
 
-dotnet mvc --auth Individual -uld -o TeamProject/iCollections
+dotnet new mvc --auth Individual -uld -o TeamProject/iCollections
 
 dotnet --list-sdks
 - need to have version 5?
@@ -23,10 +23,9 @@ dotnet list package
 
 dotnet tool install dotnet-aspnet-codegenerator -g
 - needs to be version 5.0.1
+dotnet tool update dotnet-aspnet-codegenerator -g
 
 dotnet add package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
-
 dotnet add package Microsoft.EntityFrameworkCore.Design
-
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 
