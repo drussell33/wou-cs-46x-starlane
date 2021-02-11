@@ -87,3 +87,78 @@ services.AddRazorPages().AddRazorRuntimeCompilation();
 ````
 
 # Fourth Video - Identity DB and migrations
+no code or commands
+
+# Fifth Video - Team project starting architecture
+
+insert screenshot
+
+# Sixth Video - Getting basic data logged in user 
+practicing getting the user authenticationed and stuff by adding the following code to the home controller and Index() method:
+
+````c#
+public IActionResult Index()
+{
+    bool isAdmin = User.IsInRole("Admin");
+    bool isAuthenticated = User.Identity.IsAuthenticated;
+    string name = User.Identity.Name;
+    string authType = User.Identity.AuthenticationType;
+    ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an Admin? {isAdmin}";
+    return View();
+}
+````
+and then making the privacy page one that only logged in users can view 
+````c#
+[Authorize]
+public IActionResult Privacy()
+{
+    return View();
+}
+````
+
+and then we put the usermanager in the home controler
+````c#
+public class HomeController : Controller
+{
+    private readonly ILogger<HomeController> _logger;
+    private readonly UserManager<IdentityUser> _userManager;
+
+    public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager)
+    {
+        _logger = logger;
+        _userManager = userManager;
+    }
+````
+
+with the user manager we then modified the index code to access the database directly. 
+````c#
+public async Task <IActionResult> Index()
+{
+    // Information straight from the Controller (does not need to do to the database)
+    bool isAdmin = User.IsInRole("Admin");
+    bool isAuthenticated = User.Identity.IsAuthenticated;
+    string name = User.Identity.Name;
+    string authType = User.Identity.AuthenticationType;
+    
+    // Information from Identity through the user manager
+    string id = _userManager.GetUserId(User);         // reportedly does not need to hit db
+    IdentityUser user = await _userManager.GetUserAsync(User);  // does go to the db
+    string email = user?.Email ?? "no email";
+    string phone = user?.PhoneNumber ?? "no phone number";
+    ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
+                        $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}";
+    return View();
+}
+````
+
+# Seventh Video - Identity: a tale of 2 databases 
+
+
+
+
+
+
+
+
+
+finished making the project up to video 7 and have documented the changes and commandline instructions in the Readme.md
