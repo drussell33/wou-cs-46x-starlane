@@ -92,7 +92,7 @@ As this is a educational project, we are the only contributing members at this t
     Any of us through Github.
 
 <!-- Guidelines -->
-# Guidelines
+# Guidelines and Coding Conventions 
 
 Please follow the guidelines listed below when contributing code to this project.  Please keep in mind that this project was started as a University class and some decisions have been made with students and teaching in mind.
 
@@ -100,8 +100,18 @@ Please follow the guidelines listed below when contributing code to this project
 ## Overall ##
 
 * Write code in C# unless JavaScript is needed for a library.
-* We follow all the conventions and naming practices commonly accepted for an ASP.Net Core MVC Wed App Project.
+* We follow all the conventions and naming practices commonly accepted for an ASP.Net Core MVC Web App Project set forth in CS 460.
 * We will use bootstrap for all view styling.
+* Have descriptive, but not super long, names for variables.
+* Please avoid having code that if edited in one spot, has to be edited in multiple other places
+* Maximum length of a function is 60 lines, but try for 30 lines whenever possible.
+
+## Database Specific ##
+* SQL fields are lower case
+* Primary SQL table keys are simply id
+* Foreign keys are name of the other table plus _ plus id (product_id)
+* SQL table names are lower case also.
+
 
 
 
