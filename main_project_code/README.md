@@ -93,7 +93,9 @@ no code or commands
 
 insert screenshot
 
-# Sixth Video - Getting basic data logged in user 
+# Sixth Video - How to make a class diagram in visual studio
+
+# Seventh Video - Getting basic data logged in user 
 practicing getting the user authenticationed and stuff by adding the following code to the home controller and Index() method:
 
 ````c#
@@ -151,7 +153,8 @@ public async Task <IActionResult> Index()
 }
 ````
 
-# Seventh Video - Identity: a tale of 2 databases 
+# Eigth Video - Identity: a tale of 2 databases 
+
 * updated our previous database design to have the user include the identity id for the user table 
 * then added a follower table like the exisiting friends with table, 
 * then created a new db call ICollectionsAuthentication locally,
@@ -163,7 +166,7 @@ public async Task <IActionResult> Index()
 
 
 
-# 8th Video  Identity: create our own user at registration
+# Ninth Video  Identity: create our own user at registration
 
 ````bash
 dotnet ef dbcontext scaffold Name=ICollectionsConnection Microsoft.EntityFrameworkCore.SqlServer --context ICollectionsDbContext --context-dir Data --output-dir Models --verbose --force
@@ -173,7 +176,10 @@ dotnet ef dbcontext scaffold Name=ICollectionsConnection Microsoft.EntityFramewo
 dotnet aspnet-codegenerator controller -name ICollectionsUsersController -m IcollectionUser -dc ICollectionsDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries --force
 ````
 
-# 9th Video 
+# Tenth Video - Identity: let them eat applies 
+no code for our project, but great reference for how to interact with the db.
+
+# Eleventh Video - Identity: simple changes to password policy
 just added the option from this video to require the emails to be uniche
 ````c#
 // Customize some settings that Identity uses
@@ -185,8 +191,8 @@ services.Configure<IdentityOptions>(opts =>
 
 
 
-# 10th Video - Identity: authorization policies and use
-used the everything is open, then we block parts off. 
+# 12th Video - Identity: authorization policies and use
+used the everything is open technique, then we block parts off. 
 ````c#
 [Authorize(Roles = "admin")]
 or
@@ -194,5 +200,13 @@ or
 or
 [Authorize]
 ````
+
+# 13th Video - Identity: How to set up the authentication db on Azure
+
+# 14th Video - Identity: how to seed users 
+
+# 15th Video - Identity: Create admin user and role.
+
+
 
 finished making the project up to video 10 where it is deployed on azure, havent deployed yet and have documented the changes and commandline instructions in the Readme.md

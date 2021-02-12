@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace iCollections.Controllers
 {
-    //[Authorize(Roles = "admin")]
-    [Authorize]
+    [Authorize(Roles = "admin")]
+    //[Authorize]
     public class ICollectionsUsersController : Controller
     {
         private readonly ICollectionsDbContext _context;
