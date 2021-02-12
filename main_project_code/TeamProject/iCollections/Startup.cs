@@ -29,11 +29,19 @@ namespace iCollections
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("AuthenticationConnection")));
+            services.AddDbContext<ICollectionsDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("ICollectionsConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            // Customize some settings that Identity uses
+            services.Configure<IdentityOptions>(opts =>
+            {
+                opts.User.RequireUniqueEmail = true;
+            });
             services.AddControllersWithViews();
             // Added to enable runtime compilation.
             services.AddRazorPages().AddRazorRuntimeCompilation();

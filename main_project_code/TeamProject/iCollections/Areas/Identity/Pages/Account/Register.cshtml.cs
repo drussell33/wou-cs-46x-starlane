@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using iCollections.Models;
+using iCollections.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -23,17 +25,20 @@ namespace iCollections.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ICollectionsDbContext _iCollectionsDbContext;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ICollectionsDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _iCollectionsDbContext = context;
         }
 
         [BindProperty]
@@ -60,6 +65,23 @@ namespace iCollections.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            
+            //Add fields to get further user info
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Required]
+            [Display(Name = "User Name")]
+            public string UserName { get; set; }
+
+            [Required]
+            [Display(Name = "About Me")]
+            public string AboutMe { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -78,7 +100,23 @@ namespace iCollections.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    // Check and see if the id was set in the IdentityUser object when it was successfully created
+                    _logger.LogInformation($"User created a new account with password, id is {user.Id}");
+                    
+                    // Create one of our users
+                    IcollectionUser fu = new IcollectionUser
+                    {
+                        AspnetIdentityId = user.Id,
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        UserName = Input.UserName,
+                        AboutMe = Input.AboutMe
+                    };
+                    _iCollectionsDbContext.Add(fu);
+                    await _iCollectionsDbContext.SaveChangesAsync();
+                    
+                    
+                    
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

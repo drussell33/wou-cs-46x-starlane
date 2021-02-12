@@ -152,13 +152,47 @@ public async Task <IActionResult> Index()
 ````
 
 # Seventh Video - Identity: a tale of 2 databases 
+* updated our previous database design to have the user include the identity id for the user table 
+* then added a follower table like the exisiting friends with table, 
+* then created a new db call ICollectionsAuthentication locally,
+* and added in the new connection string to the appsettings.
+* then reddi the database design again and finally got it working
+* Wrote the up, down, and seed script, but the only thing the seed did was populate the keyword table with data.
+* data migration worked, auth is now in the new db. 
 
 
 
 
+# 8th Video  Identity: create our own user at registration
+
+````bash
+dotnet ef dbcontext scaffold Name=ICollectionsConnection Microsoft.EntityFrameworkCore.SqlServer --context ICollectionsDbContext --context-dir Data --output-dir Models --verbose --force
+````
+
+````bash
+dotnet aspnet-codegenerator controller -name ICollectionsUsersController -m IcollectionUser -dc ICollectionsDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries --force
+````
+
+# 9th Video 
+just added the option from this video to require the emails to be uniche
+````c#
+// Customize some settings that Identity uses
+services.Configure<IdentityOptions>(opts =>
+{
+    opts.User.RequireUniqueEmail = true;
+});
+````
 
 
 
+# 10th Video - Identity: authorization policies and use
+used the everything is open, then we block parts off. 
+````c#
+[Authorize(Roles = "admin")]
+or
+[Authorize(Roles = "user")]
+or
+[Authorize]
+````
 
-
-finished making the project up to video 7 and have documented the changes and commandline instructions in the Readme.md
+finished making the project up to video 10 where it is deployed on azure, havent deployed yet and have documented the changes and commandline instructions in the Readme.md
