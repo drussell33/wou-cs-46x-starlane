@@ -22,14 +22,14 @@ namespace iCollections.Controllers
             _userManager = userManager;
         }
 
-        public async Task <IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             // Information straight from the Controller (does not need to do to the database)
             bool isAdmin = User.IsInRole("Admin");
             bool isAuthenticated = User.Identity.IsAuthenticated;
             string name = User.Identity.Name;
             string authType = User.Identity.AuthenticationType;
-            
+
             // Information from Identity through the user manager
             string id = _userManager.GetUserId(User);         // reportedly does not need to hit db
             IdentityUser user = await _userManager.GetUserAsync(User);  // does go to the db
@@ -50,6 +50,12 @@ namespace iCollections.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        // Users not logged in who try to upload photos will be redirected to the login page.
+        public IActionResult PhotoUpload()
+        {
+            return View();
         }
     }
 }
