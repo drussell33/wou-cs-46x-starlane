@@ -1,6 +1,6 @@
 # As a user, when I open the "see peaks" page, I want to see the last 40 peaks climbed so that I can see how good the data is rendered and not overwhelm other users with potentially thousands of peaks at once.
 
-## ID: __
+## ID: 10
 ## Effort Points: 2
 ## Owner: Baltazar Ortiz
 ## Feature branch name: peak_list
