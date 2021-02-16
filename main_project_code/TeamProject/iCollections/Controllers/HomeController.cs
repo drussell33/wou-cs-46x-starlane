@@ -53,6 +53,7 @@ namespace iCollections.Controllers
         }
 
         // Users not logged in who try to upload photos will be redirected to the login page.
+        [Authorize]
         public IActionResult PhotoUpload()
         {
             return View();
