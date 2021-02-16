@@ -3,9 +3,8 @@
 
 // Write your JavaScript code.
 
-/*  ==========================================
-    SHOW UPLOADED IMAGE
-* ========================================== */
+
+//    SHOW UPLOADED IMAGE
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -24,9 +23,9 @@ $(function () {
     });
 });
 
-/*  ==========================================
-    SHOW UPLOADED IMAGE NAME
-* ========================================== */
+
+//    SHOW UPLOADED IMAGE NAME
+
 var input = document.getElementById( 'upload' );
 var infoArea = document.getElementById( 'upload-label' );
 
