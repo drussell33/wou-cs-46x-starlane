@@ -83,6 +83,8 @@ body {
 
 .news {
   line-height: 60px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .ago {
@@ -94,4 +96,43 @@ body {
   width: 50px;
   background-color: black;
   display: inline-block;
+}
+
+.post-info {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 12px;
+}
+
+.activity {
+  line-height: 0.9;
+}
+
+.post {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.thumbnail {
+  font-size: 2.5em;
+}
+
+.date {
+  margin-top: 4px;
+}
+
+.feed {
+  background-color: #e5e5e5;
+}
+
+.feed-object {
+  background-color: #fff;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.last-object {
+  margin-bottom: 20px;
 }
