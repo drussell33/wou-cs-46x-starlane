@@ -8,47 +8,36 @@ using Microsoft.Extensions.Logging;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-
 namespace iCollections.Controllers
 {
-    public class HomeController : Controller
+    public class UserProfileController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager)
+        public UserProfileController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _userManager = userManager;
         }
 
-        public async Task <IActionResult> Index()
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-            bool isAuthenticated = User.Identity.IsAuthenticated;
-            if (isAuthenticated)
-            {
-                //return RedirectToAction("Index", "DashboardController");
-                return RedirectToAction("Index", "Dashboard");
-            }
-/*            // Information straight from the Controller (does not need to do to the database)
+            // Information straight from the Controller (does not need to do to the database)
             bool isAdmin = User.IsInRole("Admin");
             bool isAuthenticated = User.Identity.IsAuthenticated;
             string name = User.Identity.Name;
             string authType = User.Identity.AuthenticationType;
-            
+
             // Information from Identity through the user manager
             string id = _userManager.GetUserId(User);         // reportedly does not need to hit db
             IdentityUser user = await _userManager.GetUserAsync(User);  // does go to the db
             string email = user?.Email ?? "no email";
             string phone = user?.PhoneNumber ?? "no phone number";
             ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
-                              $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}";*/
-            return View();
-        }
+                              $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}";
 
-        [Authorize]
-        public IActionResult Privacy()
-        {
             return View();
         }
 
@@ -56,11 +45,6 @@ namespace iCollections.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public IActionResult Feed()
-        {
-            return View();
         }
     }
 }
