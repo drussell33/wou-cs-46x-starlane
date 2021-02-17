@@ -8,15 +8,14 @@ using Microsoft.Extensions.Logging;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-
 namespace iCollections.Controllers
 {
-    public class HomeController : Controller
+    public class DashboardController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager)
+        public DashboardController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _userManager = userManager;
@@ -24,13 +23,7 @@ namespace iCollections.Controllers
 
         public async Task<IActionResult> Index()
         {
-            bool isAuthenticated = User.Identity.IsAuthenticated;
-            if (isAuthenticated)
-            {
-                //return RedirectToAction("Index", "DashboardController");
-                return RedirectToAction("Index", "Dashboard");
-            }
-/*            // Information straight from the Controller (does not need to do to the database)
+            // Information straight from the Controller (does not need to do to the database)
             bool isAdmin = User.IsInRole("Admin");
             bool isAuthenticated = User.Identity.IsAuthenticated;
             string name = User.Identity.Name;
@@ -42,13 +35,7 @@ namespace iCollections.Controllers
             string email = user?.Email ?? "no email";
             string phone = user?.PhoneNumber ?? "no phone number";
             ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
-                              $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}";*/
-            return View();
-        }
-
-        [Authorize]
-        public IActionResult Privacy()
-        {
+                              $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}";
             return View();
         }
 
@@ -56,13 +43,6 @@ namespace iCollections.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        // Users not logged in who try to upload photos will be redirected to the login page.
-        [Authorize]
-        public IActionResult PhotoUpload()
-        {
-            return View();
         }
     }
 }
