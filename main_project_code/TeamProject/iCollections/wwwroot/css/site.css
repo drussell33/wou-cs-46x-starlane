@@ -138,27 +138,44 @@ body {
 }
 
 /*Home Page Styles */
+
 .clear-section {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 .silver-section {
-    background-color:#e5e5e5;
+  background-color: #e5e5e5;
 }
 
 .container-fluid {
-    padding: 7% 15%;
+  padding: 7% 15%;
 }
 
 .main-title {
-    font-size: 3.7rem;
-    line-height: 1.5;
-    text-align: left;
+  font-size: 3.7rem;
+  line-height: 1.5;
+  text-align: left;
 }
 
 .landing-image {
-    height: 45%;
-    /* padding-left: 110px; */
-    margin: 5px;
-    
+  height: 45%;
+  /* padding-left: 110px; */
+  margin: 5px;
+}
+
+.options {
+  padding: 20px;
+}
+
+.big-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.simple-option {
+  padding: 5px 0;
+}
+
+.dashboard-profile-header {
+  margin-bottom: 23px;
 }
