@@ -128,3 +128,29 @@ h1 {
   margin-left: auto;
   margin-right: 0;
 }
+/*Home Page Styles */
+
+.clear-section {
+    background-color: #fff;
+}
+
+.silver-section {
+    background-color:#e5e5e5;
+}
+
+.container-fluid {
+    padding: 7% 15%;
+}
+
+.main-title {
+    font-size: 3.7rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.landing-image {
+    height: 45%;
+    /* padding-left: 110px; */
+    margin: 5px;
+    
+}

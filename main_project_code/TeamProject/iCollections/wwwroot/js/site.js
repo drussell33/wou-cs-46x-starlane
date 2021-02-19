@@ -3,7 +3,8 @@
 
 //    SHOW UPLOADED IMAGE
 function readURL(input) {
-    if (input.files && input.files[0]) {
+    console.log(input);
+    if (input.files && input.files[0] && input['type'].split('/')[0] === 'image') {
         var reader = new FileReader();
 
         reader.onload = function (e) {
@@ -11,6 +12,9 @@ function readURL(input) {
                 .attr('src', e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
+    }
+    else {
+        alert("Please enter an image.")
     }
 }
 
