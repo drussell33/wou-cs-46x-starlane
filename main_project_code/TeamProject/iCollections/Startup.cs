@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using iCollections.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +18,7 @@ namespace iCollections
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,12 +29,17 @@ namespace iCollections
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var authBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("AuthenticationConnection"));
+            var appBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("ICollectionsConnection"));
+            authBuilder.Password = Configuration["ICollections:ServerPassword"];
+            appBuilder.Password = Configuration["ICollections:ServerPassword"];
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("AuthenticationConnection")));
+                options.UseSqlServer(authBuilder.ConnectionString));
+                        //Configuration.GetConnectionString("AuthenticationConnection")));
             services.AddDbContext<ICollectionsDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("ICollectionsConnection")));
+                options.UseSqlServer(appBuilder.ConnectionString));
+                        //Configuration.GetConnectionString("ICollectionsConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

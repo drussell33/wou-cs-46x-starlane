@@ -33,6 +33,7 @@
     <Compile Update="Views\UserPage\Followers - Copy.cshtml.cs">
       <DependentUpon>Followers.cshtml.cs</DependentUpon>
     </Compile>
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>
