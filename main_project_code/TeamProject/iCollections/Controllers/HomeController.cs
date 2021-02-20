@@ -83,7 +83,7 @@ namespace iCollections.Controllers
             return numericUserId;
         }
 
-        public IcollectionUser SelectFriend(IcollectionUser user1, IcollectionUser user2, int myId) {
+        static public IcollectionUser SelectFriend(IcollectionUser user1, IcollectionUser user2, int myId) {
             if (user1.Id == myId) return user2;
             return user1;
         }
@@ -111,7 +111,7 @@ namespace iCollections.Controllers
                 .Select(friendship => SelectFriend(friendship.User1, friendship.User2, userId))
                 .ToList();
 
-            // have three lists by now
+            // have three lists by now -exception below
 
             var myFriendsFriends = _collectionsDbContext.FriendsWiths
                 .Where(friendship => myFriends.Any(friend => KeyInFriendship(friendship.User1, friendship.User2, friend.Id) && !KeyInFriendship(friendship.User1, friendship.User2, userId)))
