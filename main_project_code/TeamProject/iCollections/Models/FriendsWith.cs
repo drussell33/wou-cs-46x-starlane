@@ -10,7 +10,7 @@ namespace iCollections.Models
         public int Id { get; set; }
         public int? User1Id { get; set; }
         public int? User2Id { get; set; }
-        public byte[] Began { get; set; }
+        public DateTime? Began { get; set; }
 
         public virtual IcollectionUser User1 { get; set; }
         public virtual IcollectionUser User2 { get; set; }

@@ -38,7 +38,7 @@ namespace iCollections.Utilities
                         // Ensure this user exists or is newly created (Email is used for username since that is the default in Register and Login -- change those and then use username here if you want it different than email
                         var identityID = await EnsureUser(userManager, testUserPw, u.Email, u.Email, u.EmailConfirmed);
                         // Create a new FujiUser if this one doesn't already exist
-                        IcollectionUser fu = new IcollectionUser { AspnetIdentityId = identityID, FirstName = u.FirstName, LastName = u.LastName, UserName = u.UserName};
+                        IcollectionUser fu = new IcollectionUser { AspnetIdentityId = identityID, FirstName = u.FirstName, LastName = u.LastName, UserName = u.UserName, AboutMe = "Something about me"};
                         if (!context.IcollectionUsers.Any(x => x.AspnetIdentityId == fu.AspnetIdentityId && x.FirstName == fu.FirstName && x.LastName == fu.LastName))
                         {
                             // Doesn't already exist, so add a new user
