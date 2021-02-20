@@ -63,10 +63,8 @@ namespace iCollections.Controllers
         }
 
         public int GetICollectionUserID(string id) {
-            // get user with id
             var user = collectionsDb.IcollectionUsers.First(i => i.AspnetIdentityId == id);
             int numericUserId = user.Id;
-            // get numerical id and return
             return numericUserId;
         }
 
@@ -92,8 +90,6 @@ namespace iCollections.Controllers
 
             // get all events and order each list by date using .OrderBy(c => c.Date)
 
-            // display who our friends became friends with
-
             //get list of my friends
             var myFriends = collectionsDb.FriendsWiths
                 .Where(friendship => friendship.User1.Id == userId || friendship.User2.Id == userId)
@@ -108,7 +104,6 @@ namespace iCollections.Controllers
             
             // get who we follow follows
 
-
             var whoIFollow = collectionsDb.Follows
                 .Where(f => f.FollowerNavigation.Id == userId)
                 .Select(f => f.FollowedNavigation)
@@ -118,16 +113,16 @@ namespace iCollections.Controllers
                 .Where(f => whoIFollow.Any(myFollowee => myFollowee.Id == f.FollowerNavigation.Id))
                 .ToList();
 
-            // put all lists inside a Model
-
+            var activityData = new ActivityEvents {
+                recentCollections = accountCollections,
+                recentFriendships = myFriendsFriends,
+                recentFollows = topFollow
+            };
             
-
-            // pass it to View
-
             // in View - loop through 3 lists at same time "popping" the most recent event from
             // its list and render its info
 
-            return View();
+            return View(activityData);
         }
     }
 }
