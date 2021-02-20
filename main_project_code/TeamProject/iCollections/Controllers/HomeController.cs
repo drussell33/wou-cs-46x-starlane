@@ -25,7 +25,7 @@ namespace iCollections.Controllers
             _collectionsDbContext = collectionsDbContext;
         }
 
-        public async Task <IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             bool isAuthenticated = User.Identity.IsAuthenticated;
             if (isAuthenticated)
@@ -75,6 +75,13 @@ namespace iCollections.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        // Users not logged in who try to upload photos will be redirected to the login page.
+        [Authorize]
+        public IActionResult PhotoUpload()
+        {
+            return View();
         }
     }
 }
