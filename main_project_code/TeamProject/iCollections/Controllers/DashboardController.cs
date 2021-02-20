@@ -38,14 +38,19 @@ namespace iCollections.Controllers
             string email = user?.Email ?? "no email";
             string phone = user?.PhoneNumber ?? "no phone number";
             IcollectionUser cu = null;
+            int numberOfFollowers = 0;
+            int numberOfFriends = 0;
+            string aboutMe = null;
             if (id != null)
             {
                 cu = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+
+                aboutMe = cu?.AboutMe ?? "no about me";
+                numberOfFollowers = _collectionsDbContext.Follows.Where(u => u.Followed == cu.Id).Count();
+                numberOfFriends = _collectionsDbContext.FriendsWiths.Where(u => u.User1Id == cu.Id).Count();
             }
 
-            string aboutMe = cu.AboutMe;
-            int numberOfFollowers = _collectionsDbContext.Follows.Where(u =>u.Followed == cu.Id).Count();
-            int numberOfFriends = _collectionsDbContext.FriendsWiths.Where(u => u.User1Id == cu.Id).Count();
+
             ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
                               $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}, and about me is {aboutMe}" +
                               $"Number of followers is {numberOfFollowers} Number of friends is {numberOfFriends}";

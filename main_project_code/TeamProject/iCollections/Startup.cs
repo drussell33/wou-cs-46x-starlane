@@ -36,10 +36,10 @@ namespace iCollections
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(authBuilder.ConnectionString));
-                    //Configuration.GetConnectionString("AuthenticationConnection")));
+                        //Configuration.GetConnectionString("AuthenticationConnection")));
             services.AddDbContext<ICollectionsDbContext>(options =>
                 options.UseSqlServer(appBuilder.ConnectionString));
-                    //Configuration.GetConnectionString("ICollectionsConnection")));
+                        //Configuration.GetConnectionString("ICollectionsConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
