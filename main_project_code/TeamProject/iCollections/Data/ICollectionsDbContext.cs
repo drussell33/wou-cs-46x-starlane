@@ -46,9 +46,7 @@ namespace iCollections.Data
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.DateMade)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
+                    .HasColumnType("datetime")
                     .HasColumnName("date_made");
 
                 entity.Property(e => e.Name)
@@ -75,9 +73,7 @@ namespace iCollections.Data
                 entity.Property(e => e.CollectId).HasColumnName("collect_id");
 
                 entity.Property(e => e.DateAdded)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
+                    .HasColumnType("datetime")
                     .HasColumnName("date_added");
 
                 entity.Property(e => e.KeywordId).HasColumnName("keyword_id");
@@ -102,9 +98,7 @@ namespace iCollections.Data
                 entity.Property(e => e.CollectId).HasColumnName("collect_id");
 
                 entity.Property(e => e.DateAdded)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
+                    .HasColumnType("datetime")
                     .HasColumnName("date_added");
 
                 entity.Property(e => e.PhotoId).HasColumnName("photo_id");
@@ -129,9 +123,7 @@ namespace iCollections.Data
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Began)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
+                    .HasColumnType("datetime")
                     .HasColumnName("began");
 
                 entity.Property(e => e.Followed).HasColumnName("followed");
@@ -156,9 +148,7 @@ namespace iCollections.Data
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Began)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
+                    .HasColumnType("datetime")
                     .HasColumnName("began");
 
                 entity.Property(e => e.User1Id).HasColumnName("user1_id");
@@ -191,9 +181,7 @@ namespace iCollections.Data
                     .HasColumnName("ASPNetIdentityID");
 
                 entity.Property(e => e.DateJoined)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
+                    .HasColumnType("datetime")
                     .HasColumnName("date_joined");
 
                 entity.Property(e => e.FirstName)
@@ -230,19 +218,14 @@ namespace iCollections.Data
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Data)
-                    .IsRequired()
-                    .HasColumnName("data");
+                entity.Property(e => e.Data).HasColumnName("data");
 
                 entity.Property(e => e.DateUploaded)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
+                    .HasColumnType("datetime")
                     .HasColumnName("date_uploaded");
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .HasColumnName("name");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");

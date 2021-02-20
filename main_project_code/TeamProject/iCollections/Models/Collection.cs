@@ -17,7 +17,7 @@ namespace iCollections.Models
         public string Name { get; set; }
         public int Visibility { get; set; }
         public int? UserId { get; set; }
-        public byte[] DateMade { get; set; }
+        public DateTime? DateMade { get; set; }
 
         public virtual IcollectionUser User { get; set; }
         public virtual ICollection<CollectionKeyword> CollectionKeywords { get; set; }

@@ -10,7 +10,7 @@ namespace iCollections.Models
         public int Id { get; set; }
         public int? Follower { get; set; }
         public int? Followed { get; set; }
-        public byte[] Began { get; set; }
+        public DateTime? Began { get; set; }
 
         public virtual IcollectionUser FollowedNavigation { get; set; }
         public virtual IcollectionUser FollowerNavigation { get; set; }

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using iCollections.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using iCollections.Data;
 
 namespace iCollections.Controllers
 {
@@ -16,14 +16,13 @@ namespace iCollections.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly ICollectionsDbContext _collectionsDbContext;
 
-        private ICollectionsDbContext collectionsDb;
-
-        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext db)
+        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
         {
             _logger = logger;
             _userManager = userManager;
-            collectionsDb = db;
+            _collectionsDbContext = collectionsDbContext;
         }
 
         public async Task<IActionResult> Index()
@@ -34,19 +33,35 @@ namespace iCollections.Controllers
                 //return RedirectToAction("Index", "DashboardController");
                 return RedirectToAction("Index", "Dashboard");
             }
-            /*            // Information straight from the Controller (does not need to do to the database)
-                        bool isAdmin = User.IsInRole("Admin");
-                        bool isAuthenticated = User.Identity.IsAuthenticated;
-                        string name = User.Identity.Name;
-                        string authType = User.Identity.AuthenticationType;
+            // Information straight from the Controller (does not need to do to the database)
 
-                        // Information from Identity through the user manager
-                        string id = _userManager.GetUserId(User);         // reportedly does not need to hit db
-                        IdentityUser user = await _userManager.GetUserAsync(User);  // does go to the db
-                        string email = user?.Email ?? "no email";
-                        string phone = user?.PhoneNumber ?? "no phone number";
-                        ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
-                                          $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}";*/
+            // Information straight from the Controller (does not need to do to the database)
+            bool isAdmin = User.IsInRole("Admin");
+            string name = User.Identity.Name;
+            string authType = User.Identity.AuthenticationType;
+
+            // Information from Identity through the user manager
+            string id = _userManager.GetUserId(User);         // reportedly does not need to hit db
+            IdentityUser user = await _userManager.GetUserAsync(User);  // does go to the db
+            string email = user?.Email ?? "no email";
+            string phone = user?.PhoneNumber ?? "no phone number";
+            IcollectionUser cu = null;
+            int numberOfFollowers = 0;
+            int numberOfFriends = 0;
+            string aboutMe = null;
+            if (id != null)
+            {
+                cu = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+
+                aboutMe = cu?.AboutMe ?? "no about me";
+                numberOfFollowers = _collectionsDbContext.Follows.Where(u => u.Followed == cu.Id).Count();
+                numberOfFriends = _collectionsDbContext.FriendsWiths.Where(u => u.User1Id == cu.Id).Count();
+            }
+
+
+            ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
+                              $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}, and about me is {aboutMe}" +
+                              $"Number of followers is {numberOfFollowers} Number of friends is {numberOfFriends}";
             return View();
         }
 
@@ -63,7 +78,7 @@ namespace iCollections.Controllers
         }
 
         public int GetICollectionUserID(string id) {
-            var user = collectionsDb.IcollectionUsers.First(i => i.AspnetIdentityId == id);
+            var user = _collectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == id);
             int numericUserId = user.Id;
             return numericUserId;
         }
@@ -83,7 +98,7 @@ namespace iCollections.Controllers
             // string nastyStringId = _userManager.GetUserId(User);
             // int userId = GetICollectionUserID(nastyStringId);
             int userId = 2;     // my hardcoded userId
-            var accountCollections = collectionsDb.Collections
+            var accountCollections = _collectionsDbContext.Collections
                     .Where(collection => collection.UserId == userId)
                     .OrderBy(collection => collection.DateMade)
                     .ToList();
@@ -91,25 +106,25 @@ namespace iCollections.Controllers
             // get all events and order each list by date using .OrderBy(c => c.Date)
 
             //get list of my friends
-            var myFriends = collectionsDb.FriendsWiths
+            var myFriends = _collectionsDbContext.FriendsWiths
                 .Where(friendship => friendship.User1.Id == userId || friendship.User2.Id == userId)
                 .Select(friendship => SelectFriend(friendship.User1, friendship.User2, userId))
                 .ToList();
 
             // have three lists by now
 
-            var myFriendsFriends = collectionsDb.FriendsWiths
+            var myFriendsFriends = _collectionsDbContext.FriendsWiths
                 .Where(friendship => myFriends.Any(friend => KeyInFriendship(friendship.User1, friendship.User2, friend.Id) && !KeyInFriendship(friendship.User1, friendship.User2, userId)))
                 .ToList();
             
             // get who we follow follows
 
-            var whoIFollow = collectionsDb.Follows
+            var whoIFollow = _collectionsDbContext.Follows
                 .Where(f => f.FollowerNavigation.Id == userId)
                 .Select(f => f.FollowedNavigation)
                 .ToList();
 
-            var topFollow = collectionsDb.Follows
+            var topFollow = _collectionsDbContext.Follows
                 .Where(f => whoIFollow.Any(myFollowee => myFollowee.Id == f.FollowerNavigation.Id))
                 .ToList();
 
@@ -123,6 +138,13 @@ namespace iCollections.Controllers
             // its list and render its info
 
             return View(activityData);
+        }
+
+        // Users not logged in who try to upload photos will be redirected to the login page.
+        [Authorize]
+        public IActionResult PhotoUpload()
+        {
+            return View();
         }
     }
 }
