@@ -70,28 +70,62 @@ namespace iCollections.Controllers
             return numericUserId;
         }
 
+        public IcollectionUser SelectFriend(IcollectionUser user1, IcollectionUser user2, int myId) {
+            if (user1.Id == myId) return user2;
+            return user1;
+        }
+
+        public bool KeyInFriendship(IcollectionUser user1, IcollectionUser user2, int key) {
+            return key == user1.Id || key == user2.Id;
+        }
+
         // Dashboard opens here - shows a feed of recent events
         public IActionResult Feed()
         {
-            // query db for events (who followed who, friends, collections)
             // string nastyStringId = _userManager.GetUserId(User);
             // int userId = GetICollectionUserID(nastyStringId);
-            int userId = 2;     // hardcoded userId
-            // need some way to access iCollection db like a db context of some kind
-            // access user with userid
-            // Console.WriteLine(collectionsDb.IcollectionUsers.First(i => i.Id == userId).FirstName);
-            
-            // get all my user's collections
+            int userId = 2;     // my hardcoded userId
             var accountCollections = collectionsDb.Collections
-                    .Where(collection => collection.UserId == userId);
-            // foreach (var item in accountCollections)
-            // {
-            //     Console.WriteLine(item.Name);
-            // }
+                    .Where(collection => collection.UserId == userId)
+                    .OrderBy(collection => collection.DateMade)
+                    .ToList();
 
-            // we need to sort list of events by date (most recent first)
-            // events defined above
-            // get the events
+            // get all events and order each list by date using .OrderBy(c => c.Date)
+
+            // display who our friends became friends with
+
+            //get list of my friends
+            var myFriends = collectionsDb.FriendsWiths
+                .Where(friendship => friendship.User1.Id == userId || friendship.User2.Id == userId)
+                .Select(friendship => SelectFriend(friendship.User1, friendship.User2, userId))
+                .ToList();
+
+            // have three lists by now
+
+            var myFriendsFriends = collectionsDb.FriendsWiths
+                .Where(friendship => myFriends.Any(friend => KeyInFriendship(friendship.User1, friendship.User2, friend.Id) && !KeyInFriendship(friendship.User1, friendship.User2, userId)))
+                .ToList();
+            
+            // get who we follow follows
+
+
+            var whoIFollow = collectionsDb.Follows
+                .Where(f => f.FollowerNavigation.Id == userId)
+                .Select(f => f.FollowedNavigation)
+                .ToList();
+
+            var topFollow = collectionsDb.Follows
+                .Where(f => whoIFollow.Any(myFollowee => myFollowee.Id == f.FollowerNavigation.Id))
+                .ToList();
+
+            // put all lists inside a Model
+
+            
+
+            // pass it to View
+
+            // in View - loop through 3 lists at same time "popping" the most recent event from
+            // its list and render its info
 
             return View();
         }
