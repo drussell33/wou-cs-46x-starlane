@@ -1,0 +1,44 @@
+﻿@model IcollectionUser
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <!--Column 1 - About, content, etc-->
+    <div class="col">
+        <!--About-->
+        <div class="row">
+            <div class="col">
+                <h2>@Model.UserName</h2>
+                <h2>@Model.FirstName, @Model.LastName</h2>
+                <div class="about-me">
+                    <p>Date Joined: @Model.DateJoined</p>
+                    <p>About me: @Model.AboutMe</p>
+                </div>
+            </div>
+        </div>
+
+        <!--Content-->
+        <div class="row">
+            <div class="col">
+                <h2>Recent Photos:</h2>
+                @foreach (var photo in Model.Photos.Take<Photo>(10))
+                {
+                    <div>
+                        <p>Name: @photo.Name</p>
+                        <p>Date Uploaded: @photo.DateUploaded</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!--Column 2 - Navigation-->
+    <div class="col col-7">
+        <h2>Navigation</h2>
+        <p><a asp-action="Followers">Followers</a></p>
+        <p><a asp-action="Following">Following</a></p>
+        <p><a asp-action="Collections">Collections</a></p>
+    </div>
+</div>

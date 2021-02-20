@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Collection>
+
+@{
+    ViewData["Title"] = "Collections";
+}
+
+<div class="row">
+    <div class="col">
+        <h1>Collections:</h1>
+        @foreach (var collection in Model)
+        {
+            <div>
+                <p>@collection.Name</p>
+                <p>@collection.DateMade</p>
+                <div>
+                    @foreach (var kw in collection.CollectionKeywords)
+                    {
+                        <p>@kw</p>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

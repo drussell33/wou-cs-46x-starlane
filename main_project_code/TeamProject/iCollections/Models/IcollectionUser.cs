@@ -22,7 +22,7 @@ namespace iCollections.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
-        public byte[] DateJoined { get; set; }
+        public DateTime DateJoined { get; set; }
         public string AboutMe { get; set; }
 
         public virtual ICollection<Collection> Collections { get; set; }
