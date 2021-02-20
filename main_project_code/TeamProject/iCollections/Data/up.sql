@@ -34,8 +34,8 @@ GO
 
 CREATE TABLE [Photo] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
-  [name] nvarchar NOT NULL,
-  [data] varbinary(MAX) NOT NULL,
+  [name] nvarchar(50),
+  [data] varbinary(MAX),
   [user_id] int,
   [date_uploaded] timestamp
 )
