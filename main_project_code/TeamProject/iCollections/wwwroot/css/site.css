@@ -160,3 +160,7 @@ h1 {
     font-size: large;
     background-color: #ffffff;
 }
+
+.carousel-control-prev {
+    color: #000000;
+}
