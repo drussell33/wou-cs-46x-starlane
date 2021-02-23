@@ -96,14 +96,39 @@ namespace iCollections.Controllers
             return key == user1.Id || key == user2.Id;
         }
 
-        public void RemoveDuplicates(List<FriendsWith> list)
+        public void RemoveDuplicates(List<FriendsWith> list, List<IcollectionUser> directFriends)
         {
             for (int i = list.Count() - 1; i >= 0; i--)
             {
-                var id = list[i].User1.Id;
-                var id2 = list[i].User2.Id;
-                list.RemoveAll(r => r.User1.Id == id2 && r.User2.Id == id);
+                var user1 = list[i].User1.Id;
+                var user2 = list[i].User2.Id;
+                // list.RemoveAll(r => r.User1.Id == id2 && r.User2.Id == id);
+                if (directFriends.Any(myBuddy => myBuddy.Id == user2)) list.RemoveAll(r => r.User1.Id == user1 && r.User2.Id == user2);
+                else list.RemoveAll(r => r.User1.Id == user2 && r.User2.Id == user1);
             }
+        }
+
+        public List<IcollectionUser> GetMyFriends(int myId)
+        {
+            var myFriendsQuery = _collectionsDbContext.FriendsWiths
+                .Include(f => f.User1)
+                .Include(f => f.User2)
+                .Where(friendship => friendship.User1.Id == myId || friendship.User2.Id == myId)
+                .Select(friendship => SelectFriend(friendship.User1, friendship.User2, myId))
+                .ToList();
+
+            var myFriends = myFriendsQuery.GroupBy(f => f.Id).Select(f => f.FirstOrDefault()).ToList();
+            return myFriends;
+        }
+
+        public List<IcollectionUser> GetMyFollowees(int myId)
+        {
+            var whoIFollow = _collectionsDbContext.Follows
+                .Where(f => f.FollowerNavigation.Id == myId)
+                .Select(f => f.FollowedNavigation)
+                .ToList();
+
+            return whoIFollow;
         }
 
         // Dashboard opens here - shows a feed of recent events
@@ -112,45 +137,38 @@ namespace iCollections.Controllers
             // string nastyStringId = _userManager.GetUserId(User);
             // int userId = GetICollectionUserID(nastyStringId);
             int userId = 2;     // my hardcoded userId
-            var accountCollections = _collectionsDbContext.Collections
-                    .Where(collection => collection.UserId == userId)
-                    .OrderBy(collection => collection.DateMade)
-                    .ToList();
 
             // get all events and order each list by date using .OrderBy(c => c.Date)
 
-            var myFriendsQuery = _collectionsDbContext.FriendsWiths
-                .Include(f => f.User1)
-                .Include(f => f.User2)
-                .Where(friendship => friendship.User1.Id == userId || friendship.User2.Id == userId)
-                .Select(friendship => SelectFriend(friendship.User1, friendship.User2, userId))
-                .ToList();
-
-            var myFriends = myFriendsQuery.GroupBy(f => f.Id).Select(f => f.FirstOrDefault());
+            var myFriends = GetMyFriends(userId);
 
             List<FriendsWith> myFriendsFriends = new List<FriendsWith>();
-
+            var theirCollections = new List<Collection>();
             foreach (var directFriend in myFriends)
             {
-                // make new query to check if friend is in db and append to ff
                 var directFriendsFriend = _collectionsDbContext.FriendsWiths
                     .Include(f => f.User1)
                     .Include(f => f.User2)
                     .Where(row => row.User1.Id == directFriend.Id || row.User2.Id == directFriend.Id)
                     .ToList();
 
+                var myBuddyCollections = _collectionsDbContext
+                        .Collections
+                        .Include(r => r.User)
+                        .Where(r => r.User.Id == directFriend.Id)
+                        .ToList();
+
+                theirCollections.AddRange(myBuddyCollections);
                 myFriendsFriends.AddRange(directFriendsFriend);
             }
 
-            RemoveDuplicates(myFriendsFriends);
             myFriendsFriends.RemoveAll(friendship => KeyInFriendship(friendship.User1, friendship.User2, userId));
+            RemoveDuplicates(myFriendsFriends, myFriends);
 
-            var whoIFollow = _collectionsDbContext.Follows
-                .Where(f => f.FollowerNavigation.Id == userId)
-                .Select(f => f.FollowedNavigation)
-                .ToList();
+            var whoIFollow = GetMyFollowees(userId);
 
             List<Follow> topFollow = new List<Follow>();
+            List<Collection> followeesCollections = new List<Collection>();
 
             foreach (var myFollowee in whoIFollow)
             {
@@ -160,12 +178,20 @@ namespace iCollections.Controllers
                     .Where(row => row.FollowerNavigation.Id == myFollowee.Id && row.FollowedNavigation.Id != userId)
                     .ToList();
 
+                var myFolloweeCollections = _collectionsDbContext.Collections
+                    .Include(r => r.User)
+                    .Where(c => c.User.Id == myFollowee.Id)
+                    .ToList();
+
                 topFollow.AddRange(followeeFollowees);
+                followeesCollections.AddRange(myFolloweeCollections);
             }
+
+            var actual = followeesCollections.Union(theirCollections).Distinct().ToList();
 
             var activityData = new ActivityEvents
             {
-                recentCollections = accountCollections,
+                recentCollections = actual,
                 recentFriendships = myFriendsFriends,
                 recentFollows = topFollow
             };
