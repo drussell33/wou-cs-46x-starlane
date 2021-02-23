@@ -1,4 +1,3 @@
-
 <br />
 <p align="center">
 <img src="img/starlane_logo.png" alt="Logo" >
@@ -122,7 +121,6 @@ Please follow the guidelines listed below when contributing code to this project
 * [Getting Started With WebGL](https://bridge.net/docs/getting-started-with-webgl/)
 * [how to use unity3d webgl content in a asp.net mvc view?](https://gamedev.stackexchange.com/questions/124124/how-to-use-unity3d-webgl-content-in-a-asp-net-mvc-view)
 * [Hosting Unity WebGL App in Azure ASP.NET Core](https://ritchielozada.com/2016/12/05/hosting-unity-webgl-app-in-azure-asp-net-core/amp/)
-
 
 
 

@@ -244,3 +244,69 @@ h1 {
 .carousel-control-prev {
     color: #000000;
 }
+
+/* UserPage Styles */
+
+.user-profile-obj {
+    background-color: whitesmoke;
+    border: 1px solid grey;
+    padding: 1em 1em 1em 1em;
+}
+
+.user-profile-img {
+    width: 150px;
+    height: 150px;
+    background-color: dimgrey;
+    border: 1px solid grey;
+    border-radius: 1em;
+}
+
+.about-me {
+    background-color: lightgray;
+    border: 1px solid grey;
+    border-radius: 1em;
+    padding: 1em 1em 1em 1em;
+}
+
+.user-profile-nav {
+    background-color: darkgrey;
+    padding: 0em 0em 0em 0em;
+    text-align: center;
+}
+
+.user-profile-nav a {
+    display: block;
+    padding: 0.1em 0.1em 0.1em 0.1em;
+    margin: 0.0em 0.0em 0.0em 0.0em;
+    color: black;
+}
+
+.user-profile-nav li:hover {
+    background-color: lightslategrey;
+    color: lightblue;
+}
+
+/* Follower Navigation Page */
+
+.user-follow-block {
+    background-color: lightgrey;
+    border: 1px solid grey;
+}
+
+.user-follows {
+    background-color: whitesmoke;
+    border: 1px solid lightgrey;
+}
+
+/* Collection Navigation Page */
+
+.collection-container {
+    background-color: whitesmoke;
+    border: 1px solid lightgrey
+}
+
+.keyword-container {
+    background-color: lightgrey;
+    border: 1px solid grey;
+    overflow:scroll;
+}
