@@ -187,7 +187,10 @@ namespace iCollections.Controllers
                 followeesCollections.AddRange(myFolloweeCollections);
             }
 
+            myFriendsFriends = myFriendsFriends.OrderByDescending(r => r.Began).ToList();
+            topFollow = topFollow.OrderByDescending(r => r.Began).ToList();
             var actual = followeesCollections.Union(theirCollections).Distinct().ToList();
+            actual = actual.OrderByDescending(r => r.DateMade).ToList();
 
             var activityData = new ActivityEvents
             {
