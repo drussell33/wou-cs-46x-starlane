@@ -40,8 +40,16 @@
     <!--Column 2 - Navigation-->
     <div class="col col-2 user-profile-nav">
         <h2>Navigation</h2>
-        <p><a asp-action="Followers">Followers</a></p>
-        <p><a asp-action="Following">Following</a></p>
-        <p><a asp-action="Collections">Collections</a></p>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a asp-action=Followers asp-route-name="@Model.UserName" class="nav-link text-dark">Followers</a>
+            </li>
+            <li class="nav-item">
+                <a asp-action="Following" asp-route-name="@Model.UserName" class="nav-link text-dark">Following</a>
+            </li>
+            <li class="nav-item">
+                <a asp-action="Collections" asp-route-name="@Model.UserName" class="nav-link text-dark">Collections</a>
+            </li>
+        </ul>
     </div>
 </div>
