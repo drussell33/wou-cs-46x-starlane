@@ -164,3 +164,33 @@ h1 {
 .carousel-control-prev {
     color: #000000;
 }
+
+/* UserPage Styles */
+
+.user-profile-obj {
+    background-color: whitesmoke;
+    border: 1px solid grey;
+    border-radius: 1em;
+}
+
+.user-profile-img {
+    width: 150px;
+    height: 150px;
+    background-color: dimgrey;
+    border: 1px solid grey;
+    border-radius: 1em;
+}
+
+.about-me {
+    background-color: lightgray;
+    border: 1px solid grey;
+    border-radius: 1em;
+}
+
+.user-profile-nav {
+    background-color: darkgrey;
+}
+
+.user-profile-nav a:hover {
+    background-color: lightslategrey;
+}

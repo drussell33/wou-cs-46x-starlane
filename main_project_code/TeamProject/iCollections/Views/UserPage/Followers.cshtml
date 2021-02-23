@@ -1,6 +1,21 @@
-﻿@model ICollection<IcollectionUser>
+﻿@model FollowList
 
 @{
     ViewData["Title"] = "Followers";
 }
 
+<div class="row">
+    <div class="col">
+        <h1>@Model.Target's Followers:</h1>
+        @if (Model.Follows.ToList().Count == 0)
+        {
+            <h2>Looks like @Model.Target isn't followed by anybody.</h2>
+        }
+        @foreach (var follower in Model.Follows)
+        {
+            <div>
+                <p>@follower.FollowerNavigation.UserName</p>
+            </div>
+        }
+    </div>
+</div>
