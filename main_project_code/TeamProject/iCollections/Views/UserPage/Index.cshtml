@@ -1,0 +1,55 @@
+﻿@model IcollectionUser
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <!--Column 1 - About, content, etc-->
+    <div class="col col-10">
+        <!--About-->
+        <div class="row">
+            <div class="col user-profile-obj">
+                <div class="user-profile-img"></div>
+                <h2>@Model.UserName</h2>
+                <h3>@Model.FirstName @Model.LastName</h3>
+                <div class="about-me">
+                    <p>Date Joined: @Model.DateJoined</p>
+                    <p>About me: @Model.AboutMe</p>
+                    <p>Followers: @Model.FollowFollowerNavigations.ToList().Count</p>
+                    <p>Following: @Model.FollowFollowedNavigations.ToList().Count</p>
+                </div>
+            </div>
+        </div>
+
+        <!--Content-->
+        <div class="row">
+            <div class="col user-profile-obj">
+                <h2>Recent Photos:</h2>
+                @foreach (var photo in Model.Photos.Take<Photo>(10))
+                {
+                    <div>
+                        <p>Name: @photo.Name</p>
+                        <p>Date Uploaded: @photo.DateUploaded</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!--Column 2 - Navigation-->
+    <div class="col col-2 user-profile-nav">
+        <h2>Navigation</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a asp-action=Followers asp-route-name="@Model.UserName" class="nav-link text-dark">Followers</a>
+            </li>
+            <li class="nav-item">
+                <a asp-action="Following" asp-route-name="@Model.UserName" class="nav-link text-dark">Following</a>
+            </li>
+            <li class="nav-item">
+                <a asp-action="Collections" asp-route-name="@Model.UserName" class="nav-link text-dark">Collections</a>
+            </li>
+        </ul>
+    </div>
+</div>

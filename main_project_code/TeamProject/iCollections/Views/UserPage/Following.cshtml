@@ -1,0 +1,21 @@
+﻿@model FollowList
+
+@{
+    ViewData["Title"] = "Following";
+}
+
+<div class="row">
+    <div class="col user-follow-block">
+        <h1>@Model.Target's Followers:</h1>
+        @if (Model.Follows.ToList().Count == 0)
+        {
+            <h2>Looks like @Model.Target isn't following anybody.</h2>
+        }
+        @foreach (var followed in Model.Follows)
+        {
+            <div class="user-follows">
+                <p>@followed.FollowedNavigation.UserName</p>
+            </div>
+        }
+    </div>
+</div>
