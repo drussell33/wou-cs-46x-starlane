@@ -170,7 +170,6 @@ h1 {
 .user-profile-obj {
     background-color: whitesmoke;
     border: 1px solid grey;
-    border-radius: 1em;
 }
 
 .user-profile-img {
@@ -193,4 +192,29 @@ h1 {
 
 .user-profile-nav a:hover {
     background-color: lightslategrey;
+}
+
+/* Follower Navigation Page */
+
+.user-follow-block {
+    background-color: lightgrey;
+    border: 1px solid grey;
+}
+
+.user-follows {
+    background-color: whitesmoke;
+    border: 1px solid lightgrey;
+}
+
+/* Collection Navigation Page */
+
+.collection-container {
+    background-color: whitesmoke;
+    border: 1px solid lightgrey
+}
+
+.keyword-container {
+    background-color: lightgrey;
+    border: 1px solid grey;
+    overflow:scroll;
 }

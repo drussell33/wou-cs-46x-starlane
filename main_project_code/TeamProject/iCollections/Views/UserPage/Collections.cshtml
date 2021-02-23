@@ -13,10 +13,10 @@
         }
         @foreach (var collection in Model)
         {
-            <div>
+            <div class="collection-container">
                 <p>@collection.Name</p>
                 <p>@collection.DateMade</p>
-                <div>
+                <div class="keyword-container">
                     @foreach (var kw in collection.CollectionKeywords)
                     {
                         <p>@kw</p>
