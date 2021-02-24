@@ -50,7 +50,6 @@ namespace iCollections.Controllers
             {
                 var user1 = list[i].User1.Id;
                 var user2 = list[i].User2.Id;
-                // list.RemoveAll(r => r.User1.Id == id2 && r.User2.Id == id);
                 if (directFriends.Any(myBuddy => myBuddy.Id == user2)) list.RemoveAll(r => r.User1.Id == user1 && r.User2.Id == user2);
                 else list.RemoveAll(r => r.User1.Id == user2 && r.User2.Id == user1);
             }
