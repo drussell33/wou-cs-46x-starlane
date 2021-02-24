@@ -19,7 +19,14 @@
     <div class="row py-4">
         <div class="col-lg-6 mx-auto">
 
-            <form asp-action="UploadImage" asp-controller="UploadPhoto" method="POST" enctype="multipart/form-data">
+            <form id="photoUpload" asp-action="UploadImage" asp-controller="UploadPhoto" method="POST"
+                enctype="multipart/form-data">
+                <div class="middle-input">
+                    <input id="customName" type="text" class="form-control" name="customName"
+                        placeholder="Optional name">
+                    <span id="customNameError"></span>
+                </div>
+
                 <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
                     <input id="upload" type="file" accept="image/*" class="form-control border-0" name="upload">
                     <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
@@ -29,6 +36,7 @@
                                 class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
                     </div>
                 </div>
+                <span id="uploadPhotoError"></span>
 
                 <p class="font-italic text-center">The uploaded photo will be shown below.</p>
                 <div class="image-area mt-4"><img id="imageResult" src="#" alt=""
