@@ -326,3 +326,7 @@ h1 {
 #uploadPhotoError {
   color: red;
 }
+
+.upload-ui {
+  padding: 92px;
+}

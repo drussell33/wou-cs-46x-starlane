@@ -82,6 +82,8 @@ namespace iCollections.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "About Me")]
             public string AboutMe { get; set; }
+
+            public Photo ProfilePicture { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
