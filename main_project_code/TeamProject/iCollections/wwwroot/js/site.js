@@ -14,7 +14,6 @@ function readURL(input) {
         showFileName();
         $("#customNameError").hide();
         $("#uploadPhotoError").hide();
-
     }
     else {
         alert("Please enter an image.")
@@ -44,6 +43,11 @@ $("#photoUpload").submit(function (event) {
         if (!optionalName.replace(/\s/g, '').length) {
             $("#customNameError").text("names must have letters and/or numbers.").show();
             event.preventDefault();
+        }
+        else {
+            var fileExt = $("#upload")[0].files[0].name.split(".").pop();
+            var fullName = optionalName + "." + fileExt;
+            $("#customName")[0].value = fullName;
         }
     }
 

@@ -41,7 +41,7 @@ namespace iCollections.Controllers
         }
 
         [HttpPost]
-        public IActionResult UploadImage()
+        public IActionResult UploadImage(string customName)
         {
             string nastyStringId = _userManager.GetUserId(User);
             int userId = GetICollectionUserID(nastyStringId);
@@ -51,7 +51,7 @@ namespace iCollections.Controllers
                 foreach (var file in Request.Form.Files)
                 {
                     Photo photo = new Photo();
-                    photo.Name = file.FileName;
+                    photo.Name = (String.IsNullOrEmpty(customName)) ? file.FileName : customName;
 
                     MemoryStream ms = new MemoryStream();
                     file.CopyTo(ms);
@@ -78,11 +78,10 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult Success()
         {
-            string nastyStringId = _userManager.GetUserId(User);
-            int userId = GetICollectionUserID(nastyStringId);
+            var extension = Path.GetExtension("20210209_215602.jpg").Replace(".", "");
             Photo img = _collectionsDbContext.Photos.Where(p => p.Name == "20210209_215602.jpg").First();
             string imageBase64Data = Convert.ToBase64String(img.Data);
-            string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+            string imageDataURL = string.Format("data:image/{0};base64,{1}", extension,imageBase64Data);
             ViewBag.ImageTitle = img.Name;
             ViewBag.ImageDataUrl = imageDataURL;
             return View("Success");
