@@ -78,8 +78,8 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult Success()
         {
-            var extension = Path.GetExtension("20210209_215602.jpg").Replace(".", "");
-            Photo img = _collectionsDbContext.Photos.Where(p => p.Name == "20210209_215602.jpg").First();
+            var extension = Path.GetExtension("monument.jpg").Replace(".", "");
+            Photo img = _collectionsDbContext.Photos.Where(p => p.Name == "monument.jpg").First();
             string imageBase64Data = Convert.ToBase64String(img.Data);
             string imageDataURL = string.Format("data:image/{0};base64,{1}", extension,imageBase64Data);
             ViewBag.ImageTitle = img.Name;
