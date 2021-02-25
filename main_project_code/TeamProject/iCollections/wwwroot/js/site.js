@@ -3,7 +3,6 @@
 
 //    SHOW UPLOADED IMAGE
 function readURL(input) {
-    console.log(input['type']);
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
@@ -13,6 +12,8 @@ function readURL(input) {
         };
         reader.readAsDataURL(input.files[0]);
         showFileName();
+        $("#customNameError").hide();
+        $("#uploadPhotoError").hide();
     }
     else {
         alert("Please enter an image.")
@@ -33,3 +34,27 @@ function showFileName() {
     var fileName = input.files[0].name;
     infoArea.textContent = 'File name: ' + fileName;
 }
+
+// check if the optional input is correct format 
+// and if photo is uploaded
+$("#photoUpload").submit(function (event) {
+    var optionalName = $("#customName").val();
+    if (optionalName !== "") {
+        if (!optionalName.replace(/\s/g, '').length) {
+            $("#customNameError").text("names must have letters and/or numbers.").show();
+            event.preventDefault();
+        }
+        else {
+            var fileExt = $("#upload")[0].files[0].name.split(".").pop();
+            var fullName = optionalName + "." + fileExt;
+            $("#customName")[0].value = fullName;
+        }
+    }
+
+    var fileUpload = $("#upload")[0];
+    if (fileUpload.files.length === 0) {
+        $("#uploadPhotoError").text("please upload an image.").show();
+        event.preventDefault();
+    }
+
+});

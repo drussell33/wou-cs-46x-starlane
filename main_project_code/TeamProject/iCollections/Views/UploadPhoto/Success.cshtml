@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Photo uploaded";
+}
+
+<header class="text-center">
+    <h1>@ViewData["Title"]</h1>
+</header>
+
+<h1>@ViewBag.ImageTitle</h1>
+<img src="@ViewBag.ImageDataUrl" width="302" height="403">
