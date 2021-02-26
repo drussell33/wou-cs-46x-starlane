@@ -77,6 +77,66 @@ body {
   /* Vertically center the text there */
 }
 
+.border-me {
+  border: 1px solid black;
+}
+
+.news {
+  line-height: 60px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.ago {
+  text-align: right;
+}
+
+.fake-image {
+  height: 50px;
+  width: 50px;
+  background-color: black;
+  display: inline-block;
+}
+
+.post-info {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 12px;
+}
+
+.activity {
+  line-height: 0.9;
+}
+
+.post {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.thumbnail {
+  font-size: 2.5em;
+}
+
+.date {
+  margin-top: 4px;
+}
+
+.feed {
+  background-color: #e5e5e5;
+}
+
+.feed-object {
+  background-color: #fff;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.last-object {
+  margin-bottom: 20px;
+}
+
 #upload {
   opacity: 0;
 }
@@ -131,24 +191,45 @@ h1 {
 /*Home Page Styles */
 
 .clear-section {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 .silver-section {
-    background-color:#e5e5e5;
+  background-color: #e5e5e5;
 }
 
 .container-fluid {
-    padding: 7% 15%;
+  padding: 7% 15%;
 }
 
 .main-title {
-    font-size: 3.7rem;
-    line-height: 1.5;
-    text-align: left;
+  font-size: 3.7rem;
+  line-height: 1.5;
+  text-align: left;
 }
 
 .landing-image {
+    max-width: 95%;
+    height: auto;
+    /* padding-left: 110px; */
+    margin: 5px;
+}
+
+.options {
+  padding: 20px;
+}
+
+.big-name {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.simple-option {
+  padding: 5px 0;
+}
+
+.dashboard-profile-header {
+  margin-bottom: 23px;
     max-width: 95%;
     height: auto;
     /* padding-left: 110px; */
@@ -163,4 +244,70 @@ h1 {
 
 .carousel-control-prev {
     color: #000000;
+}
+
+/* UserPage Styles */
+
+.user-profile-obj {
+    background-color: whitesmoke;
+    border: 1px solid grey;
+    padding: 1em 1em 1em 1em;
+}
+
+.user-profile-img {
+    width: 150px;
+    height: 150px;
+    background-color: dimgrey;
+    border: 1px solid grey;
+    border-radius: 1em;
+}
+
+.about-me {
+    background-color: lightgray;
+    border: 1px solid grey;
+    border-radius: 1em;
+    padding: 1em 1em 1em 1em;
+}
+
+.user-profile-nav {
+    background-color: darkgrey;
+    padding: 0em 0em 0em 0em;
+    text-align: center;
+}
+
+.user-profile-nav a {
+    display: block;
+    padding: 0.1em 0.1em 0.1em 0.1em;
+    margin: 0.0em 0.0em 0.0em 0.0em;
+    color: black;
+}
+
+.user-profile-nav li:hover {
+    background-color: lightslategrey;
+    color: lightblue;
+}
+
+/* Follower Navigation Page */
+
+.user-follow-block {
+    background-color: lightgrey;
+    border: 1px solid grey;
+}
+
+.user-follows {
+    background-color: whitesmoke;
+    border: 1px solid lightgrey;
+}
+
+/* Collection Navigation Page */
+
+.collection-container {
+    background-color: whitesmoke;
+    border: 1px solid lightgrey
+}
+
+.keyword-container {
+    background-color: lightgrey;
+    border: 1px solid grey;
+    overflow:scroll;
 }
