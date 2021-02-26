@@ -209,9 +209,10 @@ h1 {
 }
 
 .landing-image {
-  height: 45%;
-  /* padding-left: 110px; */
-  margin: 5px;
+    max-width: 95%;
+    height: auto;
+    /* padding-left: 110px; */
+    margin: 5px;
 }
 
 .options {
