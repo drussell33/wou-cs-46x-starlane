@@ -58,3 +58,10 @@ $("#photoUpload").submit(function (event) {
     }
 
 });
+
+// check if photo is more than 1 MB and error if so
+// $("#register").submit(function (event) {
+    
+
+//     event.preventDefault();
+// });

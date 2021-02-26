@@ -6,11 +6,10 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+<form id="register" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
+    <div class="row">
 
-<div class="row">
-
-    <div class="col-md-4">
+        <div class="col-md-4">
             <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -50,13 +49,13 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
-    </div>
-    <div class="col-md-8 upload-ui">
-        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                    <input id="upload" type="file" accept="image/*" class="form-control border-0" name="upload">
-                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                    <div class="input-group-append">
-                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
+        </div>
+        <div class="col-md-8 upload-ui">
+            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                <input id="upload" type="file" accept="image/*" class="form-control border-0" name="upload">
+                <label id="upload-label" for="upload" class="font-weight-light text-muted" name="upload">Choose file</label>
+                <div class="input-group-append">
+                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
                                 class="fa fa-cloud-upload mr-2 text-muted"></i><small
                                 class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
                     </div>
@@ -66,8 +65,9 @@
                 <p class="font-italic text-center">The uploaded photo will be shown below.</p>
                 <div class="image-area mt-4"><img id="imageResult" src="#" alt=""
                         class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+            </div>  
+        </div>
     </div>
-</div>
 </form>
 
 @section Scripts {

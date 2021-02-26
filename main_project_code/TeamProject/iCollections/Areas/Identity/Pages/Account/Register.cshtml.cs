@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using Microsoft.AspNetCore.Http;  
+
 
 namespace iCollections.Areas.Identity.Pages.Account
 {
@@ -65,7 +68,7 @@ namespace iCollections.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            
+
             //Add fields to get further user info
             [Required]
             [Display(Name = "First Name")]
@@ -82,8 +85,6 @@ namespace iCollections.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "About Me")]
             public string AboutMe { get; set; }
-
-            public Photo ProfilePicture { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -104,7 +105,7 @@ namespace iCollections.Areas.Identity.Pages.Account
                 {
                     // Check and see if the id was set in the IdentityUser object when it was successfully created
                     _logger.LogInformation($"User created a new account with password, id is {user.Id}");
-                    
+
                     // Create one of our users
                     IcollectionUser fu = new IcollectionUser
                     {
@@ -116,9 +117,40 @@ namespace iCollections.Areas.Identity.Pages.Account
                     };
                     _iCollectionsDbContext.Add(fu);
                     await _iCollectionsDbContext.SaveChangesAsync();
-                    
-                    
-                    
+
+                    var userr = _iCollectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == user.Id);
+                    int numericUserId = userr.Id;
+
+                    int profilePicId = 0;
+
+                    try
+                    {
+                        foreach (var file in Request.Form.Files)
+                        {
+                            Photo photo = new Photo();
+                            photo.Name = file.FileName;
+
+                            MemoryStream ms = new MemoryStream();
+                            file.CopyTo(ms);
+                            photo.Data = ms.ToArray();
+                            photo.DateUploaded = DateTime.Now;
+
+                            photo.UserId = userr.Id;
+
+                            ms.Close();
+                            ms.Dispose();
+
+                            _iCollectionsDbContext.Photos.Add(photo);
+                            _iCollectionsDbContext.SaveChanges();
+                            profilePicId = photo.Id;
+                            // add profilePicId to fu's profilepicid attribute
+                            // fu.ProfilePicture = profilePicId;
+                            //save changes
+                            //_iCollectionsDbContext.SaveChanges();
+                        }
+                    } catch (Exception) {
+
+                    }
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
