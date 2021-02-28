@@ -322,3 +322,7 @@ h1 {
     min-height: 1em;
     font-size: 0.9rem;
 }
+
+.search-bar {
+    position: relative;
+}
