@@ -26,6 +26,22 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">My Profile</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav justify-content-end">
+                        <li class="nav-item">
+                            <form method="get" asp-controller="Home" asp-action="SearchUser" class="form-inline">
+                                <label style="visibility:hidden">Search users</label>
+                                <input class="form-control" type="search" title="Search users" minlength="3" name="user" placeholder="Search users" />
+                                <button class="btn btn-dark" style="display:inline" type="submit">Search</button>
+                            </form>
+                        </li>
+                    </ul>
+                    <!--ToDo:
+                        1. Move Myprofile, Login, Logout, Register to dropdown
+                        2. Remove Home button (brand item already redirects to home) - replace with Dashboard when logged in
+                        3. Move Upload Photo to left
+                        4. Add secondary navbar for extras?
+                        5. Add autocomplete filter dropdown for search bar
+                        -->
                     <partial name="_LoginPartial" />
                 </div>
             </div>
