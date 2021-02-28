@@ -27,12 +27,12 @@ namespace iCollections.Controllers
 
         public async Task<IActionResult> Index()
         {
-            bool isAuthenticated = User.Identity.IsAuthenticated;
+            /*bool isAuthenticated = User.Identity.IsAuthenticated;
             if (isAuthenticated)
             {
                 //return RedirectToAction("Index", "DashboardController");
                 return RedirectToAction("Index", "Dashboard");
-            }
+            }*/
             // Information straight from the Controller (does not need to do to the database)
 
             // Information straight from the Controller (does not need to do to the database)
@@ -59,9 +59,10 @@ namespace iCollections.Controllers
             }
 
 
-            ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
+            /*ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
                               $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}, and about me is {aboutMe}" +
                               $"Number of followers is {numberOfFollowers} Number of friends is {numberOfFriends}";
+            */
             return View();
         }
 

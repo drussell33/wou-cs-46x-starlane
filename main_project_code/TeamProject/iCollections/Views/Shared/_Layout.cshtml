@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow navbar-primary" aria-label="Primary Nav">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">iCollections</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -19,13 +19,19 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        <!--Dashboard-->
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                        }
+                        <!--Upload-->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">My Profile</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PhotoUpload">Upload Photo</a>
                         </li>
                     </ul>
+                    <!--Search Bar-->
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item">
                             <form method="get" asp-controller="Home" asp-action="SearchUser" class="form-inline">
@@ -36,13 +42,35 @@
                         </li>
                     </ul>
                     <!--ToDo:
-                        1. Move Myprofile, Login, Logout, Register to dropdown
-                        2. Remove Home button (brand item already redirects to home) - replace with Dashboard when logged in
-                        3. Move Upload Photo to left
-                        4. Add secondary navbar for extras?
-                        5. Add autocomplete filter dropdown for search bar
+                        1. Move Myprofile, Login, Logout, Register to dropdown [X]
+                        2. Remove Home button (brand item already redirects to home) - replace with Dashboard when logged in [X]
+                        3. Change Home.Index method not to automatically redirect to Dashboard [X]
+                        4. Move Upload Photo to left [X]
+                        5. Add secondary navbar for extras [X]
+                        6. Add autocomplete filter dropdown for search bar
                         -->
                     <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 navbar-secondary" aria-label="Secondary Nav">
+            <div class="container justify-content-between">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex">
+                    <ul class="navbar-nav flex-grow-1 justify-content-between">
+                        <li class="nav-item">
+                            <a class="nav-link text-light">Generic Item 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light">Generic Item 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light">Generic Item 3</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
