@@ -23,7 +23,7 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Home</a>
                             </li>
                         }
                         <!--Upload-->
@@ -34,9 +34,9 @@
                     <!--Search Bar-->
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item">
-                            <div class="form-group searchbar">
+                            <div class="form-group search-bar">
                                 <form method="get" asp-controller="Home" asp-action="SearchUser" class="form-inline">
-                                    <input class="form-control" type="search" title="Search users" minlength="3" name="user" placeholder="Search users" aria-label="Search Users"/>
+                                    <input class="form-control" type="search" title="Search users" minlength="2" name="user" placeholder="Search users" aria-label="Search Users"/>
                                     <button class="btn btn-dark" style="display:inline" type="submit">Search</button>
                                 </form>
                             </div>
@@ -55,7 +55,7 @@
             </div>
         </nav>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 navbar-secondary" aria-label="Secondary Nav">
-            <div class="container justify-content-between">
+            <div class="container">
                 <div class="navbar-collapse collapse d-sm-inline-flex navbars">
                     <ul class="navbar-nav flex-grow-1 justify-content-between">
                         <li class="nav-item">

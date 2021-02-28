@@ -286,7 +286,7 @@ h1 {
 
 .user-profile-nav {
   background-color: darkgrey;
-  padding: 0em 0em 0em 0em;
+  padding: 0em 0em 0em 0em;keyword
   text-align: center;
 }
 
@@ -341,7 +341,5 @@ h1 {
 
 .search-bar {
   position: relative;
-  background-color: lightgrey;
-  border: 1px solid grey;
-  overflow: scroll;
+  margin-bottom: 0rem;
 }
