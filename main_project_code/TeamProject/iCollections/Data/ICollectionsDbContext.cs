@@ -106,12 +106,12 @@ namespace iCollections.Data
                 entity.Property(e => e.PhotoRank).HasColumnName("photo_rank");
 
                 entity.HasOne(d => d.Collect)
-                    .WithMany(p => p.CollectionPhotos)
+                    .WithMany(p => p.CollectionPhotoes)
                     .HasForeignKey(d => d.CollectId)
                     .HasConstraintName("CollectionPhoto_fk_Collection");
 
                 entity.HasOne(d => d.Photo)
-                    .WithMany(p => p.CollectionPhotos)
+                    .WithMany(p => p.CollectionPhotoes)
                     .HasForeignKey(d => d.PhotoId)
                     .HasConstraintName("CollectionPhoto_fk_Photo");
             });
@@ -156,12 +156,12 @@ namespace iCollections.Data
                 entity.Property(e => e.User2Id).HasColumnName("user2_id");
 
                 entity.HasOne(d => d.User1)
-                    .WithMany(p => p.FriendsWithUser1s)
+                    .WithMany(p => p.FriendsWithUser1)
                     .HasForeignKey(d => d.User1Id)
                     .HasConstraintName("FriendsWith_fk_ICollectionUser_One");
 
                 entity.HasOne(d => d.User2)
-                    .WithMany(p => p.FriendsWithUser2s)
+                    .WithMany(p => p.FriendsWithUser2)
                     .HasForeignKey(d => d.User2Id)
                     .HasConstraintName("FriendsWith_fk_ICollectionUser_Two");
             });
@@ -193,6 +193,8 @@ namespace iCollections.Data
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("last_name");
+
+                entity.Property(e => e.ProfilePicId).HasColumnName("profile_pic_id");
 
                 entity.Property(e => e.UserName)
                     .IsRequired()

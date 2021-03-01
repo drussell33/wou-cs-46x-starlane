@@ -10,7 +10,7 @@ namespace iCollections.Models
         public Collection()
         {
             CollectionKeywords = new HashSet<CollectionKeyword>();
-            CollectionPhotos = new HashSet<CollectionPhoto>();
+            CollectionPhotoes = new HashSet<CollectionPhoto>();
         }
 
         public int Id { get; set; }
@@ -21,6 +21,6 @@ namespace iCollections.Models
 
         public virtual IcollectionUser User { get; set; }
         public virtual ICollection<CollectionKeyword> CollectionKeywords { get; set; }
-        public virtual ICollection<CollectionPhoto> CollectionPhotos { get; set; }
+        public virtual ICollection<CollectionPhoto> CollectionPhotoes { get; set; }
     }
 }
