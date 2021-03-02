@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.IO;
-using Microsoft.AspNetCore.Http;  
+using Microsoft.AspNetCore.Http;
 
 
 namespace iCollections.Areas.Identity.Pages.Account
@@ -127,28 +127,31 @@ namespace iCollections.Areas.Identity.Pages.Account
                     {
                         foreach (var file in Request.Form.Files)
                         {
-                            Photo photo = new Photo();
-                            photo.Name = file.FileName;
+                            if (file.Length < 1048576)
+                            {
+                                Photo photo = new Photo();
+                                photo.Name = file.FileName;
 
-                            MemoryStream ms = new MemoryStream();
-                            file.CopyTo(ms);
-                            photo.Data = ms.ToArray();
-                            photo.DateUploaded = DateTime.Now;
+                                MemoryStream ms = new MemoryStream();
+                                file.CopyTo(ms);
+                                photo.Data = ms.ToArray();
+                                photo.DateUploaded = DateTime.Now;
 
-                            photo.UserId = userr.Id;
+                                photo.UserId = userr.Id;
 
-                            ms.Close();
-                            ms.Dispose();
+                                ms.Close();
+                                ms.Dispose();
 
-                            _iCollectionsDbContext.Photos.Add(photo);
-                            _iCollectionsDbContext.SaveChanges();
-                            profilePicId = photo.Id;
-                            // add profilePicId to fu's profilepicid attribute
-                            // fu.ProfilePicture = profilePicId;
-                            //save changes
-                            //_iCollectionsDbContext.SaveChanges();
+                                _iCollectionsDbContext.Photos.Add(photo);
+                                _iCollectionsDbContext.SaveChanges();
+                                profilePicId = photo.Id;
+                                fu.ProfilePicId = profilePicId;
+                                _iCollectionsDbContext.SaveChanges();
+                            }
                         }
-                    } catch (Exception) {
+                    }
+                    catch (Exception)
+                    {
 
                     }
 
