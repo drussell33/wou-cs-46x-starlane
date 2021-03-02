@@ -9,6 +9,8 @@ using iCollections.Data;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.IO;
+
 
 namespace iCollections.Controllers
 {
@@ -30,11 +32,32 @@ namespace iCollections.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var user = _db.IcollectionUsers.Include("FollowFollowerNavigations").Include("FollowFollowedNavigations").FirstOrDefault(m => m.UserName == name);
+            var user = _db.IcollectionUsers
+                .Include("FollowFollowerNavigations")
+                .Include("FollowFollowedNavigations")
+                .FirstOrDefault(m => m.UserName == name);
+
             if (user == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+
+            // remove extension
+            string nameOfPhoto = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId).Name;
+            var extension = Path.GetExtension(nameOfPhoto).Replace(".", "");
+
+            // get image
+            var profilePic = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId);
+
+            // convert bytes to string
+            string imageBase64Data = Convert.ToBase64String(profilePic.Data);
+
+            // add extra info to string
+            string imageDataURL = string.Format("data:image/{0};base64,{1}", extension,imageBase64Data);
+
+            // putting it all together
+            ViewBag.ImageDataUrl = imageDataURL;
+
             return View(user);
         }
 

@@ -75,11 +75,20 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult Success()
         {
+            // remove extension
             var extension = Path.GetExtension("monument.jpg").Replace(".", "");
+
+            // get image by name
             Photo img = _collectionsDbContext.Photos.Where(p => p.Name == "monument.jpg").First();
+
+            // convert bytes to string
             string imageBase64Data = Convert.ToBase64String(img.Data);
+
+            // add extra info to string
             string imageDataURL = string.Format("data:image/{0};base64,{1}", extension,imageBase64Data);
             ViewBag.ImageTitle = img.Name;
+
+            // putting it all together
             ViewBag.ImageDataUrl = imageDataURL;
             return View("Success");
         }
