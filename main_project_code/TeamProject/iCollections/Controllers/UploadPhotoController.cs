@@ -37,6 +37,11 @@ namespace iCollections.Controllers
             return numericUserId;
         }
 
+        private bool isProperImage(string type)
+        {
+            return type == "image/jpeg" || type == "image/png" || type == "image/gif";
+        }
+
         [HttpPost]
         public IActionResult UploadImage(string customName)
         {
@@ -47,22 +52,21 @@ namespace iCollections.Controllers
             {
                 foreach (var file in Request.Form.Files)
                 {
-                    Photo photo = new Photo();
-                    photo.Name = (String.IsNullOrEmpty(customName)) ? file.FileName : customName;
-
-                    MemoryStream ms = new MemoryStream();
-                    file.CopyTo(ms);
-                    photo.Data = ms.ToArray();
-                    photo.DateUploaded = DateTime.Now;
-
-                    photo.UserId = userId;
-
-                    ms.Close();
-                    ms.Dispose();
-
-                    _collectionsDbContext.Photos.Add(photo);
-                    _collectionsDbContext.SaveChanges();
+                    if (isProperImage(file.ContentType))
+                    {
+                        Photo photo = new Photo();
+                        photo.Name = (String.IsNullOrEmpty(customName)) ? file.FileName : customName;
+                        MemoryStream ms = new MemoryStream();
+                        file.CopyTo(ms);
+                        photo.Data = ms.ToArray();
+                        photo.DateUploaded = DateTime.Now;
+                        photo.UserId = userId;
+                        ms.Close();
+                        ms.Dispose();
+                        _collectionsDbContext.Photos.Add(photo);
+                    }
                 }
+                _collectionsDbContext.SaveChanges();
 
                 return RedirectToAction("Success");
             }
@@ -85,7 +89,7 @@ namespace iCollections.Controllers
             string imageBase64Data = Convert.ToBase64String(img.Data);
 
             // add extra info to string
-            string imageDataURL = string.Format("data:image/{0};base64,{1}", extension,imageBase64Data);
+            string imageDataURL = string.Format("data:image/{0};base64,{1}", extension, imageBase64Data);
             ViewBag.ImageTitle = img.Name;
 
             // putting it all together
