@@ -93,6 +93,11 @@ namespace iCollections.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
+        private bool isProperImage(string type)
+        {
+            return type == "image/jpeg" || type == "image/png" || type == "image/gif";
+        }
+
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -127,7 +132,7 @@ namespace iCollections.Areas.Identity.Pages.Account
                     {
                         foreach (var file in Request.Form.Files)
                         {
-                            if (file.Length < 1048576)
+                            if (file.Length <= 1048576 && isProperImage(file.ContentType))
                             {
                                 Photo photo = new Photo();
                                 photo.Name = file.FileName;
