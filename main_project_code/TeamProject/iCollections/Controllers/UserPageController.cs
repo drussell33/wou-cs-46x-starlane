@@ -42,21 +42,8 @@ namespace iCollections.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            // remove extension
-            string nameOfPhoto = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId).Name;
-            var extension = Path.GetExtension(nameOfPhoto).Replace(".", "");
-
-            // get image
-            var profilePic = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId);
-
-            // convert bytes to string
-            string imageBase64Data = Convert.ToBase64String(profilePic.Data);
-
-            // add extra info to string
-            string imageDataURL = string.Format("data:image/{0};base64,{1}", extension,imageBase64Data);
-
-            // putting it all together
-            ViewBag.ImageDataUrl = imageDataURL;
+            Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId);
+            ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
 
             return View(user);
         }
