@@ -1,18 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using iCollections.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using iCollections.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace iCollections.Controllers
 {
+    // This class solely reads from the database
     public class DatabaseHelper
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -52,7 +48,7 @@ namespace iCollections.Controllers
             return whoIFollow;
         }
 
-        public int GetReadableUserID(string complexId)
+        public static int GetReadableUserID(string complexId, ICollectionsDbContext _collectionsDbContext)
         {
             var user = _collectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == complexId);
             return user.Id;
@@ -69,7 +65,7 @@ namespace iCollections.Controllers
             }
         }
 
-        public void ReadCollectionsAndDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections) {
+        public void ReadDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId) {
             foreach (var directFriend in myFriends)
             {
                 var directFriendsFriend = _collectionsDbContext.FriendsWiths
@@ -90,6 +86,31 @@ namespace iCollections.Controllers
 
             myFriendsFriends.RemoveAll(friendship => isKeyInFriendship(friendship.User1, friendship.User2, userId));
             RemoveDuplicates(myFriendsFriends, myFriends);
+        }
+
+        public void ReadFollowees(List<IcollectionUser> followees, List<Follow> topFollow, List<Collection> followeesCollections, int userId) {
+            foreach (var myFollowee in followees)
+            {
+                var followeeFollowees = _collectionsDbContext.Follows
+                    .Include(f => f.FollowedNavigation)
+                    .Include(f => f.FollowerNavigation)
+                    .Where(row => row.FollowerNavigation.Id == myFollowee.Id && row.FollowedNavigation.Id != userId)
+                    .ToList();
+
+                var myFolloweeCollections = _collectionsDbContext.Collections
+                    .Include(r => r.User)
+                    .Where(c => c.User.Id == myFollowee.Id)
+                    .ToList();
+
+                topFollow.AddRange(followeeFollowees);
+                followeesCollections.AddRange(myFolloweeCollections);
+            }
+        }
+
+        public void OrderLists(List<FriendsWith> myFriendsFriends, List<Follow> topFollow, List<Collection> extractedCollections) {
+            myFriendsFriends = myFriendsFriends.OrderByDescending(r => r.Began).ToList();
+            topFollow = topFollow.OrderByDescending(r => r.Began).ToList();
+            extractedCollections = extractedCollections.OrderByDescending(r => r.DateMade).ToList();
         }
 
     }

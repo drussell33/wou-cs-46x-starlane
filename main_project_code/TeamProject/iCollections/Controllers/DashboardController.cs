@@ -13,21 +13,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace iCollections.Controllers
 {
-    /*
-        Dashboard Controller (DC):
-            what it does:
-            Gets ICollection User Id
-            Select friend: determines which user out of the two passed in has the key, pass other
-            isKeyinFriendship: like select friend but checks if in users
-            Removes duplicate friendships in friends query
-            Get a user's direct friends
-            Get the people a user follows
-            Show a feed of recent events
-
-            in a nutshell:
-            Querys database
-            Passes relevant activity feed info to view
-    */
     public class DashboardController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -48,44 +33,29 @@ namespace iCollections.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            // Determine user
             string nastyStringId = _userManager.GetUserId(User);
-            int userId = dbHelper.GetReadableUserID(nastyStringId);
+            int userId = DatabaseHelper.GetReadableUserID(nastyStringId, _collectionsDbContext);
 
+            // start querying distants and my friends' collections
             var myFriends = dbHelper.GetMyFriends(userId);
             List<FriendsWith> myFriendsFriends = new List<FriendsWith>();
             var theirCollections = new List<Collection>();
-            dbHelper.ReadCollectionsAndDistantFriends(myFriends, myFriendsFriends, theirCollections);
+            dbHelper.ReadDistantFriends(myFriends, myFriendsFriends, theirCollections, userId);
 
+            // start querying distant followees and my followees' collections
             var whoIFollow = dbHelper.GetMyFollowees(userId);
             List<Follow> topFollow = new List<Follow>();
             List<Collection> followeesCollections = new List<Collection>();
+            dbHelper.ReadFollowees(whoIFollow, topFollow, followeesCollections, userId);
 
-            foreach (var myFollowee in whoIFollow)
-            {
-                var followeeFollowees = _collectionsDbContext.Follows
-                    .Include(f => f.FollowedNavigation)
-                    .Include(f => f.FollowerNavigation)
-                    .Where(row => row.FollowerNavigation.Id == myFollowee.Id && row.FollowedNavigation.Id != userId)
-                    .ToList();
-
-                var myFolloweeCollections = _collectionsDbContext.Collections
-                    .Include(r => r.User)
-                    .Where(c => c.User.Id == myFollowee.Id)
-                    .ToList();
-
-                topFollow.AddRange(followeeFollowees);
-                followeesCollections.AddRange(myFolloweeCollections);
-            }
-
-            myFriendsFriends = myFriendsFriends.OrderByDescending(r => r.Began).ToList();
-            topFollow = topFollow.OrderByDescending(r => r.Began).ToList();
-            var actual = followeesCollections.Union(theirCollections).Distinct().ToList();
-            actual = actual.OrderByDescending(r => r.DateMade).ToList();
-
+            // Gather remaining lists and order them chronologically
+            var extractedCollections = followeesCollections.Union(theirCollections).Distinct().ToList();
+            dbHelper.OrderLists(myFriendsFriends, topFollow, extractedCollections);
             var activityData = new ActivityEvents
             {
                 Me = _userManager.GetUserName(User),
-                recentCollections = actual,
+                recentCollections = extractedCollections,
                 recentFriendships = myFriendsFriends,
                 recentFollows = topFollow
             };

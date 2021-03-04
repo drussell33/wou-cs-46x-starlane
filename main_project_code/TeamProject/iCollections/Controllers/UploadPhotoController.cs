@@ -37,37 +37,16 @@ namespace iCollections.Controllers
             return numericUserId;
         }
 
-        private bool isProperImage(string type)
-        {
-            return type == "image/jpeg" || type == "image/png" || type == "image/gif";
-        }
-
         [HttpPost]
         public IActionResult UploadImage(string customName)
         {
             string nastyStringId = _userManager.GetUserId(User);
-            int userId = GetICollectionUserID(nastyStringId);
+            int userId = DatabaseHelper.GetReadableUserID(nastyStringId, _collectionsDbContext);
 
             try
             {
-                foreach (var file in Request.Form.Files)
-                {
-                    if (isProperImage(file.ContentType))
-                    {
-                        Photo photo = new Photo();
-                        photo.Name = (String.IsNullOrEmpty(customName)) ? file.FileName : customName;
-                        MemoryStream ms = new MemoryStream();
-                        file.CopyTo(ms);
-                        photo.Data = ms.ToArray();
-                        photo.DateUploaded = DateTime.Now;
-                        photo.UserId = userId;
-                        ms.Close();
-                        ms.Dispose();
-                        _collectionsDbContext.Photos.Add(photo);
-                    }
-                }
-                _collectionsDbContext.SaveChanges();
-
+                var photoUploader = new PhotoUploader(_collectionsDbContext, userId);
+                photoUploader.UploadImage(customName, Request.Form.Files[0]);
                 return RedirectToAction("Success");
             }
             catch (Exception)
