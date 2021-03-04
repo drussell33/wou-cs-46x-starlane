@@ -13,69 +13,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace iCollections.Controllers
 {
+    /*
+        Dashboard Controller (DC):
+            what it does:
+            Gets ICollection User Id
+            Select friend: determines which user out of the two passed in has the key, pass other
+            isKeyinFriendship: like select friend but checks if in users
+            Removes duplicate friendships in friends query
+            Get a user's direct friends
+            Get the people a user follows
+            Show a feed of recent events
+
+            in a nutshell:
+            Querys database
+            Passes relevant activity feed info to view
+    */
     public class DashboardController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ICollectionsDbContext _collectionsDbContext;
 
+        private DatabaseHelper dbHelper;
+
         public DashboardController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
         {
             _logger = logger;
             _userManager = userManager;
             _collectionsDbContext = collectionsDbContext;
-        }
-
-        private int GetICollectionUserID(string id)
-        {
-            var user = _collectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == id);
-            int numericUserId = user.Id;
-            return numericUserId;
-        }
-
-        static private IcollectionUser SelectFriend(IcollectionUser user1, IcollectionUser user2, int myId)
-        {
-            if (user1.Id == myId) return user2;
-            return user1;
-        }
-
-        private bool KeyInFriendship(IcollectionUser user1, IcollectionUser user2, int key)
-        {
-            return key == user1.Id || key == user2.Id;
-        }
-
-        private void RemoveDuplicates(List<FriendsWith> list, List<IcollectionUser> directFriends)
-        {
-            for (int i = list.Count() - 1; i >= 0; i--)
-            {
-                var user1 = list[i].User1.Id;
-                var user2 = list[i].User2.Id;
-                if (directFriends.Any(myBuddy => myBuddy.Id == user2)) list.RemoveAll(r => r.User1.Id == user1 && r.User2.Id == user2);
-                else list.RemoveAll(r => r.User1.Id == user2 && r.User2.Id == user1);
-            }
-        }
-
-        private List<IcollectionUser> GetMyFriends(int myId)
-        {
-            var myFriendsQuery = _collectionsDbContext.FriendsWiths
-                .Include(f => f.User1)
-                .Include(f => f.User2)
-                .Where(friendship => friendship.User1.Id == myId || friendship.User2.Id == myId)
-                .Select(friendship => SelectFriend(friendship.User1, friendship.User2, myId))
-                .ToList();
-
-            var myFriends = myFriendsQuery.GroupBy(f => f.Id).Select(f => f.FirstOrDefault()).ToList();
-            return myFriends;
-        }
-
-        private List<IcollectionUser> GetMyFollowees(int myId)
-        {
-            var whoIFollow = _collectionsDbContext.Follows
-                .Where(f => f.FollowerNavigation.Id == myId)
-                .Select(f => f.FollowedNavigation)
-                .ToList();
-
-            return whoIFollow;
+            dbHelper = new DatabaseHelper(_userManager, _collectionsDbContext);
         }
 
         // Dashboard opens here - shows a feed of recent events
@@ -83,34 +49,14 @@ namespace iCollections.Controllers
         public IActionResult Index()
         {
             string nastyStringId = _userManager.GetUserId(User);
-            int userId = GetICollectionUserID(nastyStringId);
-            var myFriends = GetMyFriends(userId);
+            int userId = dbHelper.GetReadableUserID(nastyStringId);
 
+            var myFriends = dbHelper.GetMyFriends(userId);
             List<FriendsWith> myFriendsFriends = new List<FriendsWith>();
             var theirCollections = new List<Collection>();
-            foreach (var directFriend in myFriends)
-            {
-                var directFriendsFriend = _collectionsDbContext.FriendsWiths
-                    .Include(f => f.User1)
-                    .Include(f => f.User2)
-                    .Where(row => row.User1.Id == directFriend.Id || row.User2.Id == directFriend.Id)
-                    .ToList();
+            dbHelper.ReadCollectionsAndDistantFriends(myFriends, myFriendsFriends, theirCollections);
 
-                var myBuddyCollections = _collectionsDbContext
-                        .Collections
-                        .Include(r => r.User)
-                        .Where(r => r.User.Id == directFriend.Id)
-                        .ToList();
-
-                theirCollections.AddRange(myBuddyCollections);
-                myFriendsFriends.AddRange(directFriendsFriend);
-            }
-
-            myFriendsFriends.RemoveAll(friendship => KeyInFriendship(friendship.User1, friendship.User2, userId));
-            RemoveDuplicates(myFriendsFriends, myFriends);
-
-            var whoIFollow = GetMyFollowees(userId);
-
+            var whoIFollow = dbHelper.GetMyFollowees(userId);
             List<Follow> topFollow = new List<Follow>();
             List<Collection> followeesCollections = new List<Collection>();
 
