@@ -1,0 +1,43 @@
+﻿@model SearchList
+
+@{
+    ViewData["Title"] = "SearchUser";
+}
+
+<h1>Search User</h1>
+<div class="row">
+    <div class="col">
+        @foreach (var item in Model.results)
+        {
+        <div class="user-search-item">
+            <div class="user-profile-img-small">
+
+            </div>
+            <h3>
+                <a asp-controller="UserPage" asp-route-name="@item.UserName">@item.UserName</a>
+            </h3>
+            <span>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </span>
+            <span>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </span>
+            @if (Model.loggedInUser != null)
+            {
+                if (Model.loggedInUser.FollowFollowerNavigations.Where(x => x.Followed.Value == item.Id).ToList().Count > 0)
+                {
+                    <span>
+                        <a class="btn btn-warning">Unfollow</a>
+                    </span>
+                }
+                else
+                {
+                    <span>
+                        <a class="btn btn-primary">Follow</a>
+                    </span>
+                }
+            }
+        </div>
+        }
+    </div>
+</div>
