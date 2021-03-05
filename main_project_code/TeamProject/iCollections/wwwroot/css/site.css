@@ -210,9 +210,10 @@ h1 {
 }
 
 .landing-image {
-  height: 45%;
-  /* padding-left: 110px; */
-  margin: 5px;
+    max-width: 95%;
+    height: auto;
+    /* padding-left: 110px; */
+    margin: 5px;
 }
 
 .options {
@@ -272,9 +273,8 @@ h1 {
 .user-profile-img {
   width: 150px;
   height: 150px;
-  background-color: dimgrey;
-  border: 1px solid grey;
   border-radius: 1em;
+  display: block;
 }
 
 .about-me {
@@ -286,7 +286,7 @@ h1 {
 
 .user-profile-nav {
   background-color: darkgrey;
-  padding: 0em 0em 0em 0em;keyword
+  padding: 0em 0em 0em 0em;
   text-align: center;
 }
 
@@ -337,6 +337,14 @@ h1 {
     margin-top: 0px;
     min-height: 1em;
     font-size: 0.9rem;
+}
+
+#uploadPhotoError {
+  color: red;
+}
+
+.upload-ui {
+  padding: 92px;
 }
 
 .search-bar {

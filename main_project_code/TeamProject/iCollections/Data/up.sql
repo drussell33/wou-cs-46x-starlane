@@ -5,7 +5,8 @@
   [last_name] nvarchar(50) NOT NULL,
   [user_name] nvarchar(50) NOT NULL,
   [date_joined] DateTime,
-  [about_me] nvarchar(250)
+  [about_me] nvarchar(250),
+  [profile_pic_id] int
 )
 GO
 
