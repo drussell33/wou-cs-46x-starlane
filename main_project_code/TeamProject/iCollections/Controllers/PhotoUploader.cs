@@ -57,8 +57,8 @@ namespace iCollections.Controllers
                 _collectionsDbContext.SaveChanges();
                 return photo.Id;
             }
-            if (file.Length > 1048576) { throw new BadImageFormatException("Image is too large to upload"); }
-            if (!isProperImage(file.ContentType)) { throw new BadImageFormatException("File uploaded is wrong format"); }
+            if (file.Length > 1048576) { throw new BadImageFormatException("Error: Image is too large to upload"); }
+            if (!isProperImage(file.ContentType)) { throw new BadImageFormatException("Error: File uploaded is wrong format"); }
             throw new Exception();
         }
     }
