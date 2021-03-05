@@ -1,15 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using iCollections.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using System.IO;
 
 namespace iCollections.Controllers
 {
@@ -33,40 +29,16 @@ namespace iCollections.Controllers
             return View();
         }
 
-        private int GetICollectionUserID(string id)
-        {
-            var user = _collectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == id);
-            int numericUserId = user.Id;
-            return numericUserId;
-        }
-
         [HttpPost]
         public IActionResult UploadImage(string customName)
         {
             string nastyStringId = _userManager.GetUserId(User);
-            int userId = GetICollectionUserID(nastyStringId);
+            int userId = DatabaseHelper.GetReadableUserID(nastyStringId, _collectionsDbContext);
 
             try
             {
-                foreach (var file in Request.Form.Files)
-                {
-                    Photo photo = new Photo();
-                    photo.Name = (String.IsNullOrEmpty(customName)) ? file.FileName : customName;
-
-                    MemoryStream ms = new MemoryStream();
-                    file.CopyTo(ms);
-                    photo.Data = ms.ToArray();
-                    photo.DateUploaded = DateTime.Now;
-
-                    photo.UserId = userId;
-
-                    ms.Close();
-                    ms.Dispose();
-
-                    _collectionsDbContext.Photos.Add(photo);
-                    _collectionsDbContext.SaveChanges();
-                }
-
+                var photoUploader = new PhotoUploader(_collectionsDbContext, userId);
+                photoUploader.UploadImage(customName, Request.Form.Files[0]);
                 return RedirectToAction("Success");
             }
             catch (Exception)
@@ -78,13 +50,7 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult Success()
         {
-            var extension = Path.GetExtension("monument.jpg").Replace(".", "");
-            Photo img = _collectionsDbContext.Photos.Where(p => p.Name == "monument.jpg").First();
-            string imageBase64Data = Convert.ToBase64String(img.Data);
-            string imageDataURL = string.Format("data:image/{0};base64,{1}", extension,imageBase64Data);
-            ViewBag.ImageTitle = img.Name;
-            ViewBag.ImageDataUrl = imageDataURL;
-            return View("Success");
+            return View("Success", "Your photo was uploaded.");
         }
     }
 }

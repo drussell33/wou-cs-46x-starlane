@@ -32,5 +32,11 @@ namespace iCollections.Models
         public virtual ICollection<FriendsWith> FriendsWithUser1 { get; set; }
         public virtual ICollection<FriendsWith> FriendsWithUser2 { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }
+
+        public IcollectionUser SelectOtherUser(IcollectionUser user2, int myId)
+        {
+            if (this.Id == myId) return user2;
+            return this;
+        }
     }
 }
