@@ -29,13 +29,6 @@ namespace iCollections.Controllers
             return View();
         }
 
-        private int GetICollectionUserID(string id)
-        {
-            var user = _collectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == id);
-            int numericUserId = user.Id;
-            return numericUserId;
-        }
-
         [HttpPost]
         public IActionResult UploadImage(string customName)
         {

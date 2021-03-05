@@ -94,11 +94,6 @@ namespace iCollections.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        private bool isProperImage(string type)
-        {
-            return type == "image/jpeg" || type == "image/png" || type == "image/gif";
-        }
-
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
