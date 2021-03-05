@@ -26,7 +26,7 @@
             {
                 if (Model.loggedInUser.FollowFollowerNavigations.Where(x => x.Followed.Value == item.Id).ToList().Count > 0)
                 {
-                    <span>
+                    <span>             
                         <a class="btn btn-warning">Unfollow</a>
                     </span>
                 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using iCollections.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -29,7 +30,7 @@ namespace iCollections.Controllers
             IcollectionUser loggedInUser = null;
             if(User.Identity.IsAuthenticated)
             {
-                loggedInUser = _db.IcollectionUsers.FirstOrDefault(x => x.AspnetIdentityId == _userManager.GetUserId(User));
+                 loggedInUser = _db.IcollectionUsers.Include("FollowFollowedNavigations").FirstOrDefault(x => x.AspnetIdentityId == _userManager.GetUserId(User));
             }
             List<IcollectionUser> results = _db.IcollectionUsers.Where(x => x.UserName.Contains(user)).ToList();
             return View(new SearchList { loggedInUser = loggedInUser, results = results });
