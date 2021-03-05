@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using iCollections.Models;
 using iCollections.Data;
 using System.IO;
+using iCollections.Controllers;
 
 
 namespace iCollections.Areas.Identity.Pages.Account.Manage
@@ -71,11 +72,6 @@ namespace iCollections.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        private bool isProperImage(string type)
-        {
-            return type == "image/jpeg" || type == "image/png" || type == "image/gif";
-        }
-
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -104,43 +100,21 @@ namespace iCollections.Areas.Identity.Pages.Account.Manage
             var userr = _iCollectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == user.Id);
             int numericUserId = userr.Id;
 
-            int profilePicId = 0;
-
             try
             {
-                foreach (var file in Request.Form.Files)
-                {
-                    if (file.Length <= 1048576 && isProperImage(file.ContentType))
-                    {
-                        Photo photo = new Photo();
-                        photo.Name = file.FileName;
-
-                        MemoryStream ms = new MemoryStream();
-                        file.CopyTo(ms);
-                        photo.Data = ms.ToArray();
-                        photo.DateUploaded = DateTime.Now;
-
-                        photo.UserId = userr.Id;
-
-                        ms.Close();
-                        ms.Dispose();
-
-                        _iCollectionsDbContext.Photos.Add(photo);
-                        _iCollectionsDbContext.SaveChanges();
-                        profilePicId = photo.Id;
-                        userr.ProfilePicId = profilePicId;
-                        _iCollectionsDbContext.SaveChanges();
-                    }
-                    else
-                    {
-                        StatusMessage = "Error: Profile pictures cannot be larger than 1 MB.";
-                        return RedirectToPage();
-                    }
-                }
+                PhotoUploader photoUploader = new PhotoUploader(_iCollectionsDbContext, numericUserId);
+                int photoId = photoUploader.UploadProfilePicture(Request.Form.Files[0].Name, Request.Form.Files[0]);
+                userr.ProfilePicId = photoId;
+                _iCollectionsDbContext.SaveChanges();
+            }
+            catch (BadImageFormatException exception)
+            {
+                StatusMessage = exception.Message;
+                return RedirectToPage();
             }
             catch (Exception)
             {
-
+                return RedirectToPage();
             }
 
             await _signInManager.RefreshSignInAsync(user);

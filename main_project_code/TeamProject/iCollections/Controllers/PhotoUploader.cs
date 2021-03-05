@@ -39,5 +39,27 @@ namespace iCollections.Controllers
                 _collectionsDbContext.SaveChanges();
             }
         }
+
+        public int UploadProfilePicture(string customName, Microsoft.AspNetCore.Http.IFormFile file)
+        {
+            if (file.Length <= 1048576 && isProperImage(file.ContentType))
+            {
+                Photo photo = new Photo();
+                photo.Name = (String.IsNullOrEmpty(customName)) ? file.FileName : customName;
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                photo.Data = ms.ToArray();
+                photo.DateUploaded = DateTime.Now;
+                photo.UserId = _userId;
+                ms.Close();
+                ms.Dispose();
+                _collectionsDbContext.Photos.Add(photo);
+                _collectionsDbContext.SaveChanges();
+                return photo.Id;
+            }
+            if (file.Length > 1048576) { throw new BadImageFormatException("Image is too large to upload"); }
+            if (!isProperImage(file.ContentType)) { throw new BadImageFormatException("File uploaded is wrong format"); }
+            throw new Exception();
+        }
     }
 }

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using iCollections.Controllers;
 
 
 namespace iCollections.Areas.Identity.Pages.Account
@@ -126,38 +127,16 @@ namespace iCollections.Areas.Identity.Pages.Account
                     var userr = _iCollectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == user.Id);
                     int numericUserId = userr.Id;
 
-                    int profilePicId = 0;
-
                     try
                     {
-                        foreach (var file in Request.Form.Files)
-                        {
-                            if (file.Length <= 1048576 && isProperImage(file.ContentType))
-                            {
-                                Photo photo = new Photo();
-                                photo.Name = file.FileName;
-
-                                MemoryStream ms = new MemoryStream();
-                                file.CopyTo(ms);
-                                photo.Data = ms.ToArray();
-                                photo.DateUploaded = DateTime.Now;
-
-                                photo.UserId = userr.Id;
-
-                                ms.Close();
-                                ms.Dispose();
-
-                                _iCollectionsDbContext.Photos.Add(photo);
-                                _iCollectionsDbContext.SaveChanges();
-                                profilePicId = photo.Id;
-                                fu.ProfilePicId = profilePicId;
-                                _iCollectionsDbContext.SaveChanges();
-                            }
-                        }
+                        PhotoUploader photoUploader = new PhotoUploader(_iCollectionsDbContext, numericUserId);
+                        int photoId = photoUploader.UploadProfilePicture(Request.Form.Files[0].Name, Request.Form.Files[0]);
+                        fu.ProfilePicId = photoId;
+                        _iCollectionsDbContext.SaveChanges();
                     }
                     catch (Exception)
                     {
-
+                        // Perhaps an error message
                     }
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
