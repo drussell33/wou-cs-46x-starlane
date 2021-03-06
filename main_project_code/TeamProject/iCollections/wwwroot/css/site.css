@@ -285,9 +285,9 @@ h1 {
 }
 
 .user-profile-nav {
-  background-color: darkgrey;
-  padding: 0em 0em 0em 0em;
-  text-align: center;
+    background-color: lightgrey;
+    padding: 0em 0em 0em 0em;
+    text-align: center;
 }
 
 .user-profile-nav a {
