@@ -60,7 +60,7 @@ namespace iCollections.Controllers
                 return RedirectToAction("Index", "Home");
             }
             List<Follow> followers = _db.Follows.Include("FollowerNavigation").Where(m => m.FollowedNavigation.UserName == name).ToList();
-            var follows = new FollowList { Target = user.UserName, Follows = followers };
+            var follows = new FollowList { TargetUsername = user.UserName, TargetFirstname = user.FirstName, TargetLastname = user.LastName, Follows = followers };
             return View(follows);
         }
 
@@ -77,7 +77,7 @@ namespace iCollections.Controllers
                 return RedirectToAction("Index", "Home");
             }
             List<Follow> following = _db.Follows.Include("FollowedNavigation").Where(m => m.FollowerNavigation.UserName == name).ToList();
-            var follows = new FollowList { Target = user.UserName, Follows = following };
+            var follows = new FollowList { TargetUsername = user.UserName, TargetFirstname = user.FirstName, TargetLastname = user.LastName, Follows = following.OrderBy(f => f.FollowedNavigation.UserName)};
             return View(follows);
         }
 

@@ -1,6 +1,9 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
+import { Button } from "bootstrap";
+import { data } from "jquery";
+
 //    SHOW UPLOADED IMAGE
 function readURL(input) {
     if (input.files && input.files[0]) {
@@ -65,3 +68,24 @@ $("#photoUpload").submit(function (event) {
 
 //     event.preventDefault();
 // });
+
+
+
+
+
+
+$('#following-table > button').click(function () {
+    var followID = this.id.substting(1);         //remove leading 'f'
+    console.log('Button with id = ' + followID + '   clicked');
+
+    $.ajax({
+        url: 'userpage/{name}/following',
+        data: "{id:appleID}",
+        method: "GET",
+        success: ""
+    });
+});
+    
+    
+    
+   
