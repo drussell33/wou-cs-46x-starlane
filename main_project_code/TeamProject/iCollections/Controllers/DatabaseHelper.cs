@@ -54,6 +54,12 @@ namespace iCollections.Controllers
             return user.Id;
         }
 
+        public static string GetICollectionUserName(string complexId, ICollectionsDbContext _collectionsDbContext)
+        {
+            var user = _collectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == complexId);
+            return user.UserName;
+        }
+
         private void RemoveDuplicates(List<FriendsWith> list, List<IcollectionUser> directFriends)
         {
             for (int i = list.Count() - 1; i >= 0; i--)
