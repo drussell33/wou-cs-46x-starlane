@@ -81,6 +81,14 @@ namespace iCollections.Controllers
             return View(follows);
         }
 
+        [HttpPost]
+        public IActionResult Following(int id)
+        {
+            Console.WriteLine(id);
+            return View("UserPage/{name}/Following");
+        }
+
+
         [Route("userpage/{name}/collections")]
         public IActionResult Collections(string name)
         {
