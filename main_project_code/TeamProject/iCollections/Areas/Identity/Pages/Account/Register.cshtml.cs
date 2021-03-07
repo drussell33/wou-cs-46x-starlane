@@ -15,6 +15,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using iCollections.Controllers;
+
 
 namespace iCollections.Areas.Identity.Pages.Account
 {
@@ -65,7 +69,7 @@ namespace iCollections.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            
+
             //Add fields to get further user info
             [Required]
             [Display(Name = "First Name")]
@@ -102,7 +106,7 @@ namespace iCollections.Areas.Identity.Pages.Account
                 {
                     // Check and see if the id was set in the IdentityUser object when it was successfully created
                     _logger.LogInformation($"User created a new account with password, id is {user.Id}");
-                    
+
                     // Create one of our users
                     IcollectionUser fu = new IcollectionUser
                     {
@@ -114,9 +118,21 @@ namespace iCollections.Areas.Identity.Pages.Account
                     };
                     _iCollectionsDbContext.Add(fu);
                     await _iCollectionsDbContext.SaveChangesAsync();
-                    
-                    
-                    
+
+                    var userr = _iCollectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == user.Id);
+                    int numericUserId = userr.Id;
+
+                    try
+                    {
+                        PhotoUploader photoUploader = new PhotoUploader(_iCollectionsDbContext, numericUserId);
+                        int photoId = photoUploader.UploadProfilePicture(Request.Form.Files[0].Name, Request.Form.Files[0]);
+                        fu.ProfilePicId = photoId;
+                        _iCollectionsDbContext.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        // Perhaps an error message
+                    }
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

@@ -10,6 +10,7 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace iCollections.Controllers
 {
     public class UserPageController : Controller
@@ -30,11 +31,19 @@ namespace iCollections.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var user = _db.IcollectionUsers.Include("FollowFollowerNavigations").Include("FollowFollowedNavigations").FirstOrDefault(m => m.UserName == name);
+            var user = _db.IcollectionUsers
+                .Include("FollowFollowerNavigations")
+                .Include("FollowFollowedNavigations")
+                .FirstOrDefault(m => m.UserName == name);
+
             if (user == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+
+            Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId);
+            ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
+
             return View(user);
         }
 
