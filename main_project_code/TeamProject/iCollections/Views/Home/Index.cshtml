@@ -187,11 +187,11 @@
         <div>
             <div id="container"></div>
 
-            <script src="js/build/three.module.js"></script>
+@*            <script src="js/build/three.module.js"></script>
             <script src="js/ocean_environment/jsm/libs/stats.module.js"></script>
             <script src="js/ocean_environment/jsm/controls/OrbitControls.js"></script>
             <script src="js/ocean_environment/jsm/objects/Water.js"></script>
-            <script src="js/ocean_environment/jsm/objects/Sky.js"></script>
+            <script src="js/ocean_environment/jsm/objects/Sky.js"></script>*@
 
             <script type="module">
 
@@ -203,11 +203,11 @@
                 //var Water = require('./jsm/objects/Water.js');
                 //var Sky = require('./jsm/objects/Sky.js');
                 //---original------
-                import * as THREE from '../build/three.module.js';
-                import Stats from './jsm/libs/stats.module.js';
-                import { OrbitControls } from './jsm/controls/OrbitControls.js';
-                import { Water } from './jsm/objects/Water.js';
-                import { Sky } from './jsm/objects/Sky.js';
+                import * as THREE from './js/three.module.js';
+                import Stats from './js/stats.module.js';
+                import { OrbitControls } from './js/OrbitControls.js';
+                import { Water } from './js/Water.js';
+                import { Sky } from './js/Sky.js';
 
                 var container, stats;
                 var camera, scene, renderer;
@@ -257,7 +257,7 @@
                         {
                             textureWidth: 512,
                             textureHeight: 512,
-                            waterNormals: new THREE.TextureLoader().load('textures/waternormals.jpg',
+                            waterNormals: new THREE.TextureLoader().load('./images/waternormals.jpg',
                                 function (texture) {
 
                                     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
