@@ -187,22 +187,8 @@
         <div>
             <div id="ocean_container"></div>
 
-@*            <script src="js/build/three.module.js"></script>
-            <script src="js/ocean_environment/jsm/libs/stats.module.js"></script>
-            <script src="js/ocean_environment/jsm/controls/OrbitControls.js"></script>
-            <script src="js/ocean_environment/jsm/objects/Water.js"></script>
-            <script src="js/ocean_environment/jsm/objects/Sky.js"></script>*@
+            <script type="module">
 
-<script type="module">
-
-
-                //---second------
-                //var THREE = require('../build/three.module.js');
-                //var Stats = require('./jsm/libs/stats.module.js');
-                //var OrbitControls = require('./jsm/controls/OrbitControls.js');
-                //var Water = require('./jsm/objects/Water.js');
-                //var Sky = require('./jsm/objects/Sky.js');
-                //---original------
                 import * as THREE from './js/three.module.js';
                 import Stats from './js/stats.module.js';
                 import { OrbitControls } from './js/OrbitControls.js';
@@ -211,7 +197,7 @@
 
                 var container, stats;
                 var camera, scene, renderer;
-                var controls, water, sun, mesh, fish4, fish3, fish2, bluegill, boot, marlin, rockcod, salmon, steelhead, trout;
+                var controls, water, sun, fish4, fish3, fish2, bluegill, boot, marlin, rockcod, steelhead;
                 var fish4Text,
                     fish3Text,
                     fish2Text,
@@ -219,9 +205,7 @@
                     bootText,
                     marlinText,
                     rockcodText,
-                    salmonText,
-                    steelheadText,
-                    troutText;
+                    steelheadText;
 
                 init();
                 animate();
@@ -315,14 +299,6 @@
 
                     updateSun();
 
-                    //Add middle box --------------------
-
-                    // const geometry = new THREE.BoxGeometry( 30, 30, 30 );
-                    // const material = new THREE.MeshStandardMaterial( { roughness: 0 } );
-
-                    // mesh = new THREE.Mesh( geometry, material );
-                    // scene.add( mesh );
-
                     // ----------------------------------------------
                     //Custom Upload Photo
                     function uploadImage(collectionPhoto) {
@@ -343,10 +319,11 @@
                             if (texture) // checks if texture exists
                                 texture.needsUpdate = true;
                         };
-
+                        // make the 2D image transparent
                         var material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
                         material.transparent = true;
 
+                        //Convert the image to final texture
                         var mesh = new THREE.Mesh(
                             new THREE.PlaneGeometry(canvas.width, canvas.height),
                             material
@@ -354,14 +331,10 @@
                         //scene.add( mesh2 );
                         return mesh
                     }
-
-
-                    /////// draw text on canvas /////////
-
-                    // create a canvas element
+                    // ----------------------------------------------
+                    // Custome Upload Text
                     function inputText(name, caught, location) {
-
-
+                        //Create Canvas and type styles
                         var canvas1 = document.createElement('canvas');
                         canvas1.width = 150;
                         canvas1.height = 75;
@@ -376,9 +349,11 @@
                         var texture1 = new THREE.Texture(canvas1);
                         texture1.needsUpdate = true;
 
+                        //Make the text transparent
                         var material1 = new THREE.MeshBasicMaterial({ map: texture1, side: THREE.DoubleSide });
                         material1.transparent = true;
 
+                        //convert the text to its final texture
                         var mesh1 = new THREE.Mesh(
                             new THREE.PlaneGeometry(canvas1.width, canvas1.height),
                             material1
@@ -388,21 +363,16 @@
                     }
 
 
-                    // CUstom text to sign THIRD Attempt END ----------------------------------------------------------------------------
-
-                    // adding fish ---------------------
+                    // adding fish4 ---------------------
                     fish4 = uploadImage('./images/fish4.png');
                     fish4.position.set(0, 25, -300);
-                    //fish4.rotation.y = Math.PI / 2;
-                    //fish4Text = uploadText("WILL THIS WORK!!!")
                     fish4Text = inputText('Trout', "Caught Aug 2017", "Hag Lake Oregon");
-                    //fish4Text = createLabel("HELLO WORLD", 24, "black")
                     fish4Text.position.set(0, 130, -300);
                     scene.add(fish4);
                     scene.add(fish4Text);
 
 
-                    // adding fish ---------------------
+                    // adding fish2 ---------------------
                     fish2 = uploadImage('./images/fish2.png');
                     fish2.position.set(300, 25, 0);
                     fish2.rotation.y = Math.PI / 2;
@@ -412,7 +382,7 @@
                     scene.add(fish2);
                     scene.add(fish2Text);
 
-                    // adding fish ---------------------
+                    // adding fish3 ---------------------
                     fish3 = uploadImage('./images/fish3.png');
                     fish3.position.set(0, 25, 300);
                     fish3Text = inputText('Big Mouth Bass', "Caught Jun 2013", "Vernoia Lake");
@@ -421,7 +391,7 @@
                     scene.add(fish3);
                     scene.add(fish3Text);
 
-                    // adding fish ---------------------
+                    // adding marlin ---------------------
                     marlin = uploadImage('./images/marlin.png');
                     marlin.position.set(-300, 25, 0);
                     marlin.rotation.y = Math.PI / 2;
@@ -432,7 +402,7 @@
                     marlinText.rotation.y = 1.3;
                     scene.add(marlinText);
 
-                    // adding fish ---------------------
+                    // adding bluegill ---------------------
                     bluegill = uploadImage('./images/bluegill.png');
                     bluegill.position.set(-300, 25, 300);
                     bluegill.rotation.y = -60;
@@ -443,7 +413,7 @@
                     bluegillText.rotation.y = 2.3;
                     scene.add(bluegillText);
 
-                    // adding fish ---------------------
+                    // adding steelhead ---------------------
                     steelhead = uploadImage('./images/steelhead.png');
                     steelhead.position.set(-200, 25, -200);
                     steelhead.rotation.y = 60;
@@ -454,7 +424,7 @@
                     steelheadText.rotation.y = .3;
                     scene.add(steelheadText);
 
-                    // adding fish ---------------------
+                    // adding boot ---------------------
                     boot = uploadImage('./images/boot.png');
                     boot.position.set(200, 25, 200);
                     boot.rotation.y = 60;
@@ -465,7 +435,7 @@
                     bootText.rotation.y = 60;
                     scene.add(bootText);
 
-                    // adding fish ---------------------
+                    // adding rockcod ---------------------
                     rockcod = uploadImage('./images/rockcod.png');
                     rockcod.position.set(250, 25, -250);
                     rockcod.rotation.y = 50;
@@ -516,19 +486,14 @@
 
                     var time = performance.now() * 0.001;
 
-                    //mesh.position.y = Math.sin( time ) * 20 + 5;
                     fish2.position.y = Math.sin(time) * 20 + 5;
                     fish3.position.y = Math.sin(time - 1) * 20 + 5;
                     fish4.position.y = Math.sin(time - 2) * 20 + 5;
-
                     bluegill.position.y = Math.sin(time) * 20 + 5;
                     boot.position.y = Math.sin(time - 3) * 20 + 5;
                     marlin.position.y = Math.sin(time - 4) * 20 + 5;
-
                     rockcod.position.y = Math.sin(time - 5) * 20 + 5;
                     steelhead.position.y = Math.sin(time - 6) * 20 + 5;
-                    //mesh.rotation.x = time * 0.5;
-                    //mesh.rotation.z = time * 0.51;
 
                     water.material.uniforms['time'].value += 1.0 / 60.0;
 
