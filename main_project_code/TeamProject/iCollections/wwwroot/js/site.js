@@ -71,14 +71,9 @@ $("#photoUpload").submit(function (event) {
 
 
 
-
-
-
 // For un-following users 
-
 $('#unfollow-button > button').click(function () {
     var followID = this.id.substring(1);      // remove leading 'f'
-    console.log('Button with id = ' + followID + '  clicked');
 
     $.ajax({
         url: 'following',
@@ -89,8 +84,8 @@ $('#unfollow-button > button').click(function () {
 });
 
 function updateFollowees(data) {
-
-    console.log('Updating Followees');
+    
+    location.reload(true);
 }
 
 
