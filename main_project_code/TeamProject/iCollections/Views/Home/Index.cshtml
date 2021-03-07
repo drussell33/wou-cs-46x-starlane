@@ -185,7 +185,7 @@
     <div class="container-fluid">
         <h1>Our Current Working Sample.</h1>
         <div>
-            <div id="container"></div>
+            <div id="ocean_container"></div>
 
 @*            <script src="js/build/three.module.js"></script>
             <script src="js/ocean_environment/jsm/libs/stats.module.js"></script>
@@ -193,7 +193,7 @@
             <script src="js/ocean_environment/jsm/objects/Water.js"></script>
             <script src="js/ocean_environment/jsm/objects/Sky.js"></script>*@
 
-            <script type="module">
+<script type="module">
 
 
                 //---second------
@@ -228,13 +228,14 @@
 
                 function init() {
 
-                    container = document.getElementById('container');
+                    container = document.getElementById('ocean_container');
 
                     //
 
                     renderer = new THREE.WebGLRenderer();
                     renderer.setPixelRatio(window.devicePixelRatio);
-                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    renderer.setSize(document.getElementById('ocean_container').clientWidth, parent.innerHeight);
+                    //renderer.setSize(window.innerWidth, window.innerHeight);
                     container.appendChild(renderer.domElement);
 
                     //
@@ -486,26 +487,9 @@
                     //
 
                     stats = new Stats();
-                    container.appendChild(stats.dom);
+                    //container.appendChild(stats.dom);
+                    //container.append(stats.dom)
 
-                    // GUI
-
-                    // const gui = new GUI();
-
-                    // const folderSky = gui.addFolder( 'Sky' );
-                    // folderSky.add( parameters, 'inclination', 0, 0.5, 0.0001 ).onChange( updateSun );
-                    // folderSky.add( parameters, 'azimuth', 0, 1, 0.0001 ).onChange( updateSun );
-                    // folderSky.open();
-
-                    // const waterUniforms = water.material.uniforms;
-
-                    // const folderWater = gui.addFolder( 'Water' );
-                    // folderWater.add( waterUniforms.distortionScale, 'value', 0, 8, 0.1 ).name( 'distortionScale' );
-                    // folderWater.add( waterUniforms.size, 'value', 0.1, 10, 0.1 ).name( 'size' );
-                    // folderWater.add( waterUniforms.alpha, 'value', 0.9, 1, .001 ).name( 'alpha' );
-                    // folderWater.open();
-
-                    //
 
                     window.addEventListener('resize', onWindowResize);
 
