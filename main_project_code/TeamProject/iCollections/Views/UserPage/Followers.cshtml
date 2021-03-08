@@ -6,10 +6,10 @@
 
 <div class="row">
     <div class="col user-follow-block">
-        <h1>@Model.Target's Followers:</h1>
+        <h1>@Model.TargetUsername's Followers:</h1>
         @if (Model.Follows.ToList().Count == 0)
         {
-            <h2>Looks like @Model.Target isn't followed by anybody.</h2>
+            <h2>Looks like @Model.TargetUsername isn't followed by anybody.</h2>
         }
         @foreach (var follower in Model.Follows)
         {

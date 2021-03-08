@@ -11,7 +11,9 @@ namespace iCollections.Models
 
         public List<Follow> recentFollows { get; set; }
 
-        public string Me { get; set; }
+        public string MyEmail { get; set; }
+
+        public string MyUsername { get; set; }
 
     }
 }

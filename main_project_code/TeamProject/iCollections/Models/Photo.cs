@@ -25,7 +25,8 @@ namespace iCollections.Models
         public string ToViewableFormat() {
             var extension = Path.GetExtension(Name).Replace(".", "");
             string imageBase64Data = Convert.ToBase64String(Data);
-            string imageDataURL = string.Format("data:image/{0};base64,{1}", extension, imageBase64Data);
+            //string imageDataURL = string.Format("data:image/{0};base64,{1}", extension, imageBase64Data);
+            string imageDataURL = $"data:image/{extension};base64,{imageBase64Data}";
             return imageDataURL;
         }
     }

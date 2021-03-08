@@ -5,17 +5,48 @@
 }
 
 <div class="row">
-    <div class="col user-follow-block">
-        <h1>@Model.Target's Followers:</h1>
+
+
+    <!-- User details column -->
+    <div class="col-sm options">
+        <div class="col">
+            <div class="row">
+                <div class="fake-profile-image"></div>
+                <div class="col">
+                    <h2>@Model.TargetFirstname @Model.TargetLastname</h2>
+                    <h3><em>@Model.TargetUsername</em></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- List of users followed column -->
+    <div class="col-sm text-center">
         @if (Model.Follows.ToList().Count == 0)
         {
-            <h2>Looks like @Model.Target isn't following anybody.</h2>
+            <h1>Looks like @Model.TargetUsername isn't following anybody.</h1>
         }
-        @foreach (var followed in Model.Follows)
+        else
         {
-            <div class="user-follows">
-                <p>@followed.FollowedNavigation.UserName</p>
-            </div>
+            <h2>Users I Follow:</h2>
         }
+        <table class="table text-center">
+
+            @foreach (var followed in Model.Follows)
+            {
+                var followID = "f" + followed.Id;
+
+                <tr>
+                    <td><div class="fake-image"></div></td>
+                    <td>@followed.FollowedNavigation.FirstName</td>
+                    <td>@followed.FollowedNavigation.LastName</td>
+                    <td><em style="color:gray">&#64</em><em style="color:gray" ;>@followed.FollowedNavigation.UserName</em></td>
+                    <td id="unfollow-button"><button type="button" id="@followID" class="btn btn-outline-danger" for="option3">Un-Follow</button></td>
+                </tr>
+            }
+
+        </table>
     </div>
+
 </div>
