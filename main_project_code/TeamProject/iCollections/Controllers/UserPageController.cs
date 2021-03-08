@@ -42,9 +42,18 @@ namespace iCollections.Controllers
             }
 
             Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId);
-            ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
+            //ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
 
             return View(user);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("userpage/{name}/follow")]
+        public IActionResult Follow(int? id)
+        {
+
+            return Json(new { success = false, message = "Follow has been removed" });
         }
 
         [Route("userpage/{name}/followers")]

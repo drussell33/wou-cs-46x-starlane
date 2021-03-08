@@ -48,7 +48,7 @@
                                     <div class="post-header">
                                         <div class="fake-image"></div>
                                         <div class="post-info">
-                                            <div class="activity"><a href="Feed.cshtml">@event1.User.FirstName</a> made an iCollection</div>
+                                            <div class="activity"><a href="userpage/@event1.User.UserName">@event1.User.FirstName</a> made an iCollection</div>
                                             <div class="date">@string.Format("{0:MMMM dd, yyyy}", event1.DateMade)</div>
                                         </div>
                                     </div>
@@ -62,7 +62,7 @@
                                 Model.recentFriendships.RemoveAt(0);
                                 <div class="row news feed-object last-object">
                                     <div class="col-sm-8"><a href="Feed.cshtml">@event3.User1.FirstName</a> and <a
-                                            href="Feed.cshtml">@event3.User2.FirstName</a> are now
+                                            href="userpage/@event3.User2.UserName">@event3.User2.FirstName</a> are now
                                         friends</div>
                                     <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event3.Began)</div>
                                 </div>

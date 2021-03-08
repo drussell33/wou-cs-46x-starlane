@@ -65,3 +65,54 @@ $("#photoUpload").submit(function (event) {
 
 //     event.preventDefault();
 // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// For following users 
+$('#follow-button > button').click(function () {
+    var followID = this.id;
+    console.log(followID);
+
+    $.ajax({
+        url: 'userpage/follow',
+        data: { id: followID },
+        method: 'POST',
+        success: updateFollowees
+    });
+});
+
+function updateFollowees(data) {
+    console.log(data);
+}
+
+
+
+
+
+
+
+
+
+
+
+
