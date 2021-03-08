@@ -36,6 +36,7 @@ namespace iCollections.Controllers
             // Determine user
             string nastyStringId = _userManager.GetUserId(User);
             int userId = DatabaseHelper.GetReadableUserID(nastyStringId, _collectionsDbContext);
+            string userName = DatabaseHelper.GetICollectionUserName(nastyStringId, _collectionsDbContext);
 
             // start querying distants and my friends' collections
             var myFriends = dbHelper.GetMyFriends(userId);
@@ -54,7 +55,8 @@ namespace iCollections.Controllers
             dbHelper.OrderLists(myFriendsFriends, topFollow, extractedCollections);
             var activityData = new ActivityEvents
             {
-                Me = _userManager.GetUserName(User),
+                MyEmail = _userManager.GetUserName(User),
+                MyUsername = userName,
                 recentCollections = extractedCollections,
                 recentFriendships = myFriendsFriends,
                 recentFollows = topFollow

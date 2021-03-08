@@ -60,7 +60,7 @@ namespace iCollections.Controllers
                 return RedirectToAction("Index", "Home");
             }
             List<Follow> followers = _db.Follows.Include("FollowerNavigation").Where(m => m.FollowedNavigation.UserName == name).ToList();
-            var follows = new FollowList { Target = user.UserName, Follows = followers };
+            var follows = new FollowList { TargetUsername = user.UserName, TargetFirstname = user.FirstName, TargetLastname = user.LastName, Follows = followers };
             return View(follows);
         }
 
@@ -77,9 +77,52 @@ namespace iCollections.Controllers
                 return RedirectToAction("Index", "Home");
             }
             List<Follow> following = _db.Follows.Include("FollowedNavigation").Where(m => m.FollowerNavigation.UserName == name).ToList();
-            var follows = new FollowList { Target = user.UserName, Follows = following };
+            var follows = new FollowList { TargetUsername = user.UserName, TargetFirstname = user.FirstName, TargetLastname = user.LastName, Follows = following.OrderBy(f => f.FollowedNavigation.UserName)};
             return View(follows);
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("userpage/{name}/following")]
+        public IActionResult Following(int? id)
+        {
+            if (id == null)
+            {
+                return Json(new { success = false, message = "id expected" });
+            }
+
+            if (!FollowExists((int)id))
+            {
+                return Json(new { success = false, message = "FollowID not found" });
+            }
+
+            string aspNetUserID = _userManager.GetUserId(User);
+
+            if (aspNetUserID == null)
+            {
+                return Json(new { success = false, message = "user not logged in" });
+            }
+            IcollectionUser user = null;
+            if (aspNetUserID != null)
+            {
+                user = _db.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == aspNetUserID);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "user not found" });
+                }
+            }
+
+            //since both follow and user have been verified...
+            Follow target = _db.Follows.FirstOrDefault(f => f.Id == id);
+            if (target != null)
+            {
+                _db.Follows.Remove(target);
+                _db.SaveChanges();
+            }
+
+            return Json(new { success = true, message = "Follow has been removed" });
+        }
+
 
         [Route("userpage/{name}/collections")]
         public IActionResult Collections(string name)
@@ -95,6 +138,11 @@ namespace iCollections.Controllers
             }
             var collections = _db.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
             return View(collections);
+        }
+
+        private bool FollowExists(int id)
+        {
+            return _db.Follows.Any(f => f.Id == id);
         }
     }
 }
