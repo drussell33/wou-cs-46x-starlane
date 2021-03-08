@@ -90,33 +90,6 @@ function updateFollowees(data) {
 
 
 
-    
-    
-    
-   
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // For following users 
 $('#follow-button > button').onload(function () {

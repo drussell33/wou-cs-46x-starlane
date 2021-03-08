@@ -27,24 +27,34 @@ namespace iCollections.Controllers
         [Route("userpage/{name}")]
         public IActionResult Index(string name)
         {
+            string nastyStringId = _userManager.GetUserId(User);
+            int userId = DatabaseHelper.GetReadableUserID(nastyStringId, _db);
+
             if (name == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            var user = _db.IcollectionUsers
+            var user1 = _db.IcollectionUsers
                 .Include("FollowFollowerNavigations")
                 .Include("FollowFollowedNavigations")
                 .FirstOrDefault(m => m.UserName == name);
 
-            if (user == null)
+            var user2 = _db.IcollectionUsers
+                .Include("FollowFollowerNavigations")
+                .Include("FollowFollowedNavigations")
+                .FirstOrDefault(m => m.Id == userId);
+
+            if (user1 == null || user2 == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId);
+            Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user1.ProfilePicId);
             //ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
 
-            return View(user);
+            var userProfile = new UserProfile { ProfileVisitor = user2, ProfileOwner = user1};
+
+            return View(userProfile);
         }
 
         [HttpPost]

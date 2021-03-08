@@ -1,4 +1,4 @@
-﻿@model IcollectionUser
+﻿@model UserProfile
 
 @{
     ViewData["Title"] = "Index";
@@ -11,34 +11,36 @@
         <div class="row">
             <div class="col user-profile-obj" id="follow-button">
                 <img class="user-profile-img" src="@ViewBag.ImageDataUrl">
-                <h2>@Model.UserName</h2>
-                <h3>@Model.FirstName @Model.LastName</h3>
+                <h2>@Model.ProfileOwner.UserName</h2>
+                <h3>@Model.ProfileOwner.FirstName @Model.ProfileOwner.LastName</h3>
                 <div class="about-me">
-                    <p>Date Joined: @Model.DateJoined</p>
-                    <p>About me: @Model.AboutMe</p>
-                    <p>Followers: @Model.FollowFollowerNavigations.ToList().Count</p>
-                    <p>Following: @Model.FollowFollowedNavigations.ToList().Count</p>
+                    <p>@Model.ProfileOwner.Id @Model.ProfileOwner.FriendsWithUser1.ToHashSet() </p>
+                    <p>Date Joined: @Model.ProfileOwner.DateJoined</p>
+                    <p>About me: @Model.ProfileOwner.AboutMe</p>
+                    <p>Followers: @Model.ProfileOwner.FollowFollowerNavigations.ToList().Count</p>
+                    <p>Following: @Model.ProfileOwner.FollowFollowedNavigations.ToList().Count</p>
                 </div>
                 <br />
 
                 @{string friends = " "; string color = " ";string follow = " "; }
-                @if(Model.FollowFollowerNavigations.Any(f => f.Follower != Model.Id))
+                
+                @if(Model.ProfileOwner.FollowFollowerNavigations.Any(f => f.Followed.Value == Model.ProfileVisitor.Id))
+                {
+
+                    friends = "friends";
+                    color = "danger";
+                    follow = "Un-Follow";
+
+                }
+                else
                 {
                     friends = " ";
                     color = "primary";
                     follow = "Follow";
 
                 }
-                else
-                {
-                    friends = "friends";
-                    color = "danger";
-                    follow = "Un-Follow";
 
-
-                }
-
-                <button type="button" name="@friends" id="@Model.UserName" class="btn btn-outline-@color">@follow</button>
+                <button type="button" name="@friends" id="@Model.ProfileOwner.UserName" class="btn btn-outline-@color">@follow</button>
 
             </div>
         </div>
@@ -47,7 +49,7 @@
         <div class="row">
             <div class="col user-profile-obj">
                 <h2>Recent Photos:</h2>
-                @foreach (var photo in Model.Photos.Take<Photo>(10))
+                @foreach (var photo in Model.ProfileOwner.Photos.Take<Photo>(10))
                 {
                     <div>
                         <p>Name: @photo.Name</p>
@@ -63,17 +65,19 @@
         <h2>Navigation</h2>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a asp-action=Followers asp-route-name="@Model.UserName" class="nav-link text-dark">Followers</a>
+                <a asp-action=Followers asp-route-name="@Model.ProfileVisitor.UserName" class="nav-link text-dark">Followers</a>
             </li>
             <li class="nav-item">
-                <a asp-action="Following" asp-route-name="@Model.UserName" class="nav-link text-dark">Following</a>
+                <a asp-action="Following" asp-route-name="@Model.ProfileVisitor.UserName" class="nav-link text-dark">Following</a>
             </li>
             <li class="nav-item">
-                <a asp-action="Collections" asp-route-name="@Model.UserName" class="nav-link text-dark">Collections</a>
+                <a asp-action="Collections" asp-route-name="@Model.ProfileVisitor.UserName" class="nav-link text-dark">Collections</a>
             </li>
         </ul>
     </div>
     -->
+
+
     <!--Temp Navigation-->
         <div class="col-sm-3">
             <div class="col user-profile-nav">
@@ -81,7 +85,7 @@
                 <h2>Navigation</h2>
                 <table style="border-top-style:dotted; border-top-width:initial;" class="table table-hover flex-column">
                     <tr class="nav-item">
-                        <td><a class="text-primary" asp-action="Following" asp-route-name="@Model.UserName">Following</a></td>
+                        <td><a class="text-primary" href="@Model.ProfileVisitor.UserName/following">Following</a></td>
                     </tr>
                 </table>
 
