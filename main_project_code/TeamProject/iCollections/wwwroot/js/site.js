@@ -1,6 +1,9 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
+//import { Button } from "bootstrap";        these throw errror and prevent other js from running: Uncaught SyntaxError: import declarations may only appear at top level of a module
+//import { data } from "jquery";
+
 //    SHOW UPLOADED IMAGE
 function readURL(input) {
     if (input.files && input.files[0]) {
@@ -64,6 +67,33 @@ $("#photoUpload").submit(function (event) {
     
 
 //     event.preventDefault();
+// });
+
+
+
+// For un-following users 
+$('#unfollow-button > button').click(function () {
+    var followID = this.id.substring(1);      // remove leading 'f'
+
+    $.ajax({
+        url: 'following',
+        data: { id: followID },
+        method: 'POST',
+        success: updateFollowees
+    });
+});
+
+function updateFollowees(data) {
+    
+    location.reload(true);
+}
+
+
+
+    
+    
+    
+   
 // });
 
 
