@@ -6,7 +6,7 @@
 
 <div class="row">
     <!--Column 1 - About, content, etc-->
-    <div class="col col-10">
+    <div class="col col">
         <!--About-->
         <div class="row">
             <div class="col user-profile-obj" id="follow-button">
@@ -20,7 +20,26 @@
                     <p>Following: @Model.FollowFollowedNavigations.ToList().Count</p>
                 </div>
                 <br />
-                <button type="button" id="@Model.UserName" class="btn btn-outline-primary">Follow</button>
+
+                @{string friends = " "; string color = " ";string follow = " "; }
+                @if(Model.FollowFollowerNavigations.Any(f => f.Follower != Model.Id))
+                {
+                    friends = " ";
+                    color = "primary";
+                    follow = "Follow";
+
+                }
+                else
+                {
+                    friends = "friends";
+                    color = "danger";
+                    follow = "Un-Follow";
+
+
+                }
+
+                <button type="button" name="@friends" id="@Model.UserName" class="btn btn-outline-@color">@follow</button>
+
             </div>
         </div>
 
@@ -39,7 +58,7 @@
         </div>
     </div>
 
-    <!--Column 2 - Navigation-->
+    <!--Column 2 - Navigation
     <div class="col col-2 user-profile-nav">
         <h2>Navigation</h2>
         <ul class="nav flex-column">
@@ -54,4 +73,21 @@
             </li>
         </ul>
     </div>
-</div>
+    -->
+    <!--Temp Navigation-->
+        <div class="col-sm-3">
+            <div class="col user-profile-nav">
+
+                <h2>Navigation</h2>
+                <table style="border-top-style:dotted; border-top-width:initial;" class="table table-hover flex-column">
+                    <tr class="nav-item">
+                        <td><a class="text-primary" asp-action="Following" asp-route-name="@Model.UserName">Following</a></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+
+
+    </div>

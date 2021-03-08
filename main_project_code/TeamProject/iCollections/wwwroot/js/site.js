@@ -89,8 +89,9 @@ $("#photoUpload").submit(function (event) {
 
 
 // For following users 
-$('#follow-button > button').click(function () {
+$('#follow-button > button').onload(function () {
     var followID = this.id;
+    if()
     console.log(followID);
 
     $.ajax({
