@@ -98,6 +98,13 @@ body {
   display: inline-block;
 }
 
+.fake-profile-image {
+    height: 200px;
+    width: 200px;
+    background-color: black;
+    display: inline-block;
+}
+
 .post-info {
   display: inline-block;
   vertical-align: top;
@@ -225,6 +232,11 @@ h1 {
   font-weight: bold;
 }
 
+.details-big-name {
+    font-size: 35px;
+    font-weight: bold;
+}
+
 .simple-option {
   padding: 5px 0;
 }
@@ -285,9 +297,7 @@ h1 {
 }
 
 .user-profile-nav {
-  background-color: darkgrey;
-  padding: 0em 0em 0em 0em;
-  text-align: center;
+    text-align: center;
 }
 
 .user-profile-nav a {
