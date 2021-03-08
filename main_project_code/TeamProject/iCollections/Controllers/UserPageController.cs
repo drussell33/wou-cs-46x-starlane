@@ -42,8 +42,10 @@ namespace iCollections.Controllers
             }
 
             Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId);
-            ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
-
+            if (profilePicture != null)
+            {
+                ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
+            }
             return View(user);
         }
 
