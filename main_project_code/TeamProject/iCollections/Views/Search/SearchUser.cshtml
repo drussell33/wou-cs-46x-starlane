@@ -1,4 +1,5 @@
-﻿@model SearchList
+﻿@using iCollections.Controllers;
+@model SearchList
 
 @{
     ViewData["Title"] = "SearchUser";
@@ -10,10 +11,10 @@
         @foreach (IcollectionUser result in Model.results)
         {
         <div class="user-search-item">
+            <div class="img-container">
+                <img src="@result.Photos.FirstOrDefault(x => x.Id == result.ProfilePicId).ToViewableFormat()" class="img-thumbnail" />
+            </div>
             <div class="user-search-info">
-                <div class="user-profile-img-small">
-                    <img />
-                </div>
                 <h3>
                     <a asp-controller="UserPage" asp-route-name="@result.UserName">@result.UserName</a>
                 </h3>
@@ -30,13 +31,13 @@
                     if (Model.loggedInUser.FollowFollowerNavigations.Where(x => x.FollowedNavigation.Id == result.Id).ToList().Count > 0)
                     {
                         <span>
-                            <a class="btn btn-danger unfollow-button">Unfollow</a>
+                            <a class="btn btn-danger unfollow-button text-light">Unfollow</a>
                         </span>
                     }
                     else
                     {
                         <span>
-                            <a class="btn btn-primary follow-button">Follow</a>
+                            <a class="btn btn-primary follow-button text-light">Follow</a>
                         </span>
                     }
                 }

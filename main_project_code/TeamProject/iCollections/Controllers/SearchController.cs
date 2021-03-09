@@ -35,7 +35,7 @@ namespace iCollections.Controllers
                     .ThenInclude(f => f.FollowedNavigation)
                     .FirstOrDefault(x => x.AspnetIdentityId == _userManager.GetUserId(User));
             }
-            List<IcollectionUser> results = _db.IcollectionUsers.Where(x => x.UserName.Contains(user)).ToList();
+            List<IcollectionUser> results = _db.IcollectionUsers.Include(u => u.Photos).Where(x => x.UserName.Contains(user)).ToList();
             return View(new SearchList { loggedInUser = loggedInUser, results = results });
         }
     }
