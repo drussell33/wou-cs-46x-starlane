@@ -11,9 +11,10 @@
         <div class="row">
           
             <div class="col user-profile-obj" id="follow-button">
-                @if (ViewBag.ImageDataUrl != null)
+                @if (Model.ProfileOwner.ProfilePicId != null)
                 {
-                    <img class="user-profile-img" src="@ViewBag.ImageDataUrl">
+                    <img class="user-profile-img" 
+                         src="@Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value)">
                 }
                 else
                 {
@@ -21,7 +22,7 @@
                 }
                 <h2>@Model.ProfileOwner.UserName</h2>
                 <h3>@Model.ProfileOwner.FirstName @Model.ProfileOwner.LastName</h3>
-              
+
                 <div class="about-me">
                     <p>Date Joined: @DateTime.Now</p>
                     <p>About me: @Model.ProfileOwner.AboutMe</p>
@@ -30,27 +31,17 @@
                 </div>
                 <br />
 
-                @{string status = " "; string color = " "; string follow = " "; }
-
-                @if (Model.ProfileOwner.FollowFollowedNavigations.Any(f => f.Follower.Value == Model.ProfileVisitor.Id))
+                @if (Model.ProfileVisitor != null)
                 {
-
-                    status = "following";
-                    color = "danger";
-                    follow = "Un-Follow";
-
+                    if (Model.ProfileVisitor.FollowFollowedNavigations.Any(x => x.FollowedNavigation.Id == Model.ProfileOwner.Id))
+                    {
+                        <button type="button" name="following" class="btn btn-outline-primary following-button">Following</button>
+                    }
+                    else
+                    {
+                        <button type="button" name="new" class="btn btn-outline-primary follow-button">Follow</button>
+                    }
                 }
-
-
-                else
-                {
-                    status = "new";
-                    color = "primary";
-                    follow = "Follow";
-
-                }
-
-                <button type="button" name="@status" id="@Model.ProfileOwner.UserName" class="btn btn-outline-@color">@follow</button>
 
             </div>
         </div>
@@ -75,13 +66,13 @@
         <h2>Navigation</h2>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a asp-action=Followers asp-route-name="@Model.ProfileVisitor.UserName" class="nav-link text-dark">Followers</a>
+                <a asp-action=Followers asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Followers</a>
             </li>
             <li class="nav-item">
-                <a asp-action="Following" asp-route-name="@Model.ProfileVisitor.UserName" class="nav-link text-dark">Following</a>
+                <a asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Following</a>
             </li>
             <li class="nav-item">
-                <a asp-action="Collections" asp-route-name="@Model.ProfileVisitor.UserName" class="nav-link text-dark">Collections</a>
+                <a asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Collections</a>
             </li>
         </ul>
     </div>
@@ -95,13 +86,10 @@
                 <h2>Navigation</h2>
                 <table style="border-top-style:dotted; border-top-width:initial;" class="table table-hover flex-column">
                     <tr class="nav-item">
-                        <td><a class="text-primary" href="@Model.ProfileVisitor.UserName/following">Following</a></td>
+                        <td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName">Following</a></td>
+                        <!--<td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName" href="@Model.ProfileOwner.UserName/following">Following</a></td>-->
                     </tr>
                 </table>
-
             </div>
         </div>
-
-
-
     </div>

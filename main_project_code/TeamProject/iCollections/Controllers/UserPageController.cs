@@ -28,34 +28,29 @@ namespace iCollections.Controllers
         [Route("userpage/{name}")]
         public IActionResult Index(string name)
         {
-            string nastyStringId = _userManager.GetUserId(User);
-            int userId = DatabaseHelper.GetReadableUserID(nastyStringId, _db);
+            string sessionUserId = _userManager.GetUserId(User);
+            IcollectionUser sessionUser = null;
 
             if (name == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            var user1 = _db.IcollectionUsers
-                .Include("FollowFollowerNavigations")
-                .Include("FollowFollowedNavigations")
+
+            if (sessionUserId != null)
+            {
+                sessionUser = _db.IcollectionUsers
+                .Include(u => u.FollowFollowerNavigations)
+                .Include(u => u.FollowFollowedNavigations)
+                .FirstOrDefault(m => m.AspnetIdentityId == sessionUserId);
+            }
+
+            var targetUser = _db.IcollectionUsers
+                .Include(u => u.FollowFollowerNavigations)
+                .Include(u => u.FollowFollowedNavigations)
+                .Include(u => u.Photos)
                 .FirstOrDefault(m => m.UserName == name);
-
-            var user2 = _db.IcollectionUsers
-                .Include("FollowFollowerNavigations")
-                .Include("FollowFollowedNavigations")
-                .FirstOrDefault(m => m.Id == userId);
-
-            if (user1 == null || user2 == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
             
-            Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId);
-            if (profilePicture != null)
-            {
-                ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
-            }
-            return View(user);
+            return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser });
         }
 
         [HttpPost]
