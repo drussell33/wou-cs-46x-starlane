@@ -90,7 +90,33 @@ function updateFollowees(data) {
 
 
 
-    
-    
-    
-   
+
+// For following users 
+$('#follow-button > button').click(function () {
+    var followID = this.id;
+    var followName = this.name;
+
+    $.ajax({
+        url: 'userpage/follow',
+        data: { id: followID, status: followName },
+        method: 'POST',
+        success: updateFollowees
+    });
+});
+
+function updateFollowees(data) {
+
+    location.reload(true);
+}
+
+
+
+
+
+
+
+
+
+
+
+
