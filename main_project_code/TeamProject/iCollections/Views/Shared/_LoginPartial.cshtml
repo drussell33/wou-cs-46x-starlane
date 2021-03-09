@@ -7,7 +7,7 @@
                 <!--Manage Account-->
                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
                 <!--User Profile-->
-                <a class="dropdown-item" asp-controller="UserProfile" asp-action="Index">My Profile</a>
+                <a class="dropdown-item" asp-controller="UserPage" asp-action="Index" asp-route-name="@User.Identity.Name">My Profile</a>
                 <div class="dropdown-divider"></div>
                 <!--Logout-->
                 <form class="form-inline dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
