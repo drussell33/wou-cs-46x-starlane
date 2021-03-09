@@ -7,36 +7,40 @@
 <h1>Search User</h1>
 <div class="row">
     <div class="col">
-        @foreach (var item in Model.results)
+        @foreach (IcollectionUser result in Model.results)
         {
         <div class="user-search-item">
-            <div class="user-profile-img-small">
-
+            <div class="user-search-info">
+                <div class="user-profile-img-small">
+                    <img />
+                </div>
+                <h3>
+                    <a asp-controller="UserPage" asp-route-name="@result.UserName">@result.UserName</a>
+                </h3>
+                <span>
+                    @Html.DisplayFor(modelItem => result.FirstName)
+                </span>
+                <span>
+                    @Html.DisplayFor(modelItem => result.LastName)
+                </span>
             </div>
-            <h3>
-                <a asp-controller="UserPage" asp-route-name="@item.UserName">@item.UserName</a>
-            </h3>
-            <span>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </span>
-            <span>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </span>
-            @if (Model.loggedInUser != null)
-            {
-                if (Model.loggedInUser.FollowFollowerNavigations.Where(x => x.Followed.Value == item.Id).ToList().Count > 0)
+            <div class="follow-box">
+                @if (Model.loggedInUser != null)
                 {
-                    <span>             
-                        <a class="btn btn-warning">Unfollow</a>
-                    </span>
+                    if (Model.loggedInUser.FollowFollowerNavigations.Where(x => x.FollowedNavigation.Id == result.Id).ToList().Count > 0)
+                    {
+                        <span>
+                            <a class="btn btn-danger unfollow-button">Unfollow</a>
+                        </span>
+                    }
+                    else
+                    {
+                        <span>
+                            <a class="btn btn-primary follow-button">Follow</a>
+                        </span>
+                    }
                 }
-                else
-                {
-                    <span>
-                        <a class="btn btn-primary">Follow</a>
-                    </span>
-                }
-            }
+            </div>
         </div>
         }
     </div>

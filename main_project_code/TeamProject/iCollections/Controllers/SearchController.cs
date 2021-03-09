@@ -30,7 +30,10 @@ namespace iCollections.Controllers
             IcollectionUser loggedInUser = null;
             if(User.Identity.IsAuthenticated)
             {
-                 loggedInUser = _db.IcollectionUsers.Include("FollowFollowedNavigations").FirstOrDefault(x => x.AspnetIdentityId == _userManager.GetUserId(User));
+                 loggedInUser = _db.IcollectionUsers
+                    .Include(u => u.FollowFollowedNavigations)
+                    .ThenInclude(f => f.FollowedNavigation)
+                    .FirstOrDefault(x => x.AspnetIdentityId == _userManager.GetUserId(User));
             }
             List<IcollectionUser> results = _db.IcollectionUsers.Where(x => x.UserName.Contains(user)).ToList();
             return View(new SearchList { loggedInUser = loggedInUser, results = results });
