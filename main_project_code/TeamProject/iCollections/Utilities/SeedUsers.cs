@@ -45,6 +45,9 @@ namespace iCollections.Utilities
                             context.Add(fu);
                             await context.SaveChangesAsync();
                         }
+/*                        //Now making sure that the admin role exists and give it to this user.
+                        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                        await EnsureRoleForUser(roleManager, userManager, identityID, "admin");*/
                     }
                 }
             }
@@ -77,7 +80,7 @@ namespace iCollections.Utilities
                     // Ensure the admin user exists
                     var identityID = await EnsureUser(userManager, adminPw, email, email, true);
                     // Create a new FujiUser if this one doesn't already exist
-                    IcollectionUser fu = new IcollectionUser { AspnetIdentityId = identityID, FirstName = firstName, LastName = lastName };
+                    IcollectionUser fu = new IcollectionUser { AspnetIdentityId = identityID, FirstName = firstName, LastName = lastName, UserName = userName};
                     if (!context.IcollectionUsers.Any(x => x.AspnetIdentityId == fu.AspnetIdentityId && x.FirstName == fu.FirstName && x.LastName == fu.LastName))
                     {
                         // Doesn't already exist, so add a new user
