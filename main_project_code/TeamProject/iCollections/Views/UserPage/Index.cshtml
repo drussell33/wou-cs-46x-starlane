@@ -14,33 +14,34 @@
                 <h2>@Model.ProfileOwner.UserName</h2>
                 <h3>@Model.ProfileOwner.FirstName @Model.ProfileOwner.LastName</h3>
                 <div class="about-me">
-                    <p>@Model.ProfileOwner.Id @Model.ProfileOwner.FriendsWithUser1.ToHashSet() </p>
-                    <p>Date Joined: @Model.ProfileOwner.DateJoined</p>
+                    <p>Date Joined: @DateTime.Now</p>
                     <p>About me: @Model.ProfileOwner.AboutMe</p>
-                    <p>Followers: @Model.ProfileOwner.FollowFollowerNavigations.ToList().Count</p>
-                    <p>Following: @Model.ProfileOwner.FollowFollowedNavigations.ToList().Count</p>
+                    <p>Followers: @Model.ProfileOwner.FollowFollowedNavigations.ToList().Count</p>
+                    <p>Following: @Model.ProfileOwner.FollowFollowerNavigations.ToList().Count</p>
                 </div>
                 <br />
 
-                @{string friends = " "; string color = " ";string follow = " "; }
-                
-                @if(Model.ProfileOwner.FollowFollowerNavigations.Any(f => f.Followed.Value == Model.ProfileVisitor.Id))
+                @{string status = " "; string color = " "; string follow = " "; }
+
+                @if (Model.ProfileOwner.FollowFollowedNavigations.Any(f => f.Follower.Value == Model.ProfileVisitor.Id))
                 {
 
-                    friends = "friends";
+                    status = "following";
                     color = "danger";
                     follow = "Un-Follow";
 
                 }
+
+
                 else
                 {
-                    friends = " ";
+                    status = "new";
                     color = "primary";
                     follow = "Follow";
 
                 }
 
-                <button type="button" name="@friends" id="@Model.ProfileOwner.UserName" class="btn btn-outline-@color">@follow</button>
+                <button type="button" name="@status" id="@Model.ProfileOwner.UserName" class="btn btn-outline-@color">@follow</button>
 
             </div>
         </div>

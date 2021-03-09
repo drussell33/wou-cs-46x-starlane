@@ -9,6 +9,7 @@ using iCollections.Data;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 
 namespace iCollections.Controllers
@@ -50,7 +51,7 @@ namespace iCollections.Controllers
             }
 
             Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user1.ProfilePicId);
-            //ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
+            ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
 
             var userProfile = new UserProfile { ProfileVisitor = user2, ProfileOwner = user1};
 
@@ -60,10 +61,69 @@ namespace iCollections.Controllers
         [HttpPost]
         [Authorize]
         [Route("userpage/{name}/follow")]
-        public IActionResult Follow(int? id)
+        public IActionResult Follow(string id, string status)
         {
+            if (id == "")
+            {
+                return Json(new { success = false, message = "id expected" });
+            }
+            if (!UserExists(id))
+            {
+                return Json(new { success = false, message = "User not found" });
+            }
 
-            return Json(new { success = false, message = "Follow has been removed" });
+            string aspNetUserID = _userManager.GetUserId(User);
+            if (aspNetUserID == null)
+            {
+                return Json(new { success = false, message = "user not logged in" });
+            }
+            IcollectionUser follower = null;
+            if (aspNetUserID != null)
+            {
+                follower = _db.IcollectionUsers.Where(u => u.AspnetIdentityId == aspNetUserID).FirstOrDefault();
+                if (follower == null)
+                {
+                    return Json(new { success = false, message = "follower not found" });
+                }
+            }
+            IcollectionUser followed = null;
+            if (id != null)
+            {
+                followed = _db.IcollectionUsers.First(f => f.UserName == id);
+                if (followed == null)
+                {
+                    return Json(new { success = false, message = "followed not found" });
+                }
+            }
+
+            if (status == "new")
+            {
+                Follow nuFollow = new Follow
+                {
+                    Followed = followed.Id,
+                    Follower = follower.Id,
+                    Began = DateTime.Now
+                };
+                _db.Follows.Add(nuFollow);
+                _db.SaveChanges();
+                return Json(new { success = true, message = "user was followed" });
+
+            }
+            if (status == "following")
+            {
+                Follow target = _db.Follows.FirstOrDefault(f => f.Followed == followed.Id && f.Follower == follower.Id);
+                if (target != null)
+                {
+                    _db.Follows.Remove(target);
+                    _db.SaveChanges();
+                }
+
+                return Json(new { success = true, message = "Follow has been removed" });
+
+            }
+            
+            return Json(new { success = false, message = "error" });
+            
         }
 
         [Route("userpage/{name}/followers")]
@@ -162,6 +222,10 @@ namespace iCollections.Controllers
         private bool FollowExists(int id)
         {
             return _db.Follows.Any(f => f.Id == id);
+        }
+        private bool UserExists(String name)
+        {
+            return _db.IcollectionUsers.Any(f => f.UserName == name);
         }
     }
 }

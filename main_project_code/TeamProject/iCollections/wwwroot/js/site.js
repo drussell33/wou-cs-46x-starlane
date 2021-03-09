@@ -92,14 +92,13 @@ function updateFollowees(data) {
 
 
 // For following users 
-$('#follow-button > button').onload(function () {
+$('#follow-button > button').click(function () {
     var followID = this.id;
-    if()
-    console.log(followID);
+    var followName = this.name;
 
     $.ajax({
         url: 'userpage/follow',
-        data: { id: followID },
+        data: { id: followID, status: followName },
         method: 'POST',
         success: updateFollowees
     });
@@ -107,6 +106,7 @@ $('#follow-button > button').onload(function () {
 
 function updateFollowees(data) {
     console.log(data);
+    location.reload(true);
 }
 
 
