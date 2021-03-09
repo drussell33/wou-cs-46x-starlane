@@ -10,7 +10,14 @@
         <!--About-->
         <div class="row">
             <div class="col user-profile-obj">
-                <img class="user-profile-img" src="@ViewBag.ImageDataUrl">
+                @if (ViewBag.ImageDataUrl != null)
+                {
+                    <img class="user-profile-img" src="@ViewBag.ImageDataUrl">
+                }
+                else
+                {
+                    <img class="user-profile-img">
+                }
                 <h2>@Model.UserName</h2>
                 <h3>@Model.FirstName @Model.LastName</h3>
                 <div class="about-me">
