@@ -105,7 +105,7 @@ $('#follow-button > button').click(function () {
 });
 
 function updateFollowees(data) {
-    console.log(data);
+
     location.reload(true);
 }
 
