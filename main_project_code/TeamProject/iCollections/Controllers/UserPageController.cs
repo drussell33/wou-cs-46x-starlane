@@ -49,13 +49,13 @@ namespace iCollections.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user1.ProfilePicId);
-            ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
-
-            var userProfile = new UserProfile { ProfileVisitor = user2, ProfileOwner = user1};
-
-            return View(userProfile);
+            
+            Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId);
+            if (profilePicture != null)
+            {
+                ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
+            }
+            return View(user);
         }
 
         [HttpPost]

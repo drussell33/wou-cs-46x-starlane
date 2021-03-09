@@ -1,4 +1,4 @@
-﻿@model UserProfile
+@model UserProfile
 
 @{
     ViewData["Title"] = "Index";
@@ -9,10 +9,19 @@
     <div class="col col">
         <!--About-->
         <div class="row">
+          
             <div class="col user-profile-obj" id="follow-button">
-                <img class="user-profile-img" src="@ViewBag.ImageDataUrl">
+                @if (ViewBag.ImageDataUrl != null)
+                {
+                    <img class="user-profile-img" src="@ViewBag.ImageDataUrl">
+                }
+                else
+                {
+                    <img class="user-profile-img">
+                }
                 <h2>@Model.ProfileOwner.UserName</h2>
                 <h3>@Model.ProfileOwner.FirstName @Model.ProfileOwner.LastName</h3>
+              
                 <div class="about-me">
                     <p>Date Joined: @DateTime.Now</p>
                     <p>About me: @Model.ProfileOwner.AboutMe</p>
