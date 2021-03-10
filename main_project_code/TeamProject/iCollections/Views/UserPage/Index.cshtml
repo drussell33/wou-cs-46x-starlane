@@ -1,4 +1,4 @@
-@model UserProfile
+@model UserProfile  
 
 @{
     ViewData["Title"] = "Index";
@@ -11,7 +11,7 @@
         <div class="row">
           
             <div class="col user-profile-obj" id="follow-button">
-                @if (Model.ProfileOwner.ProfilePicId != null)
+                @if (Model.ProfileOwner.ProfilePicId.HasValue)
                 {
                     <img class="user-profile-img" 
                          src="@Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value)">
