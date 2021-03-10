@@ -1,0 +1,41 @@
+﻿@model iCollections.Models.Follow
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Follow</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Follower" class="control-label"></label>
+                <select asp-for="Follower" class ="form-control" asp-items="ViewBag.Follower"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Followed" class="control-label"></label>
+                <select asp-for="Followed" class ="form-control" asp-items="ViewBag.Followed"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Began" class="control-label"></label>
+                <input asp-for="Began" class="form-control" />
+                <span asp-validation-for="Began" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

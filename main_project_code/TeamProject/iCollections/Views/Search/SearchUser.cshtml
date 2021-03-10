@@ -39,7 +39,7 @@
             <div class="follow-box">
                 @if (Model.loggedInUser != null)
                 {
-                    if (Model.loggedInUser.FollowFollowedNavigations.Any(x => x.FollowerNavigation.Id == result.Id))
+                    if (Model.loggedInUser.FollowFollowerNavigations.Any(x => x.FollowedNavigation.Id == result.Id))
                     {
                         <span>
                             <a class="btn btn-primary following-button text-light">Following</a>

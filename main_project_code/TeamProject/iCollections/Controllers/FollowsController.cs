@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,28 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using iCollections.Data;
 using iCollections.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace iCollections.Controllers
 {
-    //[Authorize(Roles = "admin")]
-    //[Authorize]
-    public class ICollectionsUsersController : Controller
+    public class FollowsController : Controller
     {
         private readonly ICollectionsDbContext _context;
 
-        public ICollectionsUsersController(ICollectionsDbContext context)
+        public FollowsController(ICollectionsDbContext context)
         {
             _context = context;
         }
 
-        // GET: ICollectionsUsers
+        // GET: Follows
         public async Task<IActionResult> Index()
         {
-            return View(await _context.IcollectionUsers.ToListAsync());
+            var iCollectionsDbContext = _context.Follows.Include(f => f.FollowedNavigation).Include(f => f.FollowerNavigation);
+            return View(await iCollectionsDbContext.ToListAsync());
         }
 
-        // GET: ICollectionsUsers/Details/5
+        // GET: Follows/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,39 +34,45 @@ namespace iCollections.Controllers
                 return NotFound();
             }
 
-            var icollectionUser = await _context.IcollectionUsers
+            var follow = await _context.Follows
+                .Include(f => f.FollowedNavigation)
+                .Include(f => f.FollowerNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (icollectionUser == null)
+            if (follow == null)
             {
                 return NotFound();
             }
 
-            return View(icollectionUser);
+            return View(follow);
         }
 
-        // GET: ICollectionsUsers/Create
+        // GET: Follows/Create
         public IActionResult Create()
         {
+            ViewData["Followed"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName");
+            ViewData["Follower"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName");
             return View();
         }
 
-        // POST: ICollectionsUsers/Create
+        // POST: Follows/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AspnetIdentityId,FirstName,LastName,UserName,DateJoined,AboutMe")] IcollectionUser icollectionUser)
+        public async Task<IActionResult> Create([Bind("Id,Follower,Followed,Began")] Follow follow)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(icollectionUser);
+                _context.Add(follow);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(icollectionUser);
+            ViewData["Followed"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            return View(follow);
         }
 
-        // GET: ICollectionsUsers/Edit/5
+        // GET: Follows/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,22 +80,24 @@ namespace iCollections.Controllers
                 return NotFound();
             }
 
-            var icollectionUser = await _context.IcollectionUsers.FindAsync(id);
-            if (icollectionUser == null)
+            var follow = await _context.Follows.FindAsync(id);
+            if (follow == null)
             {
                 return NotFound();
             }
-            return View(icollectionUser);
+            ViewData["Followed"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            return View(follow);
         }
 
-        // POST: ICollectionsUsers/Edit/5
+        // POST: Follows/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AspnetIdentityId,FirstName,LastName,UserName,DateJoined,AboutMe")] IcollectionUser icollectionUser)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Follower,Followed,Began")] Follow follow)
         {
-            if (id != icollectionUser.Id)
+            if (id != follow.Id)
             {
                 return NotFound();
             }
@@ -100,12 +106,12 @@ namespace iCollections.Controllers
             {
                 try
                 {
-                    _context.Update(icollectionUser);
+                    _context.Update(follow);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IcollectionUserExists(icollectionUser.Id))
+                    if (!FollowExists(follow.Id))
                     {
                         return NotFound();
                     }
@@ -116,10 +122,12 @@ namespace iCollections.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(icollectionUser);
+            ViewData["Followed"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            return View(follow);
         }
 
-        // GET: ICollectionsUsers/Delete/5
+        // GET: Follows/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -127,34 +135,32 @@ namespace iCollections.Controllers
                 return NotFound();
             }
 
-            var icollectionUser = await _context.IcollectionUsers
+            var follow = await _context.Follows
+                .Include(f => f.FollowedNavigation)
+                .Include(f => f.FollowerNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (icollectionUser == null)
+            if (follow == null)
             {
                 return NotFound();
             }
 
-            return View(icollectionUser);
+            return View(follow);
         }
 
-        // POST: ICollectionsUsers/Delete/5
+        // POST: Follows/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var icollectionUser = await _context.IcollectionUsers
-                                        .Include(u => u.FollowFollowedNavigations)
-                                        .Include(u => u.FollowFollowerNavigations)
-                                        .Include(u => u.Photos)
-                                        .FirstOrDefaultAsync(x => x.Id == id);
-            _context.IcollectionUsers.Remove(icollectionUser);
+            var follow = await _context.Follows.FindAsync(id);
+            _context.Follows.Remove(follow);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IcollectionUserExists(int id)
+        private bool FollowExists(int id)
         {
-            return _context.IcollectionUsers.Any(e => e.Id == id);
+            return _context.Follows.Any(e => e.Id == id);
         }
     }
 }
