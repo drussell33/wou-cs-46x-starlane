@@ -50,13 +50,13 @@ namespace iCollections.Controllers
 
         public static int GetReadableUserID(string complexId, ICollectionsDbContext _collectionsDbContext)
         {
-            var user = _collectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == complexId);
+            var user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(i => i.AspnetIdentityId == complexId);
             return user.Id;
         }
 
         public static string GetICollectionUserName(string complexId, ICollectionsDbContext _collectionsDbContext)
         {
-            var user = _collectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == complexId);
+            var user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(i => i.AspnetIdentityId == complexId);
             return user.UserName;
         }
 

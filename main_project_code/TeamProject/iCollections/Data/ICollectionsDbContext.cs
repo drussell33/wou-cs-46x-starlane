@@ -133,11 +133,13 @@ namespace iCollections.Data
                 entity.HasOne(d => d.FollowedNavigation)
                     .WithMany(p => p.FollowFollowedNavigations)
                     .HasForeignKey(d => d.Followed)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Follow_fk_ICollectionUser_Two");
 
                 entity.HasOne(d => d.FollowerNavigation)
                     .WithMany(p => p.FollowFollowerNavigations)
                     .HasForeignKey(d => d.Follower)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Follow_fk_ICollectionUser_One");
             });
 
@@ -235,6 +237,7 @@ namespace iCollections.Data
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Photos)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Photo_fk_ICollectionUser");
             });
 
