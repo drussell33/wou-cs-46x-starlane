@@ -4,8 +4,9 @@
   [first_name] nvarchar(50) NOT NULL,
   [last_name] nvarchar(50) NOT NULL,
   [user_name] nvarchar(50) NOT NULL,
-  [date_joined] timestamp,
-  [about_me] nvarchar(250)
+  [date_joined] DateTime,
+  [about_me] nvarchar(250),
+  [profile_pic_id] int
 )
 GO
 
@@ -13,7 +14,7 @@ CREATE TABLE [Follow] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
   [follower] int,
   [followed] int,
-  [began] timestamp
+  [began] DateTime
 )
 GO
 
@@ -22,7 +23,7 @@ CREATE TABLE [Collection] (
   [name] nvarchar(100) NOT NULL,
   [visibility] int NOT NULL,
   [user_id] int,
-  [date_made] timestamp
+  [date_made] DateTime
 )
 GO
 
@@ -34,10 +35,10 @@ GO
 
 CREATE TABLE [Photo] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
-  [name] nvarchar NOT NULL,
-  [data] varbinary(MAX) NOT NULL,
+  [name] nvarchar(50),
+  [data] varbinary(MAX),
   [user_id] int,
-  [date_uploaded] timestamp
+  [date_uploaded] DateTime
 )
 GO
 
@@ -45,7 +46,7 @@ CREATE TABLE [FriendsWith] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
   [user1_id] int,
   [user2_id] int,
-  [began] timestamp
+  [began] DateTime
 )
 GO
 
@@ -54,7 +55,7 @@ CREATE TABLE [CollectionPhoto] (
   [collect_id] int,
   [photo_id] int,
   [photo_rank] int NOT NULL,
-  [date_added] timestamp
+  [date_added] DateTime
 )
 GO
 
@@ -62,7 +63,7 @@ CREATE TABLE [CollectionKeyword] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
   [collect_id] int,
   [keyword_id] int,
-  [date_added] timestamp
+  [date_added] DateTime
 )
 GO
 

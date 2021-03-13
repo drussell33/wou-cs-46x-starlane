@@ -1,0 +1,59 @@
+﻿@model IEnumerable<iCollections.Models.Follow>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Began)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Followed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FollowedNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Follower)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FollowerNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Began)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Followed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FollowedNavigation.FirstName)
+            </td>
+            <td> 
+                @Html.DisplayFor(modelItem => item.Follower)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FollowerNavigation.FirstName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

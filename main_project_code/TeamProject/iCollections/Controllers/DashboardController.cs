@@ -3,40 +3,66 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using iCollections.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace iCollections.Controllers
 {
     public class DashboardController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly ICollectionsDbContext _collectionsDbContext;
 
-        public DashboardController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager)
+        private DatabaseHelper dbHelper;
+
+        public DashboardController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
         {
             _logger = logger;
             _userManager = userManager;
+            _collectionsDbContext = collectionsDbContext;
+            dbHelper = new DatabaseHelper(_userManager, _collectionsDbContext);
         }
 
-        public async Task<IActionResult> Index()
+        // Dashboard opens here - shows a feed of recent events
+        [Authorize]
+        public IActionResult Index()
         {
-            // Information straight from the Controller (does not need to do to the database)
-            bool isAdmin = User.IsInRole("Admin");
-            bool isAuthenticated = User.Identity.IsAuthenticated;
-            string name = User.Identity.Name;
-            string authType = User.Identity.AuthenticationType;
+            // Determine user
+            string nastyStringId = _userManager.GetUserId(User);
+            int userId = DatabaseHelper.GetReadableUserID(nastyStringId, _collectionsDbContext);
+            string userName = DatabaseHelper.GetICollectionUserName(nastyStringId, _collectionsDbContext);
 
-            // Information from Identity through the user manager
-            string id = _userManager.GetUserId(User);         // reportedly does not need to hit db
-            IdentityUser user = await _userManager.GetUserAsync(User);  // does go to the db
-            string email = user?.Email ?? "no email";
-            string phone = user?.PhoneNumber ?? "no phone number";
-            ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
-                              $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}";
-            return View();
+            // start querying distants and my friends' collections
+            var myFriends = dbHelper.GetMyFriends(userId);
+            List<FriendsWith> myFriendsFriends = new List<FriendsWith>();
+            var theirCollections = new List<Collection>();
+            dbHelper.ReadDistantFriends(myFriends, myFriendsFriends, theirCollections, userId);
+
+            // start querying distant followees and my followees' collections
+            var whoIFollow = dbHelper.GetMyFollowees(userId);
+            List<Follow> topFollow = new List<Follow>();
+            List<Collection> followeesCollections = new List<Collection>();
+            dbHelper.ReadFollowees(whoIFollow, topFollow, followeesCollections, userId);
+
+            // Gather remaining lists and order them chronologically
+            var extractedCollections = followeesCollections.Union(theirCollections).Distinct().ToList();
+            dbHelper.OrderLists(myFriendsFriends, topFollow, extractedCollections);
+            var activityData = new ActivityEvents
+            {
+                MyEmail = _userManager.GetUserName(User),
+                MyUsername = userName,
+                recentCollections = extractedCollections,
+                recentFriendships = myFriendsFriends,
+                recentFollows = topFollow
+            };
+
+            return View(activityData);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace iCollections.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     //[Authorize]
     public class ICollectionsUsersController : Controller
     {
@@ -142,7 +142,11 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var icollectionUser = await _context.IcollectionUsers.FindAsync(id);
+            var icollectionUser = await _context.IcollectionUsers
+                                        .Include(u => u.FollowFollowedNavigations)
+                                        .Include(u => u.FollowFollowerNavigations)
+                                        .Include(u => u.Photos)
+                                        .FirstOrDefaultAsync(x => x.Id == id);
             _context.IcollectionUsers.Remove(icollectionUser);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

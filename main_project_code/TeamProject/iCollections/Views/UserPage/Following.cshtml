@@ -1,0 +1,52 @@
+﻿@model FollowList
+
+@{
+    ViewData["Title"] = "Following";
+}
+
+<div class="row">
+
+
+    <!-- User details column -->
+    <div class="col-sm options">
+        <div class="col">
+            <div class="row">
+                <div class="fake-profile-image"></div>
+                <div class="col">
+                    <h2>@Model.TargetFirstname @Model.TargetLastname</h2>
+                    <h3><em>@Model.TargetUsername</em></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- List of users followed column -->
+    <div class="col-sm text-center">
+        @if (Model.Follows.ToList().Count == 0)
+        {
+            <h1>Looks like @Model.TargetUsername isn't following anybody.</h1>
+        }
+        else
+        {
+            <h2>Users I Follow:</h2>
+        }
+        <table class="table text-center">
+
+            @foreach (var followed in Model.Follows)
+            {
+                var followID = "f" + followed.Id;
+
+                <tr>
+                    <td><div class="fake-image"></div></td>
+                    <td>@followed.FollowedNavigation.FirstName</td>
+                    <td>@followed.FollowedNavigation.LastName</td>
+                    <td><a href="../@followed.FollowedNavigation.UserName"><em>@followed.FollowedNavigation.UserName</em></a></td>
+                    <td id="unfollow-button"><button type="button" id="@followID" class="btn btn-outline-danger" for="option3">Un-Follow</button></td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+</div>

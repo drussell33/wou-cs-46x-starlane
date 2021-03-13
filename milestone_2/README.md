@@ -1,4 +1,4 @@
-MIlestone 2
+Milestone 2
 ===========================
 
 # Milestone 2 Assignment Link
