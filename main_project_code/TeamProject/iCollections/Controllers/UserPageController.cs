@@ -28,6 +28,7 @@ namespace iCollections.Controllers
         [Route("userpage/{name}")]
         public IActionResult Index(string name)
         {
+            
             string nastyStringId = _userManager.GetUserId(User);
             int userId = DatabaseHelper.GetReadableUserID(nastyStringId, _db);
 
@@ -50,11 +51,14 @@ namespace iCollections.Controllers
                 return RedirectToAction("Index", "Home");
             }
             
-            Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user.ProfilePicId);
+            
+            Photo profilePicture = _db.Photos.FirstOrDefault(photo => photo.Id == user1.ProfilePicId);
             if (profilePicture != null)
             {
                 ViewBag.ImageDataUrl = profilePicture.ToViewableFormat();
             }
+            
+            UserProfile user = new UserProfile { ProfileOwner = user1, ProfileVisitor = user2};
             return View(user);
         }
 
@@ -163,7 +167,7 @@ namespace iCollections.Controllers
         [HttpPost]
         [Authorize]
         [Route("userpage/{name}/following")]
-        public IActionResult Following(int? id)
+        public async Task<JsonResult> Following(int? id)
         {
             if (id == null)
             {
@@ -196,7 +200,7 @@ namespace iCollections.Controllers
             if (target != null)
             {
                 _db.Follows.Remove(target);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
 
             return Json(new { success = true, message = "Follow has been removed" });
