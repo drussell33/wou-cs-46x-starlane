@@ -111,6 +111,7 @@ Please follow the guidelines listed below when contributing code to this project
 * Primary SQL table keys are simply id
 * Foreign keys are name of the other table plus _ plus id (product_id)
 * SQL table names are lower case also.
+* Identity
 
 
 
