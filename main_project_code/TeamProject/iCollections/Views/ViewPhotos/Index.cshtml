@@ -1,0 +1,9 @@
+@model List<PhotoInfo>
+@{
+    ViewData["Title"] = "View Photos";
+}
+
+@foreach (var photo in Model) 
+{
+    <p>@photo.Url : @photo.PhotoName</p>
+}

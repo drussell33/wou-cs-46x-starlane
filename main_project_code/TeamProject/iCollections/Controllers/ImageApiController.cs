@@ -13,7 +13,13 @@ namespace iCollections.Controllers
 
         }
 
-        public Photo Thumbnail() {
+        public Photo Thumbnail(string id)
+        {
+            return null;
+        }
+
+        public Photo Thumbnails()
+        {
             return null;
         }
 

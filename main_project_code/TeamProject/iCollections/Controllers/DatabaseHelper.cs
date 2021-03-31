@@ -119,5 +119,16 @@ namespace iCollections.Controllers
             extractedCollections = extractedCollections.OrderByDescending(r => r.DateMade).ToList();
         }
 
+        public List<PhotoInfo> GetMyPhotosInfo(int myId)
+        {
+            string address = "https://icollections.azurewebsites.net/api/images/thumbnails/";
+            var photosInformation = _collectionsDbContext.Photos
+                                .Where(row => row.User.Id == myId)
+                                .Select(myRows => new PhotoInfo { Url = address + myRows.Id, PhotoName = myRows.Name })
+                                .ToList();
+            
+            return photosInformation;
+        }
+
     }
 }
