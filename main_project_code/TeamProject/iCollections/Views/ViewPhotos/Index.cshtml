@@ -3,27 +3,24 @@
     ViewData["Title"] = "View Photos";
 }
 
-<div class="row">
-    @for (int i = 0; i < 3; i++)
+<div class="page-header">
+    <h1>Your photos</h1> 
+    <p>Here are all the photos you have stored.</p> 
+  </div>
+
+<div class="row organize-row">
+    @for (int i = 0; i < Model.Count; i++)
     {
         if (i % 3 == 0 && i > 0)
         {
-            @:</div><div class="row">
+            @:</div><div class="row organize-row">
         }
 
-        <div class="col-lg-4 mb-4 mb-lg-0">
-            <img src="https://mdbootstrap.com/img/Photos/Vertical/mountain1.jpg" class="w-100 shadow-1-strong rounded mb-4"
-                alt="" />
-        </div>
-
-        <div class="col-lg-4 mb-4 mb-lg-0">
-            <img src="https://mdbootstrap.com/img/Photos/Vertical/mountain2.jpg" class="w-100 shadow-1-strong rounded mb-4"
-                alt="" />
-        </div>
-
-        <div class="col-lg-4 mb-4 mb-lg-0">
-            <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg"
-                class="w-100 shadow-1-strong rounded mb-4" alt="" />
+        <div class="col-lg-4 mb-4 mb-lg-0 text-center">
+            <a target="_blank" href="https://upload.wikimedia.org/wikipedia/commons/c/cf/LeBron_James_crop.jpg">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/LeBron_James_crop.jpg" class="shadow-1-strong rounded mb-4 pic-thumbnail" alt="" />
+            </a>
+            @Model[i].PhotoName
         </div>
     }
 </div>
