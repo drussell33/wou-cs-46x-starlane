@@ -121,13 +121,19 @@ namespace iCollections.Controllers
 
         public List<PhotoInfo> GetMyPhotosInfo(int myId)
         {
-            string address = "https://icollections.azurewebsites.net/api/images/thumbnails/";
+            string address = "https://icollections.azurewebsites.net/api/images/thumbnail/";
             var photosInformation = _collectionsDbContext.Photos
                                 .Where(row => row.User.Id == myId)
                                 .Select(myRows => new PhotoInfo { Url = address + myRows.Id, PhotoName = myRows.Name })
                                 .ToList();
             
             return photosInformation;
+        }
+
+        public Photo GetPhoto(int id)
+        {
+            var photo = _collectionsDbContext.Photos.FirstOrDefault(row => row.Id == id);
+            return photo;
         }
 
     }
