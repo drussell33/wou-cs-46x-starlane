@@ -72,6 +72,19 @@ namespace iCollections.Controllers
             return View();
         }
 
+        [Route("/ocean_environment")]
+        public IActionResult Ocean_environment()
+        {
+            return View();
+        }
+
+        [Route("/gallery_environment")]
+        public IActionResult gallery_environment()
+        {
+            return View();
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

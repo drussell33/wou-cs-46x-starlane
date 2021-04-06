@@ -8,8 +8,9 @@ import { Sky } from './Sky.js';
 /*$('#ocean_container2').load(function () {
 
 });*/
+
  
-/*var Ocean_example = function () {*/
+/*var Ocean_example = function () {*/ 
 
 
     var container, stats;
@@ -61,7 +62,7 @@ import { Sky } from './Sky.js';
             {
                 textureWidth: 512,
                 textureHeight: 512,
-                waterNormals: new THREE.TextureLoader().load('./images/waternormals.jpg',
+                waterNormals: new THREE.TextureLoader().load('./images/textures/waternormals.jpg',
                     function (texture) {
 
                         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
@@ -194,7 +195,7 @@ import { Sky } from './Sky.js';
         // CUstom text to sign THIRD Attempt END ----------------------------------------------------------------------------
 
         // adding fish ---------------------
-        fish4 = uploadImage('./images/fish4.png');
+        fish4 = uploadImage('./images/fish_pics/fish4.png');
         fish4.position.set(0, 25, -300);
         //fish4.rotation.y = Math.PI / 2;
         //fish4Text = uploadText("WILL THIS WORK!!!")
@@ -206,7 +207,7 @@ import { Sky } from './Sky.js';
 
 
         // adding fish ---------------------
-        fish2 = uploadImage('./images/fish2.png');
+        fish2 = uploadImage('./images/fish_pics/fish2.png');
         fish2.position.set(300, 25, 0);
         fish2.rotation.y = Math.PI / 2;
         fish2Text = inputText('Big Mouth Bass', "Caught Jun 2013", "Vernoia Lake");
@@ -216,7 +217,7 @@ import { Sky } from './Sky.js';
         scene.add(fish2Text);
 
         // adding fish ---------------------
-        fish3 = uploadImage('./images/fish3.png');
+        fish3 = uploadImage('./images/fish_pics/fish3.png');
         fish3.position.set(0, 25, 300);
         fish3Text = inputText('Big Mouth Bass', "Caught Jun 2013", "Vernoia Lake");
         fish3Text.position.set(0, 130, 300);
@@ -225,7 +226,7 @@ import { Sky } from './Sky.js';
         scene.add(fish3Text);
 
         // adding fish ---------------------
-        marlin = uploadImage('./images/marlin.png');
+        marlin = uploadImage('./images/fish_pics/marlin.png');
         marlin.position.set(-300, 25, 0);
         marlin.rotation.y = Math.PI / 2;
         scene.add(marlin);
@@ -236,7 +237,7 @@ import { Sky } from './Sky.js';
         scene.add(marlinText);
 
         // adding fish ---------------------
-        bluegill = uploadImage('./images/bluegill.png');
+        bluegill = uploadImage('./images/fish_pics/bluegill.png');
         bluegill.position.set(-300, 25, 300);
         bluegill.rotation.y = -60;
         scene.add(bluegill);
@@ -247,7 +248,7 @@ import { Sky } from './Sky.js';
         scene.add(bluegillText);
 
         // adding fish ---------------------
-        steelhead = uploadImage('./images/steelhead.png');
+        steelhead = uploadImage('./images/fish_pics/steelhead.png');
         steelhead.position.set(-200, 25, -200);
         steelhead.rotation.y = 60;
         scene.add(steelhead);
@@ -258,7 +259,7 @@ import { Sky } from './Sky.js';
         scene.add(steelheadText);
 
         // adding fish ---------------------
-        boot = uploadImage('./images/boot.png');
+        boot = uploadImage('./images/fish_pics/boot.png');
         boot.position.set(200, 25, 200);
         boot.rotation.y = 60;
         scene.add(boot);
@@ -269,7 +270,7 @@ import { Sky } from './Sky.js';
         scene.add(bootText);
 
         // adding fish ---------------------
-        rockcod = uploadImage('./images/rockcod.png');
+        rockcod = uploadImage('./images/fish_pics/rockcod.png');
         rockcod.position.set(250, 25, -250);
         rockcod.rotation.y = 50;
         scene.add(rockcod);
