@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace iCollections.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationUser : IdentityUser
     {
+        public string AppUserName { get; set; }
+    }
+
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    {
+
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -18,5 +26,8 @@ namespace iCollections.Data
         {
             base.OnModelCreating(builder);
         }
+
+
     }
+
 }

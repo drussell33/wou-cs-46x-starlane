@@ -35,7 +35,7 @@ namespace iCollections.Controllers
             }*/
             // Information straight from the Controller (does not need to do to the database)
 
-            // Information straight from the Controller (does not need to do to the database)
+/*            // Information straight from the Controller (does not need to do to the database)
             bool isAdmin = User.IsInRole("Admin");
             string name = User.Identity.Name;
             string authType = User.Identity.AuthenticationType;
@@ -57,7 +57,7 @@ namespace iCollections.Controllers
                 aboutMe = cu?.AboutMe ?? "no about me";
                 numberOfFollowers = _collectionsDbContext.Follows.Where(u => u.Followed == cu.Id).Count();
                 numberOfFriends = _collectionsDbContext.FriendsWiths.Where(u => u.User1Id == cu.Id).Count();
-            }
+            }*/
 
 
             /*ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +

@@ -36,7 +36,7 @@ namespace iCollections.Utilities
                     foreach (var u in seedData)
                     {
                         // Ensure this user exists or is newly created (Email is used for username since that is the default in Register and Login -- change those and then use username here if you want it different than email
-                        var identityID = await EnsureUser(userManager, testUserPw, u.Email, u.Email, u.EmailConfirmed);
+                        var identityID = await EnsureUser(userManager, testUserPw, u.Email, /*u.UserName,*/u.Email, u.EmailConfirmed);
                         // Create a new FujiUser if this one doesn't already exist
                         IcollectionUser fu = new IcollectionUser { AspnetIdentityId = identityID, FirstName = u.FirstName, LastName = u.LastName, UserName = u.UserName, AboutMe = "Something about me"};
                         if (!context.IcollectionUsers.Any(x => x.AspnetIdentityId == fu.AspnetIdentityId && x.FirstName == fu.FirstName && x.LastName == fu.LastName))
@@ -78,7 +78,7 @@ namespace iCollections.Utilities
                     // Get the Identity user manager
                     var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
                     // Ensure the admin user exists
-                    var identityID = await EnsureUser(userManager, adminPw, email, email, true);
+                    var identityID = await EnsureUser(userManager, adminPw, email, /*userName,*/ email, true);
                     // Create a new FujiUser if this one doesn't already exist
                     IcollectionUser fu = new IcollectionUser { AspnetIdentityId = identityID, FirstName = firstName, LastName = lastName, UserName = userName};
                     if (!context.IcollectionUsers.Any(x => x.AspnetIdentityId == fu.AspnetIdentityId && x.FirstName == fu.FirstName && x.LastName == fu.LastName))
@@ -110,15 +110,15 @@ namespace iCollections.Utilities
         /// <param name="email"></param>
         /// <param name="emailConfirmed"></param>
         /// <returns>The Identity ID of the user</returns>
-        private static async Task<string> EnsureUser(UserManager<IdentityUser> userManager, string password, string username, string appuserName, string email, bool emailConfirmed)
+        private static async Task<string> EnsureUser(UserManager<IdentityUser> userManager, string password, string username, /*string appuserName,*/ string email, bool emailConfirmed)
         {
             var user = await userManager.FindByNameAsync(username);
             if (user == null)
             {
-                user = new IdentityUser
+                user = new ApplicationUser
                 {
                     UserName = username,
-                    AppUserName = appuserName,
+                    //AppUserName = appuserName,
                     Email = email,
                     EmailConfirmed = emailConfirmed
                 };

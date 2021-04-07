@@ -56,6 +56,7 @@ namespace iCollections.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            //var appUserName = await _userManager.GetAppUserNameAsync(user);
 
             Username = userName;
 

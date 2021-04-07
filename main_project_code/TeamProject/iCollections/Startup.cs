@@ -49,6 +49,7 @@ namespace iCollections
             services.Configure<IdentityOptions>(opts =>
             {
                 opts.User.RequireUniqueEmail = true;
+                
             });
             services.AddControllersWithViews();
             // Added to enable runtime compilation.
