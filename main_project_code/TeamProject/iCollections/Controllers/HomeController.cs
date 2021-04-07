@@ -49,10 +49,11 @@ namespace iCollections.Controllers
             int numberOfFollowers = 0;
             int numberOfFriends = 0;
             string aboutMe = null;
+           
             if (id != null)
             {
                 cu = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-
+                
                 aboutMe = cu?.AboutMe ?? "no about me";
                 numberOfFollowers = _collectionsDbContext.Follows.Where(u => u.Followed == cu.Id).Count();
                 numberOfFriends = _collectionsDbContext.FriendsWiths.Where(u => u.User1Id == cu.Id).Count();

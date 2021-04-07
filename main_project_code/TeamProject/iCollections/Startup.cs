@@ -31,15 +31,15 @@ namespace iCollections
         {
             var authBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("AuthenticationConnection"));
             var appBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("ICollectionsConnection"));
-            authBuilder.Password = Configuration["ICollections:ServerPassword"];
-            appBuilder.Password = Configuration["ICollections:ServerPassword"];
+            //authBuilder.Password = Configuration["ICollections:ServerPassword"];
+            //appBuilder.Password = Configuration["ICollections:ServerPassword"];
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(authBuilder.ConnectionString));
                         //Configuration.GetConnectionString("AuthenticationConnection"));
             services.AddDbContext<ICollectionsDbContext>(options =>
                  options.UseSqlServer(appBuilder.ConnectionString));
-                       // Configuration.GetConnectionString("ICollectionsConnection"));
+                       //Configuration.GetConnectionString("ICollectionsConnection"));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

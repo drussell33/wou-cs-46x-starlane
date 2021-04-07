@@ -42,6 +42,11 @@ namespace iCollections.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Your user name")]
+            public string AppUserName { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -56,7 +61,8 @@ namespace iCollections.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+               // AppUserName = user.AppUserName
             };
         }
 

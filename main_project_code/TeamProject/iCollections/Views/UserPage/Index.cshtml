@@ -13,12 +13,12 @@
             <div class="col user-profile-obj" id="follow-button">
                 @if (Model.ProfileOwner.ProfilePicId.HasValue)
                 {
-                    <img class="user-profile-img" 
-                         src="@Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value)">
+                    <img class="user-profile-img"
+                         src="data:image;base64,@System.Convert.ToBase64String(Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value).Data)" />
                 }
-                else
+                else     
                 {
-                    <img class="user-profile-img">
+                <img class="user-profile-img">
                 }
                 <h2>@Model.ProfileOwner.UserName</h2>
                 <h3>@Model.ProfileOwner.FirstName @Model.ProfileOwner.LastName</h3>

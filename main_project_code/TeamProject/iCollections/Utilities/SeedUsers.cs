@@ -110,7 +110,7 @@ namespace iCollections.Utilities
         /// <param name="email"></param>
         /// <param name="emailConfirmed"></param>
         /// <returns>The Identity ID of the user</returns>
-        private static async Task<string> EnsureUser(UserManager<IdentityUser> userManager, string password, string username, string email, bool emailConfirmed)
+        private static async Task<string> EnsureUser(UserManager<IdentityUser> userManager, string password, string username, string appuserName, string email, bool emailConfirmed)
         {
             var user = await userManager.FindByNameAsync(username);
             if (user == null)
@@ -118,6 +118,7 @@ namespace iCollections.Utilities
                 user = new IdentityUser
                 {
                     UserName = username,
+                    AppUserName = appuserName,
                     Email = email,
                     EmailConfirmed = emailConfirmed
                 };
