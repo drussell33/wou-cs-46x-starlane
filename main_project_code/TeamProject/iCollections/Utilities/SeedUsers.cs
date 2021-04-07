@@ -115,7 +115,7 @@ namespace iCollections.Utilities
             var user = await userManager.FindByNameAsync(username);
             if (user == null)
             {
-                user = new ApplicationUser
+                user = new IdentityUser
                 {
                     UserName = username,
                     //AppUserName = appuserName,

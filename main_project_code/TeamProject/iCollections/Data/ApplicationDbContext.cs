@@ -7,27 +7,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace iCollections.Data
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationDbContext : IdentityDbContext
     {
-        public string AppUserName { get; set; }
-    }
-
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
-    {
-
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
 
         }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-        }
-
-
     }
-
 }
