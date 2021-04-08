@@ -60,18 +60,36 @@ namespace iCollections.Controllers
             return user.UserName;
         }
 
-        public static void RemoveDuplicates(List<FriendsWith> list, List<IcollectionUser> directFriends)
+        public static bool IsBothFriendsOfMine(List<IcollectionUser> directs, IcollectionUser u1, IcollectionUser u2)
         {
-            for (int i = list.Count() - 1; i >= 0; i--)
-            {
-                var user1 = list[i].User1.Id;
-                var user2 = list[i].User2.Id;
-                if (directFriends.Any(myBuddy => myBuddy.Id == user2)) list.RemoveAll(r => r.User1.Id == user1 && r.User2.Id == user2);
-                else list.RemoveAll(r => r.User1.Id == user2 && r.User2.Id == user1);
-            }
+            return directs.Any(r => r.Id == u1.Id) && directs.Any(r => r.Id == u2.Id);
         }
 
-        public void ReadDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId) {
+        // removes duplicates from list (list of mutual friends)
+        // remove duplicate friendships 
+        // (assuming all friendships have at least one of my friends in them)
+        public static void RemoveDuplicates(ref List<FriendsWith> friendships, List<IcollectionUser> directFriends)
+        {
+            var filtered = new List<FriendsWith>();
+            var bothDirectFriends = new List<FriendsWith>();
+            foreach (var ship in friendships)
+            {
+                if (directFriends.Any(r => r.Id == ship.User1.Id)
+                    && !bothDirectFriends.Any(r => r.User1.Id == ship.User2.Id && r.User2.Id == ship.User1.Id))
+                {
+                    filtered.Add(ship);
+
+                    if (IsBothFriendsOfMine(directFriends, ship.User1, ship.User2))
+                    {
+                        bothDirectFriends.Add(ship);
+                    }
+                }
+            }
+            friendships = filtered;
+        }
+
+        public void ReadDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId)
+        {
             foreach (var directFriend in myFriends)
             {
                 var directFriendsFriend = _collectionsDbContext.FriendsWiths
@@ -91,10 +109,11 @@ namespace iCollections.Controllers
             }
 
             myFriendsFriends.RemoveAll(friendship => isKeyInFriendship(friendship.User1, friendship.User2, userId));
-            RemoveDuplicates(myFriendsFriends, myFriends);
+            RemoveDuplicates(ref myFriendsFriends, myFriends);
         }
 
-        public void ReadFollowees(List<IcollectionUser> followees, List<Follow> topFollow, List<Collection> followeesCollections, int userId) {
+        public void ReadFollowees(List<IcollectionUser> followees, List<Follow> topFollow, List<Collection> followeesCollections, int userId)
+        {
             foreach (var myFollowee in followees)
             {
                 var followeeFollowees = _collectionsDbContext.Follows
@@ -113,7 +132,8 @@ namespace iCollections.Controllers
             }
         }
 
-        public void OrderLists(List<FriendsWith> myFriendsFriends, List<Follow> topFollow, List<Collection> extractedCollections) {
+        public void OrderLists(List<FriendsWith> myFriendsFriends, List<Follow> topFollow, List<Collection> extractedCollections)
+        {
             myFriendsFriends = myFriendsFriends.OrderByDescending(r => r.Began).ToList();
             topFollow = topFollow.OrderByDescending(r => r.Began).ToList();
             extractedCollections = extractedCollections.OrderByDescending(r => r.DateMade).ToList();
@@ -126,7 +146,7 @@ namespace iCollections.Controllers
                                 .Where(row => row.User.Id == myId)
                                 .Select(myRows => new PhotoInfo { Url = address + myRows.Id, PhotoName = myRows.Name })
                                 .ToList();
-            
+
             return photosInformation;
         }
 

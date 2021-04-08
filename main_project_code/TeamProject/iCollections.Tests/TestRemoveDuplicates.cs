@@ -67,26 +67,8 @@ namespace iCollections.Tests
                 User2 = new IcollectionUser { Id = 63 },
                 Began = DateTime.Now
             });
-            DatabaseHelper.RemoveDuplicates(list, directFriends);
+            DatabaseHelper.RemoveDuplicates(ref list, directFriends);
             Assert.AreEqual(1, list.Count);
-        }
-
-        [Test]
-        public void RemoveDuplicate_SizeTwoDuplicateListReturns_OneFriendship()
-        {
-            var brock = new IcollectionUser { Id = 52, FirstName = "Brock" };
-            var lily = new IcollectionUser { Id = 4, FirstName = "Lily" };
-            var john = new IcollectionUser { Id = 14, FirstName = "John" };
-            var damon = new IcollectionUser { Id = 78, FirstName = "Damon" };
-
-            List<FriendsWith> mutuals = new List<FriendsWith>();
-            mutuals.Add(new FriendsWith { Id = 1324, User1Id = brock.Id, User2Id = lily.Id, User1 = brock, User2 = lily });
-            mutuals.Add(new FriendsWith { Id = 132, User1Id = lily.Id, User2Id = brock.Id, User1 = lily, User2 = brock });
-
-            DatabaseHelper.RemoveDuplicates(mutuals, new List<IcollectionUser>());
-
-            Assert.That(mutuals.Count, Is.EqualTo(1));
-
         }
 
         [Test]
@@ -104,7 +86,7 @@ namespace iCollections.Tests
             var personals = new List<IcollectionUser>();
             personals.Add(brock);
 
-            DatabaseHelper.RemoveDuplicates(mutuals, personals);
+            DatabaseHelper.RemoveDuplicates(ref mutuals, personals);
 
             Assert.That(mutuals.Count, Is.EqualTo(1));
 
@@ -123,9 +105,41 @@ namespace iCollections.Tests
             mutuals.Add(new FriendsWith { Id = 132, User1Id = lily.Id, User2Id = brock.Id, User1 = lily, User2 = brock });
             mutuals.Add(new FriendsWith { Id = 1324, User1Id = brock.Id, User2Id = lily.Id, User1 = brock, User2 = lily });
 
-            DatabaseHelper.RemoveDuplicates(mutuals, new List<IcollectionUser>());
+            var personals = new List<IcollectionUser>();
+            personals.Add(lily);
+
+            DatabaseHelper.RemoveDuplicates(ref mutuals, personals);
 
             Assert.That(mutuals.Count, Is.EqualTo(1));
+
+        }
+
+        [Test]
+        public void RemoveDuplicate_AllMutualsAreDirectFriendsOfMineReturns_SmallerList()
+        {
+            var brock = new IcollectionUser { Id = 52, FirstName = "Brock" };
+            var lily = new IcollectionUser { Id = 4, FirstName = "Lily" };
+            var john = new IcollectionUser { Id = 14, FirstName = "John" };
+            var damon = new IcollectionUser { Id = 78, FirstName = "Damon" };
+
+            List<FriendsWith> mutuals = new List<FriendsWith>();
+            mutuals.Add(new FriendsWith { Id = 1324, User1Id = brock.Id, User2Id = lily.Id, User1 = brock, User2 = lily });
+            mutuals.Add(new FriendsWith { Id = 132, User1Id = lily.Id, User2Id = brock.Id, User1 = lily, User2 = brock });
+            mutuals.Add(new FriendsWith { Id = 1325, User1Id = john.Id, User2Id = damon.Id, User1 = john, User2 = damon });
+            mutuals.Add(new FriendsWith { Id = 13, User1Id = damon.Id, User2Id = john.Id, User1 = damon, User2 = john });
+            mutuals.Add(new FriendsWith { Id = 13245, User1Id = brock.Id, User2Id = damon.Id, User1 = brock, User2 = damon });
+            mutuals.Add(new FriendsWith { Id = 1, User1Id = damon.Id, User2Id = brock.Id, User1 = damon, User2 = brock });
+
+            var personals = new List<IcollectionUser>();
+            personals.Add(lily);
+            personals.Add(brock);
+            personals.Add(john);
+            personals.Add(damon);
+
+
+            DatabaseHelper.RemoveDuplicates(ref mutuals, personals);
+
+            Assert.That(mutuals.Count, Is.EqualTo(3));
 
         }
     }
