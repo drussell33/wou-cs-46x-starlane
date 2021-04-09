@@ -51,20 +51,20 @@ namespace iCollections.Utilities
                             // Doesn't already exist, so add a new user
                             context.Add(fu);
                             await context.SaveChangesAsync();
-                            var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
-                            var src = "~/images/profile_pics/profile_pic_4.jpg";
+                            //var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
+                            //var src = "~/images/profile_pics/profile_pic_4.jpg";
                             //IFileProvider physicalProvider = new PhysicalFileProvider(src); 
                             //var img = File.Create(src);
                             //System.Drawing.Image img = System.Drawing.Image.FromFile(src);
                             //byte[] imgdata = System.IO.File.ReadAllBytes(src);
                             //byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
-                            Photo profile_pic = new Photo { Name = "profile_pic", /*Data = imgdata,*/ DateUploaded = DateTime.Now, UserId = thatNewUser.Id };
-                            context.Add(profile_pic);
-                            await context.SaveChangesAsync();
+                            //Photo profile_pic = new Photo { Name = "profile_pic", /*Data = imgdata,*/ DateUploaded = DateTime.Now, UserId = thatNewUser.Id };
+                            //context.Add(profile_pic);
+                            //await context.SaveChangesAsync();
 
-                            var thatNewPhoto = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
-                            thatNewUser.ProfilePicId = profile_pic.Id;
-                            await context.SaveChangesAsync();
+                            //var thatNewPhoto = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
+                            //thatNewUser.ProfilePicId = profile_pic.Id;
+                            //await context.SaveChangesAsync();
                         }
                         /*var src = "images/profile_pics/profile_pic_4.jpg";
                         System.Drawing.Image img = System.Drawing.Image.FromFile(src);
