@@ -1,13 +1,32 @@
+@using Microsoft.AspNetCore.Identity
+@using iCollections.Data;
+
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject ICollectionsDbContext AppContext
+
+
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        string id = UserManager.GetUserId(User);
+        IcollectionUser appUser = AppContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
             <div class="dropdown-menu" aria-labelledby="loginDropdown">
                 <!--Manage Account-->
-                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage @User.Identity.Name Account</a>
                 <!--User Profile-->
-                <a class="dropdown-item" asp-controller="UserPage" asp-action="Index" asp-route-name="@User.Identity.Name">My Profile</a>
+                <a class="dropdown-item" asp-controller="UserPage" asp-action="Index" asp-route-name="@appUser.UserName">@appUser.UserName Profile</a>
+                @*<a class="dropdown-item" asp-controller="UserPage" asp-action="Index" asp-route-name="@UserManager.GetUserAsync(User).Result.UserName">@UserManager.GetUserAsync(User).Result.UserName Profile</a>*@
+                <!--Create iCollections-->
+                <a class="dropdown-item" asp-controller="CreateCollection" asp-action="EnvironmentSelection">Create iCollection</a>
+                <!--User iCollection-->
+                <a class="dropdown-item" asp-controller="UserPage" asp-action="Collections" asp-route-name="@appUser.UserName">My iCollections</a>
+                <!--Upload Photo-->
+                <a class="dropdown-item" asp-area="" asp-controller="UploadPhoto" asp-action="Index">Upload Photo</a>
                 <div class="dropdown-divider"></div>
                 <!--Logout-->
                 <form class="form-inline dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
