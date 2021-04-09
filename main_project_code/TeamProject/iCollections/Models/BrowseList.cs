@@ -11,7 +11,7 @@ namespace iCollections.Models
 
         public List<Collection> searchResults { get; set; }
 
-        public List<CollectionKeyword> suggestedKeywords { get; set; }
+        public List<Keyword> suggestedKeywords { get; set; }
 
     }
 }

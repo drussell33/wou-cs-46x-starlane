@@ -31,20 +31,37 @@ namespace iCollections.Controllers
 
         public IActionResult Index()
         {
-            var init_user = _collectionsDbContext.IcollectionUsers.Include(c => c.Collections).FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
+            var init_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
+
+            var init_browselist = new BrowseList
+            {
+                loggedInUser = init_user,
+                searchResults = null,
+                suggestedKeywords = _collectionsDbContext.Keywords.ToList()
+                
+            };
 
 
 
+            return View(init_browselist);
+        }
 
 
+        [HttpGet]
+        public IActionResult Search()
+        {
             return View();
         }
 
+        [HttpPost]
         public IActionResult Search(string keywords)
         {
+            Console.WriteLine(keywords);
 
-            return View();
+            return RedirectToAction();
         }
+        
+
 
     }
 }
