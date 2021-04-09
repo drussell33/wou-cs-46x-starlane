@@ -1,13 +1,18 @@
-﻿using iCollections.Data;
+﻿using iCollections.Controllers;
+using iCollections.Data;
 using iCollections.Models;
 using iCollections.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace iCollections.Utilities
 {
@@ -39,13 +44,43 @@ namespace iCollections.Utilities
                         var identityID = await EnsureUser(userManager, testUserPw, u.Email, /*u.UserName,*/u.Email, u.EmailConfirmed);
                         // Create a new FujiUser if this one doesn't already exist
                         IcollectionUser fu = new IcollectionUser { AspnetIdentityId = identityID, FirstName = u.FirstName, LastName = u.LastName, UserName = u.UserName, AboutMe = "Something about me"};
+
+                       
                         if (!context.IcollectionUsers.Any(x => x.AspnetIdentityId == fu.AspnetIdentityId && x.FirstName == fu.FirstName && x.LastName == fu.LastName))
                         {
                             // Doesn't already exist, so add a new user
                             context.Add(fu);
                             await context.SaveChangesAsync();
+                            var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
+                            var src = "~/images/profile_pics/profile_pic_4.jpg";
+                            //IFileProvider physicalProvider = new PhysicalFileProvider(src);
+                            //var img = File.Create(src);
+                            //System.Drawing.Image img = System.Drawing.Image.FromFile(src);
+                            //byte[] imgdata = System.IO.File.ReadAllBytes(src);
+                            //byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
+                            Photo profile_pic = new Photo { Name = "profile_pic", /*Data = imgdata,*/ DateUploaded = DateTime.Now, UserId = thatNewUser.Id };
+                            context.Add(profile_pic);
+                            await context.SaveChangesAsync();
+
+                            var thatNewPhoto = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
+                            thatNewUser.ProfilePicId = profile_pic.Id;
+                            await context.SaveChangesAsync();
                         }
-/*                        //Now making sure that the admin role exists and give it to this user.
+                        /*var src = "images/profile_pics/profile_pic_4.jpg";
+                        System.Drawing.Image img = System.Drawing.Image.FromFile(src);
+                        byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
+                        Photo profile_pic = new Photo { Name = "profile_pic", Data = bytes, DateUploaded = DateTime.Now*//*, UserId = fu.Id *//*};
+                        context.Photos.Add(profile_pic);
+                        await context.SaveChangesAsync();*/
+
+                        //second attempts
+                        /*var src = "~/images/profile_pics/profile_pic_4.jpg";
+                        System.Drawing.Image img = System.Drawing.Image.FromFile(src);
+                        byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
+                        Photo profile_pic = new Photo { Name = "profile_pic", Data = bytes, DateUploaded = DateTime.Now, UserId = fu.Id };
+                        context.Add(profile_pic);
+                        await context.SaveChangesAsync();*/
+                        /*Now making sure that the admin role exists and give it to this user.
                         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                         await EnsureRoleForUser(roleManager, userManager, identityID, "admin");*/
                     }
@@ -57,6 +92,7 @@ namespace iCollections.Utilities
                 // Catch it (and don't throw the exception below) if you don't want it to fail (5xx status code)
                 throw new Exception("Failed to initialize user seed data, service provider did not have the correct service");
             }
+
         }
 
         /// <summary>
