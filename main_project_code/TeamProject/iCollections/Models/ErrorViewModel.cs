@@ -1,5 +1,5 @@
 using System;
-
+//remove this later
 namespace iCollections.Models
 {
     public class ErrorViewModel
@@ -8,5 +8,6 @@ namespace iCollections.Models
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
+    //need to update
 }
 //remove me later
