@@ -53,7 +53,7 @@ namespace iCollections.Utilities
                             await context.SaveChangesAsync();
                             var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
                             var src = "~/images/profile_pics/profile_pic_4.jpg";
-                            //IFileProvider physicalProvider = new PhysicalFileProvider(src);
+                            //IFileProvider physicalProvider = new PhysicalFileProvider(src); 
                             //var img = File.Create(src);
                             //System.Drawing.Image img = System.Drawing.Image.FromFile(src);
                             //byte[] imgdata = System.IO.File.ReadAllBytes(src);
