@@ -158,7 +158,7 @@ namespace iCollections.Controllers
         [HttpPost]
         [Authorize]
         [Route("userpage/{name}/following")]
-        public IActionResult Following(int? id)
+        public async Task<JsonResult> Following(int? id)
         {
             if (id == null)
             {
@@ -191,7 +191,7 @@ namespace iCollections.Controllers
             if (target != null)
             {
                 _db.Follows.Remove(target);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
 
             return Json(new { success = true, message = "Follow has been removed" });

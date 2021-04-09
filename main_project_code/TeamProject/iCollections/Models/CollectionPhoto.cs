@@ -12,6 +12,10 @@ namespace iCollections.Models
         public int? PhotoId { get; set; }
         public int PhotoRank { get; set; }
         public DateTime? DateAdded { get; set; }
+        //added in sprint 3
+        public string Title { get; set; }
+        //added in sprint 3
+        public string Description { get; set; }
 
         public virtual Collection Collect { get; set; }
         public virtual Photo Photo { get; set; }
