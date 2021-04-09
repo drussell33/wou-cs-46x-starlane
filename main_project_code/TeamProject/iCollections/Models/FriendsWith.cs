@@ -14,10 +14,5 @@ namespace iCollections.Models
 
         public virtual IcollectionUser User1 { get; set; }
         public virtual IcollectionUser User2 { get; set; }
-
-        public bool isKeyInFriendship(int key)
-        {
-            return key == User1.Id || key == User2.Id;
-        }
     }
 }

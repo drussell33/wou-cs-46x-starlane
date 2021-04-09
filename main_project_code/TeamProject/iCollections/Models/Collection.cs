@@ -18,6 +18,7 @@ namespace iCollections.Models
         public int Visibility { get; set; }
         public int? UserId { get; set; }
         public DateTime? DateMade { get; set; }
+        public string Route { get; set; }
 
         public virtual IcollectionUser User { get; set; }
         public virtual ICollection<CollectionKeyword> CollectionKeywords { get; set; }

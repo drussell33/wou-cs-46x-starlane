@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using iCollections.Models;
 
-
 #nullable disable
 
 namespace iCollections.Data
@@ -21,12 +20,12 @@ namespace iCollections.Data
 
         public virtual DbSet<Collection> Collections { get; set; }
         public virtual DbSet<CollectionKeyword> CollectionKeywords { get; set; }
-        public virtual DbSet<CollectionPhoto> CollectionPhotos { get; set; }
+        public virtual DbSet<CollectionPhoto> CollectionPhotoes { get; set; }
         public virtual DbSet<Follow> Follows { get; set; }
         public virtual DbSet<FriendsWith> FriendsWiths { get; set; }
         public virtual DbSet<IcollectionUser> IcollectionUsers { get; set; }
         public virtual DbSet<Keyword> Keywords { get; set; }
-        public virtual DbSet<Photo> Photos { get; set; }
+        public virtual DbSet<Photo> Photoes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -54,6 +53,11 @@ namespace iCollections.Data
                     .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("name");
+
+                entity.Property(e => e.Route)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("route");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -102,9 +106,15 @@ namespace iCollections.Data
                     .HasColumnType("datetime")
                     .HasColumnName("date_added");
 
+                entity.Property(e => e.Description).HasMaxLength(50);
+
                 entity.Property(e => e.PhotoId).HasColumnName("photo_id");
 
                 entity.Property(e => e.PhotoRank).HasColumnName("photo_rank");
+
+                entity.Property(e => e.Title)
+                    .HasMaxLength(50)
+                    .HasColumnName("title");
 
                 entity.HasOne(d => d.Collect)
                     .WithMany(p => p.CollectionPhotoes)
@@ -134,13 +144,11 @@ namespace iCollections.Data
                 entity.HasOne(d => d.FollowedNavigation)
                     .WithMany(p => p.FollowFollowedNavigations)
                     .HasForeignKey(d => d.Followed)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Follow_fk_ICollectionUser_Two");
 
                 entity.HasOne(d => d.FollowerNavigation)
                     .WithMany(p => p.FollowFollowerNavigations)
                     .HasForeignKey(d => d.Follower)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Follow_fk_ICollectionUser_One");
             });
 
@@ -233,12 +241,15 @@ namespace iCollections.Data
                     .HasMaxLength(50)
                     .HasColumnName("name");
 
+                entity.Property(e => e.PhotoGuid)
+                    .HasColumnName("PhotoGUID")
+                    .HasDefaultValueSql("(newid())");
+
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Photos)
+                    .WithMany(p => p.Photoes)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Photo_fk_ICollectionUser");
             });
 

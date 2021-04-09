@@ -14,7 +14,7 @@ namespace iCollections.Models
             FollowFollowerNavigations = new HashSet<Follow>();
             FriendsWithUser1 = new HashSet<FriendsWith>();
             FriendsWithUser2 = new HashSet<FriendsWith>();
-            Photos = new HashSet<Photo>();
+            Photoes = new HashSet<Photo>();
         }
 
         public int Id { get; set; }
@@ -31,12 +31,6 @@ namespace iCollections.Models
         public virtual ICollection<Follow> FollowFollowerNavigations { get; set; }
         public virtual ICollection<FriendsWith> FriendsWithUser1 { get; set; }
         public virtual ICollection<FriendsWith> FriendsWithUser2 { get; set; }
-        public virtual ICollection<Photo> Photos { get; set; }
-
-        public IcollectionUser SelectOtherUser(IcollectionUser user2, int myId)
-        {
-            if (this.Id == myId) return user2;
-            return this;
-        }
+        public virtual ICollection<Photo> Photoes { get; set; }
     }
 }

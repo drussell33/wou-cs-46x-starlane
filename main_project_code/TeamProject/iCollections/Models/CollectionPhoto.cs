@@ -10,7 +10,9 @@ namespace iCollections.Models
         public int Id { get; set; }
         public int? CollectId { get; set; }
         public int? PhotoId { get; set; }
-        public int PhotoRank { get; set; }
+        public int? PhotoRank { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
         public DateTime? DateAdded { get; set; }
 
         public virtual Collection Collect { get; set; }

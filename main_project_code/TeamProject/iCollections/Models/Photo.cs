@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 
 #nullable disable
 
@@ -18,19 +17,9 @@ namespace iCollections.Models
         public byte[] Data { get; set; }
         public int? UserId { get; set; }
         public DateTime? DateUploaded { get; set; }
-        //public id PhotoGUID { get; set; }
-
-        //[PhotoGUID] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()
+        public Guid PhotoGuid { get; set; }
 
         public virtual IcollectionUser User { get; set; }
         public virtual ICollection<CollectionPhoto> CollectionPhotoes { get; set; }
-
-        public string ToViewableFormat() {
-            var extension = Path.GetExtension(Name).Replace(".", "");
-            string imageBase64Data = Convert.ToBase64String(Data);
-            //string imageDataURL = string.Format("data:image/{0};base64,{1}", extension, imageBase64Data);
-            string imageDataURL = $"data:image/{extension};base64,{imageBase64Data}";
-            return imageDataURL;
-        }
     }
 }
