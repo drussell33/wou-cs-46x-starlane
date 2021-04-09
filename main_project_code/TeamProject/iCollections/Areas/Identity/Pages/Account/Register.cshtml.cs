@@ -86,6 +86,10 @@ namespace iCollections.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "About Me")]
             public string AboutMe { get; set; }
+
+/*            [Required]
+            [Display(Name = "App User Me")]
+            public string AppUserName { get; set; }*/
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -115,6 +119,7 @@ namespace iCollections.Areas.Identity.Pages.Account
                         LastName = Input.LastName,
                         UserName = Input.UserName,
                         AboutMe = Input.AboutMe
+                        
                     };
                     _iCollectionsDbContext.Add(fu);
                     await _iCollectionsDbContext.SaveChangesAsync();

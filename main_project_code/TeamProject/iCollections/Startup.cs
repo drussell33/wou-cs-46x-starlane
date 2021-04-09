@@ -13,6 +13,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using iCollections.Models;
 
 namespace iCollections
 {
@@ -39,15 +40,17 @@ namespace iCollections
                         //Configuration.GetConnectionString("AuthenticationConnection"));
             services.AddDbContext<ICollectionsDbContext>(options =>
                  options.UseSqlServer(appBuilder.ConnectionString));
-                       // Configuration.GetConnectionString("ICollectionsConnection"));
+                       //Configuration.GetConnectionString("ICollectionsConnection"));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             // Customize some settings that Identity uses
             services.Configure<IdentityOptions>(opts =>
             {
                 opts.User.RequireUniqueEmail = true;
+                
             });
             services.AddControllersWithViews();
             // Added to enable runtime compilation.
