@@ -18,8 +18,9 @@ namespace iCollections.Models
         public byte[] Data { get; set; }
         public int? UserId { get; set; }
         public DateTime? DateUploaded { get; set; }
-        //public id PhotoGUID { get; set; }
-
+        //added in sprint 3
+        public Guid PhotoGuid { get; set; }
+        //SQL version
         //[PhotoGUID] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()
 
         public virtual IcollectionUser User { get; set; }
