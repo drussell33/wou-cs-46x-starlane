@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Browse";
 }
+
+<div class="container">
+    <div class="row justify-content-center"><h1>iCollections</h1></div>
+    <div class="row">
+
+        <div class="col-3 text-center">
+            <br />
+            <br />
+            <br />
+            <h5>Suggested Keywords:</h5>
+            <div class="col">
+                <table style="border-top-style:dotted; border-top-width:initial;" class="table ">
+
+                </table>
+            </div>
+
+        </div>
+
+
+        <div class="col">
+
+            <div class="container">
+                <div class="row justify-content-center text-right">
+
+                    <div class="col">
+                        <label>Search Collections:</label>
+                        <form method="get" class=" custom-control-inline invalid" asp-controller="Browse" asp-action="Search">
+                            <input class="form-control" type="text" minlength="2" title="Use at least 2 characters" name="" required pattern=".*\S+.*" />
+                            <br />
+                            <button type="submit" class="btn btn-outline-dark"> Search </button>
+                        </form>
+                        <p style="padding-right: 7em"><em>(Enter search by keywords)</em></p>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
