@@ -21,13 +21,14 @@ namespace iCollections.Controllers
         }
 
         [HttpGet]
-        public IActionResult Thumbnail(int id)
+        public IActionResult Thumbnail(string id)
         {
-            // test of id = 22
+            var guid = Guid.Parse(id);
             var databaseReader = new DatabaseHelper(_userManager, _collectionsDbContext);
-            var selectedPhoto = databaseReader.GetPhoto(id);
+            var selectedPhoto = databaseReader.GetPhoto(guid);
             var extension = selectedPhoto.GetPhotoExtension();
-            return File(selectedPhoto.Data, $"image/{extension}");
+            // return File(selectedPhoto.Data, $"image/{extension}");
+            return File(selectedPhoto.Data, "image/base64");
         }
     }
 }
