@@ -9,6 +9,7 @@
 CREATE TABLE [AspNetUsers] (
     [Id] nvarchar(450) NOT NULL,
     [UserName] nvarchar(256) NULL,
+    [AppUserName] nvarchar(256) NULL,
     [NormalizedUserName] nvarchar(256) NULL,
     [Email] nvarchar(256) NULL,
     [NormalizedEmail] nvarchar(256) NULL,

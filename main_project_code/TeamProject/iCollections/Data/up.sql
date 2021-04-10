@@ -21,7 +21,8 @@ CREATE TABLE [Collection] (
   [name] nvarchar(100) NOT NULL,
   [visibility] int NOT NULL,
   [user_id] int,
-  [date_made] DateTime
+  [date_made] DateTime,
+  [route] nvarchar(100) NOT NULL
 );
 
 CREATE TABLE [Keyword] (
@@ -34,7 +35,8 @@ CREATE TABLE [Photo] (
   [name] nvarchar(50),
   [data] varbinary(MAX),
   [user_id] int,
-  [date_uploaded] DateTime
+  [date_uploaded] DateTime,
+  [PhotoGUID] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()
 );
 
 CREATE TABLE [FriendsWith] (
@@ -48,7 +50,9 @@ CREATE TABLE [CollectionPhoto] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
   [collect_id] int,
   [photo_id] int,
-  [photo_rank] int NOT NULL,
+  [photo_rank] int,
+  [title] nvarchar(50),
+  [Description] nvarchar(50),
   [date_added] DateTime
 );
 
