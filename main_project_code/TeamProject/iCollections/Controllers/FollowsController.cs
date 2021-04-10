@@ -171,11 +171,15 @@ namespace iCollections.Controllers
         [Route("/api/follow")]
         public JsonResult Follow(int follower, int followed)
         {
+            if (follower == followed)
+            {
+                return Json(new { success = false, follower = follower, followed = followed, message = "can't follow yourself" });
+            }
             var user_1 = _db.IcollectionUsers.FirstOrDefault(x => x.Id == follower);
             var user_2 = _db.IcollectionUsers.FirstOrDefault(x => x.Id == followed);
             if (_db.Follows.FirstOrDefault(x => x.Follower == follower && x.Followed == followed) == null)
             {
-                var newFollow = new Follow { Follower = follower, FollowerNavigation = user_1, Followed = followed, FollowedNavigation = user_2 };
+                var newFollow = new Follow { Follower = follower, FollowerNavigation = user_1, Followed = followed, FollowedNavigation = user_2, Began = DateTime.Now };
                 _db.Follows.Add(newFollow);
                 try
                 {
@@ -187,7 +191,7 @@ namespace iCollections.Controllers
                 }
                 return Json(new { success = true, follower = follower, followed = followed, message = "success" });
             }
-            return Json(new { success = false, follower = user_1.Id, followed = user_2.Id, message = "follow already exists?" });
+            return Json(new { success = false, follower = user_1.Id, followed = user_2.Id, message = "follow already exists!" });
         }
 
         // POST: FollowController/Unfollow

@@ -106,7 +106,7 @@ $("#photoUpload").submit(function (event) {
 //    location.reload(true);
 //}
 
-/*Populate Dropdown Menu With Logged-in User Profile*/
+/*Populate Dropdown Menu With Logged-in User Profile
 
 $(document).ready(function () {
     let url = window.location.origin + "/api/sessionuser";
@@ -122,7 +122,7 @@ $(document).ready(function () {
 function updateProfileLink(data) {
     let base_url = window.location.origin;
     $("#myProfileLink").attr("href", base_url + "/userpage/" + data.username);
-}
+}*/
 
 
 
