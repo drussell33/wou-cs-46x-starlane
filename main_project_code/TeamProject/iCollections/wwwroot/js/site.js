@@ -71,42 +71,57 @@ $("#photoUpload").submit(function (event) {
 
 
 
-// For un-following users 
-$('#unfollow-button > button').click(function () {
-    var followID = this.id.substring(1);      // remove leading 'f'
+//// For un-following users 
+//$('#unfollow-button > button').click(function () {
+//    var followID = this.id.substring(1);      // remove leading 'f'
 
-    $.ajax({
-        url: 'following',
-        data: { id: followID },
-        method: 'POST',
-        success: updateFollowees
-    });
-});
+//    $.ajax({
+//        url: 'following',
+//        data: { id: followID },
+//        method: 'POST',
+//        success: updateFollowees
+//    });
+//});
 
-function updateFollowees(data) {
+//function updateFollowees(data) {
     
-    location.reload(true);
-}
+//    location.reload(true);
+//}
 
+//// For following users 
+//$('#follow-button > button').click(function () {
+//    var followID = this.id;
+//    var followName = this.name;
 
+//    $.ajax({
+//        url: 'userpage/follow',
+//        data: { id: followID, status: followName },
+//        method: 'POST',
+//        success: updateFollowees
+//    });
+//});
 
+//function updateFollowees(data) {
 
-// For following users 
-$('#follow-button > button').click(function () {
-    var followID = this.id;
-    var followName = this.name;
+//    location.reload(true);
+//}
 
-    $.ajax({
-        url: 'userpage/follow',
-        data: { id: followID, status: followName },
-        method: 'POST',
-        success: updateFollowees
-    });
+/*Populate Dropdown Menu With Logged-in User Profile*/
+
+$(document).ready(function () {
+    let url = window.location.origin + "/api/sessionuser";
+    if ($("#myProfileLink").length) {
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: updateProfileLink
+        })
+    }
 });
 
-function updateFollowees(data) {
-
-    location.reload(true);
+function updateProfileLink(data) {
+    let base_url = window.location.origin;
+    $("#myProfileLink").attr("href", base_url + "/userpage/" + data.username);
 }
 
 

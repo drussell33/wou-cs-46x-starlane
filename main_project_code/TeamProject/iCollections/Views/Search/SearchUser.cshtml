@@ -42,13 +42,13 @@
                     if (Model.loggedInUser.FollowFollowerNavigations.Any(x => x.FollowedNavigation.Id == result.Id))
                     {
                         <span>
-                            <a class="btn btn-primary following-button text-light">Following</a>
+                            <a class="btn btn-primary following-button text-light" value-target="@result.Id">Following</a>
                         </span>
                     }
                     else
                     {
                         <span>
-                            <a class="btn btn-primary follow-button text-light">Follow</a>
+                            <a class="btn btn-primary follow-button text-light" value-target="@result.Id">Follow</a>
                         </span>
                     }
                 }

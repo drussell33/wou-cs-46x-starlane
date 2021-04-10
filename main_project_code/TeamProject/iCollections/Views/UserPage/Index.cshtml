@@ -14,7 +14,7 @@
                 @if (Model.ProfileOwner.ProfilePicId.HasValue)
                 {
                     <img class="user-profile-img" 
-                         src="@Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value)">
+                         src="data:image;base64,@System.Convert.ToBase64String(@Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value).Data)" style="max-width:90%;">
                 }
                 else
                 {

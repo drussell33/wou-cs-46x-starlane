@@ -33,6 +33,7 @@ namespace iCollections
                     // dotnet user-secrets set SeedUserPW <pw>
 
                     var testUserPw = config["SeedUserPW"];
+                    //var testUserPw = "Abcd987?6";
                     //var adminPw = config["SeedAdminPW"];
 
                     SeedUsers.Initialize(services, SeedData.UserSeedData, testUserPw).Wait();
