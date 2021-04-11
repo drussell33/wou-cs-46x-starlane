@@ -45,9 +45,10 @@ namespace iCollections.Controllers
             }
 
             var targetUser = _db.IcollectionUsers
+                .Include(u => u.Photos)
                 .Include(u => u.FollowFollowerNavigations)
                 .Include(u => u.FollowFollowedNavigations)
-                .Include(u => u.Photos)
+                .ThenInclude(f => f.FollowerNavigation)
                 .FirstOrDefault(m => m.UserName == name);
             
             return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser });

@@ -1,5 +1,4 @@
-﻿@using iCollections.Controllers;
-@using iCollections.Data;
+﻿@using iCollections.Data;
 @using Microsoft.AspNetCore.Identity;
 @inject ICollectionsDbContext AppContext
 @model SearchList
@@ -45,7 +44,7 @@
                         {
                             string id = UserManager.GetUserId(User);
                             IcollectionUser appUser = AppContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-                            if (result.FollowFollowerNavigations.Any(x => x.FollowerNavigation.Id == appUser.Id))
+                            if (result.FollowFollowedNavigations.Any(x => x.Follower == appUser.Id))
                             {
                                 <span>
                                     <a class="btn btn-primary following-button text-light" value-user="@appUser.Id" value-target="@result.Id">Following</a>

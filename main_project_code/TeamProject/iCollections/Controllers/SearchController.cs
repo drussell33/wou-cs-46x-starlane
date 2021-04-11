@@ -29,7 +29,8 @@ namespace iCollections.Controllers
         {
             List<IcollectionUser> results = _db.IcollectionUsers
                                             .Include(u => u.Photos)
-                                            .Include(u => u.FollowFollowerNavigations)
+                                            .Include(u => u.FollowFollowedNavigations)
+                                            .ThenInclude(f => f.FollowerNavigation)
                                             .Where(x => x.UserName.Contains(user))
                                             .ToList();
             return View(new SearchList { results = results });
