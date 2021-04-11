@@ -7,11 +7,11 @@ namespace iCollections.Models
 {
     public class BrowseList
     {
-        public IcollectionUser loggedInUser { get; set; }
+        public IcollectionUser LoggedInUser { get; set; }
 
-        public List<Collection> searchResults { get; set; }
+        public List<ICollection<CollectionKeyword>> SearchResults { get; set; }
 
-        public List<Keyword> suggestedKeywords { get; set; }
+        public IEnumerable<Keyword> SuggestedKeywords { get; set; }
 
     }
 }

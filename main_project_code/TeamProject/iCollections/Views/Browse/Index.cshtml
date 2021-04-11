@@ -20,11 +20,12 @@
                 <table style="border-top-style:dotted; border-top-width:initial;" class="table ">
 
                     @{Random rnd = new Random(); }
-                    @foreach (Keyword k in Model.suggestedKeywords)
+                    @foreach (Keyword k in Model.SuggestedKeywords)
                     {
+                        
                         if (rnd.Next() % 2 == 0)
                         {
-                            <tr> <td> <a class="text-primary" href=""> @k.Name </a> </td> </tr>
+                            <tr> <td> <a class="text-primary" href="?keywords=@k.Name"> @k.Name </a> </td> </tr>
                         }
                     }
 
@@ -44,14 +45,27 @@
 
                     <div class="col">
                         <label>Search Collections:</label>
-                        <form method="get" class=" custom-control-inline invalid" asp-controller="Browse" asp-action="Search">
-                            <input class="form-control" type="text" minlength="2" title="Use at least 2 characters" name="keywords" required pattern=".*\S+.*" />
+                        <form method="get" class="custom-control-inline valid" asp-controller="Browse" asp-action="Search">
+                            <input class="form-control" type="text" minlength="2" title="Use at least 2 characters" name="search" required pattern=".*\S+.*" />
                             <br />
                             <button type="submit" class="btn btn-outline-dark"> Search </button>
                         </form>
                         <p style="padding-right: 7em"><em>(Enter search by keywords)</em></p>
 
+
+
+                        
+
+
                     </div>
+                </div>
+
+                <div>
+                    hello
+
+                    @if (Model.SearchResults != null)
+                    {
+                    }
                 </div>
             </div>
 

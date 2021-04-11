@@ -1,14 +1,11 @@
 ﻿using iCollections.Data;
 using iCollections.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace iCollections.Controllers
@@ -29,37 +26,53 @@ namespace iCollections.Controllers
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(string keywords)
         {
             var init_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
 
-            var init_browselist = new BrowseList
+            if (keywords == null)
             {
-                loggedInUser = init_user,
-                searchResults = null,
-                suggestedKeywords = _collectionsDbContext.Keywords.ToList()
-                
-            };
+                var init_browselist = new BrowseList
+                {
+                    LoggedInUser = init_user,
+                    SearchResults = null,
+                    SuggestedKeywords = _collectionsDbContext.Keywords.ToList()
+
+                };
+
+                return View(init_browselist);
+
+            }
+
+            else
+            {
+                string[] keys = keywords.Split(" "); // parse strings separated by space or whitespace
+                List<ICollection<CollectionKeyword>> filtered = new List<ICollection<CollectionKeyword>>();
+                foreach(string token in keys)
+                {
+                    var coll_keys = _collectionsDbContext.Keywords.Where(k => k.Name == token).Select(ck => ck.CollectionKeywords).ToList();
+                    
+                    filtered.AddRange(coll_keys);
+                                       
+                }
+
+                filtered.Union(filtered);  // remove duplicate collections(edited)
+
+                var init_browselist = new BrowseList
+                {
+                    LoggedInUser = init_user,
+                    SearchResults = filtered,
+                    SuggestedKeywords = _collectionsDbContext.Keywords.ToList()
+
+                };
 
 
+                return View(init_browselist);
+            }
 
-            return View(init_browselist);
+            
         }
 
-
-        [HttpGet]
-        public IActionResult Search()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Search(string keywords)
-        {
-            Console.WriteLine(keywords);
-
-            return RedirectToAction();
-        }
         
 
 
