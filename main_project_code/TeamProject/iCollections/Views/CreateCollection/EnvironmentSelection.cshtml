@@ -1,66 +1,73 @@
-﻿@{
+﻿@model CreateCollectionEnvironment
+
+@{
     ViewData["Title"] = "Create iCollection";
 }
 
 <h1>Environment Selection page</h1>
 <h4>Please Select from one of the following environments</h4>
-<section class="clear-section" id="">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-2">
-                <form class="align-content-center environment-select-checkbox">     
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="">
+<form asp-controller="CreateCollection" asp-action="EnvironmentSelection" method="post" class="">
+
+    <section class="clear-section " id="">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 form-group ">
+
+                    <div class="form-check align-content-center environment-select-checkbox">
+                        <input type="checkbox" asp-for="Route" value="Ocean_environment" class="form-check-input" id="">
                         <label class="form-check-label" for="exampleCheck1">Select</label>
                     </div>
-                </form>
-            </div>
-            <div class="col-10">
-                <h1>A Sample of 360 Environment</h1>
-                <div class="row">
-                    <div class="col-6">
-                        <h4>Arange a small number of photo around a central point so they can be viewed in a 360 dgree manner</h4>
-                        <p>An ocean environment with a users selection of trophy fish can be previewed for an example.</p>
-                        <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Ocean_environment">Preview</a>
-                    </div>
-                    <div class="col-6">
-                        <img src="~/img/ocean_example_thumbnail.jpg" class="landing-image" alt="2D Sample image" />
+
+                </div>
+                <div class="col-10">
+                    <h1>A Sample of 360 Environment</h1>
+                    <div class="row">
+                        <div class="col-6">
+                            <h4>Arange a small number of photo around a central point so they can be viewed in a 360 dgree manner</h4>
+                            <p>An ocean environment with a users selection of trophy fish can be previewed for an example.</p>
+                            <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Ocean_environment">Preview</a>
+                        </div>
+                        <div class="col-6">
+                            <img src="~/img/ocean_example_thumbnail.jpg" class="landing-image" alt="2D Sample image" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="silver-section" id="">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-2">
-                <form class="align-content-center environment-select-checkbox">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="">
+    <section class="silver-section" id="">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-2 form-group">
+
+                    <div class="form-check align-content-center environment-select-checkbox">
+                        <input type="checkbox" asp-for="Route" value="gallery_environment" class="form-check-input" id="">
                         <label class="form-check-label" for="exampleCheck1">Select</label>
                     </div>
-                </form>
-            </div>
-            <div class="col-10">
-                <h1>Sample of 3D environment</h1>
-                <div class="row">
-                    <div class="col-6">
-                        <h4>Arange a small to large number of photos into a 3D gallery environment world that you want walk through</h4>
-                        <p>A gallery environment where a user has upload photos of their puzzels can be previewed for an example.</p>
-                        <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="gallery_environment">Preview</a>
-                    </div>
-                    <div class="col-6">
-                        <img src="~/img/gallery_example_thumbnail.jpg" class="landing-image" alt="2D Sample image" />
+
+                </div>
+                <div class="col-10">
+                    <h1>Sample of 3D environment</h1>
+                    <div class="row">
+                        <div class="col-6">
+                            <h4>Arange a small to large number of photos into a 3D gallery environment world that you want walk through</h4>
+                            <p>A gallery environment where a user has upload photos of their puzzels can be previewed for an example.</p>
+                            <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="gallery_environment">Preview</a>
+                        </div>
+                        <div class="col-6">
+                            <img src="~/img/gallery_example_thumbnail.jpg" class="landing-image" alt="2D Sample image" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
-<a class="btn btn-primary" asp-controller="CreateCollection" asp-action="PhotoSelection">Continue</a>
+    <button type="submit" class="btn btn-primary">Continue</button>
+
+</form>
 
 
