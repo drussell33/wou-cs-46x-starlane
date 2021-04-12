@@ -25,7 +25,6 @@ namespace iCollections.Controllers
             dbHelper = new DatabaseHelper(_userManager, _collectionsDbContext);
         }
 
-
         public IActionResult Index(string keywords)
         {
             var init_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
@@ -41,16 +40,15 @@ namespace iCollections.Controllers
                 };
 
                 return View(init_browselist);
-
             }
 
             else
             {
                 string[] keys = keywords.Split(" "); // parse strings separated by space or whitespace
-                List<ICollection<CollectionKeyword>> filtered = new List<ICollection<CollectionKeyword>>();
+                List<CollectionKeyword> filtered = new List<CollectionKeyword>();
                 foreach(string token in keys)
                 {
-                    var coll_keys = _collectionsDbContext.Keywords.Where(k => k.Name == token).Select(ck => ck.CollectionKeywords).ToList();
+                    var coll_keys = _collectionsDbContext.CollectionKeywords.Include(c=>c.Collect).ThenInclude(u=>u.User).Where(k => k.Keyword.Name == token).ToList();
                     
                     filtered.AddRange(coll_keys);
                                        
@@ -66,15 +64,8 @@ namespace iCollections.Controllers
 
                 };
 
-
                 return View(init_browselist);
             }
-
-            
         }
-
-        
-
-
     }
 }

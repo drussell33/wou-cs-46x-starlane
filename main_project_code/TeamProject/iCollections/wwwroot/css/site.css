@@ -389,3 +389,9 @@ h1 {
 .follow-box {
     margin-left:auto;
 }
+
+
+/* Browse search results */
+.browse-result-txt {
+    font-size:small;
+}

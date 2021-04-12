@@ -5,73 +5,78 @@
 }
 
 <div class="container">
+
     <div class="row justify-content-center p-3">
         <h2 class="display-4"><strong>iCollections</strong></h2>
     </div>
 
-    <div class="row">
-
-        <div class="col-3 text-center">
-            <br />
-            <br />
-            <br />
-            <h5>Suggested Keywords:</h5>
-            <div class="col">
-                <table style="border-top-style:dotted; border-top-width:initial;" class="table ">
-
-                    @{Random rnd = new Random(); }
-                    @foreach (Keyword k in Model.SuggestedKeywords)
-                    {
-                        
-                        if (rnd.Next() % 2 == 0)
-                        {
-                            <tr> <td> <a class="text-primary" href="?keywords=@k.Name"> @k.Name </a> </td> </tr>
-                        }
-                    }
-
-
-
-
-                </table>
-            </div>
-
-        </div>
-
-
-        <div class="col">
-
-            <div class="container">
-                <div class="row justify-content-center text-right">
-
+    <div class="container">
+        <div class="row">
+            <div class="col-3 text-center">
+                <div class="container">
+                    <br />
+                    <br />
+                    <br />
+                    <h5>Suggested Keywords:</h5>
                     <div class="col">
-                        <label>Search Collections:</label>
-                        <form method="get" class="custom-control-inline valid" asp-controller="Browse" asp-action="Search">
-                            <input class="form-control" type="text" minlength="2" title="Use at least 2 characters" name="search" required pattern=".*\S+.*" />
-                            <br />
-                            <button type="submit" class="btn btn-outline-dark"> Search </button>
-                        </form>
-                        <p style="padding-right: 7em"><em>(Enter search by keywords)</em></p>
+                        <table style="border-top-style:dotted; border-top-width:initial;" class="table ">
+
+                            @{Random rnd = new Random(); }
+                            @foreach (Keyword k in Model.SuggestedKeywords)
+                            {
+
+                                if (rnd.Next() % 2 == 0)
+                                {
+                                    <tr> <td> <a class="text-primary" href="?keywords=@k.Name"> @k.Name </a> </td> </tr>
+                                }
+                            }
 
 
 
-                        
 
-
+                        </table>
                     </div>
                 </div>
-
-                <div>
-                    hello
-
-                    @if (Model.SearchResults != null)
-                    {
-                    }
-                </div>
             </div>
 
 
+            <div class="col">
+                <div class="container">
+                    <div class="row justify-content-center text-right">
+                        <div class="col">
+                            <label>Search Collections:</label>
+                            <form method="get" class="custom-control-inline valid" asp-controller="Browse" asp-action="Index">
+                                <input class="form-control" type="text" minlength="3" title="Use at least 3 characters" name="keywords" required pattern=".*\S+.*" />
+                                <br />
+                                <button type="submit" class="btn btn-outline-dark"> Search </button>
+                            </form>
+                            <p style="padding-right: 7em"><em>(Enter search by keywords)</em></p>
+                        </div>
+                    </div>
 
+                    <div class="container">
+                        <br />
+                        <div>
+                            @if (Model.SearchResults != null)
+                            {
+                                <div class="row">
+                                    @foreach (CollectionKeyword ck in Model.SearchResults)
+                                    {
+                                        <a class="col-2 p-3  text-center " href="#">
+                                            <div class="fake-image"></div>
+                                            <div class="row text-center justify-content-center btn-outline-dark">
+                                                <strong>@ck.Collect.Name</strong>
+                                            </div>
+                                            <div class="row justify-content-center browse-result-txt" id="browse-result-txt">Owner:@ck.Collect.User.FirstName</div>
+                                            <div class="row justify-content-center browse-result-txt" id="browse-result-txt">Keyword(s):@ck.Keyword.Name</div>
+                                        </a>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
