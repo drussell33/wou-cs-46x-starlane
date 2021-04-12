@@ -31,9 +31,6 @@
                                 }
                             }
 
-
-
-
                         </table>
                     </div>
                 </div>
@@ -59,16 +56,28 @@
                         <div>
                             @if (Model.SearchResults != null)
                             {
+                                //string[] colls = { "'/images/card_pics/IMG-0833.JPG'", "'/images/dogtoy_pics/IMG-0869.JPG'", "'/images/fish_pics/fish3.png'", "'/images/puzzel_pics/image_123923953(14).JPG'", "'/images/tool_pics/IMG-0837.JPG'", "'/img/2D_example.jpg'" };
+
+
+                                //Random rand = new Random();
+
+
                                 <div class="row">
                                     @foreach (CollectionKeyword ck in Model.SearchResults)
                                     {
                                         <a class="col-2 p-3  text-center " href="#">
-                                            <div class="fake-image"></div>
+                                            <code><img src="/img/2D_example.jpg" width="100" height="100" alt="" /></code>
                                             <div class="row text-center justify-content-center btn-outline-dark">
                                                 <strong>@ck.Collect.Name</strong>
                                             </div>
-                                            <div class="row justify-content-center browse-result-txt" id="browse-result-txt">Owner:@ck.Collect.User.FirstName</div>
-                                            <div class="row justify-content-center browse-result-txt" id="browse-result-txt">Keyword(s):@ck.Keyword.Name</div>
+                                            <div class="row justify-content-center browse-result-txt" id="browse-result-txt">
+                                                <div class="text-dark">Owner:&nbsp</div>
+                                                <div>@ck.Collect.User.FirstName</div>
+                                            </div>
+                                            <div class="row justify-content-center browse-result-txt" id="browse-result-txt">
+                                                <div class="text-dark">Keyword(s):&nbsp</div>
+                                                <div>@ck.Keyword.Name</div>
+                                            </div>
                                         </a>
                                     }
                                 </div>
