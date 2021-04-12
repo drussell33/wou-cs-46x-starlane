@@ -5,6 +5,7 @@ using iCollections.Data;
 using iCollections.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace iCollections.Controllers
 {
@@ -22,6 +23,7 @@ namespace iCollections.Controllers
 
         public bool isKeyInFriendship(IcollectionUser user1, IcollectionUser user2, int key)
         {
+            Path.GetFileNameWithoutExtension("sdsdf");
             return key == user1.Id || key == user2.Id;
         }
 
@@ -141,18 +143,19 @@ namespace iCollections.Controllers
 
         public List<PhotoInfo> GetMyPhotosInfo(int myId)
         {
-            string address = "https://icollections.azurewebsites.net/api/images/thumbnail/";
+            // string address = "https://localhost:5001/api/image/thumbnail/";
+            string address = "https://icollections.azurewebsites.net/api/image/thumbnail/";
             var photosInformation = _collectionsDbContext.Photos
                                 .Where(row => row.User.Id == myId)
-                                .Select(myRows => new PhotoInfo { Url = address + myRows.Id, PhotoName = myRows.Name })
+                                .Select(myRows => new PhotoInfo { Url = address + myRows.PhotoGuid, PhotoName = myRows.Name })
                                 .ToList();
 
             return photosInformation;
         }
 
-        public Photo GetPhoto(int id)
+        public Photo GetPhoto(Guid id)
         {
-            var photo = _collectionsDbContext.Photos.FirstOrDefault(row => row.Id == id);
+            var photo = _collectionsDbContext.Photos.FirstOrDefault(row => row.PhotoGuid == id);
             return photo;
         }
 

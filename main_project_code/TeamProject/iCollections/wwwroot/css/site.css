@@ -387,7 +387,12 @@ h1 {
 }
 
 .follow-box {
-  margin-left: auto;
+    margin-left:auto;
+}
+
+/* Browse search results */
+.browse-result-txt {
+    font-size:small;
 }
 
 .pic-thumbnail {
