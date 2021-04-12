@@ -27,7 +27,13 @@ namespace iCollections.Models
         public int? ProfilePicId { get; set; }
 
         public virtual ICollection<Collection> Collections { get; set; }
+        /// <summary>
+        /// Represents Users followed to this User.
+        /// </summary>
         public virtual ICollection<Follow> FollowFollowedNavigations { get; set; }
+        /// <summary>
+        /// Represents Users this User follows.
+        /// </summary>
         public virtual ICollection<Follow> FollowFollowerNavigations { get; set; }
         public virtual ICollection<FriendsWith> FriendsWithUser1 { get; set; }
         public virtual ICollection<FriendsWith> FriendsWithUser2 { get; set; }
