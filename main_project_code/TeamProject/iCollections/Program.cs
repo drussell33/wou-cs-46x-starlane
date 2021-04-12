@@ -34,6 +34,8 @@ namespace iCollections
 
                     var testUserPw = config["SeedUserPW"];
                     var adminPw = config["SeedUserPW"];
+                    //var testUserPw = "Abcd987?6";
+                    //var adminPw = config["SeedAdminPW"];
 
                     SeedUsers.Initialize(services, SeedData.UserSeedData, testUserPw).Wait();
                     SeedUsers.InitializeAdmin(services, "admin@example.com", "admin", adminPw, "The", "Admin").Wait();

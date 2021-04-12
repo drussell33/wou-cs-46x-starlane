@@ -12,6 +12,12 @@
 	('Shoes'),
 	('Games'),
 	('Trophies');
+	
+INSERT INTO [ICollectionUser] (first_name, last_name, user_name) VALUES
+	('Talia', 'Knott', 'TaliaK'),
+	('Zayden', 'Clark', 'ZaydenC'),
+	('Hareem', 'Davila', 'DavilaH'),
+	('Krzysztof', 'Ponce', 'KrzysztofP');
 
 
 INSERT INTO [Follow] (follower,followed, began) VALUES
@@ -24,7 +30,6 @@ INSERT INTO [Follow] (follower,followed, began) VALUES
 	(3,4, '05/19/2015 5:50 AM'),
 	(4,1, '05/14/2015 5:50 AM'),
 	(4,3, '05/13/2015 5:50 AM');
-
 
 INSERT INTO [Collection](name,visibility,user_id,date_made, route) VALUES
 	('Collection1', 1, '1', '05/29/2015 5:50 AM', 'gallery_environment'),
@@ -52,6 +57,21 @@ INSERT INTO [Collection](name,visibility,user_id,date_made, route) VALUES
 
 
 
+INSERT INTO [Photo](name, user_id, date_uploaded) VALUES
+	('new beer','1', '05/29/2015 5:50 AM'),
+	('new trophy','1', '05/29/2015 5:50 AM'),
+	('best plant','1', '05/29/2015 5:50 AM'),
+	('newest stuff','2', '05/29/2015 5:50 AM'),
+	('Images 3876','2', '05/29/2015 5:50 AM'),
+	('WhiteTail Carp','2', '05/29/2015 5:50 AM'),
+	('The hulk','3', '05/29/2015 5:50 AM'),
+	('This photo has a really long name','3', '05/29/2015 5:50 AM'),
+	('CIgar Box','3', '05/29/2015 5:50 AM'),
+	('Energy Drink Can','4', '05/29/2015 5:50 AM'),
+	('Weird Large Bug','4', '05/29/2015 5:50 AM'),
+	('Deer','4', '05/29/2015 5:50 AM'),
+	('Other stuff','4', '05/29/2015 5:50 AM'),
+	('pictures of things!','4', '05/29/2015 5:50 AM');
 
 INSERT INTO [FriendsWith](user1_id, user2_id, began) VALUES
 	('1','2', '05/29/2015 5:50 AM'),

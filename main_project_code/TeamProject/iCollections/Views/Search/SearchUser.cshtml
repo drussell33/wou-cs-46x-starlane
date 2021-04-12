@@ -1,4 +1,6 @@
-﻿@using iCollections.Controllers;
+﻿@using iCollections.Data;
+@using Microsoft.AspNetCore.Identity;
+@inject ICollectionsDbContext AppContext
 @model SearchList
 
 @{
@@ -12,48 +14,52 @@
         {
             <h2>Oops! Nothing here.</h2>
         }
-        @foreach (IcollectionUser result in Model.results)
-        {
-        <div class="user-search-item">
-            <div class="img-container">
-                @if (result.ProfilePicId.HasValue)
-                {
-                    <img src="@result.Photos.FirstOrDefault(x => x.Id == result.ProfilePicId).ToViewableFormat()" class="img-thumbnail" />
-                }
-                else
-                {
-                    <img class="img-thumbnail" />
-                }
-            </div>
-            <div class="user-search-info">
-                <h3>
-                    <a asp-controller="UserPage" asp-action="Index" asp-route-name="@result.UserName">@result.UserName</a>
-                </h3>
-                <span>
-                    @Html.DisplayFor(modelItem => result.FirstName)
-                </span>
-                <span>
-                    @Html.DisplayFor(modelItem => result.LastName)
-                </span>
-            </div>
-            <div class="follow-box">
-                @if (Model.loggedInUser != null)
-                {
-                    if (Model.loggedInUser.FollowFollowerNavigations.Any(x => x.FollowedNavigation.Id == result.Id))
-                    {
+        else {
+            @foreach (IcollectionUser result in Model.results)
+            {
+                <div class="user-search-item">
+                    <div class="img-container">
+                        @if (result.ProfilePicId.HasValue)
+                        {
+                            <img src="@result.Photos.FirstOrDefault(x => x.Id == result.ProfilePicId).ToViewableFormat()" class="img-thumbnail" />
+                        }
+                        else
+                        {
+                            <img class="img-thumbnail" />
+                        }
+                    </div>
+                    <div class="user-search-info">
+                        <h3>
+                            <a asp-controller="UserPage" asp-action="Index" asp-route-name="@result.UserName">@result.UserName</a>
+                        </h3>
                         <span>
-                            <a class="btn btn-primary following-button text-light">Following</a>
+                            @Html.DisplayFor(modelItem => result.FirstName)
                         </span>
-                    }
-                    else
-                    {
                         <span>
-                            <a class="btn btn-primary follow-button text-light">Follow</a>
+                            @Html.DisplayFor(modelItem => result.LastName)
                         </span>
-                    }
-                }
-            </div>
-        </div>
+                    </div>
+                    <div class="follow-box">
+                        @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User) != result.AspnetIdentityId)
+                        {
+                            string id = UserManager.GetUserId(User);
+                            IcollectionUser appUser = AppContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+                            if (result.FollowFollowedNavigations.Any(x => x.Follower == appUser.Id))
+                            {
+                                <span>
+                                    <a class="btn btn-primary following-button text-light" value-user="@appUser.Id" value-target="@result.Id">Following</a>
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    <a class="btn btn-primary follow-button text-light" value-user="@appUser.Id" value-target="@result.Id">Follow</a>
+                                </span>
+                            }
+                        }
+                    </div>
+                </div>
+            }
         }
     </div>
 </div>
