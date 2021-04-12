@@ -10,6 +10,7 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace iCollections.Controllers
 {
@@ -45,7 +46,7 @@ namespace iCollections.Controllers
 
             if (ModelState.IsValid)
             {
-                /*Collection newCollection = new Collection();
+                Collection newCollection = new Collection();
                 newCollection.Route = collection.Route;
                 newCollection.UserId = appUser.Id;
                 newCollection.DateMade = DateTime.Now;
@@ -53,7 +54,7 @@ namespace iCollections.Controllers
                 newCollection.Name = "unfinished_new_collection";
 
                 _collectionsDbContext.Collections.Add(newCollection);
-                _collectionsDbContext.SaveChanges();*/
+                _collectionsDbContext.SaveChanges();
 
                 return RedirectToAction("PhotoSelection");
             }
@@ -123,8 +124,11 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult PublishingSuccess()
         {
-            
-            return View();
+            string id = _userManager.GetUserId(User);
+            IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+            var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections;
+            //var collections = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.Id == appUser.Id).Collections;
+            return View(collections);
         }
     }
 }
