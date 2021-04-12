@@ -9,16 +9,16 @@
     <div class="col col">
         <!--About-->
         <div class="row">
-          
+
             <div class="col user-profile-obj" id="follow-button">
                 @if (Model.ProfileOwner.ProfilePicId.HasValue)
                 {
                     <img class="user-profile-img"
                          src="data:image;base64,@System.Convert.ToBase64String(Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value).Data)" />
                 }
-                else     
+                else
                 {
-                <img class="user-profile-img">
+                    <img class="user-profile-img">
                 }
                 <h2>@Model.ProfileOwner.UserName</h2>
                 <h3>@Model.ProfileOwner.FirstName @Model.ProfileOwner.LastName</h3>
@@ -61,35 +61,37 @@
         </div>
     </div>
 
-@*    Column 2 - Navigation
-    <div class="col col-2 user-profile-nav">
-        <h2>Navigation</h2>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a asp-action=Followers asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Followers</a>
-            </li>
-            <li class="nav-item">
-                <a asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Following</a>
-            </li>
-            <li class="nav-item">
-                <a asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Collections</a>
-            </li>
-        </ul>
-    </div>
+    @*    Column 2 - Navigation
+        <div class="col col-2 user-profile-nav">
+            <h2>Navigation</h2>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a asp-action=Followers asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Followers</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Following</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Collections</a>
+                </li>
+            </ul>
+        </div>
     *@
 
 
     <!--Temp Navigation-->
-        <div class="col-sm-3">
-            <div class="col user-profile-nav">
+    <div class="col-sm-3">
+        <div class="col user-profile-nav">
 
-                <h2>Navigation</h2>
-                <table style="border-top-style:dotted; border-top-width:initial;" class="table table-hover flex-column">
-                    <tr class="nav-item">
-                        <td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName">Following</a></td>
-                        @*<td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName" href="@Model.ProfileOwner.UserName/following">Following</a></td>*@
-                    </tr>
-                </table>
-            </div>
+            <h2>Navigation</h2>
+            <table style="border-top-style:dotted; border-top-width:initial;" class="table table-hover flex-column">
+                <tr class="nav-item">
+                    <td><a class="text-primary" asp-action="Index" asp-controller="Browse">Browse</a></td>
+                </tr>
+                <tr class="nav-item">
+                    <td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName">Following</a></td>
+                </tr>
+            </table>
         </div>
     </div>
+</div>

@@ -20,12 +20,29 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between navbars">
                     <ul class="navbar-nav flex-grow-1">
+
+                        <!--Browse-->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Browse" asp-action="Index">Browse</a>
+                        </li>
+
                         <!--Dashboard-->
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                             </li>
+                        }
+                        <!--Upload-->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="UploadPhoto" asp-action="Index">Upload Photo</a>
+                        </li>
+                        <!-- View photos -->
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ViewPhotos" asp-action="Index">View Photos</a>
+                        </li>
                         }
                     </ul>
                     <!--Search Bar-->
