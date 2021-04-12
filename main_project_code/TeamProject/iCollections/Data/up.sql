@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ICollectionUser] (
+CREATE TABLE [ICollectionUser] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
   [ASPNetIdentityID] nvarchar(450),
   [first_name] nvarchar(50) NOT NULL,
@@ -62,6 +62,10 @@ CREATE TABLE [CollectionKeyword] (
   [keyword_id] int,
   [date_added] DateTime
 );
+
+ALTER TABLE [Follow] ADD CONSTRAINT [Follow_fk_ICollectionUser_One] FOREIGN KEY ([follower]) REFERENCES [ICollectionUser] ([id]);
+
+ALTER TABLE [Follow] ADD CONSTRAINT [Follow_fk_ICollectionUser_Two] FOREIGN KEY ([followed]) REFERENCES [ICollectionUser] ([id]);
 
 ALTER TABLE [Follow] ADD CONSTRAINT [Follow_fk_ICollectionUser_One] FOREIGN KEY ([follower]) REFERENCES [ICollectionUser] ([id]);
 
