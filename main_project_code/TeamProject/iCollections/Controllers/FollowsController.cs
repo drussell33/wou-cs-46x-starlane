@@ -7,22 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using iCollections.Data;
 using iCollections.Models;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace iCollections.Controllers
 {
     public class FollowsController : Controller
     {
-        private readonly ICollectionsDbContext _context;
+        private readonly ICollectionsDbContext _db;
 
         public FollowsController(ICollectionsDbContext context)
         {
-            _context = context;
+            _db = context;
         }
 
         // GET: Follows
         public async Task<IActionResult> Index()
         {
-            var iCollectionsDbContext = _context.Follows.Include(f => f.FollowedNavigation).Include(f => f.FollowerNavigation);
+            var iCollectionsDbContext = _db.Follows.Include(f => f.FollowedNavigation).Include(f => f.FollowerNavigation);
             return View(await iCollectionsDbContext.ToListAsync());
         }
 
@@ -34,7 +36,7 @@ namespace iCollections.Controllers
                 return NotFound();
             }
 
-            var follow = await _context.Follows
+            var follow = await _db.Follows
                 .Include(f => f.FollowedNavigation)
                 .Include(f => f.FollowerNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -49,8 +51,8 @@ namespace iCollections.Controllers
         // GET: Follows/Create
         public IActionResult Create()
         {
-            ViewData["Followed"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName");
-            ViewData["Follower"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName");
+            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName");
+            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName");
             return View();
         }
 
@@ -63,12 +65,12 @@ namespace iCollections.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(follow);
-                await _context.SaveChangesAsync();
+                _db.Add(follow);
+                await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Followed"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Followed);
-            ViewData["Follower"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Follower);
             return View(follow);
         }
 
@@ -80,13 +82,13 @@ namespace iCollections.Controllers
                 return NotFound();
             }
 
-            var follow = await _context.Follows.FindAsync(id);
+            var follow = await _db.Follows.FindAsync(id);
             if (follow == null)
             {
                 return NotFound();
             }
-            ViewData["Followed"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Followed);
-            ViewData["Follower"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Follower);
             return View(follow);
         }
 
@@ -106,8 +108,8 @@ namespace iCollections.Controllers
             {
                 try
                 {
-                    _context.Update(follow);
-                    await _context.SaveChangesAsync();
+                    _db.Update(follow);
+                    await _db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -122,8 +124,8 @@ namespace iCollections.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Followed"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Followed);
-            ViewData["Follower"] = new SelectList(_context.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Follower);
             return View(follow);
         }
 
@@ -135,7 +137,7 @@ namespace iCollections.Controllers
                 return NotFound();
             }
 
-            var follow = await _context.Follows
+            var follow = await _db.Follows
                 .Include(f => f.FollowedNavigation)
                 .Include(f => f.FollowerNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -152,15 +154,72 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var follow = await _context.Follows.FindAsync(id);
-            _context.Follows.Remove(follow);
-            await _context.SaveChangesAsync();
+            var follow = await _db.Follows.FindAsync(id);
+            _db.Follows.Remove(follow);
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool FollowExists(int id)
         {
-            return _context.Follows.Any(e => e.Id == id);
+            return _db.Follows.Any(e => e.Id == id);
+        }
+
+        // POST: FollowController/Follow
+        [Authorize]
+        [HttpPost]
+        [Route("/api/follow")]
+        public JsonResult Follow(int follower, int followed)
+        {
+            if (follower == followed)
+            {
+                return Json(new { success = false, follower = follower, followed = followed, message = "can't follow yourself" });
+            }
+            var user_1 = _db.IcollectionUsers.FirstOrDefault(x => x.Id == follower);
+            var user_2 = _db.IcollectionUsers.FirstOrDefault(x => x.Id == followed);
+            if (_db.Follows.FirstOrDefault(x => x.Follower == follower && x.Followed == followed) == null)
+            {
+                var newFollow = new Follow { Follower = follower, FollowerNavigation = user_1, Followed = followed, FollowedNavigation = user_2, Began = DateTime.Now };
+                _db.Follows.Add(newFollow);
+                try
+                {
+                    _db.SaveChanges();
+                }
+                catch (DbUpdateException dbe)
+                {
+                    return Json(new { success = false, follower = user_1.Id, followed = user_2.Id, message = dbe.ToString() });
+                }
+                return Json(new { success = true, follower = follower, followed = followed, message = "success" });
+            }
+            return Json(new { success = false, follower = user_1.Id, followed = user_2.Id, message = "follow already exists!" });
+        }
+
+        // POST: FollowController/Unfollow
+        [Authorize]
+        [HttpPost]
+        [Route("api/unfollow")]
+        public JsonResult Unfollow(int follower, int followed)
+        {
+            Follow follow = _db.Follows
+                                .Include(f => f.FollowedNavigation)
+                                .Include(f => f.FollowerNavigation)
+                                .FirstOrDefault(x => x.Follower == follower && x.Followed == followed);
+            if (follow != null)
+            {
+                _db.Follows.Remove(follow);
+                try { 
+                    _db.SaveChanges(); 
+                }
+                catch (DbUpdateException dbe)
+                {
+                    return Json(new { success = false, follower = follower, followed = followed, message = dbe.ToString() });
+                }
+                return Json(new { success = true, follower = follower, followed = followed, message = "success" });
+            }
+            else
+            {
+                return Json(new { success = false, follower = follower, followed = followed, message = "bad input" });
+            }
         }
     }
 }

@@ -7,7 +7,6 @@ namespace iCollections.Models
 {
     public class SearchList
     {
-        public IcollectionUser loggedInUser { get; set; }
         public IEnumerable<IcollectionUser> results { get; set; }
     }
 }
