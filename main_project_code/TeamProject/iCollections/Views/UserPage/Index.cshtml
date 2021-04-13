@@ -96,11 +96,12 @@
             <table style="border-top-style:dotted; border-top-width:initial;" class="table table-hover flex-column">
                 <tr class="nav-item">
                     <td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName">Following</a></td>
-                    @*<td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName" href="@Model.ProfileOwner.UserName/following">Following</a></td>*@
-                    <td><a class="text-primary" asp-action="Index" asp-controller="Browse">Browse</a></td>
                 </tr>
                 <tr class="nav-item">
-                    <td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName">Following</a></td>
+                    <td><a class="text-primary" asp-action="Followers" asp-route-name="@Model.ProfileOwner.UserName">Followers</a></td>
+                </tr>
+                <tr class="nav-item">
+                    <td><a class="text-primary" asp-action="Index" asp-controller="Browse">Browse</a></td>
                 </tr>
             </table>
         </div>

@@ -53,13 +53,67 @@ namespace iCollections.Controllers
             
             return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser });
         }
+        
+        [Route("userpage/{name}/followers")]
+        public IActionResult Followers(string name)
+        {
+            if (name == null )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            IcollectionUser user = _db.IcollectionUsers
+                                    .Include(x => x.FollowFollowedNavigations)
+                                    .ThenInclude(f => f.FollowerNavigation)
+                                    .FirstOrDefault(m => m.UserName == name);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            List<Follow> followers = user.FollowFollowedNavigations.ToList();
+            return View(new FollowList { TargetUser = user, Follows = followers });
+        }
+
+        [Route("userpage/{name}/following")]
+        public IActionResult Following(string name)
+        {
+            if (name == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            IcollectionUser user = _db.IcollectionUsers
+                                    .Include(x => x.FollowFollowerNavigations)
+                                    .ThenInclude(f => f.FollowedNavigation)
+                                    .FirstOrDefault(m => m.UserName == name);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            List<Follow> following = user.FollowFollowerNavigations.ToList();
+            return View(new FollowList { TargetUser = user, Follows = following });
+        }
+
+        [Route("userpage/{name}/collections")]
+        public IActionResult Collections(string name)
+        {
+            if (name == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            IcollectionUser user = _db.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var collections = _db.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
+            return View(collections);
+        }
 
         [Authorize]
         [Route("api/sessionuser")]
         public async Task<JsonResult> GetUserNameFromAspId()
         {
             var sessionUser = _userManager.GetUserId(User);
-            var username = await _db.IcollectionUsers.FirstOrDefaultAsync(x => x.AspnetIdentityId == sessionUser );
+            var username = await _db.IcollectionUsers.FirstOrDefaultAsync(x => x.AspnetIdentityId == sessionUser);
             if (username == null)
             {
                 return Json(new { username = "" });
@@ -130,44 +184,11 @@ namespace iCollections.Controllers
                 return Json(new { success = true, message = "Follow has been removed" });
 
             }
-            
+
             return Json(new { success = false, message = "error" });
-            
+
         }
 
-        [Route("userpage/{name}/followers")]
-        public IActionResult Followers(string name)
-        {
-            if (name == null )
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            IcollectionUser user = _db.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
-            if (user == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            List<Follow> followers = _db.Follows.Include("FollowerNavigation").Where(m => m.FollowedNavigation.UserName == name).ToList();
-            var follows = new FollowList { TargetUsername = user.UserName, TargetFirstname = user.FirstName, TargetLastname = user.LastName, Follows = followers };
-            return View(follows);
-        }
-
-        [Route("userpage/{name}/following")]
-        public IActionResult Following(string name)
-        {
-            if (name == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            IcollectionUser user = _db.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
-            if (user == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            List<Follow> following = _db.Follows.Include("FollowedNavigation").Where(m => m.FollowerNavigation.UserName == name).ToList();
-            var follows = new FollowList { TargetUsername = user.UserName, TargetFirstname = user.FirstName, TargetLastname = user.LastName, Follows = following.OrderBy(f => f.FollowedNavigation.UserName)};
-            return View(follows);
-        }
 
         [HttpPost]
         [Authorize]
@@ -209,23 +230,6 @@ namespace iCollections.Controllers
             }
 
             return Json(new { success = true, message = "Follow has been removed" });
-        }
-
-
-        [Route("userpage/{name}/collections")]
-        public IActionResult Collections(string name)
-        {
-            if (name == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            IcollectionUser user = _db.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
-            if (user == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            var collections = _db.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
-            return View(collections);
         }
 
         private bool FollowExists(int id)
