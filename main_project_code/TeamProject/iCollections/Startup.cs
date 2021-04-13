@@ -32,8 +32,10 @@ namespace iCollections
         {
             var authBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("AuthenticationConnection"));
             var appBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("ICollectionsConnection"));
-            //authBuilder.Password = Configuration["ICollections:ServerPassword"];
-            //appBuilder.Password = Configuration["ICollections:ServerPassword"];
+            authBuilder.Password = Configuration["ICollections:ServerPassword"];
+            appBuilder.Password = Configuration["ICollections:ServerPassword"];
+            //authBuilder.Password = "nju8*ikm";
+            //appBuilder.Password = "nju8*ikm";
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(authBuilder.ConnectionString));
@@ -67,7 +69,8 @@ namespace iCollections
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -81,6 +84,12 @@ namespace iCollections
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name:"thumbnails",
+                    pattern: "api/image/thumbnail/{id?}",
+                    defaults: new { controller = "ImageApi", action = "Thumbnail"}                
+                    );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

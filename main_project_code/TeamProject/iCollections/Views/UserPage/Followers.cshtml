@@ -1,4 +1,7 @@
-﻿@model FollowList
+﻿@using iCollections.Data;
+@using Microsoft.AspNetCore.Identity;
+@inject ICollectionsDbContext AppContext
+@model FollowList
 
 @{
     ViewData["Title"] = "Followers";
@@ -6,16 +9,38 @@
 
 <div class="row">
     <div class="col user-follow-block">
-        <h1>@Model.TargetUsername's Followers:</h1>
+        <h1>@Model.TargetUser.UserName's Followers:</h1>
         @if (Model.Follows.ToList().Count == 0)
         {
-            <h2>Looks like @Model.TargetUsername isn't followed by anybody.</h2>
+            <h2>Looks like @Model.TargetUser.UserName isn't followed by anybody.</h2>
         }
-        @foreach (var follower in Model.Follows)
-        {
-            <div class="user-follows">
-                <p>@follower.FollowerNavigation.UserName</p>
-            </div>
-        }
+        <table class="table text-center">
+            @foreach (var follow in Model.Follows)
+            {
+                <tr>
+                    <td><div class="fake-image"></div></td>
+                    <td>@follow.FollowerNavigation.FirstName</td>
+                    <td>@follow.FollowerNavigation.LastName</td>
+                    <td><a href="../@follow.FollowerNavigation.UserName"><em>@follow.FollowerNavigation.UserName</em></a></td>
+                    @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User) != follow.FollowerNavigation.AspnetIdentityId)
+                    {
+                        string id = UserManager.GetUserId(User);
+                        IcollectionUser appUser = AppContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+                        if (appUser.FollowFollowerNavigations.Any(f => f.Followed == follow.Follower))
+                        {
+                            <td id="unfollow-button">
+                                <button value-user="@appUser.Id" value-target="@follow.Follower" class="btn btn-primary following-button text-light" for="option3">Following</button>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a class="btn btn-primary follow-button text-light" value-user="@appUser.Id" value-target="@follow.Follower">Follow</a>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </table>
     </div>
 </div>

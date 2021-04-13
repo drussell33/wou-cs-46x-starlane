@@ -27,16 +27,13 @@ namespace iCollections.Controllers
 
         public IActionResult SearchUser(string user)
         {
-            IcollectionUser loggedInUser = null;
-            if(User.Identity.IsAuthenticated)
-            {
-                 loggedInUser = _db.IcollectionUsers
-                    .Include(u => u.FollowFollowedNavigations)
-                    .ThenInclude(f => f.FollowedNavigation)
-                    .FirstOrDefault(x => x.AspnetIdentityId == _userManager.GetUserId(User));
-            }
-            List<IcollectionUser> results = _db.IcollectionUsers.Include(u => u.Photos).Where(x => x.UserName.Contains(user)).ToList();
-            return View(new SearchList { loggedInUser = loggedInUser, results = results });
+            List<IcollectionUser> results = _db.IcollectionUsers
+                                            .Include(u => u.Photos)
+                                            .Include(u => u.FollowFollowedNavigations)
+                                            .ThenInclude(f => f.FollowerNavigation)
+                                            .Where(x => x.UserName.Contains(user))
+                                            .ToList();
+            return View(new SearchList { results = results });
         }
     }
 }

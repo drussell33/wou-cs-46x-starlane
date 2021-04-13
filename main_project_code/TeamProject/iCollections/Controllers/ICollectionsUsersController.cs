@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using iCollections.Data;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace iCollections.Controllers
 {
@@ -16,10 +17,12 @@ namespace iCollections.Controllers
     public class ICollectionsUsersController : Controller
     {
         private readonly ICollectionsDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ICollectionsUsersController(ICollectionsDbContext context)
+        public ICollectionsUsersController(ICollectionsDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: ICollectionsUsers
@@ -147,8 +150,33 @@ namespace iCollections.Controllers
                                         .Include(u => u.FollowFollowerNavigations)
                                         .Include(u => u.Photos)
                                         .FirstOrDefaultAsync(x => x.Id == id);
-            _context.IcollectionUsers.Remove(icollectionUser);
-            await _context.SaveChangesAsync();
+            var idUser = await _userManager.FindByIdAsync(icollectionUser.AspnetIdentityId);
+            var userLogins = await _userManager.GetLoginsAsync(idUser);
+
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                IdentityResult result = IdentityResult.Success;
+                foreach (var login in userLogins)
+                {
+                    result = await _userManager.RemoveLoginAsync(idUser, login.LoginProvider, login.ProviderKey);
+                    if (result != IdentityResult.Success) break;
+                }
+
+                if (result == IdentityResult.Success)
+                {
+                    result = await _userManager.DeleteAsync(idUser);
+                    if (result == IdentityResult.Success)
+                    {
+                        transaction.Commit();
+                    }
+                }
+            }
+
+            if (IcollectionUserExists(id))
+            {
+                _context.IcollectionUsers.Remove(icollectionUser);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 

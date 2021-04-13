@@ -91,11 +91,60 @@ const shoppingList = [
     //     return copyData;
     // }   
 
-  test('CreatingArrayParam_SHouldLoadArrayAsParamToFunction_True', () => {
+  test('CreatingArrayParamThatReturnsWholeArray_SHouldLoadArrayAsParamToFunctionAndTestLength_True', () => {
     //Arrange
     var inputParam = practiceInit(sampleData);
     //Act
     var testLength = inputParam.length;
     //Assert
     expect(8).toBe(testLength);
+});
+
+test('CreatingArrayParamThatReturnsWholeArray_SHouldNotBeofLength9_True', () => {
+    //Arrange
+    var inputParam = practiceInit(sampleData);
+    //Act
+    var testLength = inputParam.length;
+    //Assert
+    expect(9).not.toBe(testLength);
+    expect(7).not.toBe(testLength);
+    expect(0).not.toBe(testLength);
+});
+
+test('CreatingArrayParamThatReturnsWholeArray_SHouldLoadArrayAsParamToFunctionAndContainValue_True', () => {
+    //Arrange
+    var inputParam = practiceInit(sampleData);
+    //Act
+
+    //Assert
+    expect(inputParam[6]["Description"]).toContain("description6");
+});
+
+test('CreatingNewArrayWithSort_SHouldLoadArrayFROMParamToFunctionAndContainValueInOrder_True', () => {
+    //Arrange
+    var inputParam = practiceInit(sampleData);
+    //Act
+    var sortedInputParam = inputParam.slice().sort();
+    //Assert
+    expect(sortedInputParam[6]["Description"]).toContain("description6");
+});
+
+test('CheckingOutputofNewArray_ShouldCopyDescriptionAndReturn_True', () => {
+    //Arrange
+    var inputParam = practiceInit(sampleData);
+    //Act
+    var sortedInputParam = inputParam.slice().sort();
+    //Assert
+    expect(sortedInputParam[6]["Description"]).toContain("description6");
+});
+
+
+test('CheckingOmitedDataFIelds_ShouldReturnTrueforObmitingPhotoRank_True', () => {
+    //Arrange
+    var inputParam = practiceInit(sampleData);
+    //Act
+    
+    //Assert
+    expect(inputParam[6]).not.toContain('["PhotoRank"]');
+    expect(inputParam[6]['Data']).toContain('notreal6');
 });
