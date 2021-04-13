@@ -11,9 +11,19 @@ namespace iCollections.Utilities
         // Refactored code from Browse Controller for Sprint 3 testing
         public static string[] SplitBySpace(string keywords)
         {
-            string[] keywordArray = keywords.Split(" ");
+            if (keywords != null)
+            {
+                string trimmedWords = keywords.Trim(' ');
+                string[] keywordArray = trimmedWords.Split(" ");
 
-            return (keywordArray);
+                return (keywordArray);
+            }
+
+            else 
+            {
+                return (new string[] { "" });
+            }
+            
         }
     }
 }
