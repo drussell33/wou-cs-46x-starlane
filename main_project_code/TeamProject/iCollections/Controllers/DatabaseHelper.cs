@@ -72,6 +72,8 @@ namespace iCollections.Controllers
         // (assuming all friendships have at least one of my friends in them)
         public static void RemoveDuplicates(ref List<FriendsWith> friendships, List<IcollectionUser> directFriends)
         {
+            if (friendships == null || directFriends == null) throw new NullReferenceException("Cannot access null lists");
+            
             var filtered = new List<FriendsWith>();
             var bothDirectFriends = new List<FriendsWith>();
             foreach (var ship in friendships)
