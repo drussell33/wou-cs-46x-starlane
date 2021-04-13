@@ -1,4 +1,7 @@
-@model UserProfile  
+@using iCollections.Data;
+@using Microsoft.AspNetCore.Identity;
+@inject ICollectionsDbContext AppContext
+@model UserProfile
 
 @{
     ViewData["Title"] = "Index";
@@ -13,8 +16,7 @@
             <div class="col user-profile-obj" id="follow-button">
                 @if (Model.ProfileOwner.ProfilePicId.HasValue)
                 {
-                    <img class="user-profile-img"
-                         src="data:image;base64,@System.Convert.ToBase64String(Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value).Data)" />
+                    <img class="user-profile-img" src="data:image;base64,@System.Convert.ToBase64String(@Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value).Data)" />
                 }
                 else
                 {
@@ -30,16 +32,23 @@
                     <p>Following: @Model.ProfileOwner.FollowFollowerNavigations.ToList().Count</p>
                 </div>
                 <br />
-
-                @if (Model.ProfileVisitor != null)
+                @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User) != Model.ProfileOwner.AspnetIdentityId)
                 {
-                    if (Model.ProfileVisitor.FollowFollowedNavigations.Any(x => x.FollowedNavigation.Id == Model.ProfileOwner.Id))
+                    string id = UserManager.GetUserId(User);
+                    IcollectionUser appUser = AppContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == id);
+                    if (appUser.FollowFollowerNavigations.Count > 0)
+                    //appUser.FollowFollowerNavigations.Any(x => x.Followed == Model.ProfileOwner.Id);
+                    if (Model.ProfileOwner.FollowFollowedNavigations.Any(x => x.Follower == appUser.Id))
                     {
-                        <button type="button" name="following" class="btn btn-outline-primary following-button">Following</button>
+                        <span>
+                            <a class="btn btn-primary following-button text-light" value-user="@appUser.Id" value-target="@Model.ProfileOwner.Id">Following</a>
+                        </span>
                     }
                     else
                     {
-                        <button type="button" name="new" class="btn btn-outline-primary follow-button">Follow</button>
+                        <span>
+                            <a class="btn btn-primary follow-button text-light" value-user="@appUser.Id" value-target="@Model.ProfileOwner.Id">Follow</a>
+                        </span>
                     }
                 }
 
@@ -86,6 +95,8 @@
             <h2>Navigation</h2>
             <table style="border-top-style:dotted; border-top-width:initial;" class="table table-hover flex-column">
                 <tr class="nav-item">
+                    <td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName">Following</a></td>
+                    @*<td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName" href="@Model.ProfileOwner.UserName/following">Following</a></td>*@
                     <td><a class="text-primary" asp-action="Index" asp-controller="Browse">Browse</a></td>
                 </tr>
                 <tr class="nav-item">

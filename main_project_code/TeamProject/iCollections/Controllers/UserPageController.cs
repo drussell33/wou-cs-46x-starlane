@@ -45,12 +45,26 @@ namespace iCollections.Controllers
             }
 
             var targetUser = _db.IcollectionUsers
+                .Include(u => u.Photos)
                 .Include(u => u.FollowFollowerNavigations)
                 .Include(u => u.FollowFollowedNavigations)
-                .Include(u => u.Photos)
+                .ThenInclude(f => f.FollowerNavigation)
                 .FirstOrDefault(m => m.UserName == name);
             
             return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser });
+        }
+
+        [Authorize]
+        [Route("api/sessionuser")]
+        public async Task<JsonResult> GetUserNameFromAspId()
+        {
+            var sessionUser = _userManager.GetUserId(User);
+            var username = await _db.IcollectionUsers.FirstOrDefaultAsync(x => x.AspnetIdentityId == sessionUser );
+            if (username == null)
+            {
+                return Json(new { username = "" });
+            }
+            return Json(new { username = username.UserName, id = username.Id });
         }
 
         [HttpPost]

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ICollectionUser] (
+CREATE TABLE [ICollectionUser] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
   [ASPNetIdentityID] nvarchar(450),
   [first_name] nvarchar(50) NOT NULL,
@@ -23,8 +23,7 @@ CREATE TABLE [Collection] (
   [user_id] int,
   [date_made] DateTime,
   [route] nvarchar(100) NOT NULL
-)
-GO
+);
 
 CREATE TABLE [Keyword] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
@@ -38,8 +37,7 @@ CREATE TABLE [Photo] (
   [user_id] int,
   [date_uploaded] DateTime,
   [PhotoGUID] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()
-)
-GO
+);
 
 CREATE TABLE [FriendsWith] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
@@ -65,7 +63,9 @@ CREATE TABLE [CollectionKeyword] (
   [date_added] DateTime
 );
 
+ALTER TABLE [Follow] ADD CONSTRAINT [Follow_fk_ICollectionUser_One] FOREIGN KEY ([follower]) REFERENCES [ICollectionUser] ([id]);
 
+ALTER TABLE [Follow] ADD CONSTRAINT [Follow_fk_ICollectionUser_Two] FOREIGN KEY ([followed]) REFERENCES [ICollectionUser] ([id]);
 
 ALTER TABLE [Follow] ADD CONSTRAINT [Follow_fk_ICollectionUser_One] FOREIGN KEY ([follower]) REFERENCES [ICollectionUser] ([id]);
 
