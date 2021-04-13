@@ -74,13 +74,13 @@ namespace iCollections.Controllers
         }
 
         [Route("/ocean_environment")]
-        public IActionResult Ocean_environment()
+        public IActionResult Ocean_environment(Collection collection)
         {
             return View();
         }
 
         [Route("/gallery_environment")]
-        public IActionResult gallery_environment()
+        public IActionResult gallery_environment(Collection collection)
         {
             return View();
         }

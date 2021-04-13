@@ -1,8 +1,64 @@
-﻿@{
+﻿@model CreateCollectionPhotos
+
+@{
     ViewData["Title"] = "Create iCollection";
 }
 
-<h1>Photo Selection page</h1>
+@using Microsoft.AspNetCore.Identity
+@using iCollections.Data;
 
-<a class="btn btn-primary" asp-controller="CreateCollection" asp-action="EnvironmentSelection">Back</a>
-<a class="btn btn-primary" asp-controller="CreateCollection" asp-action="PublishingOptionsSelection">Continue</a>
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject ICollectionsDbContext AppContext
+
+<h1>Photo Selection page</h1>
+<form asp-controller="CreateCollection" asp-action="PhotoSelection" method="post" class="">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        string id = UserManager.GetUserId(User);
+        IcollectionUser appUser = AppContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+
+        <div class="row">
+            <div class="col">
+                <h1>Collections:</h1>
+                @if (AppContext.Photos.Where(u => u.UserId == appUser.Id).ToList().Count == 0)
+                {
+                    <h2>It looks like this user doesn't have any Collections yet. Bummer!</h2>
+                }
+                @if (AppContext.Photos.Where(u => u.UserId == appUser.Id).ToList().Count > 0)
+                {
+                    var i = 0;
+                    @foreach (var photo in AppContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
+                    {
+                        i++;
+                        <div class="collection-container">
+                            <div class="row">
+                                <div class="col-2 form-group">
+                                    <div class="form-check align-content-center environment-select-checkbox">
+                                        <input type="checkbox" @*asp-for="@Model.CollectionPhotosIds"*@ value="@photo.Id" class="form-check-input" id="">
+                                        <label class="form-check-label" for="exampleCheck1">Select</label>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <img class="user-profile-img" src="data:image;base64,@System.Convert.ToBase64String(photo.Data)" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    }
+
+
+
+
+                </div>
+            </div>
+    }
+
+
+
+
+    <a class="btn btn-primary" asp-controller="CreateCollection" asp-action="EnvironmentSelection">Back</a>
+    <button type="submit" class="btn btn-primary">Continue</button>
+
+</form>
