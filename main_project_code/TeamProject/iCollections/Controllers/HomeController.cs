@@ -35,7 +35,7 @@ namespace iCollections.Controllers
             }*/
             // Information straight from the Controller (does not need to do to the database)
 
-            // Information straight from the Controller (does not need to do to the database)
+/*            // Information straight from the Controller (does not need to do to the database)
             bool isAdmin = User.IsInRole("Admin");
             string name = User.Identity.Name;
             string authType = User.Identity.AuthenticationType;
@@ -49,14 +49,15 @@ namespace iCollections.Controllers
             int numberOfFollowers = 0;
             int numberOfFriends = 0;
             string aboutMe = null;
+           
             if (id != null)
             {
                 cu = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-
+                
                 aboutMe = cu?.AboutMe ?? "no about me";
                 numberOfFollowers = _collectionsDbContext.Follows.Where(u => u.Followed == cu.Id).Count();
                 numberOfFriends = _collectionsDbContext.FriendsWiths.Where(u => u.User1Id == cu.Id).Count();
-            }
+            }*/
 
 
             /*ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
@@ -71,6 +72,19 @@ namespace iCollections.Controllers
         {
             return View();
         }
+
+        [Route("/ocean_environment")]
+        public IActionResult Ocean_environment(Collection collection)
+        {
+            return View();
+        }
+
+        [Route("/gallery_environment")]
+        public IActionResult gallery_environment(Collection collection)
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - iCollections</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/environment_styles.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -19,17 +20,30 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between navbars">
                     <ul class="navbar-nav flex-grow-1">
+
+                        <!--Browse-->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Browse" asp-action="Index">Browse</a>
+                        </li>
+
                         <!--Dashboard-->
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                             </li>
                         }
                         <!--Upload-->
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="UploadPhoto" asp-action="Index">Upload Photo</a>
                         </li>
+                        <!-- View photos -->
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ViewPhotos" asp-action="Index">View Photos</a>
+                        </li>
+                        }
                     </ul>
                     <!--Search Bar-->
                     <ul class="navbar-nav justify-content-end">
@@ -47,7 +61,7 @@
                 </div>
             </div>
         </nav>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 navbar-secondary" aria-label="Secondary Nav">
+@*        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 navbar-secondary" aria-label="Secondary Nav">
             <div class="container">
                 <div class="navbar-collapse collapse d-sm-inline-flex navbars">
                     <ul class="navbar-nav flex-grow-1 justify-content-between">
@@ -63,7 +77,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>*@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -80,6 +94,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/follows.js" asp-append-version="true"></script>
+    <script src="~/js/ocean_example.js" asp-append-version="true" type="module"></script>
+    <script src="~/js/puzzel_example.js" asp-append-version="true" type="module"></script>
+    <script src="~/js/sum.js" asp-append-version="true" type="module"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

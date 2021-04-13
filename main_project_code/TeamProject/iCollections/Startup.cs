@@ -13,6 +13,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using iCollections.Models;
 
 namespace iCollections
 {
@@ -33,21 +34,25 @@ namespace iCollections
             var appBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("ICollectionsConnection"));
             authBuilder.Password = Configuration["ICollections:ServerPassword"];
             appBuilder.Password = Configuration["ICollections:ServerPassword"];
+            //authBuilder.Password = "nju8*ikm";
+            //appBuilder.Password = "nju8*ikm";
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(authBuilder.ConnectionString));
                         //Configuration.GetConnectionString("AuthenticationConnection"));
             services.AddDbContext<ICollectionsDbContext>(options =>
                  options.UseSqlServer(appBuilder.ConnectionString));
-                       // Configuration.GetConnectionString("ICollectionsConnection"));
+                       //Configuration.GetConnectionString("ICollectionsConnection"));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             // Customize some settings that Identity uses
             services.Configure<IdentityOptions>(opts =>
             {
                 opts.User.RequireUniqueEmail = true;
+                
             });
             services.AddControllersWithViews();
             // Added to enable runtime compilation.
@@ -64,7 +69,8 @@ namespace iCollections
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -78,6 +84,12 @@ namespace iCollections
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name:"thumbnails",
+                    pattern: "api/image/thumbnail/{id?}",
+                    defaults: new { controller = "ImageApi", action = "Thumbnail"}                
+                    );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

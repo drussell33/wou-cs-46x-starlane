@@ -7,7 +7,7 @@ using iCollections.Models;
 
 namespace iCollections.Data
 {
-    public partial class ICollectionsDbContext : DbContext
+    public partial class ICollectionsDbContext : DbContext, IDbContext
     {
         public ICollectionsDbContext()
         {
@@ -53,6 +53,11 @@ namespace iCollections.Data
                     .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("name");
+
+                entity.Property(e => e.Route)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("route");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -101,9 +106,15 @@ namespace iCollections.Data
                     .HasColumnType("datetime")
                     .HasColumnName("date_added");
 
+                entity.Property(e => e.Description).HasMaxLength(50);
+
                 entity.Property(e => e.PhotoId).HasColumnName("photo_id");
 
                 entity.Property(e => e.PhotoRank).HasColumnName("photo_rank");
+
+                entity.Property(e => e.Title)
+                    .HasMaxLength(50)
+                    .HasColumnName("title");
 
                 entity.HasOne(d => d.Collect)
                     .WithMany(p => p.CollectionPhotoes)
@@ -231,6 +242,10 @@ namespace iCollections.Data
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
                     .HasColumnName("name");
+
+                entity.Property(e => e.PhotoGuid)
+                    .HasColumnName("PhotoGUID")
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
