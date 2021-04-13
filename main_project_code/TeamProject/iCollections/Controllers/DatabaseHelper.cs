@@ -72,6 +72,8 @@ namespace iCollections.Controllers
         // (assuming all friendships have at least one of my friends in them)
         public static void RemoveDuplicates(ref List<FriendsWith> friendships, List<IcollectionUser> directFriends)
         {
+            if (friendships == null || directFriends == null) throw new NullReferenceException("Cannot access null lists");
+            
             var filtered = new List<FriendsWith>();
             var bothDirectFriends = new List<FriendsWith>();
             foreach (var ship in friendships)
@@ -143,8 +145,8 @@ namespace iCollections.Controllers
 
         public List<PhotoInfo> GetMyPhotosInfo(int myId)
         {
-            // string address = "https://localhost:5001/api/image/thumbnail/";
-            string address = "https://icollections.azurewebsites.net/api/image/thumbnail/";
+            string address = "https://localhost:5001/api/image/thumbnail/";
+            //string address = "https://icollections.azurewebsites.net/api/image/thumbnail/";
             var photosInformation = _collectionsDbContext.Photos
                                 .Where(row => row.User.Id == myId)
                                 .Select(myRows => new PhotoInfo { Url = address + myRows.PhotoGuid, PhotoName = myRows.Name })

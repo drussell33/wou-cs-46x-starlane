@@ -87,9 +87,6 @@ namespace iCollections.Areas.Identity.Pages.Account
             [Display(Name = "About Me")]
             public string AboutMe { get; set; }
 
-/*            [Required]
-            [Display(Name = "App User Me")]
-            public string AppUserName { get; set; }*/
         }
 
         public async Task OnGetAsync(string returnUrl = null)
