@@ -91,11 +91,20 @@ const shoppingList = [
     //     return copyData;
     // }   
 
-  test('CreatingArrayParam_SHouldLoadArrayAsParamToFunction_True', () => {
+  test('CreatingArrayParamThatReturnsWholeArray_SHouldLoadArrayAsParamToFunctionAndTestLength_True', () => {
     //Arrange
     var inputParam = practiceInit(sampleData);
     //Act
     var testLength = inputParam.length;
     //Assert
     expect(8).toBe(testLength);
+});
+
+test('CreatingArrayParamThatReturnsWholeArray_SHouldLoadArrayAsParamToFunctionAndContainValue_True', () => {
+    //Arrange
+    var inputParam = practiceInit(sampleData);
+    //Act
+    var sortedInputParam = inputParam.slice().sort();
+    //Assert
+    expect(sortedInputParam[6]["Description"]).toContain("description6");
 });

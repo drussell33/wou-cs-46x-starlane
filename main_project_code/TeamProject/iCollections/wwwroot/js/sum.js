@@ -57,6 +57,7 @@ let sampleData = [
     function practiceInit(sampleData)
     {
         var copyData = sampleData
+        copyData.sort();
         return copyData;
     }  
 

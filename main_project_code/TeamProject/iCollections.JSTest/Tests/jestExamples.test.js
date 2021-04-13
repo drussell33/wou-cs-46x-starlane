@@ -114,3 +114,69 @@ function compileAndroidCode() {
     expect(() => compileAndroidCode()).toThrow('you are using the wrong JDK');
     expect(() => compileAndroidCode()).toThrow(/JDK/);
   });
+
+
+  //Sample tests for objects and arrays 
+  test('id should match', () => {
+    const obj = {
+      id: '111',
+      productName: 'Jest Handbook',
+      url: 'https://jesthandbook.com'
+    };
+    expect(obj.id).toEqual('111');
+  });
+  
+  test('id and productName should match', () => {
+    const obj = {
+      id: '111',
+      productName: 'Jest Handbook',
+      url: 'https://jesthandbook.com'
+    };
+    expect(obj.id).toEqual('111');
+    expect(obj.productName).toEqual('Jest Handbook');
+  });
+
+  test('id and productName should match', () => {
+    const obj = {
+      id: '111',
+      productName: 'Jest Handbook',
+      url: 'https://jesthandbook.com'
+    };
+    expect(obj).toEqual(
+      expect.objectContaining({
+        id: '111',
+        productName: 'Jest Handbook'
+      })
+    );
+  });
+
+  const oddArray = [1, 3, 5, 7, 9, 11, 13];
+test('should start correctly', () => {
+  expect(oddArray).toEqual(expect.arrayContaining([1, 3, 5, 7, 9]));
+});
+
+
+const users = [{id: 1, name: 'Hugo'}, {id: 2, name: 'Francesco'}];
+
+test('we should have ids 1 and 2', () => {
+  expect(users).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({id: 1}),
+      expect.objectContaining({id: 2})
+    ])
+  );
+});
+
+
+const user = {
+  id: 1,
+  name: 'Hugo',
+  friends: [3, 5, 22]
+};
+test('user 3 should be a friend of user', () => {
+  expect(user).toEqual(
+    expect.objectContaining({
+      friends: expect.arrayContaining([3])
+    })
+  );
+});
