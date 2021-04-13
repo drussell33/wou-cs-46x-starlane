@@ -25,7 +25,7 @@ namespace iCollections.Controllers
             _collectionsDbContext = collectionsDbContext;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             /*bool isAuthenticated = User.Identity.IsAuthenticated;
             if (isAuthenticated)

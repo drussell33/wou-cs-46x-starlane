@@ -1,4 +1,4 @@
-﻿@model CreateCollectionPublishing
+﻿@model CreateCollectionModel
 @{
     ViewData["Title"] = "Create iCollection";
 }
@@ -22,11 +22,11 @@
                 <select asp-for="Visibility" class="form-control" asp-items="ViewBag.Visibility"></select>
             </div>
 
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="Title" class="form-control" />-->
                 @*<span asp-validation-for="Title" class="text-danger"></span>*@
-            </div>
+            <!--</div>-->
 
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>

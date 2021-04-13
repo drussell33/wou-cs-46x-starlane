@@ -27,9 +27,6 @@ namespace iCollections.Controllers
             _collectionsDbContext = collectionsDbContext;
         }
 
-
-
-
         [HttpGet]
         public IActionResult EnvironmentSelection()
         {
@@ -38,7 +35,7 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EnvironmentSelection(CreateCollectionEnvironment collection)
+        public IActionResult EnvironmentSelection(CreateCollectionModel collection)
         {
 
             string id = _userManager.GetUserId(User);
@@ -46,7 +43,7 @@ namespace iCollections.Controllers
 
             if (ModelState.IsValid)
             {
-                Collection newCollection = new Collection();
+                /*Collection newCollection = new Collection();
                 newCollection.Route = collection.Route;
                 newCollection.UserId = appUser.Id;
                 newCollection.DateMade = DateTime.Now;
@@ -54,7 +51,7 @@ namespace iCollections.Controllers
                 newCollection.Name = "unfinished_new_collection";
 
                 _collectionsDbContext.Collections.Add(newCollection);
-                _collectionsDbContext.SaveChanges();
+                _collectionsDbContext.SaveChanges();*/
 
                 return RedirectToAction("PhotoSelection");
             }
@@ -75,7 +72,7 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PhotoSelection(CreateCollectionPhotos collection)
+        public IActionResult PhotoSelection(CreateCollectionModel collection)
         {
             Debug.WriteLine(collection);
             if (ModelState.IsValid)
@@ -103,7 +100,7 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PublishingOptionsSelection(CreateCollectionPublishing collection)
+        public IActionResult PublishingOptionsSelection(CreateCollectionModel collection)
         {
             Debug.WriteLine(collection);
             if (ModelState.IsValid)

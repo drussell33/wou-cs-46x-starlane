@@ -13,40 +13,40 @@ using iCollections.Controllers;
 
 namespace iCollections.Models
 {
-    public partial class CreateCollectionEnvironment
-    {
-        [Required]
-        public string Route { get; set; }
-
-        public string CollectionId { get; set; }
-
-    }
-
-    public partial class CreateCollectionPhotos : CreateCollectionEnvironment
-    {
-/*        public CreateCollectionPhotos()
+    /*    public partial class CreateCollectionEnvironment
         {
-            CollectionPhotos = new List<Photo>();
+            [Required]
+            public string Route { get; set; }
+
+            public string CollectionId { get; set; }
+
+        }
+
+        public partial class CreateCollectionPhotos : CreateCollectionEnvironment
+        {
+    *//*        public CreateCollectionPhotos()
+            {
+                CollectionPhotos = new List<Photo>();
+            }*//*
+            public virtual int[] CollectionPhotosIds { get; set; }
+        }
+
+        public partial class CreateCollectionPublishing : CreateCollectionPhotos
+        {
+
+            [Display(Name = "iCollection Name")]
+            public string CollectionName { get; set; }
+
+            public string Visibility { get; set; }
+
+            public string Title { get; set; }
+            public string Description { get; set; }
         }*/
-        public virtual int[] CollectionPhotosIds { get; set; }
-    }
 
-    public partial class CreateCollectionPublishing : CreateCollectionPhotos
-    {
-        
-        [Display(Name = "iCollection Name")]
-        public string CollectionName { get; set; }
-
-        public string Visibility { get; set; }
-
-        public string Title { get; set; }
-        public string Description { get; set; }
-    }
-
-}
-/*    public class CreateCollectionModel : PageModel
-    {
-        private readonly UserManager<IdentityUser> _userManager;
+    //}
+    //public class CreateCollectionModel : PageModel
+    public class CreateCollectionModel { 
+/*        private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ICollectionsDbContext _iCollectionsDbContext;
 
@@ -59,37 +59,51 @@ namespace iCollections.Models
             _userManager = userManager;
             _signInManager = signInManager;
             _iCollectionsDbContext = context;
-        }
+        }*/
 
         public string Username { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
-
+        
+        /*[TempData]
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input { get; set; }*/
 
-        public class InputModel
-        {
+        //public class InputModel
+        //{
+            [TempData]
             [Display(Name = "iCollection Name")]
             public string CollectionName { get; set; }
 
-            [Display(Name = "Visibility")]
-            public int Visibility { get; set; }
+            [TempData]
+            public string Description { get; set; }
 
+            [TempData]
+            [Display(Name = "Visibility")]
+            public string Visibility { get; set; }
+
+            [TempData]
             public int? UserId { get; set; }
 
+            [TempData]
             public DateTime? DateMade { get; set; }
 
-            //added in sprint 3
+            [TempData]
             public string Route { get; set; }
+        
+            [TempData]
+            public virtual int[] CollectionPhotosIds { get; set; }
 
-            *//*public virtual IcollectionUser User { get; set; }
+/*            [TempData]
+            public virtual IcollectionUser User { get; set; }*/
+            /*[TempData]
             public virtual ICollection<CollectionKeyword> CollectionKeywords { get; set; }
-            public virtual ICollection<CollectionPhoto> CollectionPhotoes { get; set; }*//*
-        }
+            [TempData]
+            public virtual ICollection<CollectionPhoto> CollectionPhotoes { get; set; }*/
+        //}
 
-*//*        private async Task LoadAsync(IdentityUser user)
+        /*private async Task LoadAsync(IdentityUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             string id = await _userManager.GetUserIdAsync(user);
@@ -97,11 +111,10 @@ namespace iCollections.Models
 
             Username = userName;
 
-            Input = new InputModel
-            {
-                UserId = appUser.Id,
-                Route = 
-            };
+
+            UserId = appUser.Id;
+            
+
         }*/
 
         /*public async Task<IActionResult> OnGetAsync()
@@ -114,30 +127,33 @@ namespace iCollections.Models
 
             await LoadAsync(user);
             return Page();
-        }*//*
+        }*/
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            var userName = await _userManager.GetUserNameAsync(user);
-            string id = await _userManager.GetUserIdAsync(user);
-            IcollectionUser appUser = _iCollectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-            //returnUrl ??= Url.Content("~/");
-            if (ModelState.IsValid)
-            {
-                var collection = new Collection { Name = Input.CollectionName, Visibility = 1, UserId = appUser.Id, DateMade = DateTime.Now, Route = Input.Route};
-     
-                _iCollectionsDbContext.Add(collection);
-                await _iCollectionsDbContext.SaveChangesAsync();
 
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
 
-            // If we got this far, something failed, redisplay form
-            return Page();
-            }
-        }
-    }*/
+        /*   public async Task<IActionResult> OnPostAsync()
+           {
+               var userName = await _userManager.GetUserNameAsync(User);
+               string id = await _userManager.GetUserIdAsync(user);
+               IcollectionUser appUser = _iCollectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+               //returnUrl ??= Url.Content("~/");
+               if (ModelState.IsValid)
+               {
+                   var collection = new Collection { Name = Input.CollectionName, Visibility = 1, UserId = appUser.Id, DateMade = DateTime.Now, Route = Input.Route };
+
+                   _iCollectionsDbContext.Add(collection);
+                   await _iCollectionsDbContext.SaveChangesAsync();
+
+               }
+               foreach (var error in result.Errors)
+               {
+                   ModelState.AddModelError(string.Empty, error.Description);
+               }
+                   }
+
+                   // If we got this far, something failed, redisplay form
+                   return Page();
+                   }
+               }*/
+    }
+}
