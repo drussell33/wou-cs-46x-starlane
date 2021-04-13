@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace iCollections.Tests
+namespace iCollections.Tests.Tests
 {
 
     public class TestFollowUnfollow
