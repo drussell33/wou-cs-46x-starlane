@@ -105,7 +105,5 @@ namespace iCollections.Tests.Tests
             //assert
             Assert.That(output, Is.EqualTo(new string[] { "Test" }));
         }
-
-
     }
 }

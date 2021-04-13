@@ -4,7 +4,7 @@ using iCollections.Models;
 using System.Collections.Generic;
 using System;
 
-namespace iCollections.Tests
+namespace iCollections.Tests.Tests
 {
     public class TestRemoveDuplicates
     {
