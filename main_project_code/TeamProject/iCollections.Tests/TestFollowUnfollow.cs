@@ -1,12 +1,17 @@
 ﻿using NUnit.Framework;
+using iCollections.Controllers;
+using iCollections.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace iCollections.Tests
 {
+
     public class TestFollowUnfollow
     {
         [SetUp]

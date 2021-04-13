@@ -3,12 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using iCollections.Models;
 
-
 #nullable disable
 
 namespace iCollections.Data
 {
-    public partial class ICollectionsDbContext : DbContext
+    public partial class ICollectionsDbContext : DbContext, IDbContext
     {
         public ICollectionsDbContext()
         {
