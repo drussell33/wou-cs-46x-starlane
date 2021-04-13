@@ -7,11 +7,7 @@ namespace iCollections.Models
 {
     public class FollowList
     {
-        public string TargetUsername { get; set; }
-
-        public string TargetFirstname { get; set; }
-
-        public string TargetLastname { get; set; }
+        public IcollectionUser TargetUser { get; set; }
         public IEnumerable<Follow> Follows { get; set; }
     }
 }

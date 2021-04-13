@@ -1,4 +1,7 @@
-﻿@model FollowList
+﻿@using iCollections.Data;
+@using Microsoft.AspNetCore.Identity;
+@inject ICollectionsDbContext AppContext
+@model FollowList
 
 @{
     ViewData["Title"] = "Following";
@@ -6,44 +9,56 @@
 
 <div class="row">
 
-
     <!-- User details column -->
     <div class="col-sm options">
         <div class="col">
             <div class="row">
                 <div class="fake-profile-image"></div>
                 <div class="col">
-                    <h2>@Model.TargetFirstname @Model.TargetLastname</h2>
-                    <h3><em>@Model.TargetUsername</em></h3>
+                    <h2>@Model.TargetUser.FirstName @Model.TargetUser.LastName</h2>
+                    <h3><em>@Model.TargetUser.UserName</em></h3>
                 </div>
             </div>
         </div>
     </div>
 
-
     <!-- List of users followed column -->
     <div class="col-sm text-center">
         @if (Model.Follows.ToList().Count == 0)
         {
-            <h1>Looks like @Model.TargetUsername isn't following anybody.</h1>
+            <h1>Looks like @Model.TargetUser.UserName isn't following anybody.</h1>
         }
         else
         {
-            <h2>Users I Follow:</h2>
+            <h2>Users @Model.TargetUser.UserName Follows:</h2>
         }
         <table class="table text-center">
 
-            @foreach (var followed in Model.Follows)
+            @foreach (var follow in Model.Follows)
             {
-                var followID = "f" + followed.Id;
-
-                <tr>
-                    <td><div class="fake-image"></div></td>
-                    <td>@followed.FollowedNavigation.FirstName</td>
-                    <td>@followed.FollowedNavigation.LastName</td>
-                    <td><a href="../@followed.FollowedNavigation.UserName"><em>@followed.FollowedNavigation.UserName</em></a></td>
-                    <td id="unfollow-button"><button type="button" id="@followID" class="btn btn-outline-danger" for="option3">Un-Follow</button></td>
-                </tr>
+            <tr>
+                <td><div class="fake-image"></div></td>
+                <td>@follow.FollowedNavigation.FirstName</td>
+                <td>@follow.FollowedNavigation.LastName</td>
+                <td><a href="../@follow.FollowedNavigation.UserName"><em>@follow.FollowedNavigation.UserName</em></a></td>
+                @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User) != follow.FollowedNavigation.AspnetIdentityId)
+                {
+                    string id = UserManager.GetUserId(User);
+                    IcollectionUser appUser = AppContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+                    if (appUser.FollowFollowerNavigations.Any(f => f.Followed == follow.Followed))
+                    {
+                        <td id="unfollow-button">
+                            <button value-user="@appUser.Id" value-target="@follow.Followed" class="btn btn-primary following-button text-light" for="option3">Following</button>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                             <a class="btn btn-primary follow-button text-light" value-user="@appUser.Id" value-target="@follow.Followed">Follow</a>
+                        </td>
+                    }
+                }
+            </tr>
             }
 
         </table>
