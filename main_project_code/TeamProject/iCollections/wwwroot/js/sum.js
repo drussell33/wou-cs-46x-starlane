@@ -57,8 +57,12 @@ let sampleData = [
     function practiceInit(sampleData)
     {
         var copyData = sampleData
-        copyData.sort();
-        return copyData;
+        var sortedInputParam = copyData.slice().sort();
+        var outputData = []
+        for(var i = 0; i < sortedInputParam.length; i++){
+            outputData[i] = { Data : sortedInputParam[i].Data, Description : sortedInputParam[i].Description }
+        }
+        return outputData;
     }  
 
 export { sum, practiceInit }
