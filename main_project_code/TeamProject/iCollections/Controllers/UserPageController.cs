@@ -63,13 +63,14 @@ namespace iCollections.Controllers
             }
             IcollectionUser user = _db.IcollectionUsers
                                     .Include(x => x.FollowFollowedNavigations)
+                                    .ThenInclude(f => f.FollowerNavigation)
                                     .FirstOrDefault(m => m.UserName == name);
             if (user == null)
             {
                 return RedirectToAction("Index", "Home");
             }
             List<Follow> followers = user.FollowFollowedNavigations.ToList();
-            return View(new FollowList { TargetUser = user, Follows = followers.OrderBy(f => f.FollowerNavigation.UserName) });
+            return View(new FollowList { TargetUser = user, Follows = followers });
         }
 
         [Route("userpage/{name}/following")]
@@ -81,26 +82,14 @@ namespace iCollections.Controllers
             }
             IcollectionUser user = _db.IcollectionUsers
                                     .Include(x => x.FollowFollowerNavigations)
+                                    .ThenInclude(f => f.FollowedNavigation)
                                     .FirstOrDefault(m => m.UserName == name);
             if (user == null)
             {
                 return RedirectToAction("Index", "Home");
             }
             List<Follow> following = user.FollowFollowerNavigations.ToList();
-            return View(new FollowList { TargetUser = user, Follows = following.OrderBy(f => f.FollowedNavigation.UserName) });
-        }
-
-        [Authorize]
-        [Route("api/sessionuser")]
-        public async Task<JsonResult> GetUserNameFromAspId()
-        {
-            var sessionUser = _userManager.GetUserId(User);
-            var username = await _db.IcollectionUsers.FirstOrDefaultAsync(x => x.AspnetIdentityId == sessionUser);
-            if (username == null)
-            {
-                return Json(new { username = "" });
-            }
-            return Json(new { username = username.UserName, id = username.Id });
+            return View(new FollowList { TargetUser = user, Follows = following });
         }
 
         [Route("userpage/{name}/collections")]
@@ -117,6 +106,19 @@ namespace iCollections.Controllers
             }
             var collections = _db.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
             return View(collections);
+        }
+
+        [Authorize]
+        [Route("api/sessionuser")]
+        public async Task<JsonResult> GetUserNameFromAspId()
+        {
+            var sessionUser = _userManager.GetUserId(User);
+            var username = await _db.IcollectionUsers.FirstOrDefaultAsync(x => x.AspnetIdentityId == sessionUser);
+            if (username == null)
+            {
+                return Json(new { username = "" });
+            }
+            return Json(new { username = username.UserName, id = username.Id });
         }
 
         [HttpPost]

@@ -19,10 +19,10 @@
             {
                 <tr>
                     <td><div class="fake-image"></div></td>
-                    <td>@follow.FollowedNavigation.FirstName</td>
-                    <td>@follow.FollowedNavigation.LastName</td>
-                    <td><a href="../@follow.FollowedNavigation.UserName"><em>@follow.FollowedNavigation.UserName</em></a></td>
-                    @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User) != follow.FollowedNavigation.AspnetIdentityId)
+                    <td>@follow.FollowerNavigation.FirstName</td>
+                    <td>@follow.FollowerNavigation.LastName</td>
+                    <td><a href="../@follow.FollowerNavigation.UserName"><em>@follow.FollowerNavigation.UserName</em></a></td>
+                    @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User) != follow.FollowerNavigation.AspnetIdentityId)
                     {
                         string id = UserManager.GetUserId(User);
                         IcollectionUser appUser = AppContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
