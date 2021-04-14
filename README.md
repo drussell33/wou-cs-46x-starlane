@@ -123,6 +123,3 @@ Please follow the guidelines listed below when contributing code to this project
 * [Hosting Unity WebGL App in Azure ASP.NET Core](https://ritchielozada.com/2016/12/05/hosting-unity-webgl-app-in-azure-asp-net-core/amp/)
 
 
-
-
-delete me

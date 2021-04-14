@@ -30,17 +30,16 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult EnvironmentSelection()
         {
-            TempData["name"] = "My New iCollection";
-            TempData["route"] = "gallery_environment";
+            //TempData["name"] = "My New iCollection";
+            //TempData["route"] = "gallery_environment";
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EnvironmentSelection(CreateCollectionModel collection)
+        public IActionResult EnvironmentSelection(CreateCollectionModel2 collection)
         {
             TempData.Keep();
-
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
 
@@ -66,7 +65,7 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PhotoSelection(CreateCollectionModel collection)
+        public IActionResult PhotoSelection(CreateCollectionPhotos collection)
         {
             Debug.WriteLine(collection);
             if (ModelState.IsValid)
@@ -97,7 +96,7 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PublishingOptionsSelection(CreateCollectionModel collection)
+        public IActionResult PublishingOptionsSelection(CreateCollectionPublishing collection)
         {
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
