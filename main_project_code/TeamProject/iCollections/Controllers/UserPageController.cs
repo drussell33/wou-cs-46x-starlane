@@ -30,6 +30,8 @@ namespace iCollections.Controllers
         {
             string sessionUserId = _userManager.GetUserId(User);
             IcollectionUser sessionUser = null;
+            DatabaseHelper databaseHelper = new DatabaseHelper(_userManager, _db);
+            ViewBag.ProfilePicUrl = databaseHelper.GetMyProfilePicUrl(databaseHelper.GetReadableUserID(name));
 
             if (name == null)
             {

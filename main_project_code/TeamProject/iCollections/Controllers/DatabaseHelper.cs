@@ -161,5 +161,24 @@ namespace iCollections.Controllers
             return photo;
         }
 
+        public string GetMyProfilePicUrl(int myId)
+        {
+            string address = "https://icollections.azurewebsites.net/api/image/thumbnail/";
+            int profile_pic_id = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.Id == myId).ProfilePicId ?? -1;
+            var guid = _collectionsDbContext.Photos.FirstOrDefault(p => p.Id == profile_pic_id).PhotoGuid;
+
+            if (guid == null) return null;
+
+            string url = address + _collectionsDbContext.Photos.FirstOrDefault(p => p.Id == profile_pic_id).PhotoGuid;
+            return url;
+        }
+
+        public int GetReadableUserID(string username)
+        {
+            return _collectionsDbContext.IcollectionUsers
+                        .FirstOrDefault(u => u.UserName == username)
+                        .Id;
+        }
+
     }
 }
