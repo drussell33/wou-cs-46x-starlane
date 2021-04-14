@@ -30,6 +30,7 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult EnvironmentSelection()
         {
+            TempData["name"] = "Ocean_environment";
             return View();
         }
 
@@ -37,12 +38,19 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EnvironmentSelection(CreateCollectionModel collection)
         {
+            string name;
+
+            // Testing Hard Temp Data
+            if (TempData.ContainsKey("name"))
+                name = TempData["name"].ToString(); // returns "Bill" 
+            TempData.Keep();
 
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
 
             if (ModelState.IsValid)
             {
+                TempData["name"] = collection.Route;
                 /*Collection newCollection = new Collection();
                 newCollection.Route = collection.Route;
                 newCollection.UserId = appUser.Id;
@@ -65,8 +73,12 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult PhotoSelection()
         {
-           // string Route = route;
-
+            // string Route = route;
+            // Testing Hard Temp Data
+            string name;
+            if (TempData.ContainsKey("name"))
+                name = TempData["name"].ToString(); // returns "Bill" 
+            TempData.Keep();
             return View();
         }
 
@@ -77,13 +89,18 @@ namespace iCollections.Controllers
             Debug.WriteLine(collection);
             if (ModelState.IsValid)
             {
-                foreach(var photoId in collection.CollectionPhotosIds)
+                /*foreach(var photoId in collection.CollectionPhotosIds)
                 {
                     //make collection photos from the model form photoids
-                }
+                }*/
                 return RedirectToAction("PublishingOptionsSelection");
             }
             //return View(collection);
+            // Testing Hard Temp Data
+            string name;
+            if (TempData.ContainsKey("name"))
+                name = TempData["name"].ToString(); // returns "Bill" 
+            TempData.Keep();
             return RedirectToAction("PublishingOptionsSelection");
         }
 
@@ -92,6 +109,12 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult PublishingOptionsSelection()
         {
+            // Testing Hard Temp Data
+            string name;
+            if (TempData.ContainsKey("name"))
+                name = TempData["name"].ToString(); // returns "Bill" 
+            TempData.Keep();
+
             string[] dropDownList = new string[] { "private", "friends", "public" };
             //var dropDownList = new []string ("high", "low", "none");
             ViewData["Visibility"] = new SelectList(dropDownList);
@@ -102,12 +125,26 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult PublishingOptionsSelection(CreateCollectionModel collection)
         {
+            string id = _userManager.GetUserId(User);
+            IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+
+            // Testing Hard Temp Data
+            string name = "nothing";
+            if (TempData.ContainsKey("name"))
+                name = TempData["name"].ToString(); // returns "Bill" 
+            //TempData.Keep();
             Debug.WriteLine(collection);
             if (ModelState.IsValid)
             {
-                //collection.Route = collection
-                //_collectionsDbContext.Collections.Add(collection);
-                //_collectionsDbContext.SaveChanges();
+                Collection newCollection = new Collection();
+                newCollection.Route = name;
+                newCollection.UserId = appUser.Id;
+                newCollection.DateMade = DateTime.Now;
+                newCollection.Visibility = 1;
+                newCollection.Name = "new_collection_with_TEMPDATA";
+
+                _collectionsDbContext.Collections.Add(newCollection);
+                _collectionsDbContext.SaveChanges();
 
                 return RedirectToAction("PublishingSuccess");
             }
@@ -121,11 +158,17 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult PublishingSuccess()
         {
+            // Testing Hard Temp Data
+           /* string name;
+            if (TempData.ContainsKey("name"))
+                name = TempData["name"].ToString(); // returns "Bill" 
+            TempData.Keep();*/
+
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
             var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections;
             //var collections = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.Id == appUser.Id).Collections;
-            return View(collections);
+            return View();
         }
     }
 }

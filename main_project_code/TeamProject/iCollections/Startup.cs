@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using iCollections.Models;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace iCollections
 {
@@ -56,6 +57,9 @@ namespace iCollections
             services.AddControllersWithViews();
             // Added to enable runtime compilation.
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            //Added for TempData use for icollection creation() 
+            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
