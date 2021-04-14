@@ -73,6 +73,7 @@ namespace iCollections.Models
         //public class InputModel
         //{
             [TempData]
+            //[Required]
             [Display(Name = "iCollection Name")]
             public string CollectionName { get; set; }
 

@@ -30,7 +30,8 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult EnvironmentSelection()
         {
-            TempData["name"] = "Ocean_environment";
+            TempData["name"] = "My New iCollection";
+            TempData["route"] = "gallery_environment";
             return View();
         }
 
@@ -38,11 +39,6 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EnvironmentSelection(CreateCollectionModel collection)
         {
-            string name;
-
-            // Testing Hard Temp Data
-            if (TempData.ContainsKey("name"))
-                name = TempData["name"].ToString(); // returns "Bill" 
             TempData.Keep();
 
             string id = _userManager.GetUserId(User);
@@ -50,16 +46,7 @@ namespace iCollections.Controllers
 
             if (ModelState.IsValid)
             {
-                TempData["name"] = collection.Route;
-                /*Collection newCollection = new Collection();
-                newCollection.Route = collection.Route;
-                newCollection.UserId = appUser.Id;
-                newCollection.DateMade = DateTime.Now;
-                newCollection.Visibility = 1;
-                newCollection.Name = "unfinished_new_collection";
-
-                _collectionsDbContext.Collections.Add(newCollection);
-                _collectionsDbContext.SaveChanges();*/
+                TempData["route"] = collection.Route;
 
                 return RedirectToAction("PhotoSelection");
             }
@@ -73,11 +60,6 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult PhotoSelection()
         {
-            // string Route = route;
-            // Testing Hard Temp Data
-            string name;
-            if (TempData.ContainsKey("name"))
-                name = TempData["name"].ToString(); // returns "Bill" 
             TempData.Keep();
             return View();
         }
@@ -95,11 +77,7 @@ namespace iCollections.Controllers
                 }*/
                 return RedirectToAction("PublishingOptionsSelection");
             }
-            //return View(collection);
-            // Testing Hard Temp Data
-            string name;
-            if (TempData.ContainsKey("name"))
-                name = TempData["name"].ToString(); // returns "Bill" 
+
             TempData.Keep();
             return RedirectToAction("PublishingOptionsSelection");
         }
@@ -109,14 +87,10 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult PublishingOptionsSelection()
         {
-            // Testing Hard Temp Data
-            string name;
-            if (TempData.ContainsKey("name"))
-                name = TempData["name"].ToString(); // returns "Bill" 
+
             TempData.Keep();
 
             string[] dropDownList = new string[] { "private", "friends", "public" };
-            //var dropDownList = new []string ("high", "low", "none");
             ViewData["Visibility"] = new SelectList(dropDownList);
             return View();
         }
@@ -129,19 +103,23 @@ namespace iCollections.Controllers
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
 
             // Testing Hard Temp Data
+            string route = "nothing";
             string name = "nothing";
+            if (TempData.ContainsKey("route"))
+                route = TempData["route"].ToString();
             if (TempData.ContainsKey("name"))
-                name = TempData["name"].ToString(); // returns "Bill" 
-            //TempData.Keep();
+                name = TempData["name"].ToString();
+            TempData.Keep();
             Debug.WriteLine(collection);
             if (ModelState.IsValid)
             {
                 Collection newCollection = new Collection();
-                newCollection.Route = name;
+                newCollection.Route = route;
                 newCollection.UserId = appUser.Id;
                 newCollection.DateMade = DateTime.Now;
                 newCollection.Visibility = 1;
-                newCollection.Name = "new_collection_with_TEMPDATA";
+                newCollection.Name = collection.CollectionName;
+                //TempData["name"] = collection.CollectionName;
 
                 _collectionsDbContext.Collections.Add(newCollection);
                 _collectionsDbContext.SaveChanges();
@@ -158,11 +136,6 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult PublishingSuccess()
         {
-            // Testing Hard Temp Data
-           /* string name;
-            if (TempData.ContainsKey("name"))
-                name = TempData["name"].ToString(); // returns "Bill" 
-            TempData.Keep();*/
 
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
