@@ -417,3 +417,23 @@ h1 {
   background-size: cover;
   background-repeat: no-repeat
 }
+
+.width-full {
+  width: 100%!important;
+}
+
+.text-bold {
+  font-weight: 600!important;
+}
+
+.min-width-0 {
+  min-width: 0!important;
+}
+
+.flex-auto {
+  flex: auto!important;
+}
+
+.unmarked-a {
+  text-decoration: none;
+}
