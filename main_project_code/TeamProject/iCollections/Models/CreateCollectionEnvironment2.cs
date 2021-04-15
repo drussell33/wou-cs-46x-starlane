@@ -13,24 +13,25 @@ using iCollections.Controllers;
 
 namespace iCollections.Models
 {
+
+/*    [TempData]
+    public string StatusMessage { get; set; }*/
     public partial class CreateCollectionModel2
     {
-        [TempData]
-        public string StatusMessage { get; set; }
-
+        //[TempData]
         [Required]
-        [TempData]
         public string Route { get; set; }
+
     }
 
-    public partial class CreateCollectionPhotos : CreateCollectionModel2
+    public partial class CreateCollectionPhotos
     {
 
         [TempData]
         public virtual int[] CollectionPhotosIds { get; set; }
     }
 
-    public partial class CreateCollectionPublishing : CreateCollectionPhotos
+    public partial class CreateCollectionPublishing
     {
         [TempData]
         [Required]

@@ -37,21 +37,25 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EnvironmentSelection(CreateCollectionModel2 collection)
+        public IActionResult EnvironmentSelection([Bind("Route")] CreateCollectionModel2 collection)
         {
-            TempData.Keep();
+            Debug.WriteLine(collection);
+            //TempData.Keep();
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
 
             if (ModelState.IsValid)
             {
-                TempData["route"] = collection.Route;
+                ViewData["routeName"] = collection.Route;
+                if (collection.Route != "false")
+                {
+                    TempData["route"] = collection.Route;
+                    
 
-                return RedirectToAction("PhotoSelection");
+                    return RedirectToAction("PhotoSelection");
+                }
             }
-
             return View("EnvironmentSelection", collection);
-           
         }
 
 
