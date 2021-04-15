@@ -17,25 +17,41 @@
                             @{
                                 string profilePicSource = ViewBag.ProfilePicUrl ?? "~/img/default_profile_pic.jpg";
                                 <img src="@profilePicSource" alt="..." width="130" class="rounded mb-2 img-thumbnail">
-                                if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User) != Model.ProfileOwner.AspnetIdentityId)
+                                <!-- if user is signed in and is profile owner, then edit profile -->
+                                <!-- if user is signed in and is not profile owner, then -->
+                                    <!-- if user follows profile owner, then unfollow -->
+                                    <!-- if user does not follow profile owner, then follow -->
+                                <!-- if not a user (public), then follow but with authentication first -->
+                                    <!-- if user authenticated, then just show the profile page -->
+                                if (SignInManager.IsSignedIn(User))
                                 {
-                                    string id = UserManager.GetUserId(User);
-                                    IcollectionUser appUser = AppContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == id);
-                                    if (Model.ProfileOwner.FollowFollowedNavigations.Any(x => x.Follower == appUser.Id))
+                                    if (UserManager.GetUserId(User) == Model.ProfileOwner.AspnetIdentityId)
                                     {
-                                        <span>
-                                            <a class="btn btn-primary following-button text-light" value-user="@appUser.Id" value-target="@Model.ProfileOwner.Id">Following</a>
-                                        </span>
+                                        // edit profile option
+                                        <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
                                     }
                                     else
                                     {
-                                        <span>
-                                            <a class="btn btn-primary follow-button text-light" value-user="@appUser.Id" value-target="@Model.ProfileOwner.Id">Follow</a>
-                                        </span>
+                                        string id = UserManager.GetUserId(User);
+                                        IcollectionUser appUser = AppContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == id);
+                                        if (Model.ProfileOwner.FollowFollowedNavigations.Any(x => x.Follower == appUser.Id))
+                                        {
+                                            // unfollow option
+                                            <a href="#" class="btn btn-outline-dark btn-sm btn-block">Following</a>
+                                        }
+                                        else
+                                        {
+                                            // follow option
+                                            <a href="#" class="btn btn-primary btn-sm btn-block">Follow</a>
+                                        }
                                     }
                                 }
+                                else
+                                {
+                                    // follow option but links to some action that requires login
+                                    <a href="#" class="btn btn-primary btn-sm btn-block">Follow</a>
+                                }
                             }
-                        <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
                         </div>
                         <div class="media-body mb-5 text-white">
                             <h4 class="mt-0 mb-0">@Model.ProfileOwner.UserName</h4>
