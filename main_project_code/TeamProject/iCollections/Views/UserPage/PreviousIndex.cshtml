@@ -36,7 +36,7 @@
                 {
                     string id = UserManager.GetUserId(User);
                     IcollectionUser appUser = AppContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == id);
-                    if (appUser.FollowFollowerNavigations.Count > 0)
+                    @* if (appUser.FollowFollowerNavigations.Count > 0) *@
                     //appUser.FollowFollowerNavigations.Any(x => x.Followed == Model.ProfileOwner.Id);
                     if (Model.ProfileOwner.FollowFollowedNavigations.Any(x => x.Follower == appUser.Id))
                     {

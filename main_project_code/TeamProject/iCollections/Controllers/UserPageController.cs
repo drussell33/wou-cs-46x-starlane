@@ -31,7 +31,8 @@ namespace iCollections.Controllers
             string sessionUserId = _userManager.GetUserId(User);
             IcollectionUser sessionUser = null;
             DatabaseHelper databaseHelper = new DatabaseHelper(_userManager, _db);
-            ViewBag.ProfilePicUrl = databaseHelper.GetMyProfilePicUrl(databaseHelper.GetReadableUserID(name));
+            var myId = databaseHelper.GetReadableUserID(name);
+            ViewBag.ProfilePicUrl = databaseHelper.GetMyProfilePicUrl(myId);
 
             if (name == null)
             {
@@ -52,8 +53,10 @@ namespace iCollections.Controllers
                 .Include(u => u.FollowFollowedNavigations)
                 .ThenInclude(f => f.FollowerNavigation)
                 .FirstOrDefault(m => m.UserName == name);
+
+            var recentiCollections = _db.Collections.Where(c => c.User.Id == myId).OrderByDescending(c => c.DateMade).Take(4).ToList();
             
-            return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser });
+            return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser, recentCollections = recentiCollections });
         }
         
         [Route("userpage/{name}/followers")]

@@ -437,3 +437,8 @@ h1 {
 .unmarked-a {
   text-decoration: none;
 }
+
+.center-heading {
+  margin-left: auto;
+  margin-right: auto;
+}

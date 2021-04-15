@@ -165,12 +165,16 @@ namespace iCollections.Controllers
         {
             string address = "https://icollections.azurewebsites.net/api/image/thumbnail/";
             int profile_pic_id = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.Id == myId).ProfilePicId ?? -1;
-            var guid = _collectionsDbContext.Photos.FirstOrDefault(p => p.Id == profile_pic_id).PhotoGuid;
-
-            if (guid == null) return null;
-
-            string url = address + _collectionsDbContext.Photos.FirstOrDefault(p => p.Id == profile_pic_id).PhotoGuid;
-            return url;
+            
+            try {
+                var guid = _collectionsDbContext.Photos.FirstOrDefault(p => p.Id == profile_pic_id).PhotoGuid;
+                string url = address + guid;
+                return url;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public int GetReadableUserID(string username)
