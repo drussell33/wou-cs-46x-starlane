@@ -24,26 +24,41 @@ namespace iCollections.Models
 
     }
 
+
+
+
     public partial class CreateCollectionPhotos
     {
-
-        [TempData]
-        public virtual int[] CollectionPhotosIds { get; set; }
+        public CreateCollectionPhotos()
+        {
+            photosSelected = new HashSet<CreateCollectionPhotoId>();
+        }
+        
+        public virtual ICollection<CreateCollectionPhotoId> photosSelected { get; set; }
     }
+
+
+    public partial class CreateCollectionPhotoId
+    {
+
+        //[TempData]
+        public int CollectionPhotoId { get; set; }
+    }
+
+
 
     public partial class CreateCollectionPublishing
     {
-        [TempData]
+        //[TempData]
         [Required]
         [Display(Name = "iCollection Name")]
         public string CollectionName { get; set; }
 
-        [TempData]
+        //[TempData]
         [Display(Name = "Visibility")]
         public string Visibility { get; set; }
 
-        public string Title { get; set; }
-        [TempData]
+        //[TempData]
         public string Description { get; set; }
     }
 

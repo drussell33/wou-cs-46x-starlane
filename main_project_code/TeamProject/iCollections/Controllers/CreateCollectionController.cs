@@ -69,20 +69,21 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PhotoSelection(CreateCollectionPhotos collection)
+        public IActionResult PhotoSelection(/*CreateCollectionPhotos collection*/ string[] selectedPhotos)
         {
-            Debug.WriteLine(collection);
+            Debug.WriteLine(selectedPhotos);
             if (ModelState.IsValid)
             {
-                /*foreach(var photoId in collection.CollectionPhotosIds)
+                TempData["photoids"] = selectedPhotos;
+                /*foreach (var photo in collection.PhotosSelected)
                 {
-                    //make collection photos from the model form photoids
+
                 }*/
                 return RedirectToAction("PublishingOptionsSelection");
             }
 
             TempData.Keep();
-            return RedirectToAction("PublishingOptionsSelection");
+            return View("PhotoSelection", selectedPhotos);
         }
 
 
@@ -100,18 +101,53 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PublishingOptionsSelection(CreateCollectionPublishing collection)
+        public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description")]CreateCollectionPublishing collection)
         {
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
 
-            // Testing Hard Temp Data
+            // Get route selection from tempdata cookie
             string route = "nothing";
-            string name = "nothing";
             if (TempData.ContainsKey("route"))
+            {
                 route = TempData["route"].ToString();
-            if (TempData.ContainsKey("name"))
-                name = TempData["name"].ToString();
+            }
+
+            
+            //var checking = TempData["photoids"];
+            
+            //object[] photoids = new object[] { };
+            if (TempData.ContainsKey("photoids"))
+            {
+                //var userPhotos = _collectionsDbContext.Photos.Where(u => u.UserId == appUser.Id).Select();
+                //var userPhotos = _collectionsDbContext.Include()
+                //var userPhotos = _collectionsDbContext.IcollectionUsers.Include("Photos").FirstOrDefault(m => m.Photos. == name).Photos;
+
+                var objectArray = (string[])TempData["photoids"];
+                //var objectArray = (object[])TempData["photoids"];
+                for (var i = 0; i < objectArray.Length; i++)
+                {
+                    //foreach (var photo in userPhotos)
+                    foreach (var photo in _collectionsDbContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
+                    {
+                        if (objectArray[i].ToString() == photo.Id.ToString())
+                        {
+                            CollectionPhoto newCollectionPhoto = new CollectionPhoto();
+                            string idConvert = objectArray[i].ToString();
+                            newCollectionPhoto.PhotoId = Int32.Parse(idConvert);
+                            newCollectionPhoto.CollectId = 1;
+                            newCollectionPhoto.PhotoRank = 1;
+                            newCollectionPhoto.DateAdded = DateTime.Now;
+                            newCollectionPhoto.Title = "new title";
+                            newCollectionPhoto.Description = "new description";
+                            _collectionsDbContext.CollectionPhotos.Add(newCollectionPhoto);
+                            await _collectionsDbContext.SaveChangesAsync();
+                        }
+                    }
+                }
+              
+            }
+                //photoids = TempData["photoids"]
             TempData.Keep();
             Debug.WriteLine(collection);
             if (ModelState.IsValid)
@@ -125,7 +161,7 @@ namespace iCollections.Controllers
                 //TempData["name"] = collection.CollectionName;
 
                 _collectionsDbContext.Collections.Add(newCollection);
-                _collectionsDbContext.SaveChanges();
+                await _collectionsDbContext.SaveChangesAsync();
 
                 return RedirectToAction("PublishingSuccess");
             }
