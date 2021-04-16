@@ -13,16 +13,18 @@
         }
         @foreach (var collection in Model)
         {
-    <div class="collection-container">
-        <a class="btn btn-primary" asp-controller="Home" asp-action="@collection.Route" asp-route-name="">@collection.Name</a>
-        <p>@collection.DateMade</p>
-        <div class="keyword-container">
-            @foreach (var kw in collection.CollectionKeywords)
-            {
-                <p>@kw</p>
-            }
-        </div>
-    </div>
+            <div class="collection-container">
+                <form>
+                    <a class="btn btn-primary" asp-controller="Home" asp-action="@collection.Route" asp-route-collectionID="@collection.Id">@collection.Name</a>
+                    <p>@collection.DateMade</p>
+                    <div class="keyword-container">
+                        @foreach (var kw in collection.CollectionKeywords)
+                        {
+                            <p>@kw</p>
+                        }
+                    </div>
+                </form>
+            </div>
         }
     </div>
 </div>

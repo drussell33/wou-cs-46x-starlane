@@ -112,41 +112,6 @@ namespace iCollections.Controllers
             {
                 route = TempData["route"].ToString();
             }
-
-            
-            //var checking = TempData["photoids"];
-            
-            //object[] photoids = new object[] { };
-            if (TempData.ContainsKey("photoids"))
-            {
-                //var userPhotos = _collectionsDbContext.Photos.Where(u => u.UserId == appUser.Id).Select();
-                //var userPhotos = _collectionsDbContext.Include()
-                //var userPhotos = _collectionsDbContext.IcollectionUsers.Include("Photos").FirstOrDefault(m => m.Photos. == name).Photos;
-
-                var objectArray = (string[])TempData["photoids"];
-                //var objectArray = (object[])TempData["photoids"];
-                for (var i = 0; i < objectArray.Length; i++)
-                {
-                    //foreach (var photo in userPhotos)
-                    foreach (var photo in _collectionsDbContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
-                    {
-                        if (objectArray[i].ToString() == photo.Id.ToString())
-                        {
-                            CollectionPhoto newCollectionPhoto = new CollectionPhoto();
-                            string idConvert = objectArray[i].ToString();
-                            newCollectionPhoto.PhotoId = Int32.Parse(idConvert);
-                            newCollectionPhoto.CollectId = 1;
-                            newCollectionPhoto.PhotoRank = 1;
-                            newCollectionPhoto.DateAdded = DateTime.Now;
-                            newCollectionPhoto.Title = "new title";
-                            newCollectionPhoto.Description = "new description";
-                            _collectionsDbContext.CollectionPhotos.Add(newCollectionPhoto);
-                            await _collectionsDbContext.SaveChangesAsync();
-                        }
-                    }
-                }
-              
-            }
                 //photoids = TempData["photoids"]
             TempData.Keep();
             Debug.WriteLine(collection);
@@ -162,6 +127,33 @@ namespace iCollections.Controllers
 
                 _collectionsDbContext.Collections.Add(newCollection);
                 await _collectionsDbContext.SaveChangesAsync();
+
+                // Get photo selection from tempdata cookie
+                if (TempData.ContainsKey("photoids"))
+                {
+                    var objectArray = (string[])TempData["photoids"];
+                    //var objectArray = (object[])TempData["photoids"];
+                    for (var i = 0; i < objectArray.Length; i++)
+                    {
+                        //foreach (var photo in userPhotos)
+                        foreach (var photo in _collectionsDbContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
+                        {
+                            if (objectArray[i].ToString() == photo.Id.ToString())
+                            {
+                                CollectionPhoto newCollectionPhoto = new CollectionPhoto();
+                                string idConvert = objectArray[i].ToString();
+                                newCollectionPhoto.PhotoId = Int32.Parse(idConvert);
+                                newCollectionPhoto.CollectId = newCollection.Id;
+                                newCollectionPhoto.PhotoRank = 1;
+                                newCollectionPhoto.DateAdded = DateTime.Now;
+                                newCollectionPhoto.Title = "new title";
+                                newCollectionPhoto.Description = "new description";
+                                _collectionsDbContext.CollectionPhotos.Add(newCollectionPhoto);
+                                await _collectionsDbContext.SaveChangesAsync();
+                            }
+                        }
+                    }
+                }
 
                 return RedirectToAction("PublishingSuccess");
             }

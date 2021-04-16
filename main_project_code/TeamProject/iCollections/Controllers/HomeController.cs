@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace iCollections.Controllers
 {
@@ -74,8 +75,10 @@ namespace iCollections.Controllers
         }
 
         [Route("/ocean_environment")]
-        public IActionResult Ocean_environment(Collection collection)
+        public IActionResult Ocean_environment(int collectionID)
         {
+            Collection newCollection = new Collection();
+            newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
             return View();
         }
 
