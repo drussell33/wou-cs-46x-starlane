@@ -124,14 +124,8 @@ function updateProfileLink(data) {
     $("#myProfileLink").attr("href", base_url + "/userpage/" + data.username);
 }*/
 
-
-
-
-
-
-
-
-
-
-
+$('.pic-thumbnail').click(function() {
+    $('.selected-thumbnail').removeClass('selected-thumbnail');
+    $(this).addClass('selected-thumbnail');
+});
 

@@ -24,9 +24,7 @@
         }
 
         <div class="col-lg-4 mb-4 mb-lg-0 text-center">
-            @* <a target="_blank" href=@Model[i].Url> *@
-                <img src=@Model[i].Url class="shadow-1-strong rounded mb-4 pic-thumbnail" alt="" />
-            @* </a> *@
+            <img src=@Model[i].Url class="shadow-1-strong rounded mb-4 pic-thumbnail" alt="" />
             @System.IO.Path.GetFileNameWithoutExtension(Model[i].PhotoName)
         </div>
     }
