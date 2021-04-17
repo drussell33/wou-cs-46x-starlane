@@ -2,24 +2,36 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    @*@Scripts.Render("~/js/puzzel_example.js")*@
 }
 
-    <h1>Gallery Environment Example</h1>
-    <div id="puzzel_environment">
-        <div id="blocker">
+<h1>Gallery Environment Example</h1>
+<div id="puzzel_environment">
+    <div id="blocker">
 
-            <div id="instructions">
-                <span style="font-size:36px">Click to Explore</span>
-                <br /><br />
-                Move: WASD or ARROW KEYS<br />
-                Look: MOUSE<br />
-                Exit: ESC
-            </div>
-
+        <div id="instructions">
+            <span style="font-size:36px">Click to Explore</span>
+            <br /><br />
+            Move: WASD or ARROW KEYS<br />
+            Look: MOUSE<br />
+            Exit: ESC
         </div>
-    </div>
-   
 
-    <script type="module">
+    </div>
+</div>
+
+
+@*<script type="module">
         MakeGallery(@Model.AllPhotos)
-    </script>
+    </script>*@
+
+@*<script src="~/js/puzzel_example.js" type="module">
+            MakeGallery(@Model.AllPhotos)
+    </script>*@
+
+@*@Scripts.Render("~/js/puzzel_example.js")*@
+
+
+@*@section Scripts {
+    @{await RenderSectionAsync("~/js/puzzel_example.js");}
+}*@
