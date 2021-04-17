@@ -83,9 +83,31 @@ namespace iCollections.Controllers
         }
 
         [Route("/gallery_environment")]
-        public IActionResult gallery_environment(Collection collection)
+        public IActionResult gallery_environment(int collectionID)
         {
-            return View();
+            Collection newCollection = new Collection();
+            newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
+            var collectionPhotos = newCollection.CollectionPhotoes.Where(m => m.CollectId == collectionID).ToList();
+            var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
+            RendingTransfer rendingTransfer = new RendingTransfer();
+            foreach (var image in collectionPhotos)
+            {
+                foreach(var photo in photos)
+                {
+                    if(image.PhotoId == photo.Id)
+                    {
+                        RenderingPhoto renderingPhoto = new RenderingPhoto(photo.Data, image.Title, image.PhotoRank, image.Description);
+                        rendingTransfer.AddPhoto(renderingPhoto);
+                        //var lookatme = photo.Data;
+                        //var words = image.Title;
+                        //var rank = image.PhotoRank;
+                        //var longwords = image.Description;
+                    }
+                }
+            }
+            
+
+            return View(rendingTransfer);
         }
 
 

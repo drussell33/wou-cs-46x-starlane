@@ -27,7 +27,7 @@ namespace iCollections.Models
 
 
 
-    public partial class CreateCollectionPhotos
+    /*public partial class CreateCollectionPhotos
     {
         public CreateCollectionPhotos()
         {
@@ -43,7 +43,7 @@ namespace iCollections.Models
 
         //[TempData]
         public int CollectionPhotoId { get; set; }
-    }
+    }*/
 
 
 
@@ -61,5 +61,46 @@ namespace iCollections.Models
         //[TempData]
         public string Description { get; set; }
     }
+
+
+
+
+
+
+
+    public partial class RendingTransfer
+    {
+        public RendingTransfer()
+        {
+            AllPhotos = new List<RenderingPhoto>();
+        }
+
+        public void AddPhoto(RenderingPhoto photo)
+        {
+            AllPhotos.Add(photo);
+            //AllPhotos.Append(photo);  
+        }
+
+        public virtual List<RenderingPhoto> AllPhotos { get; set; }
+
+    }
+
+    public partial class RenderingPhoto
+    {
+        public byte[] Data { get; set; }
+        public string Title { get; set; }
+        public int Rank { get; set; }
+        public string Description { get; set; }
+
+        public RenderingPhoto(byte[] data, string title, int rank, string description)
+        {
+            Data = data;
+            Title = title;
+            Rank = rank;
+            Description = description;
+        }
+    }
+
+
 
 }
