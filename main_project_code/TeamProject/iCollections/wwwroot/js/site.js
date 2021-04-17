@@ -64,7 +64,7 @@ $("#photoUpload").submit(function (event) {
 
 // check if photo is more than 1 MB and error if so
 // $("#register").submit(function (event) {
-    
+
 
 //     event.preventDefault();
 // });
@@ -84,7 +84,7 @@ $("#photoUpload").submit(function (event) {
 //});
 
 //function updateFollowees(data) {
-    
+
 //    location.reload(true);
 //}
 
@@ -124,8 +124,33 @@ function updateProfileLink(data) {
     $("#myProfileLink").attr("href", base_url + "/userpage/" + data.username);
 }*/
 
-$('.pic-thumbnail').click(function() {
-    $('.selected-thumbnail').removeClass('selected-thumbnail');
-    $(this).addClass('selected-thumbnail');
+$('.pic-thumbnail').click(function (e) {
+    if (e.ctrlKey) {}
+    else {
+        $('.selected-thumbnail').removeClass('selected-thumbnail');
+        $(this).addClass('selected-thumbnail');
+    }
 });
 
+/* Set the width of the side navigation to 250px */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    $('.selected-thumbnail').removeClass('selected-thumbnail');
+}
+
+function getNewPhotoName() {
+    closeNav();
+    var txt;
+    var newImageName = prompt("Add new photo name:");
+    if (newImageName == null || newImageName == "") {
+      txt = "User cancelled the prompt.";
+    } else {
+      txt = newImageName;
+    }
+    console.log(txt);
+  }
