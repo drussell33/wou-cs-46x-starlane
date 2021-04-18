@@ -32,7 +32,7 @@ import { PointerLockControls } from './PointerLockControls.js';
     init();
     animate();
 
-    function init() {
+    /*export default*/ function init() {
 
         camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
         camera.position.y = 300;
@@ -503,7 +503,7 @@ import { PointerLockControls } from './PointerLockControls.js';
 
     }
 
-    function animate() {
+    /*export default */function animate() {
 
         requestAnimationFrame(animate);
 
@@ -564,3 +564,5 @@ import { PointerLockControls } from './PointerLockControls.js';
 //}
 
 //export function Make
+
+//export function {init, animate}
