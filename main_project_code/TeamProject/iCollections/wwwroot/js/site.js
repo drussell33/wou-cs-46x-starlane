@@ -149,25 +149,29 @@ function getNewPhotoName() {
     var txt = prompt("Add new photo name:");
     if (txt == null || txt == "") {
         // User cancelled the prompt -> ignore
+        closeNav();
     } 
     else if (!txt.replace(/\s/g, '').length) {
-        // User has either all whitespace -> ignore
+        // User has either all whitespace -> tell user
+        alert("Enter a non-empty name");
+        closeNav();
     }
     else {
         var url = $('.selected-thumbnail').attr('src');
         var imageId = url.split("/").pop();
         sendNewPhotoName(url, imageId, txt);
     }
-    closeNav();
 }
 
 function sendNewPhotoName(imgURL, imageId, fileName) {
     var req = $.post(imgURL, { id : imageId, fileName: fileName }, "text");
     req.done(function(data) {
         $('.selected-thumbnail').parent().find(".name-of-photo").text(data);
+        closeNav();
     });
 
     req.fail(function() {
         alert("Something went wrong on posting new image name");
+        closeNav();
     });
 }
