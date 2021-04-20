@@ -21,7 +21,8 @@ namespace iCollections.Controllers
         }
 
         [HttpGet]
-        public IActionResult Thumbnail(string id)
+        [ActionName("Thumbnail")]
+        public IActionResult GetThumbnail(string id)
         {
             var guid = Guid.Parse(id);
             var databaseReader = new DatabaseHelper(_userManager, _collectionsDbContext);
@@ -29,6 +30,17 @@ namespace iCollections.Controllers
             var extension = selectedPhoto.GetPhotoExtension();
             // return File(selectedPhoto.Data, $"image/{extension}");
             return File(selectedPhoto.Data, "image/base64");
+        }
+
+        [HttpPost]
+        [ActionName("Thumbnail")]
+        public string ChangeThumbnail(string id, string fileName)
+        {
+            // do work in here ie change the name of the photo
+            Console.WriteLine(fileName);
+            DatabaseEditor databaseEditor = new DatabaseEditor(_userManager, _collectionsDbContext);
+            databaseEditor.ChangePhotoName(Guid.Parse(id), fileName);
+            return fileName;
         }
     }
 }

@@ -43,6 +43,7 @@ function showFileName() {
 $("#photoUpload").submit(function (event) {
     var optionalName = $("#customName").val();
     if (optionalName !== "") {
+        // if bunch of whitespace...
         if (!optionalName.replace(/\s/g, '').length) {
             $("#customNameError").text("names must have letters and/or numbers.").show();
             event.preventDefault();
@@ -144,13 +145,50 @@ function closeNav() {
 }
 
 function getNewPhotoName() {
-    closeNav();
     var txt;
-    var newImageName = prompt("Add new photo name:");
-    if (newImageName == null || newImageName == "") {
-      txt = "User cancelled the prompt.";
-    } else {
-      txt = newImageName;
+    var txt = prompt("Add new photo name:");
+    if (txt == null || txt == "") {
+        // User cancelled the prompt -> ignore
+    } 
+    else if (!txt.replace(/\s/g, '').length) {
+        // User has either all whitespace -> ignore
     }
-    console.log(txt);
-  }
+    else {
+        var url = $('.selected-thumbnail').attr('src');
+        // var imageId = url.split("/").pop();
+        sendNewPhotoName(url, txt);
+    }
+    closeNav();
+}
+
+function sendNewPhotoName(imgURL, fileName) {
+    console.log("url is: " + imgURL + " and filename is: " + fileName);
+    var req = $.post(imgURL, fileName, "text");
+    req.done(function(data) {
+        alert(data);
+    });
+
+    req.fail(function() {
+        alert("Something went wrong on posting new image name");
+    });
+
+    // var jqxhr = $.post( "example.php", function() {
+    //     alert( "success" );
+    //   })
+    //     .done(function() {
+    //       alert( "second success" );
+    //     })
+    //     .fail(function() {
+    //       alert( "error" );
+    //     })
+    //     .always(function() {
+    //       alert( "finished" );
+    //     });
+       
+    //   // Perform other work here ...
+       
+    //   // Set another completion function for the request above
+    //   jqxhr.always(function() {
+    //     alert( "second finished" );
+    //   });
+}
