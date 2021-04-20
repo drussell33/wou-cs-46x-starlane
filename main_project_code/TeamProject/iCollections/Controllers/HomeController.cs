@@ -10,6 +10,9 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Net.Http.Json;
+
 
 namespace iCollections.Controllers
 {
@@ -28,43 +31,7 @@ namespace iCollections.Controllers
 
         public IActionResult Index()
         {
-            /*bool isAuthenticated = User.Identity.IsAuthenticated;
-            if (isAuthenticated)
-            {
-                //return RedirectToAction("Index", "DashboardController");
-                return RedirectToAction("Index", "Dashboard");
-            }*/
-            // Information straight from the Controller (does not need to do to the database)
 
-/*            // Information straight from the Controller (does not need to do to the database)
-            bool isAdmin = User.IsInRole("Admin");
-            string name = User.Identity.Name;
-            string authType = User.Identity.AuthenticationType;
-
-            // Information from Identity through the user manager
-            string id = _userManager.GetUserId(User);         // reportedly does not need to hit db
-            IdentityUser user = await _userManager.GetUserAsync(User);  // does go to the db
-            string email = user?.Email ?? "no email";
-            string phone = user?.PhoneNumber ?? "no phone number";
-            IcollectionUser cu = null;
-            int numberOfFollowers = 0;
-            int numberOfFriends = 0;
-            string aboutMe = null;
-           
-            if (id != null)
-            {
-                cu = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-                
-                aboutMe = cu?.AboutMe ?? "no about me";
-                numberOfFollowers = _collectionsDbContext.Follows.Where(u => u.Followed == cu.Id).Count();
-                numberOfFriends = _collectionsDbContext.FriendsWiths.Where(u => u.User1Id == cu.Id).Count();
-            }*/
-
-
-            /*ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
-                              $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}, and about me is {aboutMe}" +
-                              $"Number of followers is {numberOfFollowers} Number of friends is {numberOfFriends}";
-            */
             return View();
         }
 
@@ -104,28 +71,61 @@ namespace iCollections.Controllers
         [Route("/gallery_environment")]
         public IActionResult gallery_environment(int collectionID)
         {
-            /*Collection newCollection = new Collection();
+            Collection newCollection = new Collection();
             newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
             var collectionPhotos = newCollection.CollectionPhotoes.Where(m => m.CollectId == collectionID).ToList();
             var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
             RendingTransfer rendingTransfer = new RendingTransfer();
+
+            List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
+            
             foreach (var image in collectionPhotos)
             {
                 foreach (var photo in photos)
                 {
                     if (image.PhotoId == photo.Id)
                     {
-                        RenderingPhoto renderingPhoto = new RenderingPhoto(photo.Data, image.Title, image.PhotoRank, image.Description);
-                        rendingTransfer.AddPhoto(renderingPhoto);
-                        //var lookatme = photo.Data;
-                        //var words = image.Title;
-                        //var rank = image.PhotoRank;
-                        //var longwords = image.Description;
+                        RenderingPhoto renderingPhoto = new RenderingPhoto(photo.Data/*, image.Title, image.PhotoRank, image.Description*/);
+                        //rendingTransfer.AddPhoto(renderingPhoto);
+                        AllPhotos.Add(renderingPhoto);
                     }
                 }
-            }*/
-
+            }
+            //Console.WriteLine(AllPhotos);
+            Console.WriteLine(AllPhotos.Count());
+            ICollectionDataTransferToJs(AllPhotos);
             return View();
+        }
+
+        public IActionResult ICollectionDataTransferToJs(List<RenderingPhoto> AllPhotos)
+        {
+            //Second Attempt -------------------------------------------
+            var JSONresult = JsonConvert.SerializeObject(AllPhotos);
+            return Json(JSONresult);
+
+
+
+
+
+
+
+            //first attempt -----------------------------------------------
+            //Array JsonData = new Array({ });
+            //foreach (var photo in AllPhotos)
+            //{
+            //string imagedata = Convert.ToBase64String(photo.Data);
+            //string title = photo.Title;
+            //int rank = photo.Rank;
+            //string description = photo.Description;
+            //}
+
+            //var json = JsonSerializer.Serialize(rendingTransfer);
+            //string JSONresult;
+            //var JSONresult = JsonConvert.SerializeObject(AllPhotos);
+            //Console.Write(JSONresult);
+
+            //return Json(new { ImageData = JSONresult });
+            //return Json(AllPhotos);
         }
 
 

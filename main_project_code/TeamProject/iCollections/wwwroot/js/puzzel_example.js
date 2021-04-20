@@ -1,17 +1,35 @@
 ﻿import * as THREE from './three.module.js';
-
 import { PointerLockControls } from './PointerLockControls.js';
 
 
-//export function MakeGallery(allphotos) {
-//var MakeGallery = function (allphotos) {
+$("#puzzel_environment").ready(function () {
+    console.log("page loaded the gallery environment.js");
+    var address = "api/collectiontransfer";
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: address,
+        success: displayEnvironment,
+        error: errorOnAjax
+    });
+});
 
-    //var data = allphotos;
+function errorOnAjax() {
+    console.log("ERROR in ajax request");
+}
+
+
+function displayEnvironment(data) {
+
+    console.log(data[0]["Data"]);
+
+    let newData = data;
     let camera, scene, renderer, controls, container;
     let floorMat;
     let puzzel_1, puzzel_2, puzzel_3, puzzel_4, puzzel_5, puzzel_6, puzzel_7, puzzel_8, puzzel_9, puzzel_10;
     let puzzel_11, puzzel_12, puzzel_13, puzzel_14, puzzel_15, puzzel_16, puzzel_17, puzzel_18, puzzel_19, puzzel_20;
     let puzzel_21, puzzel_22, puzzel_23, puzzel_24, puzzel_25, puzzel_26, puzzel_27, puzzel_28, puzzel_29, puzzel_30;
+
 
     const objects = [];
 
@@ -319,7 +337,35 @@ import { PointerLockControls } from './PointerLockControls.js';
         }
 
 
-        // puzzel vectors ---------------------
+        //Introducing Real Loop ---------------------------------------------
+
+
+
+
+
+
+
+
+        for (let i = 0; i < 1; ++i) {
+
+            var source = data[i]["Data"]
+            puzzel_1 = uploadImage(source);
+            puzzel_1.position.set(1000, 250, -2000);
+            scene.add(puzzel_1);
+
+        }
+
+
+
+
+        puzzel_2 = uploadImage('images/puzzel_pics/image_123923953(2).JPG');
+        puzzel_2.position.set(0, 250, -2000);
+        scene.add(puzzel_2);
+
+
+
+
+        /*// puzzel vectors ---------------------
         puzzel_1 = uploadImage('images/puzzel_pics/image_123923953(1).JPG');
         puzzel_1.position.set(0, 250, -2000);
         scene.add(puzzel_1);
@@ -474,7 +520,7 @@ import { PointerLockControls } from './PointerLockControls.js';
         puzzel_29 = uploadImage('images/puzzel_pics/image_123923953.JPG');
         puzzel_29.position.set(2000, 250, 3500);
         puzzel_29.rotation.y = Math.PI;
-        scene.add(puzzel_29);
+        scene.add(puzzel_29);*/
         //
 
         container = document.getElementById('puzzel_environment');
@@ -561,8 +607,10 @@ import { PointerLockControls } from './PointerLockControls.js';
         renderer.render(scene, camera);
 
     }
-//}
+    //}
 
-//export function Make
+    //export function Make
 
-//export function {init, animate}
+    //export function {init, animate}
+
+}

@@ -94,6 +94,11 @@ namespace iCollections
                     );
 
                 endpoints.MapControllerRoute(
+                    name: "Latest DB Stats",
+                    pattern: "api/collectiontransfer",
+                    defaults: new { controller = "Home", action = "ICollectionDataTransferToJs" });
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();

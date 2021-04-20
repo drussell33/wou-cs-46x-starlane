@@ -23,39 +23,45 @@
 
 
 @*<script type="module">
-    import * as THREE from './js/three.module.js';
-    import { PointerLockControls } from './js/PointerLockControls.js';
-    let camera, scene, renderer, controls, container;
-    let floorMat;
-    let puzzel_1, puzzel_2, puzzel_3, puzzel_4, puzzel_5, puzzel_6, puzzel_7, puzzel_8, puzzel_9, puzzel_10;
-    let puzzel_11, puzzel_12, puzzel_13, puzzel_14, puzzel_15, puzzel_16, puzzel_17, puzzel_18, puzzel_19, puzzel_20;
-    let puzzel_21, puzzel_22, puzzel_23, puzzel_24, puzzel_25, puzzel_26, puzzel_27, puzzel_28, puzzel_29, puzzel_30;
+        import * as THREE from './js/three.module.js';
+        import { PointerLockControls } from './js/PointerLockControls.js';
+        let camera, scene, renderer, controls, container;
+        let floorMat;
+        let puzzel_1, puzzel_2, puzzel_3, puzzel_4, puzzel_5, puzzel_6, puzzel_7, puzzel_8, puzzel_9, puzzel_10;
+        let puzzel_11, puzzel_12, puzzel_13, puzzel_14, puzzel_15, puzzel_16, puzzel_17, puzzel_18, puzzel_19, puzzel_20;
+        let puzzel_21, puzzel_22, puzzel_23, puzzel_24, puzzel_25, puzzel_26, puzzel_27, puzzel_28, puzzel_29, puzzel_30;
 
-    const objects = [];
+        const objects = [];
 
-    let raycaster;
+        let raycaster;
 
-    let moveForward = false;
-    let moveBackward = false;
-    let moveLeft = false;
-    let moveRight = false;
-    let canJump = false;
+        let moveForward = false;
+        let moveBackward = false;
+        let moveLeft = false;
+        let moveRight = false;
+        let canJump = false;
 
-    let prevTime = performance.now();
-    const velocity = new THREE.Vector3();
-    const direction = new THREE.Vector3();
-    const vertex = new THREE.Vector3();
-    const color = new THREE.Color();
+        let prevTime = performance.now();
+        const velocity = new THREE.Vector3();
+        const direction = new THREE.Vector3();
+        const vertex = new THREE.Vector3();
+        const color = new THREE.Color();
 
-    init();
-    animate();
-</script>*@
+        init();
+        animate();
+    </script>*@
+
 
 
 
 @*<script type="module">
-        MakeGallery(@Model.AllPhotos)
-    </script>*@
+    MakeGallery(@Model.AllPhotos)
+    let testingExample = "@System.Convert.ToBase64String(Model.AllPhotos[0].Data)";
+    let everything = @Model.AllPhotos;
+</script>*@
+
+
+
 
 @*<script src="~/js/puzzel_example.js" type="module">
             MakeGallery(@Model.AllPhotos)
