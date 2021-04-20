@@ -28,8 +28,7 @@ namespace iCollections.Models
 
         public string GetPhotoUrl()
         {
-            string address = "https://localhost:5001/api/image/thumbnail/";
-            // string address = "https://icollections.azurewebsites.net/api/image/thumbnail/";
+            string address = "/api/image/thumbnail/";
             return address + PhotoGuid;
         }
     }
