@@ -21,7 +21,7 @@
                     <div class="img-container">
                         @if (result.ProfilePicId.HasValue)
                         {
-                            <img src="@result.Photos.FirstOrDefault(x => x.Id == result.ProfilePicId).ToViewableFormat()" class="img-thumbnail" />
+                            <img src="@AppContext.Photos.FirstOrDefault(p => p.Id == result.ProfilePicId).GetPhotoUrl()" class="img-thumbnail" />
                         }
                         else
                         {

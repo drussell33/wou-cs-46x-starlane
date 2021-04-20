@@ -155,40 +155,19 @@ function getNewPhotoName() {
     }
     else {
         var url = $('.selected-thumbnail').attr('src');
-        // var imageId = url.split("/").pop();
-        sendNewPhotoName(url, txt);
+        var imageId = url.split("/").pop();
+        sendNewPhotoName(url, imageId, txt);
     }
     closeNav();
 }
 
-function sendNewPhotoName(imgURL, fileName) {
-    console.log("url is: " + imgURL + " and filename is: " + fileName);
-    var req = $.post(imgURL, fileName, "text");
+function sendNewPhotoName(imgURL, imageId, fileName) {
+    var req = $.post(imgURL, { id : imageId, fileName: fileName }, "text");
     req.done(function(data) {
-        alert(data);
+        $('.selected-thumbnail').parent().find(".name-of-photo").text(data);
     });
 
     req.fail(function() {
         alert("Something went wrong on posting new image name");
     });
-
-    // var jqxhr = $.post( "example.php", function() {
-    //     alert( "success" );
-    //   })
-    //     .done(function() {
-    //       alert( "second success" );
-    //     })
-    //     .fail(function() {
-    //       alert( "error" );
-    //     })
-    //     .always(function() {
-    //       alert( "finished" );
-    //     });
-       
-    //   // Perform other work here ...
-       
-    //   // Set another completion function for the request above
-    //   jqxhr.always(function() {
-    //     alert( "second finished" );
-    //   });
 }
