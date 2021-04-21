@@ -2,28 +2,33 @@
 import { PointerLockControls } from './PointerLockControls.js';
 
 
-$("#puzzel_environment").ready(function () {
+$("#puzzel_environment").ready(function MakeGallery(transferMe) {
     console.log("page loaded the gallery environment.js");
-    var address = "api/collectiontransfer";
+
+/*$("#puzzel_environment").bind("load", function MakeGallery(transferMe) {
+    console.log("page loaded the gallery environment.js");*/
+
+
+/*    var address = "api/collectiontransfer";
     $.ajax({
-        type: "POST",
+        type: "GET",
         dataType: "json",
         url: address,
         success: displayEnvironment,
         error: errorOnAjax
     });
-});
+});*/
 
-function errorOnAjax() {
+/*function errorOnAjax() {
     console.log("ERROR in ajax request");
-}
+}*/
 
 
-function displayEnvironment(data) {
+/*function displayEnvironment(data) {*/
 
-    console.log(data[0]["Data"]);
-
-    let newData = data;
+    //console.log(data[0]["Title"]);
+    let didItWork = transferMe;
+    //let newData = data;
     let camera, scene, renderer, controls, container;
     let floorMat;
     let puzzel_1, puzzel_2, puzzel_3, puzzel_4, puzzel_5, puzzel_6, puzzel_7, puzzel_8, puzzel_9, puzzel_10;
@@ -346,14 +351,14 @@ function displayEnvironment(data) {
 
 
 
-        for (let i = 0; i < 1; ++i) {
+        /*for (let i = 0; i < 1; ++i) {
 
             var source = data[i]["Data"]
             puzzel_1 = uploadImage(source);
             puzzel_1.position.set(1000, 250, -2000);
             scene.add(puzzel_1);
 
-        }
+        }*/
 
 
 
@@ -613,4 +618,5 @@ function displayEnvironment(data) {
 
     //export function {init, animate}
 
-}
+
+});

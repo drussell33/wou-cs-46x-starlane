@@ -85,7 +85,7 @@ namespace iCollections.Controllers
                 {
                     if (image.PhotoId == photo.Id)
                     {
-                        RenderingPhoto renderingPhoto = new RenderingPhoto(photo.Data/*, image.Title, image.PhotoRank, image.Description*/);
+                        RenderingPhoto renderingPhoto = new RenderingPhoto(/*Convert.ToBase64String(photo.Data),*/ image.Title, image.PhotoRank, image.Description);
                         //rendingTransfer.AddPhoto(renderingPhoto);
                         AllPhotos.Add(renderingPhoto);
                     }
@@ -101,7 +101,9 @@ namespace iCollections.Controllers
         {
             //Second Attempt -------------------------------------------
             var JSONresult = JsonConvert.SerializeObject(AllPhotos);
-            return Json(JSONresult);
+            return Content(JSONresult, "application/json");
+
+            //return Json(JSONresult);
 
 
 

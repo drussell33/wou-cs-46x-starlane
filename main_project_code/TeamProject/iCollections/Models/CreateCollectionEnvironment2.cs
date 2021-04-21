@@ -87,17 +87,17 @@ namespace iCollections.Models
 
     public partial class RenderingPhoto
     {
-        public byte[] Data { get; set; }
-        //public string Title { get; set; }
-       // public int Rank { get; set; }
-        //public string Description { get; set; }
+        //public string Data { get; set; }
+        public string Title { get; set; }
+        public int Rank { get; set; }
+        public string Description { get; set; }
 
-        public RenderingPhoto(byte[] data/*, string title, int rank, string description*/)
+        public RenderingPhoto(/*string data,*/ string title, int rank, string description)
         {
-            Data = data;
-            /*Title = title;
+           // Data = data;
+            Title = title;
             Rank = rank;
-            Description = description;*/
+            Description = description;
         }
     }
 

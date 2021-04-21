@@ -20,6 +20,18 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    @*MakeGallery(@Model.AllPhotos)
+        let testingExample = "@System.Convert.ToBase64String(Model.AllPhotos[0].Data)";
+        let everything = @Model.AllPhotos;*@
+
+    var transferMe = "It worked! lol";
+    MakeGallery(transferMe);
+</script>
+
+
+
+
 
 
 @*<script type="module">
@@ -55,10 +67,10 @@
 
 
 @*<script type="module">
-    MakeGallery(@Model.AllPhotos)
-    let testingExample = "@System.Convert.ToBase64String(Model.AllPhotos[0].Data)";
-    let everything = @Model.AllPhotos;
-</script>*@
+        MakeGallery(@Model.AllPhotos)
+        let testingExample = "@System.Convert.ToBase64String(Model.AllPhotos[0].Data)";
+        let everything = @Model.AllPhotos;
+    </script>*@
 
 
 
