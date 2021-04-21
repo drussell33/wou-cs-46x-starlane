@@ -1,4 +1,4 @@
-﻿@model RendingTransfer;
+﻿@model List<RenderingPhoto>;
 
 @{
     ViewData["Title"] = "Home Page";
@@ -20,70 +20,79 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">-->
     @*MakeGallery(@Model.AllPhotos)
         let testingExample = "@System.Convert.ToBase64String(Model.AllPhotos[0].Data)";
         let everything = @Model.AllPhotos;*@
 
-    var transferMe = "It worked! lol";
+    <!--var transferMe = "It worked! lol";
     MakeGallery(transferMe);
-</script>
+</script>-->
+
+@{
+    var counter = 1;
+    <ul>
+        @foreach (var photo in Model)
+        {
+            string thisId = "photo" + counter.ToString();
+            <li id="thisId" data-rank="@photo.Rank" data-title="@photo.Title" data-description="@photo.Description" data-photodata="@photo.Data">@thisId</li>
+            counter = counter + 1;
+        }
+        <li></li>
+    </ul>
+}
+
+
+    @*<script type="module">
+            import * as THREE from './js/three.module.js';
+            import { PointerLockControls } from './js/PointerLockControls.js';
+            let camera, scene, renderer, controls, container;
+            let floorMat;
+            let puzzel_1, puzzel_2, puzzel_3, puzzel_4, puzzel_5, puzzel_6, puzzel_7, puzzel_8, puzzel_9, puzzel_10;
+            let puzzel_11, puzzel_12, puzzel_13, puzzel_14, puzzel_15, puzzel_16, puzzel_17, puzzel_18, puzzel_19, puzzel_20;
+            let puzzel_21, puzzel_22, puzzel_23, puzzel_24, puzzel_25, puzzel_26, puzzel_27, puzzel_28, puzzel_29, puzzel_30;
+
+            const objects = [];
+
+            let raycaster;
+
+            let moveForward = false;
+            let moveBackward = false;
+            let moveLeft = false;
+            let moveRight = false;
+            let canJump = false;
+
+            let prevTime = performance.now();
+            const velocity = new THREE.Vector3();
+            const direction = new THREE.Vector3();
+            const vertex = new THREE.Vector3();
+            const color = new THREE.Color();
+
+            init();
+            animate();
+        </script>*@
 
 
 
 
-
-
-@*<script type="module">
-        import * as THREE from './js/three.module.js';
-        import { PointerLockControls } from './js/PointerLockControls.js';
-        let camera, scene, renderer, controls, container;
-        let floorMat;
-        let puzzel_1, puzzel_2, puzzel_3, puzzel_4, puzzel_5, puzzel_6, puzzel_7, puzzel_8, puzzel_9, puzzel_10;
-        let puzzel_11, puzzel_12, puzzel_13, puzzel_14, puzzel_15, puzzel_16, puzzel_17, puzzel_18, puzzel_19, puzzel_20;
-        let puzzel_21, puzzel_22, puzzel_23, puzzel_24, puzzel_25, puzzel_26, puzzel_27, puzzel_28, puzzel_29, puzzel_30;
-
-        const objects = [];
-
-        let raycaster;
-
-        let moveForward = false;
-        let moveBackward = false;
-        let moveLeft = false;
-        let moveRight = false;
-        let canJump = false;
-
-        let prevTime = performance.now();
-        const velocity = new THREE.Vector3();
-        const direction = new THREE.Vector3();
-        const vertex = new THREE.Vector3();
-        const color = new THREE.Color();
-
-        init();
-        animate();
-    </script>*@
-
-
-
-
-@*<script type="module">
-        MakeGallery(@Model.AllPhotos)
-        let testingExample = "@System.Convert.ToBase64String(Model.AllPhotos[0].Data)";
-        let everything = @Model.AllPhotos;
-    </script>*@
-
-
-
-
-@*<script src="~/js/puzzel_example.js" type="module">
+    @*<script type="module">
             MakeGallery(@Model.AllPhotos)
-    </script>*@
+            let testingExample = "@System.Convert.ToBase64String(Model.AllPhotos[0].Data)";
+            let everything = @Model.AllPhotos;
+        </script>*@
 
-@*@Scripts.Render("~/js/puzzel_example.js")*@
 
 
-@*@section Scripts {
-        @{await RenderSectionAsync("~/js/puzzel_example.js");}
-    }*@
 
-@*<script src="~/js/puzzel_example.js" asp-append-version="true" type="module"></script>*@
+    @*<script src="~/js/puzzel_example.js" type="module">
+                MakeGallery(@Model.AllPhotos)
+        </script>*@
+
+    @*@Scripts.Render("~/js/puzzel_example.js")*@
+
+
+    @*@section Scripts {
+            @{await RenderSectionAsync("~/js/puzzel_example.js");}
+        }*@
+
+    @*<script src="~/js/puzzel_example.js" asp-append-version="true" type="module"></script>*@

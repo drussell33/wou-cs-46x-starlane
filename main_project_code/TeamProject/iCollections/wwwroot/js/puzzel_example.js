@@ -23,6 +23,29 @@ $("#puzzel_environment").ready(function MakeGallery(transferMe) {
     console.log("ERROR in ajax request");
 }*/
 
+    /*const uri = 'api/collectiontransfer';
+    fetch(uri)
+        .then(response => response.json())
+        .then(data => _displayItems(data))
+        .catch(error => console.error('Unable to get items.', error));*/
+
+
+
+
+    //var photolist = $("#photo1");
+    //var show = photolist.data("rank");
+
+
+
+
+    //var photo1 = document.querySelector('#photo1'), data = photo1.dataset;
+    
+    //console.log(data.rank);
+    let photo1Rank = $("#photo1").data("rank");
+
+    //var photo1Title = $(this.#photo1).data("title");
+    //var photo1description = $(this.#photo1).data("description");
+    //var photo1photodata = $(this.#photo1).data("photodata");
 
 /*function displayEnvironment(data) {*/
 

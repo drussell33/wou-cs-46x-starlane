@@ -75,7 +75,7 @@ namespace iCollections.Controllers
             newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
             var collectionPhotos = newCollection.CollectionPhotoes.Where(m => m.CollectId == collectionID).ToList();
             var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
-            RendingTransfer rendingTransfer = new RendingTransfer();
+            //RendingTransfer rendingTransfer = new RendingTransfer();
 
             List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
             
@@ -85,7 +85,7 @@ namespace iCollections.Controllers
                 {
                     if (image.PhotoId == photo.Id)
                     {
-                        RenderingPhoto renderingPhoto = new RenderingPhoto(/*Convert.ToBase64String(photo.Data),*/ image.Title, image.PhotoRank, image.Description);
+                        RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), image.Title, image.PhotoRank, image.Description);
                         //rendingTransfer.AddPhoto(renderingPhoto);
                         AllPhotos.Add(renderingPhoto);
                     }
@@ -93,12 +93,18 @@ namespace iCollections.Controllers
             }
             //Console.WriteLine(AllPhotos);
             Console.WriteLine(AllPhotos.Count());
-            ICollectionDataTransferToJs(AllPhotos);
-            return View();
+            //ICollectionDataTransferToJs(AllPhotos);
+            return View(AllPhotos);
         }
+
 
         public IActionResult ICollectionDataTransferToJs(List<RenderingPhoto> AllPhotos)
         {
+            /*if(AllPhotos == null)
+            {
+                
+                return Json();
+            }*/
             //Second Attempt -------------------------------------------
             var JSONresult = JsonConvert.SerializeObject(AllPhotos);
             return Content(JSONresult, "application/json");
