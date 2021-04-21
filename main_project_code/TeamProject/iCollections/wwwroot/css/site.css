@@ -181,8 +181,7 @@ body {
 
 body {
   min-height: 100vh;
-  background-color: #757f9a;
-  background-image: linear-gradient(147deg, #ddd 0%, #fff 100%);
+  background-color: #ffffff;
 }
 
 h1 {
@@ -395,21 +394,12 @@ h1 {
     font-size:small;
 }
 
-.pic-thumbnail {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  width: 150px;
-  margin: auto;    
-  display: block;
-}
-
 .organize-row {
   margin-top: 30px;
 }
 
 .selected-thumbnail {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(16, 91, 212, 0.767) 0px 5px 15px;
 }
 
 /* The side navigation menu */
@@ -460,4 +450,14 @@ h1 {
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+.banner {
+  background: #a770ef;
+  background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+  background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+}
+
+.pic-thumbnail {
+  border: 1px solid #2C3E50;
 }

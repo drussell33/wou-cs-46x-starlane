@@ -63,68 +63,7 @@ $("#photoUpload").submit(function (event) {
 
 });
 
-// check if photo is more than 1 MB and error if so
-// $("#register").submit(function (event) {
-
-
-//     event.preventDefault();
-// });
-
-
-
-//// For un-following users 
-//$('#unfollow-button > button').click(function () {
-//    var followID = this.id.substring(1);      // remove leading 'f'
-
-//    $.ajax({
-//        url: 'following',
-//        data: { id: followID },
-//        method: 'POST',
-//        success: updateFollowees
-//    });
-//});
-
-//function updateFollowees(data) {
-
-//    location.reload(true);
-//}
-
-//// For following users 
-//$('#follow-button > button').click(function () {
-//    var followID = this.id;
-//    var followName = this.name;
-
-//    $.ajax({
-//        url: 'userpage/follow',
-//        data: { id: followID, status: followName },
-//        method: 'POST',
-//        success: updateFollowees
-//    });
-//});
-
-//function updateFollowees(data) {
-
-//    location.reload(true);
-//}
-
-/*Populate Dropdown Menu With Logged-in User Profile
-
-$(document).ready(function () {
-    let url = window.location.origin + "/api/sessionuser";
-    if ($("#myProfileLink").length) {
-        $.ajax({
-            url: url,
-            method: 'GET',
-            success: updateProfileLink
-        })
-    }
-});
-
-function updateProfileLink(data) {
-    let base_url = window.location.origin;
-    $("#myProfileLink").attr("href", base_url + "/userpage/" + data.username);
-}*/
-
+// when a photo is clicked in view photos, highlight it
 $('.pic-thumbnail').click(function (e) {
     if (e.ctrlKey) {}
     else {
@@ -144,6 +83,7 @@ function closeNav() {
     $('.selected-thumbnail').removeClass('selected-thumbnail');
 }
 
+// prompt user for new photo name
 function getNewPhotoName() {
     var txt;
     var txt = prompt("Add new photo name:");
@@ -157,16 +97,17 @@ function getNewPhotoName() {
         closeNav();
     }
     else {
-        var url = $('.selected-thumbnail').attr('src');
+        var url = $('.selected-thumbnail').find("img").first().attr('src');
         var imageId = url.split("/").pop();
         sendNewPhotoName(url, imageId, txt);
     }
 }
 
+// request update for new photo name
 function sendNewPhotoName(imgURL, imageId, fileName) {
     var req = $.post(imgURL, { id : imageId, fileName: fileName }, "text");
     req.done(function(data) {
-        $('.selected-thumbnail').parent().find(".name-of-photo").text(data);
+        $(".selected-thumbnail").find("h5").first().text(data);
         closeNav();
     });
 
