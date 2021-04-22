@@ -6,5 +6,7 @@ namespace iCollections.Data.Abstract
     {
         IcollectionUser GetIcollectionUserByIdentityId(string identityID);
         bool Exists(IcollectionUser user);
+
+        int GetReadableUserID(string username);
     }
 }

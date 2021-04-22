@@ -30,5 +30,11 @@ namespace iCollections.Data.Concrete
             var photo = GetAll().FirstOrDefault(row => row.PhotoGuid == id);
             return photo;
         }
+
+        Guid GetProfilePicGuid(int profilePicId)
+        {
+            return GetAll().FirstOrDefault(p => p.Id == profilePicId).PhotoGuid;
+        }
+
     }
 }

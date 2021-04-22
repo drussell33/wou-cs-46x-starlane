@@ -7,12 +7,12 @@ namespace iCollections.Data.Concrete
 {
     public class IcollectionUserRepository : Repository<IcollectionUser>, IIcollectionUserRepository
     {
-        public IcollectionUserRepository(ICollectionsDbContext ctx) : base(ctx) {}
+        public IcollectionUserRepository(ICollectionsDbContext ctx) : base(ctx) { }
 
         public virtual bool Exists(IcollectionUser user)
         {
-            return _dbSet.Any(x => x.AspnetIdentityId == user.AspnetIdentityId 
-                && x.FirstName == user.FirstName 
+            return _dbSet.Any(x => x.AspnetIdentityId == user.AspnetIdentityId
+                && x.FirstName == user.FirstName
                 && x.LastName == user.LastName);
         }
 
@@ -21,6 +21,10 @@ namespace iCollections.Data.Concrete
             return _dbSet.Where(u => u.AspnetIdentityId == identityID).FirstOrDefault();
         }
 
-        
+        public int GetReadableUserID(string username)
+        {
+            return GetAll().FirstOrDefault(u => u.UserName == username).Id;
+        }
+
     }
 }

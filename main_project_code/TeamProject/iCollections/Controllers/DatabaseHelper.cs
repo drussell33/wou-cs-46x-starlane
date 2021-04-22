@@ -144,7 +144,7 @@ namespace iCollections.Controllers
 
         public string GetMyProfilePicUrl(int myId)
         {
-            string address = "https://icollections.azurewebsites.net/api/image/thumbnail/";
+            string address = "/api/image/thumbnail/";
             int profile_pic_id = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.Id == myId).ProfilePicId ?? -1;
             
             try {
@@ -156,13 +156,6 @@ namespace iCollections.Controllers
             {
                 return null;
             }
-        }
-
-        public int GetReadableUserID(string username)
-        {
-            return _collectionsDbContext.IcollectionUsers
-                        .FirstOrDefault(u => u.UserName == username)
-                        .Id;
         }
 
     }

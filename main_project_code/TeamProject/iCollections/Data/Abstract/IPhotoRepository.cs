@@ -9,5 +9,7 @@ namespace iCollections.Data.Abstract
         List<PhotoInfo> GetMyPhotosInfo(int myId);
 
         Photo GetPhoto(Guid id);
+
+        Guid GetProfilePicGuid(int myId);
     }
 }
