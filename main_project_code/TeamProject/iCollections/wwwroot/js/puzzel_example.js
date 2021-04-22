@@ -6,18 +6,38 @@ $(document).ready(function MakeGallery() {
     console.log("page loaded the gallery environment.js");
 
 
-    let testPhotoSrc;
-    let counter = 1;
+
+    var photoData = [];
+
+
+    //let testPhotoSrc;
+    //let counter = 1;
     $("tr").each(function () {
-        let name = "photo" + counter.toString();
+        //let name = "photo" + counter.toString();
+        photoData.push({
+            srcData: $(this).attr("data-photodata"),
+            srcTitle: $(this).attr("data-title"),
+            srcRank: $(this).attr("data-rank"),
+            srcDescription: $(this).attr("data-description")
+
+        });
         console.log($(this).attr("data-title"));
         console.log($(this).attr("data-rank"));
         console.log($(this).attr("data-description"));
-        testPhotoSrc = $(this).attr("data-photodata");
-        counter++;
+        //testPhotoSrc = $(this).attr("data-photodata");
+        //counter++;
     });
 
     //console.log(testPhotoSrc);
+
+
+
+
+
+
+
+
+
 
     let camera, scene, renderer, controls, container;
     let floorMat;
@@ -334,7 +354,48 @@ $(document).ready(function MakeGallery() {
 
 
         //Introducing Real Loop ---------------------------------------------
-
+        let positionCordinateData = [
+            {
+                "xAxis": 0,
+                "yAxis": 250,
+                "zAxis": -2000
+            },
+            {
+                "xAxis": 1000,
+                "yAxis": 250,
+                "zAxis": -2000
+            },
+            {
+                "xAxis": 2000,
+                "yAxis": 250,
+                "zAxis": -2000
+            },
+            {
+                "xAxis": 3000,
+                "yAxis": 250,
+                "zAxis": -2000
+            },
+            {
+                "xAxis": 4000,
+                "yAxis": 250,
+                "zAxis": -2000
+            },
+            {
+                "xAxis": -1000,
+                "yAxis": 250,
+                "zAxis": -2000
+            },
+            {
+                "xAxis": -2000,
+                "yAxis": 250,
+                "zAxis": -2000
+            },
+            {
+                "xAxis": -3000,
+                "yAxis": 250,
+                "zAxis": -2000
+            },
+        ];
 
 
 
@@ -350,13 +411,17 @@ $(document).ready(function MakeGallery() {
             scene.add(puzzel_1);
 
         }*/
+        let currentImage;
+        for (let i = 0; i < photoData.length; ++i) {
+            currentImage = uploadImage(photoData[i].srcData);
+            currentImage.position.set(positionCordinateData[i].xAxis, positionCordinateData[i].yAxis, positionCordinateData[i].zAxis);
+            scene.add(currentImage);
+        }
 
 
-
-
-        puzzel_2 = uploadImage(testPhotoSrc);
-        puzzel_2.position.set(0, 250, -2000);
-        scene.add(puzzel_2);
+        //puzzel_2 = uploadImage(photoData[0].srcData);
+        //puzzel_2.position.set(0, 250, -2000);
+        //scene.add(puzzel_2);
 
 
 
