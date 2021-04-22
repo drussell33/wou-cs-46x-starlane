@@ -26,5 +26,10 @@ namespace iCollections.Data.Concrete
             return GetAll().FirstOrDefault(u => u.UserName == username).Id;
         }
 
+        public int GetProfilePicID(int userId)
+        {
+            return GetAll().FirstOrDefault(u => u.Id == userId).ProfilePicId ?? -1;
+        }
+
     }
 }

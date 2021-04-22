@@ -6,6 +6,7 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
+using iCollections.Data.Abstract;
 
 namespace iCollections.Controllers
 {
@@ -142,13 +143,13 @@ namespace iCollections.Controllers
             extractedCollections = extractedCollections.OrderByDescending(r => r.DateMade).ToList();
         }
 
-        public string GetMyProfilePicUrl(int myId)
+        public static string GetMyProfilePicUrl(int myId, IIcollectionUserRepository usersRepo, IPhotoRepository photoRepo)
         {
             string address = "/api/image/thumbnail/";
-            int profile_pic_id = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.Id == myId).ProfilePicId ?? -1;
+            int profile_pic_id = usersRepo.GetProfilePicID(myId);
             
             try {
-                var guid = _collectionsDbContext.Photos.FirstOrDefault(p => p.Id == profile_pic_id).PhotoGuid;
+                var guid = photoRepo.GetProfilePicGuid(profile_pic_id);
                 string url = address + guid;
                 return url;
             }

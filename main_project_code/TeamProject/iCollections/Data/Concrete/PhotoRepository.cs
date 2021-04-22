@@ -31,7 +31,7 @@ namespace iCollections.Data.Concrete
             return photo;
         }
 
-        Guid GetProfilePicGuid(int profilePicId)
+        public Guid GetProfilePicGuid(int profilePicId)
         {
             return GetAll().FirstOrDefault(p => p.Id == profilePicId).PhotoGuid;
         }

@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using iCollections.Models;
+using iCollections.Data.Abstract;
+using iCollections.Data.Concrete;
 
 namespace iCollections
 {
@@ -44,6 +46,9 @@ namespace iCollections
                  options.UseSqlServer(appBuilder.ConnectionString));
                        //Configuration.GetConnectionString("ICollectionsConnection"));
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.AddScoped<IIcollectionUserRepository, IcollectionUserRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()

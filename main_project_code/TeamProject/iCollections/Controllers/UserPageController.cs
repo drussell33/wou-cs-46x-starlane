@@ -22,14 +22,15 @@ namespace iCollections.Controllers
 
         private readonly IIcollectionUserRepository _userRepo;
 
-        // need a photos repo and users repo currently
 
         private readonly IPhotoRepository _photoRepo;
 
-        public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager)
+        public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, IPhotoRepository photoRepo)
         {
             _db = db;
             _userManager = userManager;
+            _userRepo = userRepo;
+            _photoRepo = photoRepo;
         }
 
         [Route("userpage/{name}")]
@@ -37,9 +38,8 @@ namespace iCollections.Controllers
         {
             string sessionUserId = _userManager.GetUserId(User);
             IcollectionUser sessionUser = null;
-            DatabaseHelper databaseHelper = new DatabaseHelper(_userManager, _db);
-            var myId = databaseHelper.GetReadableUserID(name);
-            ViewBag.ProfilePicUrl = databaseHelper.GetMyProfilePicUrl(myId);
+            var myId = _userRepo.GetReadableUserID(name);
+            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
             if (name == null)
             {

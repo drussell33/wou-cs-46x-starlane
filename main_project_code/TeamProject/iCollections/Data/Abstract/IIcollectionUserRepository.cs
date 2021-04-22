@@ -8,5 +8,7 @@ namespace iCollections.Data.Abstract
         bool Exists(IcollectionUser user);
 
         int GetReadableUserID(string username);
+
+        int GetProfilePicID(int userId);
     }
 }
