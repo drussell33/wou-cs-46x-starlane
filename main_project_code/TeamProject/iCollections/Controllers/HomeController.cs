@@ -85,7 +85,7 @@ namespace iCollections.Controllers
                 {
                     if (image.PhotoId == photo.Id)
                     {
-                        RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), image.Title, image.PhotoRank, image.Description);
+                        RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), photo.Name, image.PhotoRank, image.Description);
                         //rendingTransfer.AddPhoto(renderingPhoto);
                         AllPhotos.Add(renderingPhoto);
                     }

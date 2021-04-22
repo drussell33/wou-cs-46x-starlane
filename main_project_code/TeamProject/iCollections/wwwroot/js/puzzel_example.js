@@ -2,14 +2,14 @@
 import { PointerLockControls } from './PointerLockControls.js';
 
 
-$("#puzzel_environment").ready(function MakeGallery(transferMe) {
+$(document).ready(function MakeGallery() {
     console.log("page loaded the gallery environment.js");
 
+
 /*$("#puzzel_environment").bind("load", function MakeGallery(transferMe) {
-    console.log("page loaded the gallery environment.js");*/
+    console.log("page loaded the gallery environment.js");
 
-
-/*    var address = "api/collectiontransfer";
+    var address = "api/collectiontransfer";
     $.ajax({
         type: "GET",
         dataType: "json",
@@ -20,8 +20,8 @@ $("#puzzel_environment").ready(function MakeGallery(transferMe) {
 });*/
 
 /*function errorOnAjax() {
-    console.log("ERROR in ajax request");
-}*/
+    console.log("ERROR in ajax request");*/
+//}
 
     /*const uri = 'api/collectiontransfer';
     fetch(uri)
@@ -34,23 +34,31 @@ $("#puzzel_environment").ready(function MakeGallery(transferMe) {
 
     //var photolist = $("#photo1");
     //var show = photolist.data("rank");
-
-
+    //$(document).ready(function () {
+    let counter = 1;
+    $("tr").each(function () {
+        let name = "photo" + counter.toString();
+        console.log($(this).attr("data-title"));
+        console.log($(this).attr("data-rank"));
+        console.log($(this).attr("data-description"));
+        counter++;
+    });
+    //});
 
 
     //var photo1 = document.querySelector('#photo1'), data = photo1.dataset;
     
     //console.log(data.rank);
-    let photo1Rank = $("#photo1").data("rank");
+    //let photo1Rank = $("#photo1").data("rank");
 
     //var photo1Title = $(this.#photo1).data("title");
     //var photo1description = $(this.#photo1).data("description");
     //var photo1photodata = $(this.#photo1).data("photodata");
 
-/*function displayEnvironment(data) {*/
+//function displayEnvironment(data) {
 
     //console.log(data[0]["Title"]);
-    let didItWork = transferMe;
+    //let didItWork = transferMe;
     //let newData = data;
     let camera, scene, renderer, controls, container;
     let floorMat;
@@ -78,7 +86,7 @@ $("#puzzel_environment").ready(function MakeGallery(transferMe) {
     init();
     animate();
 
-    /*export default*/ function init() {
+    function init() {
 
         camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
         camera.position.y = 300;
@@ -393,7 +401,7 @@ $("#puzzel_environment").ready(function MakeGallery(transferMe) {
 
 
 
-        /*// puzzel vectors ---------------------
+        // puzzel vectors ---------------------
         puzzel_1 = uploadImage('images/puzzel_pics/image_123923953(1).JPG');
         puzzel_1.position.set(0, 250, -2000);
         scene.add(puzzel_1);
@@ -548,7 +556,7 @@ $("#puzzel_environment").ready(function MakeGallery(transferMe) {
         puzzel_29 = uploadImage('images/puzzel_pics/image_123923953.JPG');
         puzzel_29.position.set(2000, 250, 3500);
         puzzel_29.rotation.y = Math.PI;
-        scene.add(puzzel_29);*/
+        scene.add(puzzel_29);
         //
 
         container = document.getElementById('puzzel_environment');
@@ -577,7 +585,7 @@ $("#puzzel_environment").ready(function MakeGallery(transferMe) {
 
     }
 
-    /*export default */function animate() {
+    function animate() {
 
         requestAnimationFrame(animate);
 
