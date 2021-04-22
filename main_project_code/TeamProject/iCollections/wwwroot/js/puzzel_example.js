@@ -6,60 +6,19 @@ $(document).ready(function MakeGallery() {
     console.log("page loaded the gallery environment.js");
 
 
-/*$("#puzzel_environment").bind("load", function MakeGallery(transferMe) {
-    console.log("page loaded the gallery environment.js");
-
-    var address = "api/collectiontransfer";
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: address,
-        success: displayEnvironment,
-        error: errorOnAjax
-    });
-});*/
-
-/*function errorOnAjax() {
-    console.log("ERROR in ajax request");*/
-//}
-
-    /*const uri = 'api/collectiontransfer';
-    fetch(uri)
-        .then(response => response.json())
-        .then(data => _displayItems(data))
-        .catch(error => console.error('Unable to get items.', error));*/
-
-
-
-
-    //var photolist = $("#photo1");
-    //var show = photolist.data("rank");
-    //$(document).ready(function () {
+    let testPhotoSrc;
     let counter = 1;
     $("tr").each(function () {
         let name = "photo" + counter.toString();
         console.log($(this).attr("data-title"));
         console.log($(this).attr("data-rank"));
         console.log($(this).attr("data-description"));
+        testPhotoSrc = $(this).attr("data-photodata");
         counter++;
     });
-    //});
 
+    //console.log(testPhotoSrc);
 
-    //var photo1 = document.querySelector('#photo1'), data = photo1.dataset;
-    
-    //console.log(data.rank);
-    //let photo1Rank = $("#photo1").data("rank");
-
-    //var photo1Title = $(this.#photo1).data("title");
-    //var photo1description = $(this.#photo1).data("description");
-    //var photo1photodata = $(this.#photo1).data("photodata");
-
-//function displayEnvironment(data) {
-
-    //console.log(data[0]["Title"]);
-    //let didItWork = transferMe;
-    //let newData = data;
     let camera, scene, renderer, controls, container;
     let floorMat;
     let puzzel_1, puzzel_2, puzzel_3, puzzel_4, puzzel_5, puzzel_6, puzzel_7, puzzel_8, puzzel_9, puzzel_10;
@@ -353,7 +312,8 @@ $(document).ready(function MakeGallery() {
 
             // load an image
             var imageObj = new Image();
-            imageObj.src = collectionPhoto;
+            let newSrc = "data:image/png;base64," + collectionPhoto;
+            imageObj.src = newSrc;
             // after the image is loaded, this function executes
             imageObj.onload = function () {
                 context.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height, 0, 0, 500, 500);
@@ -394,7 +354,7 @@ $(document).ready(function MakeGallery() {
 
 
 
-        puzzel_2 = uploadImage('images/puzzel_pics/image_123923953(2).JPG');
+        puzzel_2 = uploadImage(testPhotoSrc);
         puzzel_2.position.set(0, 250, -2000);
         scene.add(puzzel_2);
 
@@ -402,16 +362,16 @@ $(document).ready(function MakeGallery() {
 
 
         // puzzel vectors ---------------------
-        puzzel_1 = uploadImage('images/puzzel_pics/image_123923953(1).JPG');
+        /*puzzel_1 = uploadImage('images/puzzel_pics/image_123923953(1).JPG');
         puzzel_1.position.set(0, 250, -2000);
-        scene.add(puzzel_1);
+        scene.add(puzzel_1);*/
 
         // puzzel vectors ---------------------
-        puzzel_2 = uploadImage('images/puzzel_pics/image_123923953(2).JPG');
+        /*puzzel_2 = uploadImage('images/puzzel_pics/image_123923953(2).JPG');
         puzzel_2.position.set(1000, 250, -2000);
-        scene.add(puzzel_2);
+        scene.add(puzzel_2);*/
 
-        // puzzel vectors ---------------------
+        /*// puzzel vectors ---------------------
         puzzel_3 = uploadImage('images/puzzel_pics/image_123923953(3).JPG');
         puzzel_3.position.set(2000, 250, -2000);
         scene.add(puzzel_3);
@@ -556,7 +516,7 @@ $(document).ready(function MakeGallery() {
         puzzel_29 = uploadImage('images/puzzel_pics/image_123923953.JPG');
         puzzel_29.position.set(2000, 250, 3500);
         puzzel_29.rotation.y = Math.PI;
-        scene.add(puzzel_29);
+        scene.add(puzzel_29);*/
         //
 
         container = document.getElementById('puzzel_environment');
