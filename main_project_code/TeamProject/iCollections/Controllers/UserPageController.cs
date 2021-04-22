@@ -10,6 +10,7 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
+using iCollections.Data.Abstract;
 
 
 namespace iCollections.Controllers
@@ -18,6 +19,12 @@ namespace iCollections.Controllers
     {
         private readonly ICollectionsDbContext _db;
         private readonly UserManager<IdentityUser> _userManager;
+
+        private readonly IIcollectionUserRepository _userRepo;
+
+        // need a photos repo and users repo currently
+
+        private readonly IPhotoRepository _photoRepo;
 
         public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager)
         {

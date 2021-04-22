@@ -23,7 +23,6 @@ namespace iCollections.Controllers
 
         public bool isKeyInFriendship(IcollectionUser user1, IcollectionUser user2, int key)
         {
-            Path.GetFileNameWithoutExtension("sdsdf");
             return key == user1.Id || key == user2.Id;
         }
 
