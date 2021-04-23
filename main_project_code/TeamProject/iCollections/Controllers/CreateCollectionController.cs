@@ -30,8 +30,6 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult EnvironmentSelection()
         {
-            //TempData["name"] = "My New iCollection";
-            //TempData["route"] = "gallery_environment";
             return View();
         }
 
@@ -39,8 +37,6 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EnvironmentSelection([Bind("Route")] CreateCollectionModel2 collection)
         {
-            Debug.WriteLine(collection);
-            //TempData.Keep();
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
 
@@ -50,7 +46,6 @@ namespace iCollections.Controllers
                 if (collection.Route != "false")
                 {
                     TempData["route"] = collection.Route;
-                    
 
                     return RedirectToAction("PhotoSelection");
                 }
@@ -69,16 +64,12 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PhotoSelection(/*CreateCollectionPhotos collection*/ string[] selectedPhotos)
+        public IActionResult PhotoSelection(string[] selectedPhotos)
         {
-            Debug.WriteLine(selectedPhotos);
             if (ModelState.IsValid)
             {
                 TempData["photoids"] = selectedPhotos;
-                /*foreach (var photo in collection.PhotosSelected)
-                {
 
-                }*/
                 return RedirectToAction("PublishingOptionsSelection");
             }
 
@@ -91,7 +82,6 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult PublishingOptionsSelection()
         {
-
             TempData.Keep();
 
             string[] dropDownList = new string[] { "private", "friends", "public" };
@@ -112,7 +102,6 @@ namespace iCollections.Controllers
             {
                 route = TempData["route"].ToString();
             }
-                //photoids = TempData["photoids"]
             TempData.Keep();
             Debug.WriteLine(collection);
             if (ModelState.IsValid)
@@ -122,8 +111,7 @@ namespace iCollections.Controllers
                 newCollection.UserId = appUser.Id;
                 newCollection.DateMade = DateTime.Now;
                 newCollection.Visibility = 1;
-                newCollection.Name = collection.CollectionName;
-                //TempData["name"] = collection.CollectionName;
+                newCollection.Name = collection.CollectionName;               
 
                 _collectionsDbContext.Collections.Add(newCollection);
                 await _collectionsDbContext.SaveChangesAsync();
@@ -132,35 +120,36 @@ namespace iCollections.Controllers
                 if (TempData.ContainsKey("photoids"))
                 {
                     var objectArray = (string[])TempData["photoids"];
-                    //var objectArray = (object[])TempData["photoids"];
-                    for (var i = 0; i < objectArray.Length; i++)
+                    if(objectArray != null)
                     {
-                        //foreach (var photo in userPhotos)
-                        foreach (var photo in _collectionsDbContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
+                        for (var i = 0; i < objectArray.Length; i++)
                         {
-                            if (objectArray[i].ToString() == photo.Id.ToString())
+                            foreach (var photo in _collectionsDbContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
                             {
-                                CollectionPhoto newCollectionPhoto = new CollectionPhoto();
-                                string idConvert = objectArray[i].ToString();
-                                newCollectionPhoto.PhotoId = Int32.Parse(idConvert);
-                                newCollectionPhoto.CollectId = newCollection.Id;
-                                newCollectionPhoto.PhotoRank = 1;
-                                newCollectionPhoto.DateAdded = DateTime.Now;
-                                newCollectionPhoto.Title = "new title";
-                                newCollectionPhoto.Description = "new description";
-                                _collectionsDbContext.CollectionPhotos.Add(newCollectionPhoto);
-                                await _collectionsDbContext.SaveChangesAsync();
+                                if (objectArray[i].ToString() == photo.Id.ToString())
+                                {
+                                    CollectionPhoto newCollectionPhoto = new CollectionPhoto();
+                                    string idConvert = objectArray[i].ToString();
+                                    newCollectionPhoto.PhotoId = Int32.Parse(idConvert);
+                                    newCollectionPhoto.CollectId = newCollection.Id;
+                                    newCollectionPhoto.PhotoRank = 1;
+                                    newCollectionPhoto.DateAdded = DateTime.Now;
+                                    newCollectionPhoto.Title = "new title";
+                                    newCollectionPhoto.Description = "new description";
+                                    _collectionsDbContext.CollectionPhotos.Add(newCollectionPhoto);
+                                    await _collectionsDbContext.SaveChangesAsync();
+                                }
                             }
                         }
                     }
+                    
                 }
 
                 return RedirectToAction("PublishingSuccess");
             }
             string[] dropDownList = new string[] { "private", "friends", "public" };
-            //var dropDownList = new []string ("high", "low", "none");
             ViewData["Visibility"] = new SelectList(dropDownList);
-            //return View(collection);
+
             return RedirectToAction("PublishingSuccess");
         }
 
@@ -171,7 +160,6 @@ namespace iCollections.Controllers
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
             var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections;
-            //var collections = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.Id == appUser.Id).Collections;
             return View();
         }
     }

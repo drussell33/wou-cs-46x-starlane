@@ -42,7 +42,7 @@ namespace iCollections.Controllers
         }
 
         [Route("/ocean_environment")]
-        public IActionResult Ocean_environment(int collectionID)
+        public IActionResult Ocean_environment(/*int collectionID*/)
         {
             /*Collection newCollection = new Collection();
             newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
@@ -68,6 +68,7 @@ namespace iCollections.Controllers
             return View();
         }
 
+        
         [Route("/gallery_environment")]
         public IActionResult gallery_environment(int collectionID)
         {
@@ -75,7 +76,6 @@ namespace iCollections.Controllers
             newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
             var collectionPhotos = newCollection.CollectionPhotoes.Where(m => m.CollectId == collectionID).ToList();
             var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
-            //RendingTransfer rendingTransfer = new RendingTransfer();
 
             List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
             
@@ -86,54 +86,19 @@ namespace iCollections.Controllers
                     if (image.PhotoId == photo.Id)
                     {
                         RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), photo.Name, image.PhotoRank, image.Description);
-                        //rendingTransfer.AddPhoto(renderingPhoto);
                         AllPhotos.Add(renderingPhoto);
                     }
                 }
             }
-            //Console.WriteLine(AllPhotos);
             Console.WriteLine(AllPhotos.Count());
-            //ICollectionDataTransferToJs(AllPhotos);
             return View(AllPhotos);
         }
 
 
         public IActionResult ICollectionDataTransferToJs(List<RenderingPhoto> AllPhotos)
         {
-            /*if(AllPhotos == null)
-            {
-                
-                return Json();
-            }*/
-            //Second Attempt -------------------------------------------
             var JSONresult = JsonConvert.SerializeObject(AllPhotos);
             return Content(JSONresult, "application/json");
-
-            //return Json(JSONresult);
-
-
-
-
-
-
-
-            //first attempt -----------------------------------------------
-            //Array JsonData = new Array({ });
-            //foreach (var photo in AllPhotos)
-            //{
-            //string imagedata = Convert.ToBase64String(photo.Data);
-            //string title = photo.Title;
-            //int rank = photo.Rank;
-            //string description = photo.Description;
-            //}
-
-            //var json = JsonSerializer.Serialize(rendingTransfer);
-            //string JSONresult;
-            //var JSONresult = JsonConvert.SerializeObject(AllPhotos);
-            //Console.Write(JSONresult);
-
-            //return Json(new { ImageData = JSONresult });
-            //return Json(AllPhotos);
         }
 
 
@@ -143,11 +108,5 @@ namespace iCollections.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        // Users not logged in who try to upload photos will be redirected to the login page.
-        [Authorize]
-        public IActionResult PhotoUpload()
-        {
-            return View();
-        }
     }
 }

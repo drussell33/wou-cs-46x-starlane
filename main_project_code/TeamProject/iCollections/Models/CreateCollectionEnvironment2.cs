@@ -13,78 +13,27 @@ using iCollections.Controllers;
 
 namespace iCollections.Models
 {
-
-/*    [TempData]
-    public string StatusMessage { get; set; }*/
     public partial class CreateCollectionModel2
     {
-        //[TempData]
         [Required]
         public string Route { get; set; }
-
     }
-
-
-
-
-    /*public partial class CreateCollectionPhotos
-    {
-        public CreateCollectionPhotos()
-        {
-            photosSelected = new HashSet<CreateCollectionPhotoId>();
-        }
-        
-        public virtual ICollection<CreateCollectionPhotoId> photosSelected { get; set; }
-    }
-
-
-    public partial class CreateCollectionPhotoId
-    {
-
-        //[TempData]
-        public int CollectionPhotoId { get; set; }
-    }*/
-
 
 
     public partial class CreateCollectionPublishing
     {
-        //[TempData]
         [Required]
         [Display(Name = "iCollection Name")]
         public string CollectionName { get; set; }
 
-        //[TempData]
         [Display(Name = "Visibility")]
         public string Visibility { get; set; }
 
-        //[TempData]
         public string Description { get; set; }
     }
 
 
-
-
-
-
-
-    public partial class RendingTransfer
-    {
-        public RendingTransfer()
-        {
-            AllPhotos = new List<RenderingPhoto>();
-        }
-
-        public void AddPhoto(RenderingPhoto photo)
-        {
-            AllPhotos.Add(photo);
-            //AllPhotos.Append(photo);  
-        }
-
-        public virtual List<RenderingPhoto> AllPhotos { get; set; }
-
-    }
-
+    //Class that contains the data being sent to the javascript via DOM.
     public partial class RenderingPhoto
     {
         public string Data { get; set; }
