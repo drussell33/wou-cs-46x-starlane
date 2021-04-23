@@ -23,7 +23,12 @@ namespace iCollections.Data.Concrete
             return _dbSet.Where(u => u.AspnetIdentityId == identityID).FirstOrDefault();
         }
 
-        public int GetReadableUserID(string username)
+        public int GetReadableUserID(string nastyString)
+        {
+            return GetAll().FirstOrDefault(u => u.AspnetIdentityId == nastyString).Id;
+        }
+
+        public int GetReadableID(string username)
         {
             return GetAll().FirstOrDefault(u => u.UserName == username).Id;
         }

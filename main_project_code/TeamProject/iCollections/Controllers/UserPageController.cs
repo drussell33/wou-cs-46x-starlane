@@ -40,7 +40,7 @@ namespace iCollections.Controllers
         {
             string sessionUserId = _userManager.GetUserId(User);
             IcollectionUser sessionUser = null;
-            var myId = _userRepo.GetReadableUserID(name);
+            var myId = _userRepo.GetReadableID(name);
             ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
             if (name == null)

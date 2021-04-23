@@ -13,14 +13,12 @@ namespace iCollections.Controllers
     public class ImageApiController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        // private readonly ICollectionsDbContext _collectionsDbContext;
 
         private readonly IPhotoRepository _photoRepo;
 
         public ImageApiController(UserManager<IdentityUser> userManager, IPhotoRepository photoRepo)
         {
             _userManager = userManager;
-            // _collectionsDbContext = collectionsDbContext;
             _photoRepo = photoRepo;
         }
 

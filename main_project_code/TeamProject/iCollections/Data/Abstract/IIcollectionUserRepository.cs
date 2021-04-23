@@ -14,5 +14,7 @@ namespace iCollections.Data.Abstract
         IcollectionUser GetSessionUser(string sessionUserId);
 
         IcollectionUser GetTargetUser(string name);
+
+        int GetReadableID(string username);
     }
 }
