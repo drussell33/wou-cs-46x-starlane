@@ -4,6 +4,7 @@ using iCollections.Models;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using iCollections.Data.Abstract;
 
 
 namespace iCollections.Controllers
@@ -12,22 +13,22 @@ namespace iCollections.Controllers
     public class ImageApiController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly ICollectionsDbContext _collectionsDbContext;
+        // private readonly ICollectionsDbContext _collectionsDbContext;
 
-        public ImageApiController(UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
+        private readonly IPhotoRepository _photoRepo;
+
+        public ImageApiController(UserManager<IdentityUser> userManager, IPhotoRepository photoRepo)
         {
             _userManager = userManager;
-            _collectionsDbContext = collectionsDbContext;
+            // _collectionsDbContext = collectionsDbContext;
+            _photoRepo = photoRepo;
         }
 
         [HttpGet]
         public IActionResult Thumbnail(string id)
         {
             var guid = Guid.Parse(id);
-            var databaseReader = new DatabaseHelper(_userManager, _collectionsDbContext);
-            var selectedPhoto = databaseReader.GetPhoto(guid);
-            var extension = selectedPhoto.GetPhotoExtension();
-            // return File(selectedPhoto.Data, $"image/{extension}");
+            var selectedPhoto = _photoRepo.GetPhoto(guid);
             return File(selectedPhoto.Data, "image/base64");
         }
     }
