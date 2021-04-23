@@ -10,6 +10,7 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
+using iCollections.Data.Abstract;
 
 
 namespace iCollections.Controllers
@@ -19,10 +20,17 @@ namespace iCollections.Controllers
         private readonly ICollectionsDbContext _db;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager)
+        private readonly IIcollectionUserRepository _userRepo;
+
+
+        private readonly IPhotoRepository _photoRepo;
+
+        public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, IPhotoRepository photoRepo)
         {
             _db = db;
             _userManager = userManager;
+            _userRepo = userRepo;
+            _photoRepo = photoRepo;
         }
 
         [Route("userpage/{name}")]
@@ -30,6 +38,8 @@ namespace iCollections.Controllers
         {
             string sessionUserId = _userManager.GetUserId(User);
             IcollectionUser sessionUser = null;
+            var myId = _userRepo.GetReadableUserID(name);
+            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
             if (name == null)
             {
@@ -50,8 +60,10 @@ namespace iCollections.Controllers
                 .Include(u => u.FollowFollowedNavigations)
                 .ThenInclude(f => f.FollowerNavigation)
                 .FirstOrDefault(m => m.UserName == name);
+
+            var recentiCollections = _db.Collections.Where(c => c.User.Id == myId).OrderByDescending(c => c.DateMade).Take(4).ToList();
             
-            return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser });
+            return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser, recentCollections = recentiCollections });
         }
         
         [Route("userpage/{name}/followers")]
