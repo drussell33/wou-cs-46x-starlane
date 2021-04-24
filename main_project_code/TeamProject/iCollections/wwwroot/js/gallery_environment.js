@@ -1,23 +1,14 @@
 ﻿import * as THREE from './three.module.js';
 import { PointerLockControls } from './PointerLockControls.js';
+import { GatherPhotoData, LoadImagesToScene } from './environment_functions.js';
 
 
 $(document).ready(function MakeGallery() {
     console.log("page loaded the gallery environment.js");
 
+    //Gets the photo data written to the tr's in the DOM
     var photoData = [];
-
-    $("tr").each(function () {
-        photoData.push({
-            srcData: $(this).attr("data-photodata"),
-            srcTitle: $(this).attr("data-title"),
-            srcRank: $(this).attr("data-rank"),
-            srcDescription: $(this).attr("data-description")
-        });
-        //console.log($(this).attr("data-title"));
-        //console.log($(this).attr("data-rank"));
-        //console.log($(this).attr("data-description"));
-    });
+    photoData = GatherPhotoData(photoData);
 
 
     let camera, scene, renderer, controls, container;
@@ -36,8 +27,6 @@ $(document).ready(function MakeGallery() {
     let prevTime = performance.now();
     const velocity = new THREE.Vector3();
     const direction = new THREE.Vector3();
-    const vertex = new THREE.Vector3();
-    const color = new THREE.Color();
 
     init();
     animate();
@@ -230,37 +219,6 @@ $(document).ready(function MakeGallery() {
         scene.add(floor);
 
 
-        //Custom Upload Photo
-        function uploadImage(collectionPhoto) {
-            // create a canvas element
-            var canvas = document.createElement('canvas');
-            canvas.width = 500;
-            canvas.height = 500;
-            var context = canvas.getContext('2d');
-            // canvas contents will be used for a texture
-            var texture = new THREE.Texture(canvas);
-
-            // load an image
-            var imageObj = new Image();
-            let newSrc = "data:image/png;base64," + collectionPhoto;
-            imageObj.src = newSrc;
-            // after the image is loaded, this function executes
-            imageObj.onload = function () {
-                context.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height, 0, 0, 500, 500);
-                if (texture) // checks if texture exists
-                    texture.needsUpdate = true;
-            };
-
-            var material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
-            material.transparent = true;
-
-            var mesh = new THREE.Mesh(
-                new THREE.PlaneGeometry(canvas.width, canvas.height),
-                material
-            );
-            //scene.add( mesh2 );
-            return mesh
-        }
 
         let positionCordinateData = [
             //Row One
@@ -317,32 +275,22 @@ $(document).ready(function MakeGallery() {
 
 
 
-        //Loop that creates and adds the users images to the scene being rendered.
-        let currentImage;
-        for (let i = 0; i < photoData.length; ++i) {
-            currentImage = uploadImage(photoData[i].srcData);
-            currentImage.position.set(positionCordinateData[i].xAxis, positionCordinateData[i].yAxis, positionCordinateData[i].zAxis);
-            scene.add(currentImage);
-        }
+        LoadImagesToScene(scene, photoData, positionCordinateData);
 
 
         // old hard coded image vectors ---------------------
-        /*puzzel_1 = uploadImage('images/puzzel_pics/image_123923953(1).JPG');
-        puzzel_1.position.set(0, 250, -2000);
-        scene.add(puzzel_1);*/
-
         /*puzzel_29 = uploadImage('images/puzzel_pics/image_123923953.JPG');
         puzzel_29.position.set(2000, 250, 3500);
         puzzel_29.rotation.y = Math.PI;
         scene.add(puzzel_29);*/
         
 
-        container = document.getElementById('puzzel_environment');
+        container = document.getElementById('gallery_environment');
 
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setPixelRatio(window.devicePixelRatio);
         //renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setSize(document.getElementById('puzzel_environment').clientWidth, parent.innerHeight);
+        renderer.setSize(document.getElementById('gallery_environment').clientWidth, parent.innerHeight);
 
         container.appendChild(renderer.domElement);
 
@@ -356,7 +304,7 @@ $(document).ready(function MakeGallery() {
         camera.updateProjectionMatrix();
 
         //renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setSize(document.getElementById('puzzel_environment').clientWidth, parent.innerHeight);
+        renderer.setSize(document.getElementById('gallery_environment').clientWidth, parent.innerHeight);
     }
 
     function animate() {
