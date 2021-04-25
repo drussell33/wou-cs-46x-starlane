@@ -91,7 +91,7 @@
                 </div>
                 <div class="py-4 px-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="mb-0">Recent iCollections</h5><a asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName" class="btn btn-link text-muted">Show all</a>
+                        <h5 class="mb-0">Recent iCollections</h5><a asp-controller="Collections" asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName" class="btn btn-link text-muted">Show all</a>
                     </div>
                     <div class="row">
                         @if (Model.recentCollections != null && Model.recentCollections.Any()) 

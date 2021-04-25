@@ -23,12 +23,13 @@ namespace iCollections.Data.Concrete
 
         public int GetReadableUserID(string username)
         {
-            return GetAll().FirstOrDefault(u => u.UserName == username).Id;
+
+            return _dbSet.FirstOrDefault(u => u.UserName == username).Id;
         }
 
         public int GetProfilePicID(int userId)
         {
-            return GetAll().FirstOrDefault(u => u.Id == userId).ProfilePicId ?? -1;
+            return _dbSet.FirstOrDefault(u => u.Id == userId).ProfilePicId ?? -1;
         }
 
     }
