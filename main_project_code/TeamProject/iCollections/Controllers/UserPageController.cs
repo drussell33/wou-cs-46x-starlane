@@ -104,7 +104,7 @@ namespace iCollections.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var collections = _db.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
+            var collections = _db.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections.OrderByDescending(c => c.DateMade); ;
             return View(collections);
         }
 

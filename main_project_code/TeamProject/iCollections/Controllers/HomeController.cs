@@ -62,6 +62,7 @@ namespace iCollections.Controllers
                     }
                 }
             }
+            ViewData["collectionTitle"] = newCollection.Name;
             Console.WriteLine(AllPhotos.Count());
             return View(AllPhotos);
         }
@@ -88,15 +89,9 @@ namespace iCollections.Controllers
                     }
                 }
             }
+            ViewData["collectionTitle"] = newCollection.Name;
             Console.WriteLine(AllPhotos.Count());
             return View(AllPhotos);
-        }
-
-
-        public IActionResult ICollectionDataTransferToJs(List<RenderingPhoto> AllPhotos)
-        {
-            var JSONresult = JsonConvert.SerializeObject(AllPhotos);
-            return Content(JSONresult, "application/json");
         }
 
 

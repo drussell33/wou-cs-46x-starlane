@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Collection>
 
 @{
     ViewData["Title"] = "Create iCollection";
@@ -6,17 +6,13 @@
 
 <h1>Publishing Success!!</h1>
 <h3>Here is a Current List of your Collections</h3>
-@*<div class="row">
+<div class="row">
     <div class="col-6">
         <h1>Collections:</h1>
-        @if (Model.ToList().Count == 0)
-        {
-            <h2>It looks like this user doesn't have any Collections yet. Bummer!</h2>
-        }
         @foreach (var collection in Model)
         {
             <div class="collection-container">
-                <a class="btn btn-primary" asp-controller="Home" asp-action="@collection.Route" asp-route-name="">@collection.Name</a>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="@collection.Route" asp-route-collectionID="@collection.Id">@collection.Name</a>
                 <p>@collection.DateMade</p>
                 <div class="keyword-container">
                     @foreach (var kw in collection.CollectionKeywords)
@@ -27,7 +23,7 @@
             </div>
         }
     </div>
-</div>*@
+</div>
 
 <div>
     <a class="btn btn-primary" asp-controller="Dashboard" asp-action="Index">Return to Dashboard</a>

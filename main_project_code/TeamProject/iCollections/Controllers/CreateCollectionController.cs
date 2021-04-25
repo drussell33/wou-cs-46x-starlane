@@ -159,8 +159,9 @@ namespace iCollections.Controllers
 
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-            var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections;
-            return View();
+            var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
+            //var collections = _collectionsDbContext.Collections.Where(c => c.UserId == appUser.Id).OrderByDescending(c => c.DateMade);
+            return View(collections);
         }
     }
 }
