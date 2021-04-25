@@ -185,7 +185,24 @@ $(document).ready(function MakeGallery() {
         }
 
 
-        // CUstom text to sign THIRD Attempt END ----------------------------------------------------------------------------
+        let positionCordinateData = [
+            //Row One
+            { "xAxis": 0, "yAxis": 25, "zAxis": -300, "yRotation": null },
+            { "xAxis": 300, "yAxis": 25, "zAxis": 0, "yRotation": Math.PI / 2 },
+            { "xAxis": 0, "yAxis": 25, "zAxis": 300, "yRotation": 3 },
+            { "xAxis": -300, "yAxis": 25, "zAxis": 0, "yRotation": Math.PI / 2 },
+            { "xAxis": -300, "yAxis": 25, "zAxis": 300, "yRotation": -60 },
+            { "xAxis": -200, "yAxis": 25, "zAxis": -200, "yRotation": 60 },
+            { "xAxis": 200, "yAxis": 25, "zAxis": 200, "yRotation": 60 },
+            { "xAxis": 250, "yAxis": 25, "zAxis": -250, "yRotation": 50 },
+        ];
+
+
+        LoadImagesToScene(scene, photoData, positionCordinateData);
+
+
+
+       /* // CUstom text to sign THIRD Attempt END ----------------------------------------------------------------------------
 
         // adding fish ---------------------
         fish4 = uploadImage('./images/fish_pics/fish4.png');
@@ -272,7 +289,7 @@ $(document).ready(function MakeGallery() {
         rockcodText.position.set(250, 130, -250);
         rockcodText.rotation.y = 50;
         scene.add(rockcodText);
-
+        */
         // ----------------------------------------------
         controls = new OrbitControls(camera, renderer.domElement);
         controls.maxPolarAngle = Math.PI * 0.495;
@@ -314,16 +331,16 @@ $(document).ready(function MakeGallery() {
         var time = performance.now() * 0.001;
 
         //mesh.position.y = Math.sin( time ) * 20 + 5;
-        fish2.position.y = Math.sin(time) * 20 + 5;
-        fish3.position.y = Math.sin(time - 1) * 20 + 5;
-        fish4.position.y = Math.sin(time - 2) * 20 + 5;
+        //fish2.position.y = Math.sin(time) * 20 + 5;
+        //fish3.position.y = Math.sin(time - 1) * 20 + 5;
+        //fish4.position.y = Math.sin(time - 2) * 20 + 5;
 
-        bluegill.position.y = Math.sin(time) * 20 + 5;
-        boot.position.y = Math.sin(time - 3) * 20 + 5;
-        marlin.position.y = Math.sin(time - 4) * 20 + 5;
+        //bluegill.position.y = Math.sin(time) * 20 + 5;
+        //boot.position.y = Math.sin(time - 3) * 20 + 5;
+        //marlin.position.y = Math.sin(time - 4) * 20 + 5;
 
-        rockcod.position.y = Math.sin(time - 5) * 20 + 5;
-        steelhead.position.y = Math.sin(time - 6) * 20 + 5;
+        //rockcod.position.y = Math.sin(time - 5) * 20 + 5;
+        //steelhead.position.y = Math.sin(time - 6) * 20 + 5;
         //mesh.rotation.x = time * 0.5;
         //mesh.rotation.z = time * 0.51;
 

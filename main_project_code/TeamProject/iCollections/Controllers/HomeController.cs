@@ -42,30 +42,28 @@ namespace iCollections.Controllers
         }
 
         [Route("/ocean_environment")]
-        public IActionResult Ocean_environment(/*int collectionID*/)
+        public IActionResult Ocean_environment(int collectionID)
         {
-            /*Collection newCollection = new Collection();
+            Collection newCollection = new Collection();
             newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
             var collectionPhotos = newCollection.CollectionPhotoes.Where(m => m.CollectId == collectionID).ToList();
             var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
-            RendingTransfer rendingTransfer = new RendingTransfer();
+
+            List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
+
             foreach (var image in collectionPhotos)
             {
                 foreach (var photo in photos)
                 {
                     if (image.PhotoId == photo.Id)
                     {
-                        RenderingPhoto renderingPhoto = new RenderingPhoto(photo.Data, image.Title, image.PhotoRank, image.Description);
-                        rendingTransfer.AddPhoto(renderingPhoto);
-                        //var lookatme = photo.Data;
-                        //var words = image.Title;
-                        //var rank = image.PhotoRank;
-                        //var longwords = image.Description;
+                        RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), photo.Name, image.PhotoRank, image.Description);
+                        AllPhotos.Add(renderingPhoto);
                     }
                 }
-            }*/
-
-            return View();
+            }
+            Console.WriteLine(AllPhotos.Count());
+            return View(AllPhotos);
         }
 
         
