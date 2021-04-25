@@ -7,7 +7,7 @@ import { GatherPhotoData, LoadImagesToScene } from './environment_functions.js';
 
 
 $(document).ready(function MakeGallery() {
-    console.log("page loaded the gallery environment.js");
+    console.log("page loaded the ocean environment.js");
 
     //Gets the photo data written to the tr's in the DOM
     var photoData = [];

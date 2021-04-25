@@ -35,7 +35,7 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EnvironmentSelection([Bind("Route")] CreateCollectionModel2 collection)
+        public IActionResult EnvironmentSelection([Bind("Route")] CreateCollectionRoute collection)
         {
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
@@ -43,6 +43,8 @@ namespace iCollections.Controllers
             if (ModelState.IsValid)
             {
                 ViewData["routeName"] = collection.Route;
+
+                //Add in or route length > 1
                 if (collection.Route != "false")
                 {
                     TempData["route"] = collection.Route;
@@ -66,6 +68,7 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult PhotoSelection(string[] selectedPhotos)
         {
+            //Add in the ability to give a title and description for the photo to be used in the collection
             if (ModelState.IsValid)
             {
                 TempData["photoids"] = selectedPhotos;
@@ -84,6 +87,7 @@ namespace iCollections.Controllers
         {
             TempData.Keep();
 
+            // figure out how to do privacy options
             string[] dropDownList = new string[] { "private", "friends", "public" };
             ViewData["Visibility"] = new SelectList(dropDownList);
             return View();
@@ -160,7 +164,6 @@ namespace iCollections.Controllers
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
             var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
-            //var collections = _collectionsDbContext.Collections.Where(c => c.UserId == appUser.Id).OrderByDescending(c => c.DateMade);
             return View(collections);
         }
     }
