@@ -5,24 +5,79 @@
 }
 
 <div class="row">
+    <!--Column 1 - About, content, etc-->
     <div class="col">
-        <h1>Collections:</h1>
-        @if (Model.ToList().Count == 0)
-        {
-            <h2>It looks like this user doesn't have any Collections yet. Bummer!</h2>
-        }
-        @foreach (var collection in Model)
-        {
-    <div class="collection-container">
-        <a class="btn btn-primary" asp-controller="Home" asp-action="@collection.Route" asp-route-name="">@collection.Name</a>
-        <p>@collection.DateMade</p>
-        <div class="keyword-container">
-            @foreach (var kw in collection.CollectionKeywords)
-            {
-                <p>@kw</p>
-            }
+        <!--About-->
+        <div class="row">
+
+
+            <div class="about-me">
+                <div class="row">
+                    <div class="col">
+                        <h1>@Model.FirstOrDefault().User.FirstName's Collections:</h1>
+
+                        @if (Model.ToList().Count == 0)
+                        {
+                            <h2>It looks like this user doesn't have any Collections yet. Bummer!</h2>
+                        }
+                        @foreach (var collection in Model)
+                        {
+                            <div class="collection-container">
+                                <img src="/img/2D_example.jpg" width="100" height="100" alt="" />
+                                <a class="btn btn-primary" asp-controller="Home" asp-action="@collection.Route" asp-route-name="">@collection.Name</a>
+                                <p>Created: @collection.DateMade</p>
+                                <div class="keyword-container">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-        }
+
+
+
+
+    <!--Temp Navigation-->
+    <div class="col-sm-3">
+        <div class="col user-profile-nav">
+
+            <h2>Navigation</h2>
+            <table style="border-top-style:dotted; border-top-width:initial;" class="table table-hover flex-column">
+                <tr class="nav-item">
+                    <td><a class="text-primary" asp-action="Following" asp-route-name="">Following</a></td>
+                </tr>
+                <tr class="nav-item">
+                    <td><a class="text-primary" asp-action="Followers" asp-route-name="">Followers</a></td>
+                </tr>
+                <tr class="nav-item">
+                    <td><a class="text-primary" asp-action="Index" asp-controller="Browse">Browse</a></td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

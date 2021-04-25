@@ -17,7 +17,7 @@ namespace iCollections.Tests.Tests
         [Test]
         public void ViewPhotosController_UserWithNoCollectionsReturns_NoCollections()
         {
-            var userPageController = new UserPageController(null, null);
+            var userPageController = new UserPageController(null, null, null, null);
             // var result = userPageController.Index("ZaydenC");
             var result = userPageController.Index("hermes");
             var userProfile = (result as ViewResult).ViewData.Model as UserProfile;

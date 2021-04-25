@@ -21,9 +21,9 @@ namespace iCollections.Controllers
         private readonly UserManager<IdentityUser> _userManager;
 
         private readonly IIcollectionUserRepository _userRepo;
-
-
         private readonly IPhotoRepository _photoRepo;
+
+        //private readonly ICollectionRepository _collectionrepo;
 
         public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, IPhotoRepository photoRepo)
         {

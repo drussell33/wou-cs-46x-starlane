@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace iCollections.Controllers
 {
@@ -30,6 +31,29 @@ namespace iCollections.Controllers
         {
             IdentityUser user = await _userManager.GetUserAsync(User);  // does go to the db
             return View();
+        }
+
+        [Authorize]
+        [Route("mycollections/{name}")]
+        public IActionResult MyCollectionsPage(string name)
+        {
+            if (name == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            IcollectionUser user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            string sessionusername = _userManager.GetUserId(User);
+            if (sessionusername != user.AspnetIdentityId)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
+            return View(collections);
         }
 
     }
