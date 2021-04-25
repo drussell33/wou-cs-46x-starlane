@@ -48,7 +48,7 @@ $(document).ready(function MakeGallery() {
         scene = new THREE.Scene();
 
         camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
-        camera.position.set(30, 30, 100);
+        camera.position.set(100, 30, 100);
 
         //
 
@@ -185,16 +185,18 @@ $(document).ready(function MakeGallery() {
         }
 
 
+
+
         let positionCordinateData = [
             //Row One
-            { "xAxis": 0, "yAxis": 25, "zAxis": -300, "yRotation": null },
-            { "xAxis": 300, "yAxis": 25, "zAxis": 0, "yRotation": Math.PI / 2 },
-            { "xAxis": 0, "yAxis": 25, "zAxis": 300, "yRotation": 3 },
-            { "xAxis": -300, "yAxis": 25, "zAxis": 0, "yRotation": Math.PI / 2 },
-            { "xAxis": -300, "yAxis": 25, "zAxis": 300, "yRotation": -60 },
-            { "xAxis": -200, "yAxis": 25, "zAxis": -200, "yRotation": 60 },
-            { "xAxis": 200, "yAxis": 25, "zAxis": 200, "yRotation": 60 },
-            { "xAxis": 250, "yAxis": 25, "zAxis": -250, "yRotation": 50 },
+            { "xAxis": 0, "yAxis": 75, "zAxis": -700, "yRotation": null },
+            { "xAxis": 700, "yAxis": 75, "zAxis": 0, "yRotation": -1.57 },
+            { "xAxis": 0, "yAxis": 75, "zAxis": 700, "yRotation": Math.PI },
+            { "xAxis": -700, "yAxis": 75, "zAxis": 0, "yRotation": 1.57 },
+            { "xAxis": 700, "yAxis": 75, "zAxis": -700, "yRotation": -0.78},
+            { "xAxis": -700, "yAxis": 75, "zAxis": -700, "yRotation": 0.78 },
+            { "xAxis": 700, "yAxis": 75, "zAxis": 700, "yRotation": 3.92 },
+            { "xAxis": -700, "yAxis": 75, "zAxis": 700, "yRotation": -3.92 },
         ];
 
 

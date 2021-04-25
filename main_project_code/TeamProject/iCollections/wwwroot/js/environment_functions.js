@@ -72,6 +72,7 @@ function LoadImagesToScene(scene, photoData, positionCordinateData) {
     for (let i = 0; i < photoData.length; ++i) {
         currentImage = uploadImage(photoData[i].srcData);
         currentImage.position.set(positionCordinateData[i].xAxis, positionCordinateData[i].yAxis, positionCordinateData[i].zAxis);
+        currentImage.rotation.y = positionCordinateData[i].yRotation;
         scene.add(currentImage);
     }
 }
