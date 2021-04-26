@@ -9,7 +9,7 @@
     
     <div class="jumbotron px-sm pt-4 pb-sm-1" style="background:url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);">
 
-        <h1 class="text-center text-white">@Model.VisitedUser.FirstName's Collections</h1>
+        <h1 class="text-center text-white"><a class="text-white" asp-controller="Collections" asp-action="Collections">@Model.VisitedUser.FirstName's Collections</a></h1>
 
         <div class="row">
             <div class="col-2" style="padding-right:0;">
@@ -20,11 +20,9 @@
                 <br />
                 <br />
                 <br />
+                <br />
                 <div class="row">
                     <h2 class="align-text-bottom text-white" style="padding-left:0;">@Model.VisitedUser.UserName</h2>
-                </div>
-                <div class="row">
-                    <h9 class="align-text-bottom text-white" style="padding-left:0;">@Model.SearchResults.Count() Collections</h9>
                 </div>
                 <div class="row">
                     <h9 class="align-text-bottom text-white" style="padding-left:0;">Joined:@Model.VisitedUser.DateJoined</h9>
@@ -43,8 +41,9 @@
     <div class="row justify-content-center text-right">
         <div class="col">
             <label>Search @Model.VisitedUser.FirstName's Collections:</label>
-            <form method="get" class="custom-control-inline valid" asp-controller="" asp-action="">
+            <form method="get" class="custom-control-inline valid" asp-controller="Collections" asp-action="Collections">
                 <input class="form-control" type="text" minlength="3" title="Use at least 3 characters" name="keywords" required pattern=".*\S+.*" />
+                <input class="form-control" type="hidden" name="name" value="@Model.VisitedUser.UserName"/>
                 <br />
                 <button type="submit" class="btn btn-outline-dark"> Search </button>
             </form>
@@ -64,6 +63,7 @@
 
         Random rand = new Random();
 
+        <h5>Result(s): @Model.SearchResults.Count() Collection(s)</h5>
         <table class="table table-bordered border-primary">
             <thead>
                 <tr>
@@ -80,7 +80,7 @@
                         <img src=@colls[rand.Next(6)] width="100" height="100" alt="" />
                     </td>
                     <td>
-                        <a  href="#"> @ck.Collect.Name </a>
+                        <a href="#"> @ck.Collect.Name </a>
                     </td>
                     <td>
                         @ck.Keyword.Name
@@ -93,7 +93,14 @@
 
         </table>
 
+        if (Model.SearchResults.Count() == 0)
+        {
+            <div class="text-center">
+                <h1>@Model.VisitedUser.FirstName does not have any collections matching those keywords</h1>
+            </div>
+        }
     }
+
 
     else
     {

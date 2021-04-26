@@ -1,6 +1,7 @@
 ﻿using iCollections.Data;
 using iCollections.Data.Abstract;
 using iCollections.Models;
+using iCollections.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -46,36 +47,80 @@ namespace iCollections.Controllers
 
 
         [Route("Collections/{name}")]
-        public IActionResult Collections(string name)
+        public IActionResult Collections(string name, string keywords)
         {
-            if (name == null)
+            if (keywords == null)
             {
-                return RedirectToAction("Index", "Home");
+                if (name == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                IcollectionUser user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
+                if (user == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                IcollectionUser active_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
+
+                BrowseList collectionlist = new BrowseList
+                {
+                    LoggedInUser = active_user,
+                    VisitedUser = user,
+                    SearchResults = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).ToList(),
+                    SuggestedKeywords = null
+
+                };
+
+                var myId = _userRepo.GetReadableUserID(name);
+                ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+                //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
+
+
+
+                return View(collectionlist);
             }
-            IcollectionUser user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
-            if (user == null)
+            else 
             {
-                return RedirectToAction("Index", "Home");
+                if (name == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                IcollectionUser user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
+                if (user == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                string[] keys = StringUtilities.SplitBySpace(keywords); // parse strings separated by space or whitespace
+                List<CollectionKeyword> filtered = new List<CollectionKeyword>();
+                foreach (string token in keys)
+                {
+                    var coll_keys = _collectionsDbContext.CollectionKeywords.Include(c => c.Collect).Include(k => k.Keyword).Where(c => c.Collect.User == user && c.Keyword.Name.Contains(token)).ToList();
+
+                    filtered.AddRange(coll_keys);
+
+                }
+
+                filtered.Union(filtered);
+
+                IcollectionUser active_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
+
+                BrowseList collectionlist = new BrowseList
+                {
+                    LoggedInUser = active_user,
+                    VisitedUser = user,
+                    SearchResults = filtered,
+                    SuggestedKeywords = null
+
+                };
+
+                var myId = _userRepo.GetReadableUserID(name);
+                ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+
+                return View(collectionlist);
             }
-
-            IcollectionUser active_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User)); 
-
-            BrowseList collectionlist = new BrowseList
-            {
-                LoggedInUser = active_user,
-                VisitedUser = user,
-                SearchResults = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).ToList(),
-                SuggestedKeywords = null
-
-            };
-
-            var myId = _userRepo.GetReadableUserID(name);
-            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
-            //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
-
-
-
-            return View(collectionlist);
+            
         }
 
         [Authorize]
