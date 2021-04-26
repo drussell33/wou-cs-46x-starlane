@@ -11,5 +11,7 @@ namespace iCollections.Models
 
         public IcollectionUser ProfileOwner { get; set; }
 
+        public List<Collection> recentCollections { get; set; }
+
     }
 }

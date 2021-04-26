@@ -4,6 +4,8 @@ using iCollections.Models;
 using System.Collections.Generic;
 using System;
 
+// Baltazar Ortiz
+
 namespace iCollections.Tests.Tests
 {
     public class TestRemoveDuplicates

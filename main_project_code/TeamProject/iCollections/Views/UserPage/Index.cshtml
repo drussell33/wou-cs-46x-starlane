@@ -1,109 +1,124 @@
 @using iCollections.Data;
 @using Microsoft.AspNetCore.Identity;
-@inject ICollectionsDbContext AppContext
-@model UserProfile
+@inject ICollectionsDbContext AppContext;
+@model UserProfile;
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<div class="row">
-    <!--Column 1 - About, content, etc-->
-    <div class="col col">
-        <!--About-->
-        <div class="row">
-
-            <div class="col user-profile-obj" id="follow-button">
-                @if (Model.ProfileOwner.ProfilePicId.HasValue)
-                {
-                    <img class="user-profile-img" src="data:image;base64,@System.Convert.ToBase64String(@Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value).Data)" />
-                }
-                else
-                {
-                    <img class="user-profile-img">
-                }
-                <h2>@Model.ProfileOwner.UserName</h2>
-                <h3>@Model.ProfileOwner.FirstName @Model.ProfileOwner.LastName</h3>
-
-                <div class="about-me">
-                    <p>Date Joined: @DateTime.Now</p>
-                    <p>About me: @Model.ProfileOwner.AboutMe</p>
-                    <p>Followers: @Model.ProfileOwner.FollowFollowedNavigations.ToList().Count</p>
-                    <p>Following: @Model.ProfileOwner.FollowFollowerNavigations.ToList().Count</p>
-                </div>
-                <br />
-                @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User) != Model.ProfileOwner.AspnetIdentityId)
-                {
-                    string id = UserManager.GetUserId(User);
-                    IcollectionUser appUser = AppContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == id);
-                    if (appUser.FollowFollowerNavigations.Count > 0)
-                    //appUser.FollowFollowerNavigations.Any(x => x.Followed == Model.ProfileOwner.Id);
-                    if (Model.ProfileOwner.FollowFollowedNavigations.Any(x => x.Follower == appUser.Id))
-                    {
-                        <span>
-                            <a class="btn btn-primary following-button text-light" value-user="@appUser.Id" value-target="@Model.ProfileOwner.Id">Following</a>
-                        </span>
-                    }
-                    else
-                    {
-                        <span>
-                            <a class="btn btn-primary follow-button text-light" value-user="@appUser.Id" value-target="@Model.ProfileOwner.Id">Follow</a>
-                        </span>
-                    }
-                }
-
-            </div>
-        </div>
-
-        <!--Content-->
-        <div class="row">
-            <div class="col user-profile-obj">
-                <h2>Recent Photos:</h2>
-                @foreach (var photo in Model.ProfileOwner.Photos.Take<Photo>(10))
-                {
-                    <div>
-                        <p>Name: @photo.Name</p>
-                        <p>Date Uploaded: @photo.DateUploaded</p>
+<div class="row py-5 px-4">
+        <div class="col-md-6 mx-auto">
+            <!-- Profile widget -->
+            <div class="bg-white shadow rounded overflow-hidden">
+                <div class="px-4 pt-0 pb-4 cover">
+                    <div class="media align-items-end profile-head">
+                        <div class="profile mr-3">
+                            @{
+                                string profilePicSource = ViewBag.ProfilePicUrl;
+                                if (profilePicSource == null)
+                                {
+                                    <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                                }
+                                else
+                                {
+                                    <img src="@profilePicSource" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                                }
+                                <!-- if user is signed in and is profile owner, then edit profile -->
+                                <!-- if user is signed in and is not profile owner, then -->
+                                    <!-- if user follows profile owner, then unfollow -->
+                                    <!-- if user does not follow profile owner, then follow -->
+                                <!-- if not a user (public), then follow but with authentication first -->
+                                    <!-- if user authenticated, then just show the profile page -->
+                                if (SignInManager.IsSignedIn(User))
+                                {
+                                    if (UserManager.GetUserId(User) == Model.ProfileOwner.AspnetIdentityId)
+                                    {
+                                        // edit profile option
+                                        <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
+                                    }
+                                    else
+                                    {
+                                        string id = UserManager.GetUserId(User);
+                                        IcollectionUser appUser = AppContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == id);
+                                        if (Model.ProfileOwner.FollowFollowedNavigations.Any(x => x.Follower == appUser.Id))
+                                        {
+                                            // unfollow option
+                                            <a href="#" class="btn btn-outline-dark following-button btn-sm btn-block">Following</a>
+                                        }
+                                        else
+                                        {
+                                            // follow option
+                                            <a href="#" class="btn btn-primary follow-button btn-sm btn-block">Follow</a>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // follow option but links to some action that requires login
+                                    <a href="#" class="btn btn-primary follow-button btn-sm btn-block">Follow</a>
+                                }
+                            }
+                        </div>
+                        <div class="media-body mb-5 text-white">
+                            <h4 class="mt-0 mb-0">@Model.ProfileOwner.UserName</h4>
+                            <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>@Model.ProfileOwner.FirstName @Model.ProfileOwner.LastName</p>
+                        </div>
                     </div>
-                }
+                </div>
+                <div class="bg-light p-4 d-flex justify-content-end text-center">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <h5 class="font-weight-bold mb-0 d-block">@AppContext.Collections.Where(c => c.User.Id == Model.ProfileOwner.Id).ToList().Count</h5><small class="text-muted"> <i class="mr-1"></i><a asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName">iCollections</a></small>
+                        </li>
+                        <li class="list-inline-item">
+                            <h5 class="font-weight-bold mb-0 d-block">@Model.ProfileOwner.FollowFollowedNavigations.ToList().Count</h5><small class="text-muted"> <i class="mr-1"></i><a asp-action="Followers" asp-route-name="@Model.ProfileOwner.UserName">Followers</a></small>
+                        </li>
+                        <li class="list-inline-item">
+                            <h5 class="font-weight-bold mb-0 d-block">@Model.ProfileOwner.FollowFollowerNavigations.ToList().Count</h5><small class="text-muted"> <i class="mr-1"></i><a asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName">Following</a></small>
+                        </li>
+                    </ul>
+                </div>
+                <div class="px-4 py-3">
+                    <h5 class="mb-0">About</h5>
+                    <div class="p-4 rounded shadow-sm bg-light">
+                        <p class="font-italic mb-0">@Model.ProfileOwner.AboutMe</p>
+                        @if (@Model.ProfileOwner.DateJoined != null)
+                        {
+                            <p class="font-italic mb-0">Date Joined: @Model.ProfileOwner.DateJoined</p>
+                        }
+                    </div>
+                </div>
+                <div class="py-4 px-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h5 class="mb-0">Recent iCollections</h5><a asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName" class="btn btn-link text-muted">Show all</a>
+                    </div>
+                    <div class="row">
+                        @if (Model.recentCollections != null && Model.recentCollections.Any()) 
+                        {
+                            if (Model.recentCollections.ElementAtOrDefault(0) != null)
+                            {
+                                <div class="col-lg-6 mb-2 pr-lg-1"><div class="d-flex px-3 py-5 width-full rounded border"><a href="#" class="text-bold flex-auto min-width-0">@Model.recentCollections[0].Name</a></div></div>
+                            }
+                            if (Model.recentCollections.ElementAtOrDefault(1) != null)
+                            {
+                                <div class="col-lg-6 mb-2 pl-lg-1"><div class="d-flex px-3 py-5 width-full rounded border"><a href="#" class="text-bold flex-auto min-width-0">@Model.recentCollections[1].Name</a></div></div>
+                            }
+                            if (Model.recentCollections.ElementAtOrDefault(2) != null)
+                            {
+                                <div class="col-lg-6 pr-lg-1 mb-2"><div class="d-flex px-3 py-5 width-full rounded border"><a href="#" class="text-bold flex-auto min-width-0">@Model.recentCollections[2].Name</a></div></div>
+                            }
+                            if (Model.recentCollections.ElementAtOrDefault(3) != null)
+                            {
+                                <div class="col-lg-6 pl-lg-1"><div class="d-flex px-3 py-5 width-full rounded border"><a href="#" class="text-bold flex-auto min-width-0">@Model.recentCollections[3].Name</a></div></div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="col-lg mb-2"><div class="d-flex px-3 py-5 width-full rounded border"><h2 class="center-heading">No iCollections yet</h2></div></div>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    @*    Column 2 - Navigation
-        <div class="col col-2 user-profile-nav">
-            <h2>Navigation</h2>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a asp-action=Followers asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Followers</a>
-                </li>
-                <li class="nav-item">
-                    <a asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Following</a>
-                </li>
-                <li class="nav-item">
-                    <a asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName" class="nav-link text-dark">Collections</a>
-                </li>
-            </ul>
-        </div>
-    *@
-
-
-    <!--Temp Navigation-->
-    <div class="col-sm-3">
-        <div class="col user-profile-nav">
-
-            <h2>Navigation</h2>
-            <table style="border-top-style:dotted; border-top-width:initial;" class="table table-hover flex-column">
-                <tr class="nav-item">
-                    <td><a class="text-primary" asp-action="Following" asp-route-name="@Model.ProfileOwner.UserName">Following</a></td>
-                </tr>
-                <tr class="nav-item">
-                    <td><a class="text-primary" asp-action="Followers" asp-route-name="@Model.ProfileOwner.UserName">Followers</a></td>
-                </tr>
-                <tr class="nav-item">
-                    <td><a class="text-primary" asp-action="Index" asp-controller="Browse">Browse</a></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>

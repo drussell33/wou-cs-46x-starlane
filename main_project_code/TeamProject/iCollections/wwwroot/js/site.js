@@ -65,7 +65,7 @@ $("#photoUpload").submit(function (event) {
 
 // when a photo is clicked in view photos, highlight it
 $('.pic-thumbnail').click(function (e) {
-    if (e.ctrlKey) {}
+    if (e.ctrlKey) { }
     else {
         $('.selected-thumbnail').removeClass('selected-thumbnail');
         $(this).addClass('selected-thumbnail');
@@ -83,20 +83,28 @@ function closeNav() {
     $('.selected-thumbnail').removeClass('selected-thumbnail');
 }
 
+function isValidPhotoName(proposed) {
+    if (proposed == null || proposed == "") {
+        // User cancelled the prompt -> ignore
+        return false;
+    }
+
+    if (!proposed.replace(/\s/g, '').length) {
+        // User has either all whitespace -> tell user
+        alert("Enter a non-empty name");
+        return false;
+    }
+
+    return true;
+}
+
 // prompt user for new photo name
 function getNewPhotoName() {
     var txt;
     var txt = prompt("Add new photo name:");
-    if (txt == null || txt == "") {
-        // User cancelled the prompt -> ignore
+    if (!isValidPhotoName(txt)) {
         closeNav();
-    } 
-    else if (!txt.replace(/\s/g, '').length) {
-        // User has either all whitespace -> tell user
-        alert("Enter a non-empty name");
-        closeNav();
-    }
-    else {
+    } else {
         var url = $('.selected-thumbnail').find("img").first().attr('src');
         var imageId = url.split("/").pop();
         sendNewPhotoName(url, imageId, txt);
@@ -105,13 +113,13 @@ function getNewPhotoName() {
 
 // request update for new photo name
 function sendNewPhotoName(imgURL, imageId, fileName) {
-    var req = $.post(imgURL, { id : imageId, fileName: fileName }, "text");
-    req.done(function(data) {
+    var req = $.post(imgURL, { id: imageId, fileName: fileName }, "text");
+    req.done(function (data) {
         $(".selected-thumbnail").find("h5").first().text(data);
         closeNav();
     });
 
-    req.fail(function() {
+    req.fail(function () {
         alert("Something went wrong on posting new image name");
         closeNav();
     });
