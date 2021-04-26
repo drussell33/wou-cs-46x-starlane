@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using iCollections.Models;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace iCollections
 {
@@ -32,10 +33,9 @@ namespace iCollections
         {
             var authBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("AuthenticationConnection"));
             var appBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("ICollectionsConnection"));
-            authBuilder.Password = Configuration["ICollections:ServerPassword"];
-            appBuilder.Password = Configuration["ICollections:ServerPassword"];
-            //authBuilder.Password = "nju8*ikm";
-            //appBuilder.Password = "nju8*ikm";
+            //authBuilder.Password = Configuration["ICollections:ServerPassword"];
+            //appBuilder.Password = Configuration["ICollections:ServerPassword"];
+
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(authBuilder.ConnectionString));
@@ -57,6 +57,9 @@ namespace iCollections
             services.AddControllersWithViews();
             // Added to enable runtime compilation.
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            //Added for TempData use for icollection creation() 
+            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

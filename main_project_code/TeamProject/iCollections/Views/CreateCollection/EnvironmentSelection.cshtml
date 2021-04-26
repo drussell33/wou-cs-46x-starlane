@@ -1,4 +1,4 @@
-﻿@model CreateCollectionEnvironment
+﻿@model CreateCollectionRoute
 
 @{
     ViewData["Title"] = "Create iCollection";
@@ -6,17 +6,32 @@
 
 <h1>Environment Selection page</h1>
 <h4>Please Select from one of the following environments</h4>
+@if (ViewData["routeName"] != null )
+{
+    <h3 class="checkboxWarning">You need to select one of the environment options to continue.</h3>
+}
 <form asp-controller="CreateCollection" asp-action="EnvironmentSelection" method="post" class="">
+    <div asp-validation-summary="All" class="text-danger"></div>
 
     <section class="clear-section " id="">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-2 form-group ">
+                @*<div class="col-2 form-group ">
 
-                    <div class="form-check align-content-center environment-select-checkbox">
-                        <input type="checkbox" asp-for="Route" value="Ocean_environment" class="form-check-input" id="">
-                        <label class="form-check-label" for="exampleCheck1">Select</label>
+                        <div class="form-check align-content-center environment-select-checkbox">
+                            <input type="checkbox" asp-for="Route" value="Ocean_environment" class="form-check-input" id="">
+                            <label class="form-check-label" for="exampleCheck1">Select</label>
+                        </div>
+
+                    </div>*@
+                <div class="col-2">
+
+                    <div class="form-group">
+                        @*<label asp-for="Route" class="control-label"></label>*@
+                        <input asp-for="Route" type="checkbox" class="form-control" value="Ocean_environment" />
+                        <span asp-validation-for="Route" class="text-danger"></span>
                     </div>
+
 
                 </div>
                 <div class="col-10">
@@ -40,11 +55,19 @@
         <div class="container-fluid">
             <div class="row">
 
-                <div class="col-2 form-group">
+                @*<div class="col-2 form-group">
 
-                    <div class="form-check align-content-center environment-select-checkbox">
-                        <input type="checkbox" asp-for="Route" value="gallery_environment" class="form-check-input" id="">
-                        <label class="form-check-label" for="exampleCheck1">Select</label>
+                        <div class="form-check align-content-center environment-select-checkbox">
+                            <input type="checkbox" asp-for="Route" value="gallery_environment" class="form-check-input" id="">
+                            <label class="form-check-label" for="exampleCheck1">Select</label>
+                        </div>
+
+                    </div>*@
+                <div class="col-2">
+                    <div class="form-group">
+                        @*<label asp-for="Route" class="control-label"></label>*@
+                        <input asp-for="Route" type="checkbox" class="form-control" value="gallery_environment" data-val-required="The AcceptsTerms field is required." />
+                        <span asp-validation-for="Route" class="text-danger"></span>
                     </div>
 
                 </div>
@@ -65,9 +88,13 @@
         </div>
     </section>
 
-
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <div class="form-group">
+        <input type="submit" value="Continue" class="btn btn-primary" />
+    </div>
+    @*<button type="submit" value="EnvironmentSelection" class="btn btn-primary">Continue</button>*@
 
 </form>
 
-
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

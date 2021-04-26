@@ -27,9 +27,6 @@ namespace iCollections.Controllers
             _collectionsDbContext = collectionsDbContext;
         }
 
-
-
-
         [HttpGet]
         public IActionResult EnvironmentSelection()
         {
@@ -38,29 +35,24 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EnvironmentSelection(CreateCollectionEnvironment collection)
+        public IActionResult EnvironmentSelection([Bind("Route")] CreateCollectionRoute collection)
         {
-
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
 
             if (ModelState.IsValid)
             {
-                Collection newCollection = new Collection();
-                newCollection.Route = collection.Route;
-                newCollection.UserId = appUser.Id;
-                newCollection.DateMade = DateTime.Now;
-                newCollection.Visibility = 1;
-                newCollection.Name = "unfinished_new_collection";
+                ViewData["routeName"] = collection.Route;
 
-                _collectionsDbContext.Collections.Add(newCollection);
-                _collectionsDbContext.SaveChanges();
+                //Add in or route length > 1
+                if (collection.Route != "false")
+                {
+                    TempData["route"] = collection.Route;
 
-                return RedirectToAction("PhotoSelection");
+                    return RedirectToAction("PhotoSelection");
+                }
             }
-
             return View("EnvironmentSelection", collection);
-           
         }
 
 
@@ -68,26 +60,24 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult PhotoSelection()
         {
-           // string Route = route;
-
+            TempData.Keep();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PhotoSelection(CreateCollectionPhotos collection)
+        public IActionResult PhotoSelection(string[] selectedPhotos)
         {
-            Debug.WriteLine(collection);
+            //Add in the ability to give a title and description for the photo to be used in the collection
             if (ModelState.IsValid)
             {
-                foreach(var photoId in collection.CollectionPhotosIds)
-                {
-                    //make collection photos from the model form photoids
-                }
+                TempData["photoids"] = selectedPhotos;
+
                 return RedirectToAction("PublishingOptionsSelection");
             }
-            //return View(collection);
-            return RedirectToAction("PublishingOptionsSelection");
+
+            TempData.Keep();
+            return View("PhotoSelection", selectedPhotos);
         }
 
 
@@ -95,39 +85,85 @@ namespace iCollections.Controllers
         [HttpGet]
         public IActionResult PublishingOptionsSelection()
         {
+            TempData.Keep();
+
+            // figure out how to do privacy options
             string[] dropDownList = new string[] { "private", "friends", "public" };
-            //var dropDownList = new []string ("high", "low", "none");
             ViewData["Visibility"] = new SelectList(dropDownList);
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PublishingOptionsSelection(CreateCollectionPublishing collection)
+        public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description")]CreateCollectionPublishing collection)
         {
+            string id = _userManager.GetUserId(User);
+            IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+
+            // Get route selection from tempdata cookie
+            string route = "nothing";
+            if (TempData.ContainsKey("route"))
+            {
+                route = TempData["route"].ToString();
+            }
+            TempData.Keep();
             Debug.WriteLine(collection);
             if (ModelState.IsValid)
             {
-                //collection.Route = collection
-                //_collectionsDbContext.Collections.Add(collection);
-                //_collectionsDbContext.SaveChanges();
+                Collection newCollection = new Collection();
+                newCollection.Route = route;
+                newCollection.UserId = appUser.Id;
+                newCollection.DateMade = DateTime.Now;
+                newCollection.Visibility = 1;
+                newCollection.Name = collection.CollectionName;               
+
+                _collectionsDbContext.Collections.Add(newCollection);
+                await _collectionsDbContext.SaveChangesAsync();
+
+                // Get photo selection from tempdata cookie
+                if (TempData.ContainsKey("photoids"))
+                {
+                    var objectArray = (string[])TempData["photoids"];
+                    if(objectArray != null)
+                    {
+                        for (var i = 0; i < objectArray.Length; i++)
+                        {
+                            foreach (var photo in _collectionsDbContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
+                            {
+                                if (objectArray[i].ToString() == photo.Id.ToString())
+                                {
+                                    CollectionPhoto newCollectionPhoto = new CollectionPhoto();
+                                    string idConvert = objectArray[i].ToString();
+                                    newCollectionPhoto.PhotoId = Int32.Parse(idConvert);
+                                    newCollectionPhoto.CollectId = newCollection.Id;
+                                    newCollectionPhoto.PhotoRank = 1;
+                                    newCollectionPhoto.DateAdded = DateTime.Now;
+                                    newCollectionPhoto.Title = "new title";
+                                    newCollectionPhoto.Description = "new description";
+                                    _collectionsDbContext.CollectionPhotos.Add(newCollectionPhoto);
+                                    await _collectionsDbContext.SaveChangesAsync();
+                                }
+                            }
+                        }
+                    }
+                    
+                }
 
                 return RedirectToAction("PublishingSuccess");
             }
             string[] dropDownList = new string[] { "private", "friends", "public" };
-            //var dropDownList = new []string ("high", "low", "none");
             ViewData["Visibility"] = new SelectList(dropDownList);
-            //return View(collection);
+
             return RedirectToAction("PublishingSuccess");
         }
 
         [HttpGet]
         public IActionResult PublishingSuccess()
         {
+
             string id = _userManager.GetUserId(User);
             IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-            var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections;
-            //var collections = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.Id == appUser.Id).Collections;
+            var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
             return View(collections);
         }
     }
