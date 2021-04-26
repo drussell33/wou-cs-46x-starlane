@@ -21,9 +21,10 @@ namespace iCollections.Controllers
 
         private readonly IIcollectionUserRepository _userRepo;
         private readonly ICollectionRepository _collectionRepo;
+        private readonly IPhotoRepository _photoRepo;
 
 
-        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionRepository collectionRepo, ICollectionsDbContext collectionsDbContext)
+        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionRepository collectionRepo, IPhotoRepository photoRepo, ICollectionsDbContext collectionsDbContext)
         {
             _logger = logger;
             _userManager = userManager;
@@ -31,6 +32,8 @@ namespace iCollections.Controllers
 
             _userRepo = userRepo;
             _collectionRepo = collectionRepo;
+            _photoRepo = photoRepo;
+
 
         }
 
@@ -54,8 +57,25 @@ namespace iCollections.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
-            return View(collections);
+
+            IcollectionUser active_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User)); 
+
+            BrowseList collectionlist = new BrowseList
+            {
+                LoggedInUser = active_user,
+                VisitedUser = user,
+                SearchResults = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).ToList(),
+                SuggestedKeywords = null
+
+            };
+
+            var myId = _userRepo.GetReadableUserID(name);
+            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+            //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
+
+
+
+            return View(collectionlist);
         }
 
         [Authorize]
@@ -77,8 +97,17 @@ namespace iCollections.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
-            return View(collections);
+            BrowseList collectionlist = new BrowseList
+            {
+                LoggedInUser = user,
+                VisitedUser = user,
+                SearchResults = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).ToList(),
+                SuggestedKeywords = null
+                
+            };
+
+            //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
+            return View(collectionlist);
         }
     }
 }
