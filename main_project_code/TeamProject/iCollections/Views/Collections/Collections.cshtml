@@ -38,19 +38,43 @@
 
 
 <div class="container">
-    <div class="row justify-content-center text-right">
-        <div class="col">
-            <label>Search @Model.VisitedUser.FirstName's Collections:</label>
-            <form method="get" class="custom-control-inline valid" asp-controller="Collections" asp-action="Collections">
-                <input class="form-control" type="text" minlength="3" title="Use at least 3 characters" name="keywords" required pattern=".*\S+.*" />
-                <input class="form-control" type="hidden" name="name" value="@Model.VisitedUser.UserName" />
-                <input class="form-control" type="hidden" name="sort" value="name" />
-                <br />
-                <button type="submit" class="btn btn-outline-dark"> Search </button>
-            </form>
-            <p style="padding-right: 7em"><em>(Enter search by keywords)</em></p>
+    <form method="get" class="custom-control valid" asp-controller="Collections" asp-action="Collections">
+        <div class="row justify-content-center text-right">
+            <div class="col">
+                <label><strong>Search @Model.VisitedUser.FirstName's Collections:</strong></label>
+                <div class="custom-control-inline">
+                    <input class="form-control" type="text" minlength="3" title="Use at least 3 characters" name="keywords" required pattern=".*\S+.*" />
+                    <input class="form-control" type="hidden" name="name" value="@Model.VisitedUser.UserName" />
+                    <br />
+                    <button type="submit" class="btn btn-outline-dark"> Search </button>
+                </div>
+                <p style="padding-right: 7em"><em>(Enter search by keywords)</em></p>
+            </div>
         </div>
-    </div>
+        <div class="row justify-content-end text-right" style="padding-right:4em;">
+            <div class="form-check-inline">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort" value="name" id="namesort" checked>
+                    <label class="form-check-label" for="namesort">
+                        <strong>Sort by Name</strong>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort" value="keyword" id="keysort">
+                    <label class="form-check-label" for="keysort">
+                        <strong>Sort by Keyword</strong>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort" value="date" id="datesort">
+                    <label class="form-check-label" for="datesort">
+                        <strong>Sort by Date</strong>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+
 </div>
 
 
