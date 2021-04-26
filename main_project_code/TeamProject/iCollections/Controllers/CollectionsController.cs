@@ -47,9 +47,9 @@ namespace iCollections.Controllers
 
 
         [Route("Collections/{name}")]
-        public IActionResult Collections(string name, string keywords)
+        public IActionResult Collections(string name, string keywords, string sort)
         {
-            if (keywords == null)
+            if (keywords == null && sort == null)
             {
                 if (name == null)
                 {
@@ -76,11 +76,54 @@ namespace iCollections.Controllers
                 ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
                 //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
 
+                return View(collectionlist);
+            }
+            if (keywords == null)
+            {
+                if (name == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                IcollectionUser user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
+                if (user == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
 
+                IcollectionUser active_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
+
+                List<CollectionKeyword> sorted = new List<CollectionKeyword>();
+
+                if (sort == "name")
+                {
+                    sorted = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).OrderBy(n => n.Collect.Name).ToList();
+                }
+                if (sort == "keyword")
+                {
+                    sorted = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).OrderBy(n => n.Keyword.Name).ToList();
+                }
+                if (sort == "date")
+                {
+                    sorted = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).OrderBy(n => n.Collect.DateMade).ToList();
+                }
+
+                BrowseList collectionlist = new BrowseList
+                {
+
+                    LoggedInUser = active_user,
+                    VisitedUser = user,
+                    SearchResults = sorted,
+                    SuggestedKeywords = null
+
+                };
+
+                var myId = _userRepo.GetReadableUserID(name);
+                ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+                //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
 
                 return View(collectionlist);
             }
-            else 
+            else
             {
                 if (name == null)
                 {
@@ -96,13 +139,28 @@ namespace iCollections.Controllers
                 List<CollectionKeyword> filtered = new List<CollectionKeyword>();
                 foreach (string token in keys)
                 {
-                    var coll_keys = _collectionsDbContext.CollectionKeywords.Include(c => c.Collect).Include(k => k.Keyword).Where(c => c.Collect.User == user && c.Keyword.Name.Contains(token)).ToList();
-
+                    var coll_keys = _collectionsDbContext.CollectionKeywords.Include(c => c.Collect).Include(k => k.Keyword).Where(c => c.Collect.User == user && c.Keyword.Name.Contains(token)).OrderBy(c=>c.Collect.Name).ToList();
+                    
                     filtered.AddRange(coll_keys);
-
                 }
 
                 filtered.Union(filtered);
+
+                List<CollectionKeyword> sorted = new List<CollectionKeyword>();
+                if (sort == "name")
+                {
+                    sorted = filtered.OrderBy(a => a.Collect.Name).ToList();
+                }
+                if (sort == "keyword")
+                {
+                    sorted = filtered.OrderBy(a => a.Keyword.Name).ToList();
+                }
+                if (sort == "date")
+                {
+                    sorted = filtered.OrderBy(a => a.Collect.DateMade).ToList();
+                }
+
+                
 
                 IcollectionUser active_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
 
@@ -110,7 +168,7 @@ namespace iCollections.Controllers
                 {
                     LoggedInUser = active_user,
                     VisitedUser = user,
-                    SearchResults = filtered,
+                    SearchResults = sorted,
                     SuggestedKeywords = null
 
                 };

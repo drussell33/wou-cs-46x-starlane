@@ -43,7 +43,8 @@
             <label>Search @Model.VisitedUser.FirstName's Collections:</label>
             <form method="get" class="custom-control-inline valid" asp-controller="Collections" asp-action="Collections">
                 <input class="form-control" type="text" minlength="3" title="Use at least 3 characters" name="keywords" required pattern=".*\S+.*" />
-                <input class="form-control" type="hidden" name="name" value="@Model.VisitedUser.UserName"/>
+                <input class="form-control" type="hidden" name="name" value="@Model.VisitedUser.UserName" />
+                <input class="form-control" type="hidden" name="sort" value="name" />
                 <br />
                 <button type="submit" class="btn btn-outline-dark"> Search </button>
             </form>
@@ -68,9 +69,9 @@
             <thead>
                 <tr>
                     <th scope="col">Preview Photo</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Keyword(s)</th>
-                    <th scope="col">Date Created</th>
+                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=name">Name</a></th>
+                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=keyword">Keyword(s)</a></th>
+                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=date">Date Created</a></th>
                 </tr>
             </thead>
             @foreach (CollectionKeyword ck in Model.SearchResults)
