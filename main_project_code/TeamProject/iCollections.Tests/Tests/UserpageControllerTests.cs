@@ -20,15 +20,15 @@ namespace iCollections.Tests.Tests
 {
     public class UserpageControllerTests
     {
+        Mock<IcollectionRepository> mockCollectionsRepo = new Mock<IcollectionRepository>();
+
+        Mock<IIcollectionUserRepository> mockUsersRepo = new Mock<IIcollectionUserRepository>();
+
+        Mock<IPhotoRepository> mockPhotosRepo = new Mock<IPhotoRepository>();
+
         [SetUp]
         public void Setup()
         {
-        }
-
-        [Test]
-        public void UserpageController_UserWithNoCollectionsReturns_NoCollections()
-        {
-            Mock<IcollectionRepository> mockCollectionsRepo = new Mock<IcollectionRepository>();
             mockCollectionsRepo.Setup(m => m.GetAll()).Returns(new Collection[]{
                 new Collection {Id = 1, Name = "Collection1", UserId = 1, DateMade = new DateTime(2004, 11, 2, 8, 3, 0)},
                 new Collection {Id = 2, Name = "My Fish", UserId = 1, DateMade = new DateTime(2015, 9, 1, 5, 5, 0)},
@@ -47,41 +47,44 @@ namespace iCollections.Tests.Tests
                 new Collection {Id = 15, Name = "My Funco Pops", UserId = 3, DateMade = new DateTime(2012, 6, 2, 7, 31, 0)}
             }.AsQueryable<Collection>());
 
-            Mock<IIcollectionUserRepository> mockUsersRepo = new Mock<IIcollectionUserRepository>();
+            mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
+                            .Returns(new Collection[] { }.ToList());
+
             mockUsersRepo.Setup(m => m.GetAll()).Returns(new IcollectionUser[]{
-                new IcollectionUser {Id = 1, FirstName = "Hermes", LastName = "Martin", UserName = "hermes23", ProfilePicId = 1},
+                new IcollectionUser {Id = 1, FirstName = "Harold", LastName = "Martin", UserName = "haroldo", ProfilePicId = 1},
                 new IcollectionUser {Id = 2, FirstName = "Michael", LastName = "Jordan", UserName = "jordan2", ProfilePicId = 2},
-                new IcollectionUser {Id = 3, FirstName = "Elton", LastName = "Brand", UserName = "brandy", ProfilePicId = 3}
+                new IcollectionUser {Id = 3, FirstName = "Elton", LastName = "Brand", UserName = "brandy", ProfilePicId = 3},
+                new IcollectionUser {Id = 4, FirstName = "Gerardo", LastName = "Medina", UserName = "medinas", ProfilePicId = 4}
             }.AsQueryable<IcollectionUser>());
 
-            Mock<IPhotoRepository> mockPhotosRepo = new Mock<IPhotoRepository>();
+            mockUsersRepo.Setup(m => m.GetReadableID(It.IsAny<string>())).Returns(4);
+
             mockPhotosRepo.Setup(m => m.GetAll()).Returns(new Photo[]{
-                new Photo {Id = 1, UserId = 1, PhotoGuid = new Guid()},
-                new Photo {Id = 2, UserId = 2, PhotoGuid = new Guid()},
-                new Photo {Id = 3, UserId = 3, PhotoGuid = new Guid()}
+                new Photo {Id = 1, UserId = 1, PhotoGuid = new Guid(), Name = "prof1"},
+                new Photo {Id = 2, UserId = 2, PhotoGuid = new Guid(), Name = "prof2"},
+                new Photo {Id = 3, UserId = 3, PhotoGuid = new Guid(), Name = "prof3"},
+                new Photo {Id = 4, UserId = 4, PhotoGuid = new Guid(), Name = "prof4"},
             }.AsQueryable<Photo>());
 
+        }
+
+        [Test]
+        public void UserpageController_UserWithNoCollectionsReturns_NoCollections()
+        {
             var mockStore = new Mock<IUserStore<IdentityUser>>();
             mockStore.Setup(x => x.FindByIdAsync("aabbcc", CancellationToken.None))
                 .ReturnsAsync(new IdentityUser()
                 {
-                    UserName = "test@email.com",
+                    UserName = "medinas@gmail.com",
                     Id = "aabbcc"
                 });
 
             Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
 
-            mockUserManager.Setup(um => um.GetUserAsync(It.IsAny<ClaimsPrincipal>()))
-                .ReturnsAsync(
-                    new IdentityUser
-                    {
-                                Id = "aabbcc",
-                                Email = "test@email.com"
-                            });
+            mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("aabbcc");
 
-            var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockCollectionsRepo.Object);
-            // var result = userPageController.Index("ZaydenC");
-            var result = userPageController.Index("hermes");
+            var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            var result = userPageController.Index("medinas");
             var userProfile = (result as ViewResult).ViewData.Model as UserProfile;
 
             Assert.That(userProfile.recentCollections.Count, Is.EqualTo(0));
