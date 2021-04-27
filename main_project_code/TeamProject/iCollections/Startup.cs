@@ -48,6 +48,7 @@ namespace iCollections
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.AddScoped<ICollectionKeywordRepository, CollectionKeywordRepository>();
             services.AddScoped<IIcollectionUserRepository, IcollectionUserRepository>();
             services.AddScoped<IcollectionRepository, CollectionRepository>();
 
