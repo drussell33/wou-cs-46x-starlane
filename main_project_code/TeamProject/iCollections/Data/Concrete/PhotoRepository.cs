@@ -3,7 +3,7 @@ using iCollections.Data.Abstract;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-
+using System.Threading.Tasks;
 
 namespace iCollections.Data.Concrete
 {
@@ -34,6 +34,13 @@ namespace iCollections.Data.Concrete
         public Guid GetProfilePicGuid(int profilePicId)
         {
             return GetAll().FirstOrDefault(p => p.Id == profilePicId).PhotoGuid;
+        }
+
+        public void ChangePhotoName(Guid id, string newName)
+        {
+            var selectedPhoto = GetAll().FirstOrDefault(row => row.PhotoGuid == id);
+            selectedPhoto.Name = newName;
+            AddOrUpdate(selectedPhoto);
         }
 
     }

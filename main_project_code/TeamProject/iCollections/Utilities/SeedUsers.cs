@@ -86,7 +86,7 @@ namespace iCollections.Utilities
                     }
                 }
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException)
             {
                 // Thrown if there is no service of the type requested from the service provider
                 // Catch it (and don't throw the exception below) if you don't want it to fail (5xx status code)

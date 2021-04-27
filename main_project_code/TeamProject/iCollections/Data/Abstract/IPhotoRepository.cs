@@ -1,6 +1,7 @@
 using iCollections.Models;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 
 namespace iCollections.Data.Abstract
 {
@@ -11,5 +12,7 @@ namespace iCollections.Data.Abstract
         Photo GetPhoto(Guid id);
 
         Guid GetProfilePicGuid(int myId);
+
+        void ChangePhotoName(Guid id, string newName);
     }
 }
