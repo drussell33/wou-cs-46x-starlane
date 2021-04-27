@@ -86,7 +86,7 @@ namespace iCollections.Utilities
                     }
                 }
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException)
             {
                 var Newex = ex;
                 // Thrown if there is no service of the type requested from the service provider

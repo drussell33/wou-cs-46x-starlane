@@ -43,6 +43,7 @@ function showFileName() {
 $("#photoUpload").submit(function (event) {
     var optionalName = $("#customName").val();
     if (optionalName !== "") {
+        // if bunch of whitespace...
         if (!optionalName.replace(/\s/g, '').length) {
             $("#customNameError").text("names must have letters and/or numbers.").show();
             event.preventDefault();
@@ -62,76 +63,64 @@ $("#photoUpload").submit(function (event) {
 
 });
 
-// check if photo is more than 1 MB and error if so
-// $("#register").submit(function (event) {
-    
-
-//     event.preventDefault();
-// });
-
-
-
-//// For un-following users 
-//$('#unfollow-button > button').click(function () {
-//    var followID = this.id.substring(1);      // remove leading 'f'
-
-//    $.ajax({
-//        url: 'following',
-//        data: { id: followID },
-//        method: 'POST',
-//        success: updateFollowees
-//    });
-//});
-
-//function updateFollowees(data) {
-    
-//    location.reload(true);
-//}
-
-//// For following users 
-//$('#follow-button > button').click(function () {
-//    var followID = this.id;
-//    var followName = this.name;
-
-//    $.ajax({
-//        url: 'userpage/follow',
-//        data: { id: followID, status: followName },
-//        method: 'POST',
-//        success: updateFollowees
-//    });
-//});
-
-//function updateFollowees(data) {
-
-//    location.reload(true);
-//}
-
-/*Populate Dropdown Menu With Logged-in User Profile
-
-$(document).ready(function () {
-    let url = window.location.origin + "/api/sessionuser";
-    if ($("#myProfileLink").length) {
-        $.ajax({
-            url: url,
-            method: 'GET',
-            success: updateProfileLink
-        })
+// when a photo is clicked in view photos, highlight it
+$('.pic-thumbnail').click(function (e) {
+    if (e.ctrlKey) { }
+    else {
+        $('.selected-thumbnail').removeClass('selected-thumbnail');
+        $(this).addClass('selected-thumbnail');
     }
 });
 
-function updateProfileLink(data) {
-    let base_url = window.location.origin;
-    $("#myProfileLink").attr("href", base_url + "/userpage/" + data.username);
-}*/
+/* Set the width of the side navigation to 250px */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
 
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    $('.selected-thumbnail').removeClass('selected-thumbnail');
+}
 
+function isValidPhotoName(proposed) {
+    if (proposed == null || proposed == "") {
+        // User cancelled the prompt -> ignore
+        return false;
+    }
 
+    if (!proposed.replace(/\s/g, '').length) {
+        // User has either all whitespace -> tell user
+        alert("Enter a non-empty name");
+        return false;
+    }
 
+    return true;
+}
 
+// prompt user for new photo name
+function getNewPhotoName() {
+    var txt;
+    var txt = prompt("Add new photo name:");
+    if (!isValidPhotoName(txt)) {
+        closeNav();
+    } else {
+        var url = $('.selected-thumbnail').find("img").first().attr('src');
+        var imageId = url.split("/").pop();
+        sendNewPhotoName(url, imageId, txt);
+    }
+}
 
+// request update for new photo name
+function sendNewPhotoName(imgURL, imageId, fileName) {
+    var req = $.post(imgURL, { id: imageId, fileName: fileName }, "text");
+    req.done(function (data) {
+        $(".selected-thumbnail").find("h5").first().text(data);
+        closeNav();
+    });
 
-
-
-
-
-
+    req.fail(function () {
+        alert("Something went wrong on posting new image name");
+        closeNav();
+    });
+}

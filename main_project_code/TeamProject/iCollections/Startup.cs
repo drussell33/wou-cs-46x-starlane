@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using iCollections.Models;
+using iCollections.Data.Abstract;
+using iCollections.Data.Concrete;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace iCollections
@@ -39,11 +41,16 @@ namespace iCollections
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(authBuilder.ConnectionString));
-                        //Configuration.GetConnectionString("AuthenticationConnection"));
+            //Configuration.GetConnectionString("AuthenticationConnection"));
             services.AddDbContext<ICollectionsDbContext>(options =>
                  options.UseSqlServer(appBuilder.ConnectionString));
-                       //Configuration.GetConnectionString("ICollectionsConnection"));
+            //Configuration.GetConnectionString("ICollectionsConnection"));
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.AddScoped<IIcollectionUserRepository, IcollectionUserRepository>();
+            services.AddScoped<IcollectionRepository, CollectionRepository>();
+
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
@@ -52,7 +59,7 @@ namespace iCollections
             services.Configure<IdentityOptions>(opts =>
             {
                 opts.User.RequireUniqueEmail = true;
-                
+
             });
             services.AddControllersWithViews();
             // Added to enable runtime compilation.
@@ -88,9 +95,9 @@ namespace iCollections
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name:"thumbnails",
+                    name: "thumbnails",
                     pattern: "api/image/thumbnail/{id?}",
-                    defaults: new { controller = "ImageApi", action = "Thumbnail"}                
+                    defaults: new { controller = "ImageApi", action = "Thumbnail" }
                     );
 
                 endpoints.MapControllerRoute(

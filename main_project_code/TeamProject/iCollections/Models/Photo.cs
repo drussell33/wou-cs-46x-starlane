@@ -26,19 +26,10 @@ namespace iCollections.Models
         public virtual IcollectionUser User { get; set; }
         public virtual ICollection<CollectionPhoto> CollectionPhotoes { get; set; }
 
-        public string ToViewableFormat()
+        public string GetPhotoUrl()
         {
-            var extension = Path.GetExtension(Name).Replace(".", "");
-            string imageBase64Data = Convert.ToBase64String(Data);
-            string imageDataURL = string.Format("data:image/{0};base64,{1}", extension, imageBase64Data);
-            //string imageDataURL = $"data:image/{extension};base64,{imageBase64Data}";
-            return imageDataURL;
-        }
-
-        public string GetPhotoExtension()
-        {
-            var extension = Path.GetExtension(Name).Replace(".", "");
-            return extension;
+            string address = "/api/image/thumbnail/";
+            return address + PhotoGuid;
         }
     }
 }

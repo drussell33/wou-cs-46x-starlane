@@ -10,6 +10,7 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
+using iCollections.Data.Abstract;
 
 
 namespace iCollections.Controllers
@@ -19,10 +20,19 @@ namespace iCollections.Controllers
         private readonly ICollectionsDbContext _db;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager)
+        private readonly IIcollectionUserRepository _userRepo;
+
+        private readonly IPhotoRepository _photoRepo;
+
+        private readonly IcollectionRepository _colRepo;
+
+        public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo)
         {
             _db = db;
             _userManager = userManager;
+            _userRepo = userRepo;
+            _photoRepo = photoRepo;
+            _colRepo = colRepo;
         }
 
         [Route("userpage/{name}")]
@@ -30,6 +40,8 @@ namespace iCollections.Controllers
         {
             string sessionUserId = _userManager.GetUserId(User);
             IcollectionUser sessionUser = null;
+            var myId = _userRepo.GetReadableID(name);
+            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
             if (name == null)
             {
@@ -38,20 +50,14 @@ namespace iCollections.Controllers
 
             if (sessionUserId != null)
             {
-                sessionUser = _db.IcollectionUsers
-                .Include(u => u.FollowFollowerNavigations)
-                .Include(u => u.FollowFollowedNavigations)
-                .FirstOrDefault(m => m.AspnetIdentityId == sessionUserId);
+                sessionUser = _userRepo.GetSessionUser(sessionUserId);
             }
 
-            var targetUser = _db.IcollectionUsers
-                .Include(u => u.Photos)
-                .Include(u => u.FollowFollowerNavigations)
-                .Include(u => u.FollowFollowedNavigations)
-                .ThenInclude(f => f.FollowerNavigation)
-                .FirstOrDefault(m => m.UserName == name);
+            var targetUser = _userRepo.GetTargetUser(name);
+
+            var recentiCollections = _colRepo.GetMostRecentiCollections(myId, 4);
             
-            return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser });
+            return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser, recentCollections = recentiCollections });
         }
         
         [Route("userpage/{name}/followers")]
