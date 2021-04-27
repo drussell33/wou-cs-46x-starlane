@@ -16,7 +16,7 @@ namespace iCollections.Controllers
     {
         private readonly ICollectionsDbContext _db;
         private readonly IFollowRepository _followRepo;
-        private readonly IUserRepository _userRepo;
+        private readonly IIcollectionUserRepository _userRepo;
         public FollowsController(ICollectionsDbContext context)
         {
             _db = context;
