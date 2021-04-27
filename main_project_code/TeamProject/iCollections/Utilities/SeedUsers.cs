@@ -88,6 +88,7 @@ namespace iCollections.Utilities
             }
             catch (InvalidOperationException)
             {
+                //var Newex = ex;
                 // Thrown if there is no service of the type requested from the service provider
                 // Catch it (and don't throw the exception below) if you don't want it to fail (5xx status code)
                 throw new Exception("Failed to initialize user seed data, service provider did not have the correct service");

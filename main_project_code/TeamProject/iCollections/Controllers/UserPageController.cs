@@ -10,8 +10,9 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 using iCollections.Data.Abstract;
-
 
 namespace iCollections.Controllers
 {
@@ -56,15 +57,20 @@ namespace iCollections.Controllers
 
             var targetUser = _userRepo.GetTargetUser(name);
 
+            if (targetUser == null)
+            {
+                return RedirectToAction("Index", "Error", new ErrorMessage { StatusCode = 404, Message = $"User {name} was not found. Try using the search bar!" });
+            }
+
             var recentiCollections = _colRepo.GetMostRecentiCollections(myId, 4);
             
             return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser, recentCollections = recentiCollections });
         }
-        
+
         [Route("userpage/{name}/followers")]
         public IActionResult Followers(string name)
         {
-            if (name == null )
+            if (name == null)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -100,16 +106,55 @@ namespace iCollections.Controllers
         }
 
         [Authorize]
-        [Route("api/sessionuser")]
-        public async Task<JsonResult> GetUserNameFromAspId()
+        [Route("userpage/{name}/edit")]
+        public IActionResult Edit(string name)
         {
-            var sessionUser = _userManager.GetUserId(User);
-            var username = await _db.IcollectionUsers.FirstOrDefaultAsync(x => x.AspnetIdentityId == sessionUser);
-            if (username == null)
+            var user = _db.IcollectionUsers
+                .Include(u => u.Photos)
+                .FirstOrDefault(m => m.UserName == name);
+
+            if (user == null)
             {
-                return Json(new { username = "" });
+                return RedirectToAction("Index", "Home");
             }
-            return Json(new { username = username.UserName, id = username.Id });
+            if (user.AspnetIdentityId == _userManager.GetUserId(User))
+            {
+                return View(new UserProfile { ProfileVisitor = user, ProfileOwner = user });
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [Authorize]
+        [Route("userpage/{name}/edit")]
+        [HttpPost]
+        public IActionResult EditPost(string name, string username, string firstname, string lastname, string aboutme, IFormFile profileimg)
+        {
+            var user = _db.IcollectionUsers.FirstOrDefault(u => u.UserName == name);
+            if (user != null && username != null && firstname != null && lastname != null && aboutme != null)
+            {
+                user.UserName =  username;
+                user.FirstName = firstname;
+                user.LastName = lastname;
+                user.AboutMe = aboutme;
+
+                if (profileimg != null)
+                {
+                    MemoryStream ms = new MemoryStream();
+                    profileimg.CopyTo(ms);
+                    var profileImg = new Photo { Name = profileimg.FileName, Data = ms.ToArray(), DateUploaded = DateTime.Now, UserId = user.Id };
+                    ms.Close();
+                    ms.Dispose();
+                    _db.Photos.Add(profileImg);
+                    _db.SaveChanges();
+                    user.ProfilePicId = profileImg.Id;
+                }
+                _db.IcollectionUsers.Update(user);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Index", "UserPage", new { name = username });
         }
 
         [HttpPost]

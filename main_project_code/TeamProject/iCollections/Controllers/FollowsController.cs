@@ -8,14 +8,15 @@ using Microsoft.EntityFrameworkCore;
 using iCollections.Data;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
-
+using iCollections.Data.Abstract;
 
 namespace iCollections.Controllers
 {
     public class FollowsController : Controller
     {
         private readonly ICollectionsDbContext _db;
-
+        private readonly IFollowRepository _followRepo;
+        private readonly IIcollectionUserRepository _userRepo;
         public FollowsController(ICollectionsDbContext context)
         {
             _db = context;
@@ -24,8 +25,8 @@ namespace iCollections.Controllers
         // GET: Follows
         public async Task<IActionResult> Index()
         {
-            var iCollectionsDbContext = _db.Follows.Include(f => f.FollowedNavigation).Include(f => f.FollowerNavigation);
-            return View(await iCollectionsDbContext.ToListAsync());
+            var allFollows = _db.Follows.Include(f => f.FollowedNavigation).Include(f => f.FollowerNavigation);
+            return View(await allFollows.ToListAsync());
         }
 
         // GET: Follows/Details/5

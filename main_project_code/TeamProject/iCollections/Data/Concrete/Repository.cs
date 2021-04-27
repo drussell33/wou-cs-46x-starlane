@@ -1,4 +1,4 @@
-using iCollections.Data.Abstract;
+﻿using iCollections.Data.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,16 @@ namespace iCollections.Data.Concrete
     /// Base class repository that implements only CRUD operations.  Meant to be like an abstract 
     /// base class, but not actually made abstract because it may be useful to have a repository 
     /// that only supports crud.
+    /// 
+    /// This is only a minimal version. There is quite a lot we could add to this, including:
+    ///    - add better error checking/recovery (i.e. throw exceptions when something goes wrong)
+    ///    - Write a base model class for the parameterized type, i.e. require TEntity : ModelBase, 
+    ///      and have ModelBase define important things like the PK name and type so we can enforce that in
+    ///      FindById for example.
+    ///    - Non async versions
+    ///    - As Baltazar suggested, add a method called something like GetFiltered that takes Func delegate
+    ///      and allows us to apply a filter like Where when getting an IQueryable of TEntity
+    ///    - ?
     /// </summary>
     /// <typeparam name="TEntity">This is the entity for which we're making a repository</typeparam>
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, new()
@@ -53,7 +63,6 @@ namespace iCollections.Data.Concrete
             await _context.SaveChangesAsync();
             return entity;
         }
-
         public virtual TEntity AddOrUpdate(TEntity entity)
         {
             if (entity == null)

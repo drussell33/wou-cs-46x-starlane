@@ -7,7 +7,7 @@ using iCollections.Models;
 
 namespace iCollections.Data
 {
-    public partial class ICollectionsDbContext : DbContext, IDbContext
+    public partial class ICollectionsDbContext : DbContext
     {
         public ICollectionsDbContext()
         {

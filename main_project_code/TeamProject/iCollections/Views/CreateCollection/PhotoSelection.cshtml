@@ -1,4 +1,4 @@
-﻿@model CreateCollectionPhotos
+﻿@*@model CreateCollectionPhotos*@
 
 @{
     ViewData["Title"] = "Create iCollection";
@@ -13,7 +13,7 @@
 @inject ICollectionsDbContext AppContext
 
 <h1>Photo Selection page</h1>
-<form asp-controller="CreateCollection" asp-action="PhotoSelection" method="post" class="">
+<form asp-action="PhotoSelection" method="post" >
     @if (SignInManager.IsSignedIn(User))
     {
         string id = UserManager.GetUserId(User);
@@ -28,16 +28,17 @@
                 }
                 @if (AppContext.Photos.Where(u => u.UserId == appUser.Id).ToList().Count > 0)
                 {
-                    var i = 0;
+                    
                     @foreach (var photo in AppContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
                     {
-                        i++;
+                       
                         <div class="collection-container">
                             <div class="row">
-                                <div class="col-2 form-group">
-                                    <div class="form-check align-content-center environment-select-checkbox">
-                                        <input type="checkbox" @*asp-for="@Model.CollectionPhotosIds"*@ value="@photo.Id" class="form-check-input" id="">
-                                        <label class="form-check-label" for="exampleCheck1">Select</label>
+                                <div class="col-2">
+                                    <div class="form-group align-content-center environment-select-checkbox">
+        
+                                        <input type="checkbox" name="selectedPhotos" value="@photo.Id" />
+                                        @*<label class="form-check-label" for="photosSelected">@photo.Name</label>*@
                                     </div>
                                 </div>
                                 <div class="col-10">
@@ -46,19 +47,22 @@
                             </div>
                         </div>
                     }
-                    }
+                }
 
-
-
-
-                </div>
             </div>
+        </div>
     }
 
-
+    <div class="form-group">
+        <input type="submit" value="Continue" class="btn btn-primary" />
+    </div>
 
 
     <a class="btn btn-primary" asp-controller="CreateCollection" asp-action="EnvironmentSelection">Back</a>
-    <button type="submit" class="btn btn-primary">Continue</button>
+   @* <button type="submit" class="btn btn-primary">Continue</button>*@
 
 </form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
