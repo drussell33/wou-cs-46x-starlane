@@ -33,8 +33,8 @@ namespace iCollections
         {
             var authBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("AuthenticationConnection"));
             var appBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("ICollectionsConnection"));
-            //authBuilder.Password = Configuration["ICollections:ServerPassword"];
-            //appBuilder.Password = Configuration["ICollections:ServerPassword"];
+            authBuilder.Password = Configuration["ICollections:ServerPassword"];
+            appBuilder.Password = Configuration["ICollections:ServerPassword"];
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
