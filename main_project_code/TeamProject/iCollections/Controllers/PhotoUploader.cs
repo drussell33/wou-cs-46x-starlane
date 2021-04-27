@@ -38,7 +38,7 @@ namespace iCollections.Controllers
                 _collectionsDbContext.Photos.Add(photo);
                 _collectionsDbContext.SaveChanges();
             }
-        }
+        }   
 
         public int UploadProfilePicture(string customName, Microsoft.AspNetCore.Http.IFormFile file)
         {
