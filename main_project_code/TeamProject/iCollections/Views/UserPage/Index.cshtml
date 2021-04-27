@@ -69,7 +69,7 @@
                 <div class="bg-light p-4 d-flex justify-content-end text-center">
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
-                            <h5 class="font-weight-bold mb-0 d-block">@AppContext.Collections.Where(c => c.User.Id == Model.ProfileOwner.Id).ToList().Count</h5><small class="text-muted"> <i class="mr-1"></i><a asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName">iCollections</a></small>
+                            <h5 class="font-weight-bold mb-0 d-block">@AppContext.Collections.Where(c => c.User.Id == Model.ProfileOwner.Id).ToList().Count</h5><small class="text-muted"> <i class="mr-1"></i><a asp-controller="Collections" asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName">iCollections</a></small>
                         </li>
                         <li class="list-inline-item">
                             <h5 class="font-weight-bold mb-0 d-block">@Model.ProfileOwner.FollowFollowedNavigations.ToList().Count</h5><small class="text-muted"> <i class="mr-1"></i><a asp-action="Followers" asp-route-name="@Model.ProfileOwner.UserName">Followers</a></small>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="py-4 px-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="mb-0">Recent iCollections</h5><a asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName" class="btn btn-link text-muted">Show all</a>
+                        <h5 class="mb-0">Recent iCollections</h5><a asp-controller="Collections" asp-action="Collections" asp-route-name="@Model.ProfileOwner.UserName" class="btn btn-link text-muted">Show all</a>
                     </div>
                     <div class="row">
                         @if (Model.recentCollections != null && Model.recentCollections.Any()) 

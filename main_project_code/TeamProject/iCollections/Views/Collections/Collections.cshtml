@@ -1,0 +1,135 @@
+﻿@model BrowseList
+
+@{
+    ViewData["Title"] = "Collections";
+}
+
+
+<div class="container p-3">
+    
+    <div class="jumbotron px-sm pt-4 pb-sm-1" style="background:url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);">
+
+        <h1 class="text-center text-white"><a class="text-white" asp-controller="Collections" asp-action="Collections">@Model.VisitedUser.FirstName's Collections</a></h1>
+
+        <div class="row">
+            <div class="col-2" style="padding-right:0;">
+                @{string profilePicSource = ViewBag.ProfilePicUrl;}
+                    <img src="@profilePicSource" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+            </div>
+            <div class="col-2" style="padding-left:0;">
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="row">
+                    <h2 class="align-text-bottom text-white" style="padding-left:0;">@Model.VisitedUser.UserName</h2>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+    <form method="get" class="custom-control valid" asp-controller="Collections" asp-action="Collections">
+        <div class="row justify-content-center text-right">
+            <div class="col">
+                <label><strong>Search @Model.VisitedUser.FirstName's Collections:</strong></label>
+                <div class="custom-control-inline">
+                    <input class="form-control" type="text" minlength="3" title="Use at least 3 characters" name="keywords" required pattern=".*\S+.*" />
+                    <input class="form-control" type="hidden" name="name" value="@Model.VisitedUser.UserName" />
+                    <br />
+                    <button type="submit" class="btn btn-outline-dark"> Search </button>
+                </div>
+                <p style="padding-right: 7em"><em>(Enter search by keywords)</em></p>
+            </div>
+        </div>
+        <div class="row justify-content-end text-right" style="padding-right:3em;">
+            <div class="form-check-inline">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort" value="name" id="namesort" checked>
+                    <label class="form-check-label" for="namesort">
+                        <strong>Sort by Name</strong>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort" value="keyword" id="keysort">
+                    <label class="form-check-label" for="keysort">
+                        <strong>Sort by Keyword</strong>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort" value="date" id="datesort">
+                    <label class="form-check-label" for="datesort">
+                        <strong>Sort by Date</strong>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+
+<div class="container">
+
+    @if (Model != null)
+    {
+
+        string[] colls = { "/images/card_pics/IMG-0833.JPG", "/images/dogtoy_pics/IMG-0869.JPG", "/images/fish_pics/fish3.png", "/images/puzzel_pics/image_123923953(14).JPG", "/images/tool_pics/IMG-0837.JPG", "/img/2D_example.jpg" };
+
+        Random rand = new Random();
+
+        <h5>Result(s): @Model.SearchResults.Count() Collection(s)</h5>
+        <table class="table table-bordered border-primary">
+            <thead>
+                <tr>
+                    <th scope="col">Preview Photo</th>
+                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=name">Name</a></th>
+                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=keyword">Keyword(s)</a></th>
+                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=date">Date Created</a></th>
+                </tr>
+            </thead>
+            @foreach (CollectionKeyword ck in Model.SearchResults)
+            {
+                <tr>
+                    <td>
+                        <img src=@colls[rand.Next(6)] width="100" height="100" alt="" />
+                    </td>
+                    <td>
+                        <a href="#"> @ck.Collect.Name </a>
+                    </td>
+                    <td>
+                        @ck.Keyword.Name
+                    </td>
+                    <td>
+                        @ck.Collect.DateMade
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        if (Model.SearchResults.Count() == 0)
+        {
+            <div class="text-center">
+                <h1>@Model.VisitedUser.FirstName does not have any collections matching those keywords</h1>
+            </div>
+        }
+    }
+
+
+    else
+    {
+
+        <div class="text-center">
+            <h1>@Model.VisitedUser.FirstName does not have any collections yet, Bummer!</h1>
+        </div>
+
+    }
+
+</div>
