@@ -1,4 +1,4 @@
-import {sum} from '../../iCollections/wwwroot/js/sum'
+import {sum} from '../../iCollections/wwwroot/js/jest_testing_functions'
 //const sum = require('./sum');
 // import {isValidPhotoName} from '../../iCollections/wwwroot/js/site'
 // ReferenceError: $ is not defined, when i try using function from site.js
