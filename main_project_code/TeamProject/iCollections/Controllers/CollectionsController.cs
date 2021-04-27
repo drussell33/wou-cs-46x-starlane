@@ -18,94 +18,75 @@ namespace iCollections.Controllers
     {
         private readonly ILogger<CollectionsController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly ICollectionsDbContext _collectionsDbContext;
+
 
         private readonly IIcollectionUserRepository _userRepo;
-        private readonly ICollectionRepository _collectionRepo;
+        private readonly ICollectionKeywordRepository _collectionkeywordRepo;
         private readonly IPhotoRepository _photoRepo;
 
 
-        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionRepository collectionRepo, IPhotoRepository photoRepo, ICollectionsDbContext collectionsDbContext)
+        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo)
         {
             _logger = logger;
             _userManager = userManager;
-            _collectionsDbContext = collectionsDbContext;
 
             _userRepo = userRepo;
-            _collectionRepo = collectionRepo;
+            _collectionkeywordRepo = collectionkeywordRepo;
             _photoRepo = photoRepo;
 
-
         }
-
-
-        public async Task<IActionResult> MyCollectionsPage()
-        {
-            IdentityUser user = await _userManager.GetUserAsync(User);  // does go to the db
-            return View();
-        }
-
 
         [Route("Collections/{name}")]
         public IActionResult Collections(string name, string keywords, string sort)
         {
+            //Initial state, no sort or search requested.
             if (keywords == null && sort == null)
             {
                 if (name == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                IcollectionUser user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
+
+                IcollectionUser user = _userRepo.GetIcollectionUserByUsername(name);
+
                 if (user == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
 
-                IcollectionUser active_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
+                IcollectionUser active_user = _userRepo.GetIcollectionUserByIdentityId(_userManager.GetUserId(User));
 
                 BrowseList collectionlist = new BrowseList
                 {
                     LoggedInUser = active_user,
                     VisitedUser = user,
-                    SearchResults = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).ToList(),
+                    SearchResults = _collectionkeywordRepo.GetCollectionKeywordsByUser(user),
                     SuggestedKeywords = null
 
                 };
 
                 var myId = _userRepo.GetReadableUserID(name);
                 ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
-                //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
 
                 return View(collectionlist);
             }
+
+            //Sort requested no search
             if (keywords == null)
             {
                 if (name == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                IcollectionUser user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
+                IcollectionUser user = _userRepo.GetIcollectionUserByUsername(name);
                 if (user == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
 
-                IcollectionUser active_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
+                IcollectionUser active_user = _userRepo.GetIcollectionUserByIdentityId(_userManager.GetUserId(User));
 
-                List<CollectionKeyword> sorted = new List<CollectionKeyword>();
-
-                if (sort == "name")
-                {
-                    sorted = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).OrderBy(n => n.Collect.Name).ToList();
-                }
-                if (sort == "keyword")
-                {
-                    sorted = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).OrderBy(n => n.Keyword.Name).ToList();
-                }
-                if (sort == "date")
-                {
-                    sorted = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).OrderBy(n => n.Collect.DateMade).ToList();
-                }
+                List<CollectionKeyword> sorted = _collectionkeywordRepo.GetCollectionKeywordsByUserSortedAscending(user, sort);
 
                 BrowseList collectionlist = new BrowseList
                 {
@@ -119,17 +100,19 @@ namespace iCollections.Controllers
 
                 var myId = _userRepo.GetReadableUserID(name);
                 ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
-                //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
 
                 return View(collectionlist);
             }
+
+            //Both sort and search requested
             else
             {
                 if (name == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                IcollectionUser user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
+
+                IcollectionUser user = _userRepo.GetIcollectionUserByUsername(name);
                 if (user == null)
                 {
                     return RedirectToAction("Index", "Home");
@@ -139,30 +122,16 @@ namespace iCollections.Controllers
                 List<CollectionKeyword> filtered = new List<CollectionKeyword>();
                 foreach (string token in keys)
                 {
-                    var coll_keys = _collectionsDbContext.CollectionKeywords.Include(c => c.Collect).Include(k => k.Keyword).Where(c => c.Collect.User == user && c.Keyword.Name.Contains(token)).OrderBy(c=>c.Collect.Name).ToList();
-                    
+                    var coll_keys = _collectionkeywordRepo.GetUserCollectionKeywordsByKeyword(user, token);
+
                     filtered.AddRange(coll_keys);
                 }
 
                 filtered.Union(filtered);
 
-                List<CollectionKeyword> sorted = new List<CollectionKeyword>();
-                if (sort == "name")
-                {
-                    sorted = filtered.OrderBy(a => a.Collect.Name).ToList();
-                }
-                if (sort == "keyword")
-                {
-                    sorted = filtered.OrderBy(a => a.Keyword.Name).ToList();
-                }
-                if (sort == "date")
-                {
-                    sorted = filtered.OrderBy(a => a.Collect.DateMade).ToList();
-                }
-
+                List<CollectionKeyword> sorted = _collectionkeywordRepo.GetCollectionKeywordsByUserSortedAscending(user, sort);
                 
-
-                IcollectionUser active_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
+                IcollectionUser active_user = _userRepo.GetIcollectionUserByIdentityId(_userManager.GetUserId(User));
 
                 BrowseList collectionlist = new BrowseList
                 {
@@ -189,7 +158,7 @@ namespace iCollections.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            IcollectionUser user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
+            IcollectionUser user = _userRepo.GetIcollectionUserByUsername(name);
             if (user == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -204,12 +173,11 @@ namespace iCollections.Controllers
             {
                 LoggedInUser = user,
                 VisitedUser = user,
-                SearchResults = _collectionsDbContext.CollectionKeywords.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).ToList(),
+                SearchResults = _collectionkeywordRepo.GetCollectionKeywordsByUser(user),
                 SuggestedKeywords = null
                 
             };
 
-            //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
             return View(collectionlist);
         }
     }

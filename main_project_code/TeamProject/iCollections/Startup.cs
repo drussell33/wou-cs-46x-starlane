@@ -48,7 +48,7 @@ namespace iCollections
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddScoped<IPhotoRepository, PhotoRepository>();
-            services.AddScoped<ICollectionRepository, CollectionRepository>();
+            services.AddScoped<ICollectionKeywordRepository, CollectionKeywordRepository>();
             services.AddScoped<IIcollectionUserRepository, IcollectionUserRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

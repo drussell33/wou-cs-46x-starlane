@@ -1,5 +1,6 @@
 using iCollections.Data.Abstract;
 using iCollections.Models;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,5 +33,9 @@ namespace iCollections.Data.Concrete
             return _dbSet.FirstOrDefault(u => u.Id == userId).ProfilePicId ?? -1;
         }
 
+        public virtual IcollectionUser GetIcollectionUserByUsername(string username)
+        {
+            return _dbSet.FirstOrDefault(m => m.UserName == username);
+        }
     }
 }
