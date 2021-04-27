@@ -47,8 +47,8 @@ namespace iCollections.Tests.Tests
                 new Collection {Id = 15, Name = "My Funco Pops", UserId = 3, DateMade = new DateTime(2012, 6, 2, 7, 31, 0)}
             }.AsQueryable<Collection>());
 
-            mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
-                            .Returns(new Collection[] { }.ToList());
+            // mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
+            //                 .Returns(new Collection[] { }.ToList());
 
             mockUsersRepo.Setup(m => m.GetAll()).Returns(new IcollectionUser[]{
                 new IcollectionUser {Id = 1, FirstName = "Harold", LastName = "Martin", UserName = "haroldo", ProfilePicId = 1},
@@ -83,6 +83,9 @@ namespace iCollections.Tests.Tests
 
             mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("aabbcc");
 
+            mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
+                            .Returns(new Collection[] { }.ToList());
+
             var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, mockPhotosRepo.Object, mockCollectionsRepo.Object);
             var result = userPageController.Index("medinas");
             var userProfile = (result as ViewResult).ViewData.Model as UserProfile;
@@ -90,5 +93,30 @@ namespace iCollections.Tests.Tests
             Assert.That(userProfile.recentCollections.Count, Is.EqualTo(0));
         }
 
+        // if user doesnt exist.
+        [Test]
+        public void UserpageController_UserNotLoggedInShows_NoSessionUser()
+        {
+            var mockStore = new Mock<IUserStore<IdentityUser>>();
+            mockStore.Setup(x => x.FindByIdAsync("aabbcc", CancellationToken.None))
+                .ReturnsAsync(new IdentityUser()
+                {
+                    UserName = "haroldo@gmail.com",
+                    Id = "aabbcc"
+                });
+
+            Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
+
+            mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns((string)null);
+
+            mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
+                            .Returns(new Collection[] { }.ToList());
+
+            var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            var result = userPageController.Index("medinas");
+            var userProfile = (result as ViewResult).ViewData.Model as UserProfile;
+
+            Assert.That(userProfile.ProfileVisitor, Is.Null);
+        }
     }
 }

@@ -36,8 +36,7 @@ namespace iCollections.Controllers
         public IActionResult ChangeThumbnail(string id, string fileName)
         {
             // do work in here ie change the name of the photo
-            DatabaseEditor databaseEditor = new DatabaseEditor(_userManager, _collectionsDbContext);
-            databaseEditor.ChangePhotoName(Guid.Parse(id), fileName);
+            _photoRepo.ChangePhotoName(Guid.Parse(id), fileName);
             return Content(fileName);
         }
     }

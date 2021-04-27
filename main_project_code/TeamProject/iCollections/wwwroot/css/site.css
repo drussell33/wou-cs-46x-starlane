@@ -181,14 +181,11 @@ body {
   position: relative;
 }
 
-<<<<<<< HEAD
 body {
   min-height: 100vh;
   background-color: #ffffff;
 }
 
-=======
->>>>>>> dev
 h1 {
   font-weight: bold;
 }
