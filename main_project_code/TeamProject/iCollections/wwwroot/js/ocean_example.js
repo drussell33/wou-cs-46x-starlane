@@ -3,14 +3,15 @@ import Stats from './stats.module.js';
 import { OrbitControls } from './OrbitControls.js';
 import { Water } from './Water.js';
 import { Sky } from './Sky.js';
+import { GatherPhotoData, LoadImagesToScene } from './environment_functions.js';
 
 
-/*$('#ocean_container2').load(function () {
+$(document).ready(function MakeGallery() {
+    console.log("page loaded the ocean environment.js");
 
-});*/
-
- 
-//var Ocean_example = function () {
+    //Gets the photo data written to the tr's in the DOM
+    var photoData = [];
+    photoData = GatherPhotoData(photoData);
 
 
     var container, stats;
@@ -47,7 +48,7 @@ import { Sky } from './Sky.js';
         scene = new THREE.Scene();
 
         camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
-        camera.position.set(30, 30, 100);
+        camera.position.set(100, 30, 100);
 
         //
 
@@ -119,15 +120,7 @@ import { Sky } from './Sky.js';
 
         updateSun();
 
-        //Add middle box --------------------
 
-        // const geometry = new THREE.BoxGeometry( 30, 30, 30 );
-        // const material = new THREE.MeshStandardMaterial( { roughness: 0 } );
-
-        // mesh = new THREE.Mesh( geometry, material );
-        // scene.add( mesh );
-
-        // ----------------------------------------------
         //Custom Upload Photo
         function uploadImage(collectionPhoto) {
             // create a canvas element
@@ -192,7 +185,26 @@ import { Sky } from './Sky.js';
         }
 
 
-        // CUstom text to sign THIRD Attempt END ----------------------------------------------------------------------------
+
+
+        let positionCordinateData = [
+            //Row One
+            { "xAxis": 0, "yAxis": 75, "zAxis": -700, "yRotation": null },
+            { "xAxis": 700, "yAxis": 75, "zAxis": 0, "yRotation": -1.57 },
+            { "xAxis": 0, "yAxis": 75, "zAxis": 700, "yRotation": Math.PI },
+            { "xAxis": -700, "yAxis": 75, "zAxis": 0, "yRotation": 1.57 },
+            { "xAxis": 700, "yAxis": 75, "zAxis": -700, "yRotation": -0.78},
+            { "xAxis": -700, "yAxis": 75, "zAxis": -700, "yRotation": 0.78 },
+            { "xAxis": 700, "yAxis": 75, "zAxis": 700, "yRotation": 3.92 },
+            { "xAxis": -700, "yAxis": 75, "zAxis": 700, "yRotation": -3.92 },
+        ];
+
+
+        LoadImagesToScene(scene, photoData, positionCordinateData);
+
+
+
+       /* // CUstom text to sign THIRD Attempt END ----------------------------------------------------------------------------
 
         // adding fish ---------------------
         fish4 = uploadImage('./images/fish_pics/fish4.png');
@@ -279,7 +291,7 @@ import { Sky } from './Sky.js';
         rockcodText.position.set(250, 130, -250);
         rockcodText.rotation.y = 50;
         scene.add(rockcodText);
-
+        */
         // ----------------------------------------------
         controls = new OrbitControls(camera, renderer.domElement);
         controls.maxPolarAngle = Math.PI * 0.495;
@@ -321,16 +333,16 @@ import { Sky } from './Sky.js';
         var time = performance.now() * 0.001;
 
         //mesh.position.y = Math.sin( time ) * 20 + 5;
-        fish2.position.y = Math.sin(time) * 20 + 5;
-        fish3.position.y = Math.sin(time - 1) * 20 + 5;
-        fish4.position.y = Math.sin(time - 2) * 20 + 5;
+        //fish2.position.y = Math.sin(time) * 20 + 5;
+        //fish3.position.y = Math.sin(time - 1) * 20 + 5;
+        //fish4.position.y = Math.sin(time - 2) * 20 + 5;
 
-        bluegill.position.y = Math.sin(time) * 20 + 5;
-        boot.position.y = Math.sin(time - 3) * 20 + 5;
-        marlin.position.y = Math.sin(time - 4) * 20 + 5;
+        //bluegill.position.y = Math.sin(time) * 20 + 5;
+        //boot.position.y = Math.sin(time - 3) * 20 + 5;
+        //marlin.position.y = Math.sin(time - 4) * 20 + 5;
 
-        rockcod.position.y = Math.sin(time - 5) * 20 + 5;
-        steelhead.position.y = Math.sin(time - 6) * 20 + 5;
+        //rockcod.position.y = Math.sin(time - 5) * 20 + 5;
+        //steelhead.position.y = Math.sin(time - 6) * 20 + 5;
         //mesh.rotation.x = time * 0.5;
         //mesh.rotation.z = time * 0.51;
 
@@ -340,65 +352,4 @@ import { Sky } from './Sky.js';
 
     }
 
-//};
-
-//export { Ocean_example };
-
-
-//Testing Test Driven Development with the Jest Framework to develop ----------------------------
-//..this code that will be integrated into init() -----------------------------------------------
-
-let sampleData = [
-    {
-        "Data": "notreal1",
-        "Title": "title1",
-        "PhotoRank": 1,
-        "Description": "description1"
-    },
-    {
-        "Data": "notreal2",
-        "Title": "title2",
-        "PhotoRank": 2,
-        "Description": "description2"
-    },
-    {
-        "Data": "notreal3",
-        "Title": "title3",
-        "PhotoRank": 3,
-        "Description": "description3" 
-    },
-    {
-        "Data": "notreal4",
-        "Title": "title4",
-        "PhotoRank": 4,
-        "Description": "description4"
-    },
-    {
-        "Data": "notreal5",
-        "Title": "title5",
-        "PhotoRank": 5,
-        "Description": "description5"
-    },
-    {
-        "Data": "notreal6",
-        "Title": "title6",
-        "PhotoRank": 6,
-        "Description": "description6"
-    },
-    {
-        "Data": "notreal7",
-        "Title": "title7",
-        "PhotoRank": 7,
-        "Description": "description7"
-    },
-]
-
-function practiceInit(sampleData)
-{
-    var copyData = sampleData
-    return copyData;
-}
-
-
-
-//export { practiceInit }
+});
