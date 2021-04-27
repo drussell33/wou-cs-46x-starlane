@@ -6,6 +6,7 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
+using iCollections.Data.Abstract;
 
 namespace iCollections.Controllers
 {
@@ -23,7 +24,6 @@ namespace iCollections.Controllers
 
         public bool isKeyInFriendship(IcollectionUser user1, IcollectionUser user2, int key)
         {
-            Path.GetFileNameWithoutExtension("sdsdf");
             return key == user1.Id || key == user2.Id;
         }
 
@@ -72,6 +72,8 @@ namespace iCollections.Controllers
         // (assuming all friendships have at least one of my friends in them)
         public static void RemoveDuplicates(ref List<FriendsWith> friendships, List<IcollectionUser> directFriends)
         {
+            if (friendships == null || directFriends == null) throw new NullReferenceException("Cannot access null lists");
+            
             var filtered = new List<FriendsWith>();
             var bothDirectFriends = new List<FriendsWith>();
             foreach (var ship in friendships)
@@ -141,22 +143,20 @@ namespace iCollections.Controllers
             extractedCollections = extractedCollections.OrderByDescending(r => r.DateMade).ToList();
         }
 
-        public List<PhotoInfo> GetMyPhotosInfo(int myId)
+        public static string GetMyProfilePicUrl(int myId, IIcollectionUserRepository usersRepo, IPhotoRepository photoRepo)
         {
-            // string address = "https://localhost:5001/api/image/thumbnail/";
-            string address = "https://icollections.azurewebsites.net/api/image/thumbnail/";
-            var photosInformation = _collectionsDbContext.Photos
-                                .Where(row => row.User.Id == myId)
-                                .Select(myRows => new PhotoInfo { Url = address + myRows.PhotoGuid, PhotoName = myRows.Name })
-                                .ToList();
-
-            return photosInformation;
-        }
-
-        public Photo GetPhoto(Guid id)
-        {
-            var photo = _collectionsDbContext.Photos.FirstOrDefault(row => row.PhotoGuid == id);
-            return photo;
+            string address = "/api/image/thumbnail/";
+            int profile_pic_id = usersRepo.GetProfilePicID(myId);
+            
+            try {
+                var guid = photoRepo.GetProfilePicGuid(profile_pic_id);
+                string url = address + guid;
+                return url;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
     }

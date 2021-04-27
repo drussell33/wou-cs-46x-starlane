@@ -34,16 +34,16 @@
                             </li>
                         }
                         <!--Upload-->
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="UploadPhoto" asp-action="Index">Upload Photo</a>
-                        </li>
+                        </li>*@
                         <!-- View photos -->
-                        @if (SignInManager.IsSignedIn(User))
+                        @*@if (SignInManager.IsSignedIn(User))
                         {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="ViewPhotos" asp-action="Index">View Photos</a>
                         </li>
-                        }
+                        }*@
                     </ul>
                     <!--Search Bar-->
                     <ul class="navbar-nav justify-content-end">
@@ -61,23 +61,7 @@
                 </div>
             </div>
         </nav>
-@*        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 navbar-secondary" aria-label="Secondary Nav">
-            <div class="container">
-                <div class="navbar-collapse collapse d-sm-inline-flex navbars">
-                    <ul class="navbar-nav flex-grow-1 justify-content-between">
-                        <li class="nav-item">
-                            <a class="nav-link text-light">Generic Item 1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light">Generic Item 2</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light">Generic Item 3</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>*@
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -96,6 +80,7 @@
     <script src="~/js/follows.js" asp-append-version="true"></script>
     <script src="~/js/ocean_example.js" asp-append-version="true" type="module"></script>
     <script src="~/js/puzzel_example.js" asp-append-version="true" type="module"></script>
+    <script src="~/js/sum.js" asp-append-version="true" type="module"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

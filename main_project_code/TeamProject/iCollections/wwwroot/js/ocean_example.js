@@ -10,7 +10,7 @@ import { Sky } from './Sky.js';
 });*/
 
  
-/*var Ocean_example = function () {*/ 
+//var Ocean_example = function () {
 
 
     var container, stats;
@@ -340,6 +340,65 @@ import { Sky } from './Sky.js';
 
     }
 
-/*};
+//};
 
-export { Ocean_example };*/
+//export { Ocean_example };
+
+
+//Testing Test Driven Development with the Jest Framework to develop ----------------------------
+//..this code that will be integrated into init() -----------------------------------------------
+
+let sampleData = [
+    {
+        "Data": "notreal1",
+        "Title": "title1",
+        "PhotoRank": 1,
+        "Description": "description1"
+    },
+    {
+        "Data": "notreal2",
+        "Title": "title2",
+        "PhotoRank": 2,
+        "Description": "description2"
+    },
+    {
+        "Data": "notreal3",
+        "Title": "title3",
+        "PhotoRank": 3,
+        "Description": "description3" 
+    },
+    {
+        "Data": "notreal4",
+        "Title": "title4",
+        "PhotoRank": 4,
+        "Description": "description4"
+    },
+    {
+        "Data": "notreal5",
+        "Title": "title5",
+        "PhotoRank": 5,
+        "Description": "description5"
+    },
+    {
+        "Data": "notreal6",
+        "Title": "title6",
+        "PhotoRank": 6,
+        "Description": "description6"
+    },
+    {
+        "Data": "notreal7",
+        "Title": "title7",
+        "PhotoRank": 7,
+        "Description": "description7"
+    },
+]
+
+function practiceInit(sampleData)
+{
+    var copyData = sampleData
+    return copyData;
+}
+
+
+
+//export { practiceInit }

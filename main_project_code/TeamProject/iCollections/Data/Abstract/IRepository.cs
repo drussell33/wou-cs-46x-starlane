@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace iCollections.Data.Abstract
 {
+    /// <summary>
+    /// Minimal interface for CRUD operations on entities
+    /// </summary>
+    /// <typeparam name="TEntity">This is the entity for which we're making a repository</typeparam>
     public interface IRepository<TEntity> where TEntity : class, new()
     {
         Task<TEntity> FindByIdAsync(int id);

@@ -1,5 +1,6 @@
 ﻿using iCollections.Data;
 using iCollections.Models;
+using iCollections.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -44,7 +45,8 @@ namespace iCollections.Controllers
 
             else
             {
-                string[] keys = keywords.Split(" "); // parse strings separated by space or whitespace
+                //string[] keys = keywords.Split(" "); // parse strings separated by space or whitespace
+                string[] keys = StringUtilities.SplitBySpace(keywords); // parse strings separated by space or whitespace
                 List<CollectionKeyword> filtered = new List<CollectionKeyword>();
                 foreach(string token in keys)
                 {
