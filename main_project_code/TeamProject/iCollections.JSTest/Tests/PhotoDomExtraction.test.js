@@ -1,5 +1,5 @@
 import {GatherPhotoData} from '../../iCollections/wwwroot/js/jest_testing_functions'
-
+//import { screen } from '@testing-library/jest-dom'
 
 
 
@@ -54,7 +54,7 @@ import {GatherPhotoData} from '../../iCollections/wwwroot/js/jest_testing_functi
         "Description": "description7"
     },
     ];
-    
+     
   
     test.skip('GatherPhotoData_MakeingFakeDOMWithRowsForFunctionToFind_mightWork', () => {
         //Arrange
@@ -65,10 +65,41 @@ import {GatherPhotoData} from '../../iCollections/wwwroot/js/jest_testing_functi
             '</table>';
         //Act
         var photoData = [];
-        //const $ = require('../../iCollections/wwwroot/lib/jquery/dist/jquery.min.js');
+        //const $ = require('jQuery');
         //import * as $ from '../../iCollections/wwwroot/lib/jquery/dist/jquery.min.js'
         photoData = GatherPhotoData(photoData);
         var testLength = photoData.length;
         //Assert
         expect(2).toBe(testLength);       
     });
+
+test('testing output of global should be true', () => {
+    expect(Derek).toBe("derek");
+
+});
+
+test('testing output of global should be false', () => {
+    expect(Derek).not.toBe("someone else");
+
+});
+
+
+test.skip('testingDOMCreationinTest_works', () => {
+    document.body.innerHTML =
+            '<table>' +
+            '  <tr id="photo1" />' +
+            '  <tr id="photo2" />' +
+            '</table>';
+
+});
+
+
+test.skip('uses jest-dom', () => {
+  document.body.innerHTML = `
+    <span data-testid="not-empty"><span data-testid="empty"></span></span>
+    <div data-testid="visible">Visible Example</div>
+  `
+
+  expect(screen.queryByTestId('not-empty')).not.toBeEmptyDOMElement()
+  expect(screen.getByText('Visible Example')).toBeVisible()
+})
