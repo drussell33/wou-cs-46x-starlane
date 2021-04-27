@@ -36,11 +36,11 @@ namespace iCollections.Data.Concrete
             return GetAll().FirstOrDefault(p => p.Id == profilePicId).PhotoGuid;
         }
 
-        public async Task ChangePhotoName(Guid id, string newName)
+        public void ChangePhotoName(Guid id, string newName)
         {
             var selectedPhoto = GetAll().FirstOrDefault(row => row.PhotoGuid == id);
             selectedPhoto.Name = newName;
-            await AddOrUpdateAsync(selectedPhoto);
+            AddOrUpdate(selectedPhoto);
         }
 
     }

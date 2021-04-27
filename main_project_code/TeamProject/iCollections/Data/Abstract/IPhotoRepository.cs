@@ -13,6 +13,6 @@ namespace iCollections.Data.Abstract
 
         Guid GetProfilePicGuid(int myId);
 
-        Task ChangePhotoName(Guid id, string newName);
+        void ChangePhotoName(Guid id, string newName);
     }
 }
