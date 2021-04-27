@@ -1,8 +1,29 @@
-﻿@{
+﻿@model List<RenderingPhoto>;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 
-<h1>Ocean Environment Example</h1>
-<div id="ocean_container2"></div>
+<h1>@ViewData["collectionTitle"].ToString()</h1>
 
+<div id="ocean_container2"></div>
+@{
+    var counter = 1;
+    <table hidden>
+        @foreach (var photo in Model)
+        {
+            string thisId = "photo" + counter.ToString();
+
+            <tr id="@thisId" data-rank="@photo.Rank" data-title="@photo.Title" data-description="@photo.Description" data-photodata="@photo.Data" hidden></tr>
+
+            counter = counter + 1;
+        }
+
+    </table>
+}
+
+
+
+
+<script src="~/js/ocean_example.js" asp-append-version="true" type="module"></script>
