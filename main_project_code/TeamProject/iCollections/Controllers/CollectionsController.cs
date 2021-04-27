@@ -65,7 +65,7 @@ namespace iCollections.Controllers
 
                 };
 
-                var myId = _userRepo.GetReadableUserID(name);
+                var myId = _userRepo.GetReadableID(name);
                 ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
                 return View(collectionlist);
@@ -98,7 +98,7 @@ namespace iCollections.Controllers
 
                 };
 
-                var myId = _userRepo.GetReadableUserID(name);
+                var myId = _userRepo.GetReadableID(name);
                 ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
                 return View(collectionlist);
@@ -129,8 +129,22 @@ namespace iCollections.Controllers
 
                 filtered.Union(filtered);
 
-                List<CollectionKeyword> sorted = _collectionkeywordRepo.GetCollectionKeywordsByUserSortedAscending(user, sort);
-                
+                List<CollectionKeyword> sorted = new List<CollectionKeyword>();
+                if (sort == "name")
+                {
+                    sorted = filtered.OrderBy(o => o.Collect.Name).ToList();
+                }
+
+                else if (sort == "keyword")
+                {
+                    sorted = filtered.OrderBy(o => o.Keyword.Name).ToList();
+                }
+
+                else if (sort == "date")
+                {
+                    sorted = filtered.OrderBy(o => o.Collect.DateMade).ToList();
+                }
+
                 IcollectionUser active_user = _userRepo.GetIcollectionUserByIdentityId(_userManager.GetUserId(User));
 
                 BrowseList collectionlist = new BrowseList
@@ -142,7 +156,7 @@ namespace iCollections.Controllers
 
                 };
 
-                var myId = _userRepo.GetReadableUserID(name);
+                var myId = _userRepo.GetReadableID(name);
                 ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
                 return View(collectionlist);
