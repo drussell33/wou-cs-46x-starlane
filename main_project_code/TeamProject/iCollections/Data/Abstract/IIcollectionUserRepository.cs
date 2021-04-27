@@ -13,5 +13,11 @@ namespace iCollections.Data.Abstract
         int GetProfilePicID(int userId);
 
         IcollectionUser GetIcollectionUserByUsername(string username);
+
+        IcollectionUser GetSessionUser(string sessionUserId);
+
+        IcollectionUser GetTargetUser(string name);
+
+        int GetReadableID(string username);
     }
 }

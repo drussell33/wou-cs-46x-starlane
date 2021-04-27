@@ -3,6 +3,8 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace iCollections.Data.Concrete
 {
@@ -22,10 +24,14 @@ namespace iCollections.Data.Concrete
             return _dbSet.Where(u => u.AspnetIdentityId == identityID).FirstOrDefault();
         }
 
-        public int GetReadableUserID(string username)
+        public int GetReadableUserID(string nastyString)
         {
+            return GetAll().FirstOrDefault(u => u.AspnetIdentityId == nastyString).Id;
+        }
 
-            return _dbSet.FirstOrDefault(u => u.UserName == username).Id;
+        public int GetReadableID(string username)
+        {
+            return GetAll().FirstOrDefault(u => u.UserName == username).Id;
         }
 
         public int GetProfilePicID(int userId)
@@ -33,9 +39,25 @@ namespace iCollections.Data.Concrete
             return _dbSet.FirstOrDefault(u => u.Id == userId).ProfilePicId ?? -1;
         }
 
+        public IcollectionUser GetSessionUser(string sessionUserId)
+        {
+            return GetAll().Include(u => u.FollowFollowerNavigations).Include(u => u.FollowFollowedNavigations).FirstOrDefault(m => m.AspnetIdentityId == sessionUserId);
+        }
+
+        public IcollectionUser GetTargetUser(string name)
+        {
+            return GetAll()
+                .Include(u => u.Photos)
+                .Include(u => u.FollowFollowerNavigations)
+                .Include(u => u.FollowFollowedNavigations)
+                .ThenInclude(f => f.FollowerNavigation)
+                .FirstOrDefault(m => m.UserName == name);
+        }
+
         public virtual IcollectionUser GetIcollectionUserByUsername(string username)
         {
             return _dbSet.FirstOrDefault(m => m.UserName == username);
         }
+
     }
 }
