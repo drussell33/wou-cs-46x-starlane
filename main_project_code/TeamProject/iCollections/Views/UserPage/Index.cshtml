@@ -22,6 +22,10 @@
                 {
                     <img class="user-profile-img">
                 }
+                @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User) == Model.ProfileOwner.AspnetIdentityId)
+                {
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-name="@Model.ProfileOwner.UserName">Edit</a>
+                }
                 <h2>@Model.ProfileOwner.UserName</h2>
                 <h3>@Model.ProfileOwner.FirstName @Model.ProfileOwner.LastName</h3>
 
@@ -37,19 +41,19 @@
                     string id = UserManager.GetUserId(User);
                     IcollectionUser appUser = AppContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == id);
                     if (appUser.FollowFollowerNavigations.Count > 0)
-                    //appUser.FollowFollowerNavigations.Any(x => x.Followed == Model.ProfileOwner.Id);
-                    if (Model.ProfileOwner.FollowFollowedNavigations.Any(x => x.Follower == appUser.Id))
-                    {
-                        <span>
-                            <a class="btn btn-primary following-button text-light" value-user="@appUser.Id" value-target="@Model.ProfileOwner.Id">Following</a>
-                        </span>
-                    }
-                    else
-                    {
-                        <span>
-                            <a class="btn btn-primary follow-button text-light" value-user="@appUser.Id" value-target="@Model.ProfileOwner.Id">Follow</a>
-                        </span>
-                    }
+                        //appUser.FollowFollowerNavigations.Any(x => x.Followed == Model.ProfileOwner.Id);
+                        if (Model.ProfileOwner.FollowFollowedNavigations.Any(x => x.Follower == appUser.Id))
+                        {
+                            <span>
+                                <a class="btn btn-primary following-button text-light" value-user="@appUser.Id" value-target="@Model.ProfileOwner.Id">Following</a>
+                            </span>
+                        }
+                        else
+                        {
+                            <span>
+                                <a class="btn btn-primary follow-button text-light" value-user="@appUser.Id" value-target="@Model.ProfileOwner.Id">Follow</a>
+                            </span>
+                        }
                 }
 
             </div>

@@ -1,0 +1,24 @@
+﻿@model ErrorMessage
+@{
+    ViewData["Title"] = "Error";
+}
+
+<!DOCTYPE html>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col text-center">
+            <h1 class="">Error @Model.StatusCode</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col text-center">
+            <h3>@Model.Message</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <p><a class="btn btn-primary" asp-controller="Home" asp-action="Index">Return to Home</a></p>
+        </div>
+    </div>
+</div>
