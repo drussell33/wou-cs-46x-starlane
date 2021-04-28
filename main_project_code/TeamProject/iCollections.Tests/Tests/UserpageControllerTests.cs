@@ -87,8 +87,6 @@ namespace iCollections.Tests.Tests
             mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
                             .Returns(new Collection[] { }.ToList());
 
-            mockUsersRepo.Setup(m => m.GetTargetUser(It.IsAny<string>())).Returns(new IcollectionUser { Id = 23 });
-
             var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, mockPhotosRepo.Object, mockCollectionsRepo.Object);
             var result = userPageController.Index("medinas");
             var userProfile = (result as ViewResult).ViewData.Model as UserProfile;
@@ -116,7 +114,7 @@ namespace iCollections.Tests.Tests
             mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
                             .Returns(new Collection[] { }.ToList());
 
-            mockUsersRepo.Setup(m => m.GetTargetUser(It.IsAny<string>())).Returns(new IcollectionUser { Id = 23 });
+            mockUsersRepo.Setup(m => m.GetTargetUser(It.IsAny<string>())).Returns(new IcollectionUser{Id = 23});
 
             var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, mockPhotosRepo.Object, mockCollectionsRepo.Object);
             var result = userPageController.Index("medinas");
