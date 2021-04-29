@@ -92,7 +92,7 @@ namespace iCollections.Controllers
             friendships = filtered;
         }
 
-        public void ReadDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId)
+        public static void ReadDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId, IFriendsWithRepository friends)
         {
             // iterate through all my direct friends
             foreach (var directFriend in myFriends)

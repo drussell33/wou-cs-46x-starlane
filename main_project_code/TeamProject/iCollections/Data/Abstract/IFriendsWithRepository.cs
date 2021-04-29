@@ -9,10 +9,6 @@ namespace iCollections.Data.Abstract
 {
     public interface IFriendsWithRepository : IRepository<FriendsWith>
     {
-        // bool Exists(Follow follow);
-
-        // IIncludableQueryable<Follow, IcollectionUser> GetFollows();
-
-        // Follow GetFollow(Func<Follow, bool> filter);
+        List<FriendsWith> GetFriendshipsInvolvingThisUser(int id);
     }
 }
