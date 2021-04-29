@@ -94,26 +94,32 @@ namespace iCollections.Controllers
 
         public void ReadDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId)
         {
+            // iterate through all my direct friends
             foreach (var directFriend in myFriends)
             {
+                // add friendships with my direct friend in it
                 var directFriendsFriend = _collectionsDbContext.FriendsWiths
                     .Include(f => f.User1)
                     .Include(f => f.User2)
                     .Where(row => row.User1.Id == directFriend.Id || row.User2.Id == directFriend.Id)
                     .ToList();
 
+                // add my direct friend's collections
                 var myBuddyCollections = _collectionsDbContext
                     .Collections
                     .Include(r => r.User)
                     .Where(r => r.User.Id == directFriend.Id)
                     .ToList();
 
+                // append to my lists
                 myFriendCollections.AddRange(myBuddyCollections);
                 myFriendsFriends.AddRange(directFriendsFriend);
             }
 
+            // take out friendships involving me personally
             myFriendsFriends.RemoveAll(friendship => isKeyInFriendship(friendship.User1, friendship.User2, userId));
             RemoveDuplicates(ref myFriendsFriends, myFriends);
+            // should be left with friendships involving my friends but not me
         }
 
         public void ReadFollowees(List<IcollectionUser> followees, List<Follow> topFollow, List<Collection> followeesCollections, int userId)
