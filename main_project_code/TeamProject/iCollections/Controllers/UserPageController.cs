@@ -23,6 +23,7 @@ namespace iCollections.Controllers
 
         private readonly IIcollectionUserRepository _userRepo;
 
+
         private readonly IPhotoRepository _photoRepo;
 
         private readonly IcollectionRepository _colRepo;
@@ -102,22 +103,6 @@ namespace iCollections.Controllers
             }
             List<Follow> following = user.FollowFollowerNavigations.ToList();
             return View(new FollowList { TargetUser = user, Follows = following });
-        }
-
-        [Route("userpage/{name}/collections")]
-        public IActionResult Collections(string name)
-        {
-            if (name == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            IcollectionUser user = _db.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
-            if (user == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            var collections = _db.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections.OrderByDescending(c => c.DateMade); ;
-            return View(collections);
         }
 
         [Authorize]
