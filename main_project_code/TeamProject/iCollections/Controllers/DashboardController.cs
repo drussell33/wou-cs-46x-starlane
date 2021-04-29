@@ -10,6 +10,7 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using iCollections.Data.Abstract;
 
 namespace iCollections.Controllers
 {
@@ -18,8 +19,9 @@ namespace iCollections.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ICollectionsDbContext _collectionsDbContext;
-
         private DatabaseHelper dbHelper;
+        private readonly IFriendsWithRepository friends;
+        private readonly IcollectionRepository collections;
 
         public DashboardController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
         {
@@ -42,7 +44,7 @@ namespace iCollections.Controllers
             var myFriends = dbHelper.GetMyFriends(userId);
             List<FriendsWith> myFriendsFriends = new List<FriendsWith>();
             var theirCollections = new List<Collection>();
-            dbHelper.ReadDistantFriends(myFriends, myFriendsFriends, theirCollections, userId);
+            DatabaseHelper.ReadDistantFriends(myFriends, myFriendsFriends, theirCollections, userId, friends, collections);
 
             // start querying distant followees and my followees' collections
             var whoIFollow = dbHelper.GetMyFollowees(userId);

@@ -22,7 +22,7 @@ namespace iCollections.Controllers
             _collectionsDbContext = collectionsDbContext;
         }
 
-        public bool isKeyInFriendship(IcollectionUser user1, IcollectionUser user2, int key)
+        public static bool isKeyInFriendship(IcollectionUser user1, IcollectionUser user2, int key)
         {
             return key == user1.Id || key == user2.Id;
         }
@@ -92,24 +92,16 @@ namespace iCollections.Controllers
             friendships = filtered;
         }
 
-        public static void ReadDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId, IFriendsWithRepository friends)
+        public static void ReadDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId, IFriendsWithRepository friends, IcollectionRepository collections)
         {
             // iterate through all my direct friends
             foreach (var directFriend in myFriends)
             {
                 // add friendships with my direct friend in it
-                var directFriendsFriend = _collectionsDbContext.FriendsWiths
-                    .Include(f => f.User1)
-                    .Include(f => f.User2)
-                    .Where(row => row.User1.Id == directFriend.Id || row.User2.Id == directFriend.Id)
-                    .ToList();
+                var directFriendsFriend = friends.GetFriendshipsInvolvingThisUser(directFriend.Id);
 
                 // add my direct friend's collections
-                var myBuddyCollections = _collectionsDbContext
-                    .Collections
-                    .Include(r => r.User)
-                    .Where(r => r.User.Id == directFriend.Id)
-                    .ToList();
+                var myBuddyCollections = collections.GetICollectionsForThisUser(directFriend.Id);
 
                 // append to my lists
                 myFriendCollections.AddRange(myBuddyCollections);

@@ -9,6 +9,6 @@ namespace iCollections.Data.Abstract
 {
     public interface IFriendsWithRepository : IRepository<FriendsWith>
     {
-        List<FriendsWith> GetFriendshipsInvolvingThisUser(int id);
+        List<FriendsWith> GetFriendshipsInvolvingThisUser(int userId);
     }
 }
