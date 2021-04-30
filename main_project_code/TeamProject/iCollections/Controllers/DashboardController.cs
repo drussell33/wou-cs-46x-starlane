@@ -44,7 +44,7 @@ namespace iCollections.Controllers
             var myFriends = dbHelper.GetMyFriends(userId);
             List<FriendsWith> myFriendsFriends = new List<FriendsWith>();
             var theirCollections = new List<Collection>();
-            DatabaseHelper.ReadDistantFriends(myFriends, myFriendsFriends, theirCollections, userId, friends, collections);
+            DatabaseHelper.ReadDistantFriends(myFriends, ref myFriendsFriends, theirCollections, userId, friends, collections);
 
             // start querying distant followees and my followees' collections
             var whoIFollow = dbHelper.GetMyFollowees(userId);

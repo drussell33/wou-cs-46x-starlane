@@ -18,6 +18,7 @@ namespace iCollections.Data.Concrete
 
         public List<FriendsWith> GetFriendshipsInvolvingThisUser(int userId)
         {
+            var j = GetAll();
             return GetAll()
                     .Include(f => f.User1)
                     .Include(f => f.User2)

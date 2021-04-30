@@ -70,29 +70,36 @@ namespace iCollections.Controllers
         // removes duplicates from list (list of mutual friends)
         // remove duplicate friendships 
         // (assuming all friendships have at least one of my friends in them)
+        // want ships in this format (directFriend, secondHandFriend)
         public static void RemoveDuplicates(ref List<FriendsWith> friendships, List<IcollectionUser> directFriends)
         {
             if (friendships == null || directFriends == null) throw new NullReferenceException("Cannot access null lists");
             
             var filtered = new List<FriendsWith>();
-            var bothDirectFriends = new List<FriendsWith>();
             foreach (var ship in friendships)
             {
-                if (directFriends.Any(r => r.Id == ship.User1.Id)
-                    && !bothDirectFriends.Any(r => r.User1.Id == ship.User2.Id && r.User2.Id == ship.User1.Id))
+                if (!directFriends.Any(df => df.Id == ship.User1.Id)) // if user1 != df -> skip
                 {
-                    filtered.Add(ship);
-
-                    if (IsBothFriendsOfMine(directFriends, ship.User1, ship.User2))
+                    continue;
+                }
+                else
+                {
+                    // if (df, other) actually already in filtered as (other, df) -> skip
+                    if (filtered.Any(existing => existing.User1.Id == ship.User2.Id && existing.User2.Id == ship.User1.Id))
                     {
-                        bothDirectFriends.Add(ship);
+                        continue;
+                    }
+                    // if (df, other) not in filtered -> add
+                    else if (!filtered.Any(existing => existing.User1.Id == ship.User1.Id && existing.User2.Id == ship.User2.Id))
+                    {
+                        filtered.Add(ship);
                     }
                 }
             }
             friendships = filtered;
         }
 
-        public static void ReadDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId, IFriendsWithRepository friends, IcollectionRepository collections)
+        public static void ReadDistantFriends(List<IcollectionUser> myFriends, ref List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId, IFriendsWithRepository friends, IcollectionRepository collections)
         {
             // iterate through all my direct friends
             foreach (var directFriend in myFriends)
@@ -111,7 +118,6 @@ namespace iCollections.Controllers
             // take out friendships involving me personally
             myFriendsFriends.RemoveAll(friendship => isKeyInFriendship(friendship.User1, friendship.User2, userId));
             RemoveDuplicates(ref myFriendsFriends, myFriends);
-            // should be left with friendships involving my friends but not me
         }
 
         public void ReadFollowees(List<IcollectionUser> followees, List<Follow> topFollow, List<Collection> followeesCollections, int userId)
