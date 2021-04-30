@@ -218,10 +218,10 @@ h1 {
 }
 
 .landing-image {
-  max-width: 95%;
+  max-width: 100%;
   height: auto;
   /* padding-left: 110px; */
-  margin: 5px;
+  margin: 2px;
 }
 
 .options {
