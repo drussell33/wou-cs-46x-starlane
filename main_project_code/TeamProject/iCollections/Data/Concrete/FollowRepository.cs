@@ -33,5 +33,14 @@ namespace iCollections.Data.Concrete
             return follow;
         }
 
+        public List<Follow> GetFolloweesForUserExcludingMe(int userId, int myId)
+        {
+            return GetAll()
+                    .Include(f => f.FollowedNavigation)
+                    .Include(f => f.FollowerNavigation)
+                    .Where(row => row.FollowerNavigation.Id == userId && row.FollowedNavigation.Id != myId)
+                    .ToList();
+        }
+
     }
 }

@@ -120,21 +120,12 @@ namespace iCollections.Controllers
             RemoveDuplicates(ref myFriendsFriends, myFriends);
         }
 
-        public void ReadFollowees(List<IcollectionUser> followees, List<Follow> topFollow, List<Collection> followeesCollections, int userId)
+        public static void ReadFollowees(List<IcollectionUser> followees, List<Follow> topFollow, List<Collection> followeesCollections, int userId, IFollowRepository follow, IcollectionRepository cols)
         {
             foreach (var myFollowee in followees)
             {
-                var followeeFollowees = _collectionsDbContext.Follows
-                    .Include(f => f.FollowedNavigation)
-                    .Include(f => f.FollowerNavigation)
-                    .Where(row => row.FollowerNavigation.Id == myFollowee.Id && row.FollowedNavigation.Id != userId)
-                    .ToList();
-
-                var myFolloweeCollections = _collectionsDbContext.Collections
-                    .Include(r => r.User)
-                    .Where(c => c.User.Id == myFollowee.Id)
-                    .ToList();
-
+                var followeeFollowees = follow.GetFolloweesForUserExcludingMe(myFollowee.Id, userId);
+                var myFolloweeCollections = cols.GetICollectionsForThisUser(myFollowee.Id);
                 topFollow.AddRange(followeeFollowees);
                 followeesCollections.AddRange(myFolloweeCollections);
             }

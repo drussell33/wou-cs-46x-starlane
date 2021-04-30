@@ -22,6 +22,7 @@ namespace iCollections.Controllers
         private DatabaseHelper dbHelper;
         private readonly IFriendsWithRepository friends;
         private readonly IcollectionRepository collections;
+        private readonly IFollowRepository follow;
 
         public DashboardController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
         {
@@ -50,7 +51,7 @@ namespace iCollections.Controllers
             var whoIFollow = dbHelper.GetMyFollowees(userId);
             List<Follow> topFollow = new List<Follow>();
             List<Collection> followeesCollections = new List<Collection>();
-            dbHelper.ReadFollowees(whoIFollow, topFollow, followeesCollections, userId);
+            DatabaseHelper.ReadFollowees(whoIFollow, topFollow, followeesCollections, userId, follow, collections);
 
             // Gather remaining lists and order them chronologically
             var extractedCollections = followeesCollections.Union(theirCollections).Distinct().ToList();
