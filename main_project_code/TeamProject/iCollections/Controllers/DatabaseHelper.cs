@@ -131,7 +131,7 @@ namespace iCollections.Controllers
             }
         }
 
-        public void OrderLists(List<FriendsWith> myFriendsFriends, List<Follow> topFollow, List<Collection> extractedCollections)
+        public static void OrderLists(ref List<FriendsWith> myFriendsFriends, ref List<Follow> topFollow, ref List<Collection> extractedCollections)
         {
             myFriendsFriends = myFriendsFriends.OrderByDescending(r => r.Began).ToList();
             topFollow = topFollow.OrderByDescending(r => r.Began).ToList();

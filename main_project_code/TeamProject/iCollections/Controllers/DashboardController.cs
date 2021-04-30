@@ -44,8 +44,8 @@ namespace iCollections.Controllers
             // start querying distants and my friends' collections
             var myFriends = dbHelper.GetMyFriends(userId);
             List<FriendsWith> myFriendsFriends = new List<FriendsWith>();
-            var theirCollections = new List<Collection>();
-            DatabaseHelper.ReadDistantFriends(myFriends, ref myFriendsFriends, theirCollections, userId, friends, collections);
+            var friendsCollections = new List<Collection>();
+            DatabaseHelper.ReadDistantFriends(myFriends, ref myFriendsFriends, friendsCollections, userId, friends, collections);
 
             // start querying distant followees and my followees' collections
             var whoIFollow = dbHelper.GetMyFollowees(userId);
@@ -54,8 +54,8 @@ namespace iCollections.Controllers
             DatabaseHelper.ReadFollowees(whoIFollow, topFollow, followeesCollections, userId, follow, collections);
 
             // Gather remaining lists and order them chronologically
-            var extractedCollections = followeesCollections.Union(theirCollections).Distinct().ToList();
-            dbHelper.OrderLists(myFriendsFriends, topFollow, extractedCollections);
+            var extractedCollections = followeesCollections.Union(friendsCollections).Distinct().ToList();
+            DatabaseHelper.OrderLists(ref myFriendsFriends, ref topFollow, ref extractedCollections);
             var activityData = new ActivityEvents
             {
                 MyEmail = _userManager.GetUserName(User),
