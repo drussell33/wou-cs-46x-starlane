@@ -20,16 +20,20 @@ namespace iCollections.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ICollectionsDbContext _collectionsDbContext;
         private DatabaseHelper dbHelper;
-        private readonly IFriendsWithRepository friends;
-        private readonly IcollectionRepository collections;
-        private readonly IFollowRepository follow;
+        private readonly IFriendsWithRepository _friends;
+        private readonly IcollectionRepository _collections;
+        private readonly IFollowRepository _follow;
 
-        public DashboardController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
+        public DashboardController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext,
+            IFriendsWithRepository friends, IcollectionRepository collections, IFollowRepository follow)
         {
             _logger = logger;
             _userManager = userManager;
             _collectionsDbContext = collectionsDbContext;
             dbHelper = new DatabaseHelper(_userManager, _collectionsDbContext);
+            _friends = friends;
+            _collections = collections;
+            _follow = follow;
         }
 
         // Dashboard opens here - shows a feed of recent events
@@ -45,13 +49,13 @@ namespace iCollections.Controllers
             var myFriends = dbHelper.GetMyFriends(userId);
             List<FriendsWith> myFriendsFriends = new List<FriendsWith>();
             var friendsCollections = new List<Collection>();
-            DatabaseHelper.ReadDistantFriends(myFriends, ref myFriendsFriends, friendsCollections, userId, friends, collections);
+            DatabaseHelper.ReadDistantFriends(myFriends, ref myFriendsFriends, friendsCollections, userId, _friends, _collections);
 
             // start querying distant followees and my followees' collections
             var whoIFollow = dbHelper.GetMyFollowees(userId);
             List<Follow> topFollow = new List<Follow>();
             List<Collection> followeesCollections = new List<Collection>();
-            DatabaseHelper.ReadFollowees(whoIFollow, topFollow, followeesCollections, userId, follow, collections);
+            DatabaseHelper.ReadFollowees(whoIFollow, topFollow, followeesCollections, userId, _follow, _collections);
 
             // Gather remaining lists and order them chronologically
             var extractedCollections = followeesCollections.Union(friendsCollections).Distinct().ToList();

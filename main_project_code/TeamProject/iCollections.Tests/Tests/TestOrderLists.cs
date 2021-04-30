@@ -3,14 +3,8 @@
 using NUnit.Framework;
 using iCollections.Controllers;
 using iCollections.Models;
-using iCollections.Data.Abstract;
-using Moq;
 using System;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using iCollections.Data;
-using iCollections.Data.Concrete;
 
 namespace iCollections.Tests.Tests
 {
