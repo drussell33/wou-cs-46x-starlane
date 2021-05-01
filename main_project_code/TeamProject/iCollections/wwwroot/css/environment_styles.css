@@ -39,3 +39,80 @@
 .checkboxWarning {
     color: red;
 }
+
+.text-responsive {
+    font-size: calc(100% + 1vw + 1vh);
+}
+
+
+/*Home Page Refactored Styles */
+
+.clear-section {
+    background-color: #fff;
+}
+
+.silver-section {
+    background-color: #e5e5e5;
+}
+
+.container-fluid {
+    /*padding: 7% 15%;*/
+}
+
+.cf-padding {
+    padding: 7% 15%;
+}
+
+#landing-area {
+    padding: 2%;
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+
+.main-title {
+    font-size: 3.0rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.main-sub-title {
+    font-size: 1.0rem;
+}
+
+.landing-image {
+    max-width: 110%;
+    height: auto;
+    /* padding-left: 110px; */
+    margin: 2px;
+}
+
+.horizontal-center {
+    padding-top: 100px;
+}
+
+/*New Features section */
+
+.social-box .box {
+    background: #FFF;
+    border-radius: 10px;
+    padding: 40px 10px;
+    margin: 20px 0px;
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+
+    .social-box .box:hover {
+        box-shadow: 0 0 6px #4183D7;
+    }
+
+    .social-box .box .box-text {
+        margin: 20px 0px;
+        font-size: 15px;
+        line-height: 30px;
+    }
+
+    .social-box .box .box-btn a {
+        text-decoration: none;
+        color: #4183D7;
+        font-size: 16px;
+    }
