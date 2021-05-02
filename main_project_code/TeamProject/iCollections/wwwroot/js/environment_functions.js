@@ -35,11 +35,6 @@ function GatherPhotoData(photoData) {
 }
 
 
-
-function SetOceanDemoPhotos(photoData) {
-
-}
-
 //Custom Upload Photo
 function uploadImage(collectionPhoto) {
     // create a canvas element

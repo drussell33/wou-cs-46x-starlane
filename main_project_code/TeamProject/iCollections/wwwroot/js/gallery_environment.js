@@ -1,6 +1,6 @@
 ﻿import * as THREE from './three.module.js';
 import { PointerLockControls } from './PointerLockControls.js';
-import { GatherPhotoData, LoadImagesToScene } from './environment_functions.js';
+import { GatherPhotoData, LoadImagesToScene, LoadDemoImagesToScene } from './environment_functions.js';
 
 
 $(document).ready(function MakeGallery() {
@@ -9,6 +9,59 @@ $(document).ready(function MakeGallery() {
     //Gets the photo data written to the tr's in the DOM
     var photoData = [];
     photoData = GatherPhotoData(photoData);
+
+    let photoDemoData = [
+        { "srcData": './images/card_pics/IMG-0782.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0783.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0784.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0785.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0786.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0787.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0788.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0789.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0790.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0791.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0792.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0793.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0794.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0795.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0796.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0797.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0798.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0799.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0800.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0801.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0802.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0803.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0804.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0805.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0806.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0807.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0808.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0809.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0810.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0811.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0812.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0813.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0814.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0815.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0816.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0817.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0818.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0819.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0820.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0821.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0822.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0823.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0824.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0825.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0826.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+    ];
+
+    if (photoData.length === 0) {
+        console.log("Photo Data is NUll")
+    }
+
 
 
     let camera, scene, renderer, controls, container;
@@ -277,6 +330,9 @@ $(document).ready(function MakeGallery() {
 
         LoadImagesToScene(scene, photoData, positionCordinateData);
 
+        if (photoData.length === 0) {
+            LoadDemoImagesToScene(scene, photoDemoData, positionCordinateData);
+        }
 
         // old hard coded image vectors ---------------------
         /*puzzel_29 = uploadImage('images/puzzel_pics/image_123923953.JPG');
