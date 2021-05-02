@@ -1,26 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "iCollections";
+    ViewData["Title"] = "Home Page";
 }
 
-@*Landing Area*@
-@*<section class="clear-section" id="landing-area">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-6">
-                    <h1 class="main-title text-responsive">iCollections</h1>
-                    <p class="text-responsive">The best way to share your collections and collectables</p>
-                </div>
-                <div class="col-6">
-                    <img src="img/landing-image-laptop.png" class="landing-image img-responsive" alt="ICollections landing image" />
-                </div>
-            </div>
-        </div>
-    </section>*@
-
-
-
 @*New Landing Area*@
-
 <section class="clear-section" id="landing-area">
     <div class="container-fluid">
         <div class="row">
@@ -44,12 +26,11 @@
     <div class="social-box">
         <div class="container-fluid cf-padding">
             <div class="row">
-
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
                         <img src="~/img/homepage/photo_feature.jpg" class="box-photo img-responsive" alt="Store and Manager Photo Alt" />
                         <div class="box-title">
-                            <h3>Store and Manage Photos</h3>
+                            <h3>Upload, Store and Manage your Photos</h3>
                         </div>
                         <hr />
                         <div class="box-text">
@@ -201,15 +182,53 @@
 </section>
 
 
+@*Environment Previews Selection*@
+<section class="clear-section" id="">
+    <div class="container-fluid cf-padding">
+        <h1>Sample of 2D environment</h1>
+        <div class="row">
+            <div class="col-6">
+                <h4>Fill any 2D area with as many photos as you want!</h4>
+                <p>By storing you images, we can fill a canvas 2D HTML object to compact them all as tight as possible. </p>
+            </div>
+            <div class="col-6">
+                <img src="img/2D_example.jpg" class="landing-image" alt="2D Sample image" />
+            </div>
+        </div>
+    </div>
+</section>
 
+<section class="silver-section" id="">
+    <div class="container-fluid cf-padding">
+        <h1>A Sample of 360 Environment</h1>
+        <div class="row">
+            <div class="col-6">
+                <h4>Arange a small number of photo around a central point so they can be viewed in a 360 dgree manner</h4>
+                <p>An ocean environment with a users selection of trophy fish can be previewed for an example.</p>
+                <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Ocean_environment">Preview</a>
+            </div>
+            <div class="col-6">
+                <img src="img/ocean_example_thumbnail.jpg" class="landing-image" alt="2D Sample image" />
+            </div>
+        </div>
+    </div>
+</section>
 
-
-
-
-
-
-
-
+<section class="clear-section" id="">
+    <div class="container-fluid cf-padding">
+        <h1>Sample of 3D environment</h1>
+        <div class="row">
+            <div class="col-6">
+                <h4>Arange a small to large number of photos into a 3D gallery environment world that you want walk through</h4>
+                <p>A gallery environment where a user has upload photos of their puzzels can be previewed for an example.</p>
+                <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="gallery_environment">Preview</a>
+            </div>
+            <div class="col-6">
+                <img src="img/gallery_example_thumbnail.jpg" class="landing-image" alt="2D Sample image" />
+            </div>
+        </div>
+    </div>
+</section>
 
 
 @*Project Purpose and Vision*@
@@ -219,9 +238,6 @@
         <p>For anyone who wants a easy and fun way to share with others their collections or collectables, the 360 iCollectables Creator can upload and render photos of their collectable items that will be displayed in 2D, 360 degree, or possibly 360 full virtual environment. The system will store the users uploaded photos of items, allow user selection of the available environments, and give the ability to place their items into the environment at specific locations, and then allow others to view their environments filled with their collectable items. Unlike albums of photos our users will be able to show off large collections of items in a single format that can easily show the scale of the collection, while maintaining the ability to inspect individual items closely.</p>
     </div>
 </section>
-
-
-
 
 
 @*Disclaimer and Promotion*@
@@ -249,99 +265,3 @@
         </div>
     </div>
 </section>
-
-
-
-
-@*How it Works Carousel*@
-<section class="clear-section" id="">
-    <div class="container-fluid cf-padding">
-        <h1 class="text-center">How Does it Work?</h1>
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <h3>Step 1. Upload your photos for your new iCollection.</h3>
-                    <h5 class="text-center">You can make an iCollection of anything! What do you collect? What do you want to view as a collection?</h5>
-                    <img class="d-block w-100" src="img/upload_photo_sample.jpg" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                    <h3>Step 2. Select an iCollections Environment</h3>
-                    <h5 class="text-center">Choose the best way to share your individual collections</h5>
-                    <img class="d-block w-100" src="img/collection_selection_example.png" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                    <h3>Step 3. Review, Edit, and Share your new iCollection with Friends!</h3>
-                    <h5 class="text-center">You can also go back and make any changes as your collection grows!</h5>
-                    <img class="d-block w-100" src="img/finish_environment_sample.jpg" alt="Third slide">
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-</section>
-
-
-
-
-@*Environment Previews Selection*@
-<section class="silver-section" id="">
-    <div class="container-fluid cf-padding">
-        <h1>Sample of 2D environment</h1>
-        <div class="row">
-            <div class="col-6">
-                <h4>Fill any 2D area with as many photos as you want!</h4>
-                <p>By storing you images, we can fill a canvas 2D HTML object to compact them all as tight as possible. </p>
-            </div>
-            <div class="col-6">
-                <img src="img/2D_example.jpg" class="landing-image" alt="2D Sample image" />
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="clear-section" id="">
-    <div class="container-fluid cf-padding">
-        <h1>A Sample of 360 Environment</h1>
-        <div class="row">
-            <div class="col-6">
-                <h4>Arange a small number of photo around a central point so they can be viewed in a 360 dgree manner</h4>
-                <p>An ocean environment with a users selection of trophy fish can be previewed for an example.</p>
-                <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Ocean_environment">Preview</a>
-            </div>
-            <div class="col-6">
-                <img src="img/ocean_example_thumbnail.jpg" class="landing-image" alt="2D Sample image" />
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="silver-section" id="">
-    <div class="container-fluid cf-padding">
-        <h1>Sample of 3D environment</h1>
-        <div class="row">
-            <div class="col-6">
-                <h4>Arange a small to large number of photos into a 3D gallery environment world that you want walk through</h4>
-                <p>A gallery environment where a user has upload photos of their puzzels can be previewed for an example.</p>
-                <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="gallery_environment">Preview</a>
-            </div>
-            <div class="col-6">
-                <img src="img/gallery_example_thumbnail.jpg" class="landing-image" alt="2D Sample image" />
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
