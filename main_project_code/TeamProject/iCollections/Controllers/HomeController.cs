@@ -42,8 +42,13 @@ namespace iCollections.Controllers
         }
 
         [Route("/ocean_environment")]
-        public IActionResult Ocean_environment(int collectionID)
+        public IActionResult Ocean_environment(int? collectionID)
         {
+            if (collectionID == null)
+            {
+                return View();
+            }
+
             Collection newCollection = new Collection();
             newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
             var collectionPhotos = newCollection.CollectionPhotoes.Where(m => m.CollectId == collectionID).ToList();
@@ -63,8 +68,9 @@ namespace iCollections.Controllers
                 }
             }
             ViewData["collectionTitle"] = newCollection.Name;
-            Console.WriteLine(AllPhotos.Count());
+
             return View(AllPhotos);
+            
         }
 
         

@@ -3,15 +3,39 @@ import Stats from './stats.module.js';
 import { OrbitControls } from './OrbitControls.js';
 import { Water } from './Water.js';
 import { Sky } from './Sky.js';
-import { GatherPhotoData, LoadImagesToScene } from './environment_functions.js';
+import { GatherPhotoData, LoadImagesToScene, LoadDemoImagesToScene } from './environment_functions.js';
 
 
 $(document).ready(function MakeGallery() {
     console.log("page loaded the ocean environment.js");
 
+
+
+
     //Gets the photo data written to the tr's in the DOM
     var photoData = [];
     photoData = GatherPhotoData(photoData);
+
+
+    let photoDemoData = [
+        { "srcData": './images/fish_pics/fish4.png', "srcTitle": 'Trout', "srcRank": 1, "srcDescription": "Caught Aug 2017" },
+        { "srcData": './images/fish_pics/fish2.png', "srcTitle": 'Big Mouth Bass', "srcRank": 1, "srcDescription": "Caught Jun 2013" },
+        { "srcData": './images/fish_pics/fish3.png', "srcTitle": 'Big Mouth Bass', "srcRank": 1, "srcDescription": "Caught Jun 2013" },
+        { "srcData": './images/fish_pics/marlin.png', "srcTitle": 'Big Mouth Bass', "srcRank": 1, "srcDescription": "Caught Jun 2013" },
+        { "srcData": './images/fish_pics/bluegill.png', "srcTitle": 'Big Mouth Bass', "srcRank": 1, "srcDescription": "Caught Jun 2013" },
+        { "srcData": './images/fish_pics/steelhead.png', "srcTitle": 'Big Mouth Bass', "srcRank": 1, "srcDescription": "Caught Jun 2013" },
+        { "srcData": './images/fish_pics/boot.png', "srcTitle": 'Big Mouth Bass', "srcRank": 1, "srcDescription": "Caught Jun 2013" },
+        { "srcData": './images/fish_pics/rockcod.png', "srcTitle": 'Big Mouth Bass', "srcRank": 1, "srcDescription": "Caught Jun 2013" },
+    ];
+
+
+
+
+    if (photoData.length === 0) {
+        console.log("Photo Data is NUll")
+    }
+
+
 
 
     var container, stats;
@@ -122,11 +146,11 @@ $(document).ready(function MakeGallery() {
 
 
         //Custom Upload Photo
-        function uploadImage(collectionPhoto) {
+        function uploadDemoImage(collectionPhoto) {
             // create a canvas element
             var canvas = document.createElement('canvas');
-            canvas.width = 150;
-            canvas.height = 100;
+            canvas.width = 500;
+            canvas.height = 500;
             var context = canvas.getContext('2d');
             // canvas contents will be used for a texture
             var texture = new THREE.Texture(canvas);
@@ -202,6 +226,9 @@ $(document).ready(function MakeGallery() {
 
         LoadImagesToScene(scene, photoData, positionCordinateData);
 
+        if (photoData.length === 0) {
+            LoadDemoImagesToScene(scene, photoDemoData, positionCordinateData);
+        }
 
 
        /* // CUstom text to sign THIRD Attempt END ----------------------------------------------------------------------------
