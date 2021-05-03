@@ -10,6 +10,7 @@ namespace iCollections.Models
         public IcollectionUser()
         {
             Collections = new HashSet<Collection>();
+            FavoriteCollections = new HashSet<FavoriteCollection>();
             FollowFollowedNavigations = new HashSet<Follow>();
             FollowFollowerNavigations = new HashSet<Follow>();
             FriendsWithUser1 = new HashSet<FriendsWith>();
@@ -27,6 +28,7 @@ namespace iCollections.Models
         public int? ProfilePicId { get; set; }
 
         public virtual ICollection<Collection> Collections { get; set; }
+        public virtual ICollection<FavoriteCollection> FavoriteCollections { get; set; }
         /// <summary>
         /// Represents Users followed to this User.
         /// </summary>

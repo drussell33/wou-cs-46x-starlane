@@ -21,6 +21,7 @@ namespace iCollections.Data
         public virtual DbSet<Collection> Collections { get; set; }
         public virtual DbSet<CollectionKeyword> CollectionKeywords { get; set; }
         public virtual DbSet<CollectionPhoto> CollectionPhotos { get; set; }
+        public virtual DbSet<FavoriteCollection> FavoriteCollections { get; set; }
         public virtual DbSet<Follow> Follows { get; set; }
         public virtual DbSet<FriendsWith> FriendsWiths { get; set; }
         public virtual DbSet<IcollectionUser> IcollectionUsers { get; set; }
@@ -49,6 +50,8 @@ namespace iCollections.Data
                     .HasColumnType("datetime")
                     .HasColumnName("date_made");
 
+                entity.Property(e => e.FavoriteCollectionId).HasColumnName("favorite_collection_id");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100)
@@ -62,6 +65,11 @@ namespace iCollections.Data
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.Property(e => e.Visibility).HasColumnName("visibility");
+
+                entity.HasOne(d => d.FavoriteCollection)
+                    .WithMany(p => p.Collections)
+                    .HasForeignKey(d => d.FavoriteCollectionId)
+                    .HasConstraintName("Collection_fk_FavoriteCollection");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Collections)
@@ -125,6 +133,30 @@ namespace iCollections.Data
                     .WithMany(p => p.CollectionPhotoes)
                     .HasForeignKey(d => d.PhotoId)
                     .HasConstraintName("CollectionPhoto_fk_Photo");
+            });
+
+            modelBuilder.Entity<FavoriteCollection>(entity =>
+            {
+                entity.ToTable("FavoriteCollection");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.DateMade)
+                    .HasColumnType("datetime")
+                    .HasColumnName("date_made");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Route).HasColumnName("route");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.Property(e => e.Visibility).HasColumnName("visibility");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.FavoriteCollections)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FavoriteCollection_fk_ICollectionUser");
             });
 
             modelBuilder.Entity<Follow>(entity =>
