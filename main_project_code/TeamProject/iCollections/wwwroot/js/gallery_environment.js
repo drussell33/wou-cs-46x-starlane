@@ -23,9 +23,6 @@ $(document).ready(function MakeGallery() {
         { "srcData": './images/card_pics/IMG-0791.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0792.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0793.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0794.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0795.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0796.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0797.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0798.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0799.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
@@ -56,6 +53,9 @@ $(document).ready(function MakeGallery() {
         { "srcData": './images/card_pics/IMG-0824.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0825.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0826.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0827.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0828.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0829.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
     ];
 
     if (photoData.length === 0) {

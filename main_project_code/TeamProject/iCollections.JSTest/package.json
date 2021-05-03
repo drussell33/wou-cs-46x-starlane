@@ -16,7 +16,14 @@
     "test": "jest"
   },
   "jest": {
-    "setupFiles": ["./setupFiles/setup-jest.js"],
-    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"]
+    "setupFiles": [
+      "./setupFiles/setup-jest.js"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ]
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
   }
 }

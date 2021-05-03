@@ -106,7 +106,7 @@ namespace iCollections.Controllers
             {
                 route = TempData["route"].ToString();
             }
-            TempData.Keep();
+            //TempData.Keep();
             Debug.WriteLine(collection);
             if (ModelState.IsValid)
             {
@@ -148,7 +148,9 @@ namespace iCollections.Controllers
                     }
                     
                 }
-
+                TempData.Remove("photoids");
+                TempData.Remove("route");
+                TempData.Clear();
                 return RedirectToAction("PublishingSuccess");
             }
             string[] dropDownList = new string[] { "private", "friends", "public" };
