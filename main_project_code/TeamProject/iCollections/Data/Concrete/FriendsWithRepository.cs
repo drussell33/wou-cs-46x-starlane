@@ -25,5 +25,18 @@ namespace iCollections.Data.Concrete
                     .Where(row => row.User1.Id == userId || row.User2.Id == userId)
                     .ToList();
         }
+
+        public List<IcollectionUser> GetMyFriends(int myId)
+        {
+            var myFriendsQuery = GetAll()
+                .Include(f => f.User1)
+                .Include(f => f.User2)
+                .Where(friendship => friendship.User1.Id == myId || friendship.User2.Id == myId)
+                .Select(friendship => friendship.User1.SelectOtherUser(friendship.User2, myId))
+                .ToList();
+
+            var myFriends = myFriendsQuery.GroupBy(f => f.Id).Select(f => f.FirstOrDefault()).ToList();
+            return myFriends;
+        }
     }
 }

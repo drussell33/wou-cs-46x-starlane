@@ -19,7 +19,6 @@ namespace iCollections.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ICollectionsDbContext _collectionsDbContext;
-        private DatabaseHelper dbHelper;
         private readonly IFriendsWithRepository _friends;
         private readonly IcollectionRepository _collections;
         private readonly IFollowRepository _follow;
@@ -30,7 +29,6 @@ namespace iCollections.Controllers
             _logger = logger;
             _userManager = userManager;
             _collectionsDbContext = collectionsDbContext;
-            dbHelper = new DatabaseHelper(_userManager, _collectionsDbContext);
             _friends = friends;
             _collections = collections;
             _follow = follow;
@@ -46,13 +44,13 @@ namespace iCollections.Controllers
             string userName = DatabaseHelper.GetICollectionUserName(nastyStringId, _collectionsDbContext);
 
             // start querying distants and my friends' collections
-            var myFriends = dbHelper.GetMyFriends(userId);
+            var myFriends = _friends.GetMyFriends(userId);
             List<FriendsWith> myFriendsFriends = new List<FriendsWith>();
             var friendsCollections = new List<Collection>();
             DatabaseHelper.ReadDistantFriends(myFriends, ref myFriendsFriends, friendsCollections, userId, _friends, _collections);
 
             // start querying distant followees and my followees' collections
-            var whoIFollow = dbHelper.GetMyFollowees(userId);
+            var whoIFollow = _follow.GetMyFollowees(userId);
             List<Follow> topFollow = new List<Follow>();
             List<Collection> followeesCollections = new List<Collection>();
             DatabaseHelper.ReadFollowees(whoIFollow, topFollow, followeesCollections, userId, _follow, _collections);

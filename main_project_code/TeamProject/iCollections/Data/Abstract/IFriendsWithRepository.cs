@@ -10,5 +10,7 @@ namespace iCollections.Data.Abstract
     public interface IFriendsWithRepository : IRepository<FriendsWith>
     {
         List<FriendsWith> GetFriendshipsInvolvingThisUser(int userId);
+
+        List<IcollectionUser> GetMyFriends(int myId);
     }
 }

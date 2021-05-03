@@ -42,5 +42,15 @@ namespace iCollections.Data.Concrete
                     .ToList();
         }
 
+        public List<IcollectionUser> GetMyFollowees(int myId)
+        {
+            var whoIFollow = GetAll()
+                .Where(f => f.FollowerNavigation.Id == myId)
+                .Select(f => f.FollowedNavigation)
+                .ToList();
+
+            return whoIFollow;
+        }
+
     }
 }

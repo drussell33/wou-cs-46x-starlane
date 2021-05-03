@@ -27,29 +27,6 @@ namespace iCollections.Controllers
             return key == user1.Id || key == user2.Id;
         }
 
-        public List<IcollectionUser> GetMyFriends(int myId)
-        {
-            var myFriendsQuery = _collectionsDbContext.FriendsWiths
-                .Include(f => f.User1)
-                .Include(f => f.User2)
-                .Where(friendship => friendship.User1.Id == myId || friendship.User2.Id == myId)
-                .Select(friendship => friendship.User1.SelectOtherUser(friendship.User2, myId))
-                .ToList();
-
-            var myFriends = myFriendsQuery.GroupBy(f => f.Id).Select(f => f.FirstOrDefault()).ToList();
-            return myFriends;
-        }
-
-        public List<IcollectionUser> GetMyFollowees(int myId)
-        {
-            var whoIFollow = _collectionsDbContext.Follows
-                .Where(f => f.FollowerNavigation.Id == myId)
-                .Select(f => f.FollowedNavigation)
-                .ToList();
-
-            return whoIFollow;
-        }
-
         public static int GetReadableUserID(string complexId, ICollectionsDbContext _collectionsDbContext)
         {
             var user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(i => i.AspnetIdentityId == complexId);
