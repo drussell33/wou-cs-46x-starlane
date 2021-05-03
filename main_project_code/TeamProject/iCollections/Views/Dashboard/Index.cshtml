@@ -12,10 +12,10 @@
 <div class="row">
     <div class="col-sm-3 options">
         <div class="dashboard-profile-header">
-            <div><img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="profile picture" width="130"></div>
-            <div class="post-info big-name">@Model.MyEmail</div>
+            <div><img class="main-dashboard-avatar" src="@Url.Content("~/img/default_profile_pic.jpg")" alt="profile picture" width="130"></div>
+            <div class="big-name text-center">@Model.MyEmail</div>
         </div>
-        <div class="simple-option"><a href="Feed.cshtml">Add photo</a></div>
+        <div class="simple-option text-center"><a asp-controller="UploadPhoto" asp-action="Index">Add photo</a></div>
     </div>
 
     <div class="col-sm-6 feed">
@@ -168,7 +168,9 @@
             }
             else
             {
-                <span>No Collections Yet</span>
+                <div class="row">
+                    <div class="col-lg mb-2"><div class="d-flex px-3 py-5 width-full rounded border"><h2 class="center-heading">No events yet</h2></div></div>
+                </div>
             }
         }
 

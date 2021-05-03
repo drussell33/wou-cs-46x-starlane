@@ -15,5 +15,7 @@ namespace iCollections.Models
 
         public string MyUsername { get; set; }
 
+        // add profile pic id here
+
     }
 }
