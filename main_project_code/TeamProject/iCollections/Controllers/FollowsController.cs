@@ -17,9 +17,11 @@ namespace iCollections.Controllers
         private readonly ICollectionsDbContext _db;
         private readonly IFollowRepository _followRepo;
         private readonly IIcollectionUserRepository _userRepo;
-        public FollowsController(ICollectionsDbContext context)
+        public FollowsController(ICollectionsDbContext context, IFollowRepository followRepo, IIcollectionUserRepository userRepo)
         {
             _db = context;
+            _followRepo = followRepo;
+            _userRepo = userRepo;
         }
 
         // GET: Follows
@@ -42,7 +44,7 @@ namespace iCollections.Controllers
                 .Include(f => f.FollowedNavigation)
                 .Include(f => f.FollowerNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);*/
-            var follow = await _followRepo.GetFollowAsync(m => m.Id == id);
+            var follow = await _followRepo.GetFollowAsync(id.Value);
             if (follow == null)
             {
                 return NotFound();
@@ -147,7 +149,7 @@ namespace iCollections.Controllers
                 .Include(f => f.FollowedNavigation)
                 .Include(f => f.FollowerNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);*/
-            var follow = await _followRepo.GetFollowAsync(m => m.Id == id);
+            var follow = await _followRepo.GetFollowAsync(id.Value);
             if (follow == null)
             {
                 return NotFound();
