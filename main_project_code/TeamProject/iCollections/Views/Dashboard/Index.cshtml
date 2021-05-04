@@ -1,6 +1,7 @@
 ﻿@model ActivityEvents
 @functions {
-    string ShowHowManyDaysAgo(DateTime? when) {
+    string ShowHowManyDaysAgo(DateTime? when)
+    {
         DateTime now = DateTime.Now;
         TimeSpan elapsed = now.Subtract(when ?? DateTime.Now);
         double daysAgo = elapsed.TotalDays;
@@ -8,40 +9,80 @@
     }
 }
 
+@* @section JavaScript {
+    <script type="text/javascript" src="@Url.Content("~/js/dashboard.js")"></script>
+} *@
+
 <div class="row">
     <div class="col-sm-3 options">
         <div class="dashboard-profile-header">
-            <div class="fake-image"></div>
-            <div class="post-info big-name">@Model.MyEmail</div>
+            @{
+                string profilePicSource = ViewBag.ProfilePicUrl;
+                if (profilePicSource == null)
+                {
+                    <div><img class="main-dashboard-avatar" src="@Url.Content("~/img/default_profile_pic.jpg")" alt="profile picture" width="130"></div>
+                }
+                else
+                {
+                    <img src="@profilePicSource" alt="profile picture" width="130" class="main-dashboard-avatar">
+                }
+            }
+            <div class="big-name text-center mt-3">@Model.MyEmail</div>
         </div>
-        <div class="simple-option"><a href="Feed.cshtml">Add photo</a></div>
-        <div class="simple-option"><a href="Feed.cshtml">Add photo</a></div>
-        <div class="simple-option"><a href="Feed.cshtml">Add photo</a></div>
-        <div class="simple-option"><a href="Feed.cshtml">Add photo</a></div>
-        <div class="simple-option"><a href="Feed.cshtml">Add photo</a></div>
-        <div class="simple-option"><a href="Feed.cshtml">Add photo</a></div>
-        <div class="simple-option"><a href="Feed.cshtml">Add photo</a></div>
-
+        <div class="simple-option text-center"><a asp-controller="UploadPhoto" asp-action="Index">Add photo</a></div>
     </div>
 
     <div class="col-sm-6 feed">
 
-        @while (Model.recentCollections.Count() > 0 || Model.recentFollows.Count() > 0 ||
-        Model.recentFriendships.Count() > 0)
-        {
-            var event1 = Model.recentCollections.FirstOrDefault();
-            var event2 = Model.recentFollows.FirstOrDefault();
-            var event3 = Model.recentFriendships.FirstOrDefault();
-
-            if (event1 != null)
+        @{
+            if (Model.recentCollections.Count() > 0 || Model.recentFollows.Count() > 0 || Model.recentFriendships.Count() > 0)
             {
-                if (event2 != null)
+                var i = 0;
+                while (Model.recentCollections.Count() > 0 || Model.recentFollows.Count() > 0 ||
+                    Model.recentFriendships.Count() > 0)
                 {
-                    if (event1.DateMade > event2.Began)
+                    if (i >= 15) break;
+                    var event1 = Model.recentCollections.FirstOrDefault();
+                    var event2 = Model.recentFollows.FirstOrDefault();
+                    var event3 = Model.recentFriendships.FirstOrDefault();
+
+                if (event1 != null)
+                {
+                    if (event2 != null)
                     {
-                        if (event3 != null)
+                        if (event1.DateMade > event2.Began)
                         {
-                            if (event1.DateMade > event3.Began)
+                            if (event3 != null)
+                            {
+                                if (event1.DateMade > event3.Began)
+                                {
+                                    Model.recentCollections.RemoveAt(0);
+                                    <div class="post feed-object">
+                                        <div class="post-header">
+                                            <div class="fake-image"></div>
+                                            <div class="post-info">
+                                                <div class="activity"><a href="userpage/@event1.User.UserName">@event1.User.FirstName</a> made an
+                                                    iCollection</div>
+                                                <div class="date">@string.Format("{0:MMMM dd, yyyy}", event1.DateMade)</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- collection here -->
+                <span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    Model.recentFriendships.RemoveAt(0);
+                                    <div class="row news feed-object last-object">
+                                        <div class="col-sm-8"><a href="userpage/@event3.User1.UserName">@event3.User1.FirstName</a> and <a
+                        href="userpage/@event3.User2.UserName">@event3.User2.FirstName</a> are now
+                                            friends</div>
+                                        <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event3.Began)</div>
+                                    </div>
+                                }
+                            }
+                            else
                             {
                                 Model.recentCollections.RemoveAt(0);
                                 <div class="post feed-object">
@@ -54,15 +95,60 @@
                                     </div>
 
                                     <!-- collection here -->
-                                    <span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>
+                <span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            Model.recentFollows.RemoveAt(0);
+                            <div class="row news feed-object">
+                                <div class="col-sm-8"><a href="userpage/@event2.FollowerNavigation.UserName">@event2.FollowerNavigation.FirstName</a> now follows <a
+                        href="userpage/@event2.FollowedNavigation.UserName">@event2.FollowedNavigation.FirstName</a>
+                                </div>
+                                <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event2.Began)</div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        Model.recentCollections.RemoveAt(0);
+                        <div class="post feed-object">
+                            <div class="post-header">
+                                <div class="fake-image"></div>
+                                <div class="post-info">
+                                    <div class="activity"><a href="userpage/@event1.User.UserName">@event1.User.FirstName</a> made an iCollection</div>
+                                    <div class="date">@string.Format("{0:MMMM dd, yyyy}", event1.DateMade)</div>
+                                </div>
+                            </div>
+
+                            <!-- collection here -->
+                <span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    if (event2 != null)
+                    {
+                        if (event3 != null)
+                        {
+                            if (event2.Began > event3.Began)
+                            {
+                                Model.recentFollows.RemoveAt(0);
+                                <div class="row news feed-object">
+                                    <div class="col-sm-8"><a href="userpage/@event2.FollowerNavigation.UserName">@event2.FollowerNavigation.FirstName</a> now follows <a
+                        href="userpage/@event2.FollowedNavigation.UserName">@event2.FollowedNavigation.FirstName</a>
+                                    </div>
+                                    <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event2.Began)</div>
                                 </div>
                             }
                             else
                             {
                                 Model.recentFriendships.RemoveAt(0);
                                 <div class="row news feed-object last-object">
-                                    <div class="col-sm-8"><a href="Feed.cshtml">@event3.User1.FirstName</a> and <a
-                                            href="userpage/@event3.User2.UserName">@event3.User2.FirstName</a> are now
+                                    <div class="col-sm-8"><a href="userpage/@event3.User1.UserName">@event3.User1.FirstName</a> and <a
+                        href="userpage/@event3.User2.UserName">@event3.User2.FirstName</a> are now
                                         friends</div>
                                     <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event3.Began)</div>
                                 </div>
@@ -70,98 +156,35 @@
                         }
                         else
                         {
-                            Model.recentCollections.RemoveAt(0);
-                            <div class="post feed-object">
-                                <div class="post-header">
-                                    <div class="fake-image"></div>
-                                    <div class="post-info">
-                                        <div class="activity"><a href="Feed.cshtml">@event1.User.FirstName</a> made an iCollection</div>
-                                        <div class="date">@string.Format("{0:MMMM dd, yyyy}", event1.DateMade)</div>
-                                    </div>
-                                </div>
-
-                                <!-- collection here -->
-                                <span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        Model.recentFollows.RemoveAt(0);
-                        <div class="row news feed-object">
-                            <div class="col-sm-8"><a href="Feed.cshtml">@event2.FollowerNavigation.FirstName</a> now follows <a
-                                    href="Feed.cshtml">@event2.FollowedNavigation.FirstName</a>
-                            </div>
-                            <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event2.Began)</div>
-                        </div>
-                    }
-                }
-                else
-                {
-                    Model.recentCollections.RemoveAt(0);
-                    <div class="post feed-object">
-                        <div class="post-header">
-                            <div class="fake-image"></div>
-                            <div class="post-info">
-                                <div class="activity"><a href="Feed.cshtml">@event1.User.FirstName</a> made an iCollection</div>
-                                <div class="date">@string.Format("{0:MMMM dd, yyyy}", event1.DateMade)</div>
-                            </div>
-                        </div>
-
-                        <!-- collection here -->
-                        <span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>
-                    </div>
-                }
-            }
-            else
-            {
-                if (event2 != null)
-                {
-                    if (event3 != null)
-                    {
-                        if (event2.Began > event3.Began)
-                        {
                             Model.recentFollows.RemoveAt(0);
                             <div class="row news feed-object">
-                                <div class="col-sm-8"><a href="Feed.cshtml">@event2.FollowerNavigation.FirstName</a> now follows <a
-                                        href="Feed.cshtml">@event2.FollowedNavigation.FirstName</a>
+                                <div class="col-sm-8"><a href="userpage/@event2.FollowerNavigation.UserName">@event2.FollowerNavigation.FirstName</a> now follows <a
+                        href="userpage/@event2.FollowedNavigation.UserName">@event2.FollowedNavigation.FirstName</a>
                                 </div>
                                 <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event2.Began)</div>
                             </div>
                         }
-                        else
-                        {
-                            Model.recentFriendships.RemoveAt(0);
-                            <div class="row news feed-object last-object">
-                                <div class="col-sm-8"><a href="Feed.cshtml">@event3.User1.FirstName</a> and <a
-                                        href="Feed.cshtml">@event3.User2.FirstName</a> are now
-                                    friends</div>
-                                <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event3.Began)</div>
-                            </div>
-                        }
                     }
                     else
                     {
-                        Model.recentFollows.RemoveAt(0);
-                        <div class="row news feed-object">
-                            <div class="col-sm-8"><a href="Feed.cshtml">@event2.FollowerNavigation.FirstName</a> now follows <a
-                                    href="Feed.cshtml">@event2.FollowedNavigation.FirstName</a>
-                            </div>
-                            <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event2.Began)</div>
+                        Model.recentFriendships.RemoveAt(0);
+
+                        <div class="row news feed-object last-object">
+                            <div class="col-sm-8"><a href="userpage/@event3.User1.UserName">@event3.User1.FirstName</a> and <a
+                        href="userpage/@event3.User2.UserName">@event3.User2.FirstName</a> are now
+                                friends</div>
+                            <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event3.Began)</div>
                         </div>
                     }
                 }
-                else
-                {
-                    Model.recentFriendships.RemoveAt(0);
-
-                    <div class="row news feed-object last-object">
-                        <div class="col-sm-8"><a href="Feed.cshtml">@event3.User1.FirstName</a> and <a
-                                href="Feed.cshtml">@event3.User2.FirstName</a> are now
-                            friends</div>
-                        <div class="col-sm-4 ago">@ShowHowManyDaysAgo(event3.Began)</div>
-                    </div>
-                }
+                i++;
+            }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-lg mb-2"><div class="d-flex px-3 py-5 width-full rounded border"><h2 class="center-heading">No events yet</h2></div></div>
+                </div>
             }
         }
 

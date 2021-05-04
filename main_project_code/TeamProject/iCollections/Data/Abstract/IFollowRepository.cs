@@ -16,7 +16,8 @@ namespace iCollections.Data.Abstract
 
         Follow GetFollow(Func<Follow, bool> filter);
         Follow GetFollowLight(Func<Follow, bool> filter);
-
         Task<Follow> GetFollowAsync(Func<Follow, bool> filter);
+        List<Follow> GetFolloweesForUserExcludingMe(int userId, int myId);
+        List<IcollectionUser> GetMyFollowees(int myId);
     }
 }

@@ -499,3 +499,8 @@ h1 {
   margin-right: auto;
 }
 
+.main-dashboard-avatar {
+  margin: auto;
+  display: block;
+}
+

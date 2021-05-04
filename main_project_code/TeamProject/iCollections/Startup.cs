@@ -51,6 +51,7 @@ namespace iCollections
             services.AddScoped<ICollectionKeywordRepository, CollectionKeywordRepository>();
             services.AddScoped<IIcollectionUserRepository, IcollectionUserRepository>();
             services.AddScoped<IcollectionRepository, CollectionRepository>();
+            services.AddScoped<IFriendsWithRepository, FriendsWithRepository>();
             services.AddScoped<IFollowRepository, FollowRepository>();
 
 

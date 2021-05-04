@@ -7,5 +7,7 @@ namespace iCollections.Data.Abstract
     public interface IcollectionRepository : IRepository<Collection>
     {
         List<Collection> GetMostRecentiCollections(int userId, int howMany);
+
+        List<Collection> GetICollectionsForThisUser(int userId);
     }
 }
