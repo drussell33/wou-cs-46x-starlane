@@ -1,21 +1,42 @@
-﻿@{
+﻿@model List<RenderingPhoto>;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-    <h1>Gallery Environment Example</h1>
-    <div id="puzzel_environment">
-        <div id="blocker">
+<h1>@ViewData["collectionTitle"].ToString()</h1>
+<div id="gallery_environment">
+    <div id="blocker">
 
-            <div id="instructions">
-                <span style="font-size:36px">Click to Explore</span>
-                <br /><br />
-                Move: WASD or ARROW KEYS<br />
-                Look: MOUSE<br />
-                Exit: ESC
-            </div>
-
+        <div id="instructions">
+            <span style="font-size:36px">Click to Explore</span>
+            <br /><br />
+            Move: WASD or ARROW KEYS<br />
+            Look: MOUSE<br />
+            Exit: ESC
         </div>
+
     </div>
-   
+</div>
+
+
+@{
+    var counter = 1;
+    <table  hidden>
+        @foreach (var photo in Model)
+        {
+            string thisId = "photo" + counter.ToString();
+
+            <tr id="@thisId" data-rank="@photo.Rank" data-title="@photo.Title" data-description="@photo.Description" data-photodata="@photo.Data" hidden></tr>
+
+            counter = counter + 1;
+        }
+
+    </table>
+}
+
+
+<script src="~/js/gallery_environment.js" asp-append-version="true" type="module"></script>
+
 
 

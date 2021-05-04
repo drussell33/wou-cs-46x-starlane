@@ -1,4 +1,4 @@
-import {practiceInit} from '../../iCollections/wwwroot/js/sum'
+import {practiceInit} from '../../iCollections/wwwroot/js/jest_testing_functions'
 //const sum = require('./sum');
 
 test('CanvasObject_ShouldCreateAndModify_True', () => {

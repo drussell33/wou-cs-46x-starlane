@@ -1,4 +1,5 @@
 using iCollections.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace iCollections.Data.Abstract
 {
@@ -12,6 +13,8 @@ namespace iCollections.Data.Abstract
         int GetReadableUserID(string username);
 
         int GetProfilePicID(int userId);
+
+        IcollectionUser GetIcollectionUserByUsername(string username);
 
         IcollectionUser GetSessionUser(string sessionUserId);
 
