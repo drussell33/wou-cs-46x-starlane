@@ -19,9 +19,19 @@ namespace iCollections.Data.Concrete
                 && x.LastName == user.LastName);
         }
 
+        public virtual bool Exists(string UserName)
+        {
+            return _dbSet.Any(x => x.UserName == UserName);
+        }
+
         public virtual IcollectionUser GetIcollectionUserByIdentityId(string identityID)
         {
             return _dbSet.Where(u => u.AspnetIdentityId == identityID).FirstOrDefault();
+        }
+
+        public virtual IcollectionUser GetUserById(int id)
+        {
+            return _dbSet.FirstOrDefault(x => x.Id == id);
         }
 
         public int GetReadableUserID(string nastyString)
