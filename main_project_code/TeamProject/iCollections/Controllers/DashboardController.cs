@@ -22,9 +22,11 @@ namespace iCollections.Controllers
         private readonly IFriendsWithRepository _friends;
         private readonly IcollectionRepository _collections;
         private readonly IFollowRepository _follow;
+        private readonly IIcollectionUserRepository _users;
+        private readonly IPhotoRepository _photos;
 
         public DashboardController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext,
-            IFriendsWithRepository friends, IcollectionRepository collections, IFollowRepository follow)
+            IFriendsWithRepository friends, IcollectionRepository collections, IFollowRepository follow, IIcollectionUserRepository users, IPhotoRepository photos)
         {
             _logger = logger;
             _userManager = userManager;
@@ -32,6 +34,8 @@ namespace iCollections.Controllers
             _friends = friends;
             _collections = collections;
             _follow = follow;
+            _users = users;
+            _photos = photos;
         }
 
         // Dashboard opens here - shows a feed of recent events
@@ -58,6 +62,8 @@ namespace iCollections.Controllers
             // Gather remaining lists and order them chronologically
             var extractedCollections = followeesCollections.Union(friendsCollections).Distinct().ToList();
             DatabaseHelper.OrderLists(ref myFriendsFriends, ref topFollow, ref extractedCollections);
+            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(userId, _users, _photos);
+
             var activityData = new ActivityEvents
             {
                 MyEmail = _userManager.GetUserName(User),
