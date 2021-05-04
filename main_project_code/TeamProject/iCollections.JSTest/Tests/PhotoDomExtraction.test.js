@@ -3,61 +3,8 @@ import {GatherPhotoData} from '../../iCollections/wwwroot/js/jest_testing_functi
 //import '@testing-library/jest-dom/extend-expect';
 import {toHaveClass} from '@testing-library/jest-dom/matchers'
 
+// Derek Sprint 4 and 5 
 
-
-  var bytes = new Uint8Array(1024);
-  let sampleData = [
-    {
-        "Data": bytes,
-        "Title": "title0",
-        "PhotoRank": 0,
-        "Description": "description0"
-    },
-    {
-        "Data": bytes,
-        "Title": "title1",
-        "PhotoRank": 1,
-        "Description": "description1"
-    },
-    {
-        "Data": bytes,
-        "Title": "title2",
-        "PhotoRank": 2,
-        "Description": "description2"
-    },
-    {
-        "Data": bytes,
-        "Title": "title3",
-        "PhotoRank": 3,
-        "Description": "description3" 
-    },
-    {
-        "Data": bytes,
-        "Title": "title4",
-        "PhotoRank": 4,
-        "Description": "description4"
-    },
-    {
-        "Data": bytes,
-        "Title": "title5",
-        "PhotoRank": 5,
-        "Description": "description5"
-    },
-    {
-        "Data": bytes,
-        "Title": "title6",
-        "PhotoRank": 6,
-        "Description": "description6"
-    },
-    {
-        "Data": bytes,
-        "Title": "title7",
-        "PhotoRank": 7,
-        "Description": "description7"
-    },
-    ];
-     
-  
     test('GatherPhotoData_MakeingFakeDOMWithRowsForFunctionToFind_mightWork', () => {
         //Arrange
         document.body.innerHTML =
@@ -94,8 +41,9 @@ import {toHaveClass} from '@testing-library/jest-dom/matchers'
         expect(8).toBe(testLength);       
     });
 
-
+    
     test('GatherPhotoData_TestingAJestDOMLIbraryMethodtoHaveClass_mightWorkAgain', () => {
+        
         document.body.innerHTML = `
         <h1 class="find-me">Hello world!</h1>
         <tr>Table Row! Whaaat</tr>
@@ -128,18 +76,6 @@ test('testingDOMCreationinTest_works', () => {
     let h1 = document.querySelector('h1');
 
     expect(h1.textContent).toEqual('Hello world!');
-});
-
-//import { screen } from '@testing-library/dom'
-
-test.skip('uses jest-dom', () => {
-  document.body.innerHTML = `
-    <span data-testid="not-empty"><span data-testid="empty"></span></span>
-    <div data-testid="visible">Visible Example</div>
-  `
-
-  expect(screen.queryByTestId('not-empty')).not.toBeEmptyDOMElement()
-  expect(screen.getByText('Visible Example')).toBeVisible()
 });
 
 
@@ -225,4 +161,33 @@ test('GatherPhotoData_TestingThatPhotosOrganizedByRankForTitle_SHouldWork', () =
     expect(photoData[5]["srcDescription"]).toBe('description7'); 
     expect(photoData[6]["srcDescription"]).toBe('description2'); 
     expect(photoData[7]["srcDescription"]).toBe('description6'); 
+});
+
+
+test('GatherPhotoData_ZeroItemsWillPassEmptyArrayThrough_SHouldWork', () => {
+    //Arrange
+    document.body.innerHTML =
+        '<table>' +
+        '</table>';
+    //Act
+    var photoData = [];
+    photoData = GatherPhotoData(photoData);
+
+    //Assert
+    expect(photoData).toStrictEqual([]);  
+
+});
+
+test('GatherPhotoData_ZeroItemsWillPassEmptyArrayThrough_SHouldWork', () => {
+    //Arrange
+    document.body.innerHTML =
+        '<table>' +
+        '</table>';
+    //Act
+    var photoData = [];
+    photoData = GatherPhotoData(photoData);
+
+    //Assert
+    expect(photoData).toStrictEqual([]);  
+
 });
