@@ -29,6 +29,11 @@ namespace iCollections.Data.Concrete
             return _dbSet.Where(u => u.AspnetIdentityId == identityID).FirstOrDefault();
         }
 
+        public virtual IcollectionUser GetUserById(int id)
+        {
+            return _dbSet.FirstOrDefault(x => x.Id == id);
+        }
+
         public int GetReadableUserID(string nastyString)
         {
             return _dbSet.FirstOrDefault(u => u.AspnetIdentityId == nastyString).Id;

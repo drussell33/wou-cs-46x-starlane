@@ -21,6 +21,11 @@ namespace iCollections.Data.Concrete
             return _dbSet.Any(f => f == follow);
         }
 
+        public virtual bool Exists(int id)
+        {
+            return _dbSet.Any(f => f.Id == id);
+        }
+
         public virtual IIncludableQueryable<Follow, IcollectionUser> GetFollows()
         {
             var follows = _dbSet.Include(f => f.FollowedNavigation).Include(f => f.FollowerNavigation);
@@ -30,6 +35,18 @@ namespace iCollections.Data.Concrete
         public virtual Follow GetFollow(Func<Follow, bool> filter)
         {
             var follow = _dbSet.Include(f => f.FollowedNavigation).Include(f => f.FollowerNavigation).FirstOrDefault(x => filter(x));
+            return follow;
+        }
+
+        public virtual Follow GetFollowLight(Func<Follow, bool> filter)
+        {
+            var follow = _dbSet.FirstOrDefault(x => filter(x));
+            return follow;
+        }
+
+        public virtual async Task<Follow> GetFollowAsync(Func<Follow, bool> filter)
+        {
+            var follow = await _dbSet.Include(f => f.FollowedNavigation).Include(f => f.FollowerNavigation).FirstOrDefaultAsync(x => filter(x));
             return follow;
         }
 

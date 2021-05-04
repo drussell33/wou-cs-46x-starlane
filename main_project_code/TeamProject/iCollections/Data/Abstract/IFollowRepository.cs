@@ -10,9 +10,13 @@ namespace iCollections.Data.Abstract
     public interface IFollowRepository : IRepository<Follow>
     {
         bool Exists(Follow follow);
+        bool Exists(int id);
 
         IIncludableQueryable<Follow, IcollectionUser> GetFollows();
 
         Follow GetFollow(Func<Follow, bool> filter);
+        Follow GetFollowLight(Func<Follow, bool> filter);
+
+        Task<Follow> GetFollowAsync(Func<Follow, bool> filter);
     }
 }

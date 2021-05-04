@@ -6,6 +6,7 @@ namespace iCollections.Data.Abstract
     public interface IIcollectionUserRepository : IRepository<IcollectionUser>
     {
         IcollectionUser GetIcollectionUserByIdentityId(string identityID);
+        IcollectionUser GetUserById(int id);
         bool Exists(IcollectionUser user);
 
         bool Exists(string UserName);
