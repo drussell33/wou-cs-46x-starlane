@@ -140,4 +140,89 @@ test.skip('uses jest-dom', () => {
 
   expect(screen.queryByTestId('not-empty')).not.toBeEmptyDOMElement()
   expect(screen.getByText('Visible Example')).toBeVisible()
-})
+});
+
+
+test('GatherPhotoData_TestingThatPhotosOrganizedByRankAsOutput_mightWorkAgain', () => {
+    //Arrange
+    document.body.innerHTML =
+        '<table>' +
+        '  <tr data-title="photo1" data-photodata="NOPENOPENOPE" data-rank=1 data-description="description1" />' +
+        '  <tr data-title="photo2" data-photodata="NOPENOPENOPE" data-rank=7 data-description="description2"/>' +
+        '  <tr data-title="photo3" data-photodata="NOPENOPENOPE" data-rank=3 data-description="description3"/>' +
+        '  <tr data-title="photo4" data-photodata="NOPENOPENOPE" data-rank=4 data-description="description4"/>' +
+        '  <tr data-title="photo5" data-photodata="NOPENOPENOPE" data-rank=5 data-description="description5"/>' +
+        '  <tr data-title="photo6" data-photodata="NOPENOPENOPE" data-rank=8 data-description="description6"/>' +
+        '  <tr data-title="photo7" data-photodata="NOPENOPENOPE" data-rank=6 data-description="description7"/>' +
+        '  <tr data-title="photo8" data-photodata="NOPENOPENOPE" data-rank=2 data-description="description8"/>' +
+        '</table>';
+    //Act
+    var photoData = [];
+    photoData = GatherPhotoData(photoData);
+
+    //Assert
+    expect(photoData[0]["srcRank"]).toBe('1');  
+    expect(photoData[1]["srcRank"]).toBe('2');  
+    expect(photoData[2]["srcRank"]).toBe('3');  
+    expect(photoData[3]["srcRank"]).toBe('4');  
+    expect(photoData[4]["srcRank"]).toBe('5');   
+    expect(photoData[5]["srcRank"]).toBe('6'); 
+    expect(photoData[6]["srcRank"]).toBe('7'); 
+    expect(photoData[7]["srcRank"]).toBe('8'); 
+});
+
+test('GatherPhotoData_TestingThatPhotosOrganizedByRankForTitle_SHouldWork', () => {
+    //Arrange
+    document.body.innerHTML =
+        '<table>' +
+        '  <tr data-title="photo1" data-photodata="NOPENOPENOPE" data-rank=1 data-description="description1" />' +
+        '  <tr data-title="photo2" data-photodata="NOPENOPENOPE" data-rank=7 data-description="description2"/>' +
+        '  <tr data-title="photo3" data-photodata="NOPENOPENOPE" data-rank=3 data-description="description3"/>' +
+        '  <tr data-title="photo4" data-photodata="NOPENOPENOPE" data-rank=4 data-description="description4"/>' +
+        '  <tr data-title="photo5" data-photodata="NOPENOPENOPE" data-rank=5 data-description="description5"/>' +
+        '  <tr data-title="photo6" data-photodata="NOPENOPENOPE" data-rank=8 data-description="description6"/>' +
+        '  <tr data-title="photo7" data-photodata="NOPENOPENOPE" data-rank=6 data-description="description7"/>' +
+        '  <tr data-title="photo8" data-photodata="NOPENOPENOPE" data-rank=2 data-description="description8"/>' +
+        '</table>';
+    //Act
+    var photoData = [];
+    photoData = GatherPhotoData(photoData);
+
+    //Assert
+    expect(photoData[0]["srcTitle"]).toBe('photo1');  
+    expect(photoData[1]["srcTitle"]).toBe('photo8');  
+    expect(photoData[2]["srcTitle"]).toBe('photo3');  
+    expect(photoData[3]["srcTitle"]).toBe('photo4');  
+    expect(photoData[4]["srcTitle"]).toBe('photo5');   
+    expect(photoData[5]["srcTitle"]).toBe('photo7'); 
+    expect(photoData[6]["srcTitle"]).toBe('photo2'); 
+    expect(photoData[7]["srcTitle"]).toBe('photo6'); 
+});
+
+test('GatherPhotoData_TestingThatPhotosOrganizedByRankForTitle_SHouldWork', () => {
+    //Arrange
+    document.body.innerHTML =
+        '<table>' +
+        '  <tr data-title="photo1" data-photodata="NOPENOPENOPE" data-rank=1 data-description="description1" />' +
+        '  <tr data-title="photo2" data-photodata="NOPENOPENOPE" data-rank=7 data-description="description2"/>' +
+        '  <tr data-title="photo3" data-photodata="NOPENOPENOPE" data-rank=3 data-description="description3"/>' +
+        '  <tr data-title="photo4" data-photodata="NOPENOPENOPE" data-rank=4 data-description="description4"/>' +
+        '  <tr data-title="photo5" data-photodata="NOPENOPENOPE" data-rank=5 data-description="description5"/>' +
+        '  <tr data-title="photo6" data-photodata="NOPENOPENOPE" data-rank=8 data-description="description6"/>' +
+        '  <tr data-title="photo7" data-photodata="NOPENOPENOPE" data-rank=6 data-description="description7"/>' +
+        '  <tr data-title="photo8" data-photodata="NOPENOPENOPE" data-rank=2 data-description="description8"/>' +
+        '</table>';
+    //Act
+    var photoData = [];
+    photoData = GatherPhotoData(photoData);
+
+    //Assert
+    expect(photoData[0]["srcDescription"]).toBe('description1');  
+    expect(photoData[1]["srcDescription"]).toBe('description8');  
+    expect(photoData[2]["srcDescription"]).toBe('description3');  
+    expect(photoData[3]["srcDescription"]).toBe('description4');  
+    expect(photoData[4]["srcDescription"]).toBe('description5');   
+    expect(photoData[5]["srcDescription"]).toBe('description7'); 
+    expect(photoData[6]["srcDescription"]).toBe('description2'); 
+    expect(photoData[7]["srcDescription"]).toBe('description6'); 
+});
