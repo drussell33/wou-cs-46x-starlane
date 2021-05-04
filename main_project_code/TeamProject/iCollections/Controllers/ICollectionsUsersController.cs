@@ -49,6 +49,14 @@ namespace iCollections.Controllers
             return View(icollectionUser);
         }
 
+        [AcceptVerbs("GET", "POST")]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsUserNameAvailable(string UserName)
+        {
+            Console.WriteLine("Validation called");
+            return Json(!await _context.IcollectionUsers.AnyAsync(u => u.UserName.ToLower() == UserName.ToLower()));
+        }
+
         // GET: ICollectionsUsers/Create
         public IActionResult Create()
         {

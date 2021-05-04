@@ -7,6 +7,8 @@ namespace iCollections.Data.Abstract
         IcollectionUser GetIcollectionUserByIdentityId(string identityID);
         bool Exists(IcollectionUser user);
 
+        bool Exists(string UserName);
+
         int GetReadableUserID(string username);
 
         int GetProfilePicID(int userId);

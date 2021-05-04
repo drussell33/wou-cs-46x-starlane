@@ -124,9 +124,8 @@ namespace iCollections.Controllers
         [Route("userpage/{name}/edit")]
         public IActionResult Edit(string name)
         {
-            var user = _db.IcollectionUsers
-                .Include(u => u.Photos)
-                .FirstOrDefault(m => m.UserName == name);
+            var user = _userRepo.GetTargetUser(name);
+            // var recentiCollections = _colRepo.GetMostRecentiCollections(user.Id, 4);
 
             if (user == null)
             {
@@ -134,7 +133,7 @@ namespace iCollections.Controllers
             }
             if (user.AspnetIdentityId == _userManager.GetUserId(User))
             {
-                return View(new UserProfile { ProfileVisitor = user, ProfileOwner = user });
+                return View(user);
             }
             else
             {
@@ -145,31 +144,43 @@ namespace iCollections.Controllers
         [Authorize]
         [Route("userpage/{name}/edit")]
         [HttpPost]
-        public IActionResult EditPost(string name, string username, string firstname, string lastname, string aboutme, IFormFile profileimg)
+        public IActionResult EditPost(IcollectionUser fu, int id, IFormFile profileimg)
         {
-            var user = _db.IcollectionUsers.FirstOrDefault(u => u.UserName == name);
-            if (user != null && username != null && firstname != null && lastname != null && aboutme != null)
+            var user = _db.IcollectionUsers.FirstOrDefault(u => u.Id == id);
+            if (ModelState.IsValid)
             {
-                user.UserName =  username;
-                user.FirstName = firstname;
-                user.LastName = lastname;
-                user.AboutMe = aboutme;
-
-                if (profileimg != null)
+                Console.WriteLine("Valid");
+                if (user != null && fu.UserName != null && fu.FirstName != null && fu.LastName != null && fu.AboutMe != null)
                 {
-                    MemoryStream ms = new MemoryStream();
-                    profileimg.CopyTo(ms);
-                    var profileImg = new Photo { Name = profileimg.FileName, Data = ms.ToArray(), DateUploaded = DateTime.Now, UserId = user.Id };
-                    ms.Close();
-                    ms.Dispose();
-                    _db.Photos.Add(profileImg);
+                    if (!_userRepo.Exists(fu.UserName))
+                    {
+                        user.UserName = fu.UserName;
+                    }
+                    user.FirstName = fu.FirstName;
+                    user.LastName = fu.LastName;
+                    user.AboutMe = fu.AboutMe;
+
+                    if (profileimg != null)
+                    {
+                        MemoryStream ms = new MemoryStream();
+                        profileimg.CopyTo(ms);
+                        var profileImg = new Photo { Name = profileimg.FileName, Data = ms.ToArray(), DateUploaded = DateTime.Now, UserId = user.Id };
+                        ms.Close();
+                        ms.Dispose();
+                        _db.Photos.Add(profileImg);
+                        _db.SaveChanges();
+                        user.ProfilePicId = profileImg.Id;
+                    }
+                    _db.IcollectionUsers.Update(user);
                     _db.SaveChanges();
-                    user.ProfilePicId = profileImg.Id;
                 }
-                _db.IcollectionUsers.Update(user);
-                _db.SaveChanges();
+                return RedirectToAction("Index", "UserPage", new { name = user.UserName });
             }
-            return RedirectToAction("Index", "UserPage", new { name = username });
+            else
+            {
+                Console.WriteLine("Not Valid");
+                return RedirectToAction("Index", "UserPage", new { name = user.UserName });
+            }
         }
 
         [HttpPost]
