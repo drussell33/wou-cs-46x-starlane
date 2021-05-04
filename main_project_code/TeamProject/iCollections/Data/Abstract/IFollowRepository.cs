@@ -14,5 +14,9 @@ namespace iCollections.Data.Abstract
         IIncludableQueryable<Follow, IcollectionUser> GetFollows();
 
         Follow GetFollow(Func<Follow, bool> filter);
+
+        List<Follow> GetFolloweesForUserExcludingMe(int userId, int myId);
+
+        List<IcollectionUser> GetMyFollowees(int myId);
     }
 }
