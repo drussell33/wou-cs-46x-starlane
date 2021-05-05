@@ -234,7 +234,7 @@ namespace iCollections.Controllers
             var collection = await _collectionRepo.FindByIdAsync(id);
             var name = collection.Name;
             await _collectionRepo.DeleteByIdAsync(id);
-            // line 224 produces error: SqlException: The DELETE statement conflicted with the REFERENCE constraint "CollectionKeyword_fk_Collection". The conflict occurred in database "ICollections-App", table "dbo.CollectionKeyword", column 'collect_id'.
+            // line 236 produces error: SqlException: The DELETE statement conflicted with the REFERENCE constraint "CollectionKeyword_fk_Collection". The conflict occurred in database "ICollections-App", table "dbo.CollectionKeyword", column 'collect_id'.
             //The statement has been terminated.
             ViewBag.SuccessMessage = name + " deleted!";
             return RedirectToAction(nameof(Collections));

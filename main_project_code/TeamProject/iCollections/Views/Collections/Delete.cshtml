@@ -32,8 +32,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to Collections", Model.User.UserName, "Collections")
+            <input type="submit" value="Delete this iCollection" class="btn btn-danger" /> |
+            @Html.ActionLink("Cancel", Model.User.UserName, "Collections")
         </div>
     }
 </div>
