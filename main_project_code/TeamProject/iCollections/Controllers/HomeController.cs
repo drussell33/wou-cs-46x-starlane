@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
+using iCollections.Data.Abstract;
 
 
 namespace iCollections.Controllers
@@ -20,13 +21,22 @@ namespace iCollections.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly ICollectionsDbContext _collectionsDbContext;
+        //private readonly ICollectionsDbContext _collectionsDbContext;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
+        private readonly IIcollectionUserRepository _userRepo;
+        private readonly IPhotoRepository _photoRepo;
+        private readonly IcollectionRepository _colRepo;
+        private readonly ICollectionPhotoRepository _collectionPhotoRepo;
+
+        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, /*ICollectionsDbContext collectionsDbContext,*/ IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo, ICollectionPhotoRepository collectionphotoRepo)
         {
             _logger = logger;
             _userManager = userManager;
-            _collectionsDbContext = collectionsDbContext;
+            //_collectionsDbContext = collectionsDbContext;
+            _userRepo = userRepo;
+            _photoRepo = photoRepo;
+            _colRepo = colRepo;
+            _collectionPhotoRepo = collectionphotoRepo;
         }
 
         public IActionResult Index()
@@ -50,9 +60,14 @@ namespace iCollections.Controllers
             }
 
             Collection newCollection = new Collection();
-            newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
-            var collectionPhotos = newCollection.CollectionPhotoes.Where(m => m.CollectId == collectionID).ToList();
-            var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
+            //newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
+            newCollection = _colRepo.GetCollectionById(collectionID);
+            int collectionId = (int)newCollection.Id;
+            int collectionOwnerId = (int)newCollection.UserId;
+            var collectionPhotos = _collectionPhotoRepo.GetAllCollectionPhotosbyCollectionId(collectionId);
+            //var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
+            
+            var photos = _photoRepo.GetAllUserPhotos(collectionOwnerId);
 
             List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
 
@@ -83,9 +98,14 @@ namespace iCollections.Controllers
             }
 
             Collection newCollection = new Collection();
-            newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
-            var collectionPhotos = newCollection.CollectionPhotoes.Where(m => m.CollectId == collectionID).ToList();
-            var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
+            //newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
+            newCollection = _colRepo.GetCollectionById(collectionID);
+            int collectionId = (int)newCollection.Id;
+            int collectionOwnerId = (int)newCollection.UserId;
+            var collectionPhotos = _collectionPhotoRepo.GetAllCollectionPhotosbyCollectionId(collectionId);
+            //var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
+
+            var photos = _photoRepo.GetAllUserPhotos(collectionOwnerId);
 
             List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
             

@@ -7,6 +7,6 @@ namespace iCollections.Data.Abstract
 {
     public interface ICollectionPhotoRepository : IRepository<CollectionPhoto>
     {
-
+        List<CollectionPhoto> GetAllCollectionPhotosbyCollectionId(int collectionId);
     }
 }

@@ -14,6 +14,10 @@ namespace iCollections.Data.Concrete
 
         }
 
+        public List<CollectionPhoto> GetAllCollectionPhotosbyCollectionId(int collectionId)
+        {
+            return GetAll().Where(c => c.CollectId == collectionId).ToList();
+        }
 
 
     }
