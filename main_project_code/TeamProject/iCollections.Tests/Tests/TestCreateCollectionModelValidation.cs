@@ -94,13 +94,14 @@ namespace iCollections.Tests.Tests
             CreateCollectionPublishing a = new CreateCollectionPublishing
             {
                 CollectionName = null,
-                Visibility = "private",
+                Visibility = null,
                 Description = null
             };
             // Act
             ModelValidator mv = new ModelValidator(a);
             // Assert
             Assert.That(mv.ContainsFailureFor("CollectionName"), Is.True);
+            Assert.That(mv.ContainsFailureFor("Visibility"), Is.True);
             Assert.That(mv.Valid, Is.False);
         }
 
@@ -115,13 +116,24 @@ namespace iCollections.Tests.Tests
             Assert.That(mv.Valid, Is.True);
         }
 
-        [Test]
-        public void CreateCollectionPublishing_CollectionNameMustOnlyContainLettersNumbersAndSpaces_NOTValid()
+        [TestCase("I have Special ?!@*&% Characters!")]
+        [TestCase("I have Special Characters ! ")]
+        [TestCase("I have Special Characters : ")]
+        [TestCase("I have Special Characters ? ")]
+        [TestCase("I have Special Characters ^ ")]
+        [TestCase("I have Special Characters @ ")]
+        [TestCase("THis one will have way more then the 30 character limit on the title")]
+        [TestCase("No")]
+        [TestCase("I")]
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase("    ")]
+        public void CreateCollectionPublishing_CollectionNameMustOnlyContainLettersNumbersAndSpaces_NOTValid(string s)
         {
             // Arrange
             CreateCollectionPublishing a = new CreateCollectionPublishing
             {
-                CollectionName = "I have Special ?!@*&% Characters!",
+                CollectionName = s,
                 Visibility = "private",
                 Description = null
             };
@@ -129,52 +141,23 @@ namespace iCollections.Tests.Tests
             ModelValidator mv = new ModelValidator(a);
             // Assert
             Assert.That(mv.ContainsFailureFor("CollectionName"), Is.True);
-            Assert.That(mv.ContainsFailureFor("Visibility"), Is.False);
-            Assert.That(mv.ContainsFailureFor("Description"), Is.False);
             Assert.That(mv.Valid, Is.False);
         }
 
-        [Test]
-        public void CreateCollectionPublishing_CollectionDescriptionMustOnlyContainLettersNumbersAndSpaces_NOTValid()
-        {
-            // Arrange
-            CreateCollectionPublishing a = new CreateCollectionPublishing
-            {
-                CollectionName = "I have Special accepted Characters",
-                Visibility = "private",
-                Description = "I have Special ?!@*&% Characters!"
-            };
-            // Act
-            ModelValidator mv = new ModelValidator(a);
-            // Assert
-            Assert.That(mv.ContainsFailureFor("Description"), Is.True);
-            Assert.That(mv.Valid, Is.False);
-        }
 
-        [Test]
-        public void CreateCollectionPublishing_CollectionDescriptionMustOnlyContainLettersNumbersAndSpaces_IsValid()
+        [TestCase("aaa")]
+        [TestCase("111")]
+        [TestCase("A few")]
+        [TestCase("A few more words with numbers1")]
+        [TestCase("16543 8755 and words")]
+        [TestCase("16543 8755")]
+        [TestCase("123456789123456789123456789130")]
+        public void CreateCollectionPublishing_COllectionTitleMustbeThreeCHaracterMinAndThirtyMax_IsValid(string s)
         {
             // Arrange
             CreateCollectionPublishing a = new CreateCollectionPublishing
             {
-                CollectionName = "I am a safe Title 10",
-                Visibility = "private",
-                Description = "I have Special accepted Characters"
-            };
-            // Act
-            ModelValidator mv = new ModelValidator(a);
-            // Assert
-            Assert.That(mv.ContainsFailureFor("Description"), Is.False);
-            Assert.That(mv.Valid, Is.True);
-        }
-
-        [Test]
-        public void CreateCollectionPublishing_COllectionTitleMustbeThreeCHaracters_IsValid()
-        {
-            // Arrange
-            CreateCollectionPublishing a = new CreateCollectionPublishing
-            {
-                CollectionName = "yes",
+                CollectionName = s,
                 Visibility = "private",
                 Description = "I have Special accepted Characters"
             };
@@ -185,66 +168,26 @@ namespace iCollections.Tests.Tests
             Assert.That(mv.Valid, Is.True);
         }
 
-        [Test]
-        public void CreateCollectionPublishing_COllectionTitleMustbeThreeCHaractersNot2_NotValid()
-        {
-            // Arrange
-            CreateCollectionPublishing a = new CreateCollectionPublishing
-            {
-                CollectionName = "no",
-                Visibility = "private",
-                Description = "I have Special accepted Characters"
-            };
-            // Act
-            ModelValidator mv = new ModelValidator(a);
-            // Assert
-            Assert.That(mv.ContainsFailureFor("CollectionName"), Is.True);
-            Assert.That(mv.Valid, Is.False);
-        }
 
-        [Test]
-        public void CreateCollectionPublishing_COllectionTitleMustbeThreeCHaractersNot1_NotValid()
-        {
-            // Arrange
-            CreateCollectionPublishing a = new CreateCollectionPublishing
-            {
-                CollectionName = "I",
-                Visibility = "private",
-                Description = "I have Special accepted Characters"
-            };
-            // Act
-            ModelValidator mv = new ModelValidator(a);
-            // Assert
-            Assert.That(mv.ContainsFailureFor("CollectionName"), Is.True);
-            Assert.That(mv.Valid, Is.False);
-        }
 
-        [Test]
-        public void CreateCollectionPublishing_COllectionTitleMustbeUnder30CHaracters_NotValid()
-        {
-            // Arrange
-            CreateCollectionPublishing a = new CreateCollectionPublishing
-            {
-                CollectionName = "I Have way to many words describing this stuff so I wont work",
-                Visibility = "private",
-                Description = "I have Special accepted Characters"
-            };
-            // Act
-            ModelValidator mv = new ModelValidator(a);
-            // Assert
-            Assert.That(mv.ContainsFailureFor("CollectionName"), Is.True);
-            Assert.That(mv.Valid, Is.False);
-        }
 
-        [Test]
-        public void CreateCollectionPublishing_COllectionDescriptionMustbeUnder60CHaracters_NotValid()
+        [TestCase("I have Special ?!@*&% Characters!")]
+        [TestCase("I have Special Characters ! ")]
+        [TestCase("I have Special Characters : ")]
+        [TestCase("I have Special Characters ? ")]
+        [TestCase("I have Special Characters ^ ")]
+        [TestCase("I have Special Characters @ ")]
+        [TestCase("THis one will have way more then the 60 character limit on the description bu tthats jsut the way it goes I think this is over 60 at this point")]
+        [TestCase(" ")]
+        [TestCase("    ")]
+        public void CreateCollectionPublishing_CollectionDescriptionMustOnlyContainLettersNumbersAndSpaces_NOTValid(string s)
         {
             // Arrange
             CreateCollectionPublishing a = new CreateCollectionPublishing
             {
-                CollectionName = "Im a good title",
+                CollectionName = "I have accepted Characters",
                 Visibility = "private",
-                Description = "I have Special accepted Characters But I have way to many things to say about my stuff, and we arent going to let this so the validation will block me as a title"
+                Description = s
             };
             // Act
             ModelValidator mv = new ModelValidator(a);
@@ -252,5 +195,35 @@ namespace iCollections.Tests.Tests
             Assert.That(mv.ContainsFailureFor("Description"), Is.True);
             Assert.That(mv.Valid, Is.False);
         }
+
+
+
+
+        [TestCase("A")]
+        [TestCase(null)]
+        [TestCase("A few")]
+        [TestCase("A few more words with numbers 111")]
+        [TestCase("1")]
+        [TestCase("16543 8755 and words")]
+        [TestCase("16543 8755")]
+        [TestCase("123456789123456789123456789130123456789123456789123456789130")]
+        public void CreateCollectionPublishing_CollectionDescriptionMustOnlyContainLettersNumbersAndSpaces_IsValid(string s)
+        {
+            // Arrange
+            CreateCollectionPublishing a = new CreateCollectionPublishing
+            {
+                CollectionName = "I am a safe Title",
+                Visibility = "private",
+                Description = s
+            };
+            // Act
+            ModelValidator mv = new ModelValidator(a);
+            // Assert
+            Assert.That(mv.ContainsFailureFor("Description"), Is.False);
+            Assert.That(mv.Valid, Is.True);
+        }
+
+
+
     }
 }
