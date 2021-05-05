@@ -6,15 +6,18 @@
 
 
 <div class="container p-3">
-    
-    <div class="jumbotron px-sm pt-4 pb-sm-1" style="background:url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);">
 
-        <h1 class="text-center text-white"><a class="text-white" asp-controller="Collections" asp-action="Collections">@Model.VisitedUser.FirstName's Collections</a></h1>
+    <div class="jumbotron px-sm pt-4 pb-sm-1"
+        style="background:url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);">
+
+        <h1 class="text-center text-white"><a class="text-white" asp-controller="Collections"
+                asp-action="Collections">@Model.VisitedUser.FirstName's Collections</a></h1>
 
         <div class="row">
             <div class="col-2" style="padding-right:0;">
-                @{string profilePicSource = ViewBag.ProfilePicUrl;}
-                    <img src="@profilePicSource" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                @{
+                    string profilePicSource = ViewBag.ProfilePicUrl;}
+                <img src="@profilePicSource" alt="..." width="130" class="rounded mb-2 img-thumbnail">
             </div>
             <div class="col-2" style="padding-left:0;">
                 <br />
@@ -25,7 +28,7 @@
                     <h2 class="align-text-bottom text-white" style="padding-left:0;">@Model.VisitedUser.UserName</h2>
                 </div>
             </div>
-            
+
         </div>
 
     </div>
@@ -39,7 +42,8 @@
             <div class="col">
                 <label><strong>Search @Model.VisitedUser.FirstName's Collections:</strong></label>
                 <div class="custom-control-inline">
-                    <input class="form-control" type="text" minlength="3" title="Use at least 3 characters" name="keywords" required pattern=".*\S+.*" />
+                    <input class="form-control" type="text" minlength="3" title="Use at least 3 characters"
+                        name="keywords" required pattern=".*\S+.*" />
                     <input class="form-control" type="hidden" name="name" value="@Model.VisitedUser.UserName" />
                     <br />
                     <button type="submit" class="btn btn-outline-dark"> Search </button>
@@ -80,18 +84,28 @@
     @if (Model != null)
     {
 
-        string[] colls = { "/images/card_pics/IMG-0833.JPG", "/images/dogtoy_pics/IMG-0869.JPG", "/images/fish_pics/fish3.png", "/images/puzzel_pics/image_123923953(14).JPG", "/images/tool_pics/IMG-0837.JPG", "/img/2D_example.jpg" };
+        string[] colls = { "/images/card_pics/IMG-0833.JPG", "/images/dogtoy_pics/IMG-0869.JPG",
+    "/images/fish_pics/fish3.png", "/images/puzzel_pics/image_123923953(14).JPG", "/images/tool_pics/IMG-0837.JPG",
+    "/img/2D_example.jpg" };
 
         Random rand = new Random();
 
         <h5>Result(s): @Model.SearchResults.Count() Collection(s)</h5>
+        @if (ViewBag.SuccessMessage != null){
+            <div class="alert alert-success" role="alert">
+                @ViewBag.SuccessMessage
+            </div>
+        }
         <table class="table table-bordered border-primary">
             <thead>
                 <tr>
                     <th scope="col">Preview Photo</th>
                     <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=name">Name</a></th>
-                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=keyword">Keyword(s)</a></th>
-                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=date">Date Created</a></th>
+                    <th scope="col"><a style="color:black;"
+                        href="?name=@Model.VisitedUser.UserName&sort=keyword">Keyword(s)</a></th>
+                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=date">Date
+                            Created</a></th>
+                    <th scope="col"><span style="color:black;">Delete</span></th>
                 </tr>
             </thead>
             @foreach (CollectionKeyword ck in Model.SearchResults)
@@ -108,6 +122,9 @@
                     </td>
                     <td>
                         @ck.Collect.DateMade
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@ck.Collect.Id">Delete</a>
                     </td>
                 </tr>
             }

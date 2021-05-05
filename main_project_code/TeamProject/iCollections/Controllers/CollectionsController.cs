@@ -23,9 +23,10 @@ namespace iCollections.Controllers
         private readonly IIcollectionUserRepository _userRepo;
         private readonly ICollectionKeywordRepository _collectionkeywordRepo;
         private readonly IPhotoRepository _photoRepo;
+        private readonly IcollectionRepository _collectionRepo;
 
 
-        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo)
+        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo, IcollectionRepository cols)
         {
             _logger = logger;
             _userManager = userManager;
@@ -33,7 +34,7 @@ namespace iCollections.Controllers
             _userRepo = userRepo;
             _collectionkeywordRepo = collectionkeywordRepo;
             _photoRepo = photoRepo;
-
+            _collectionRepo = cols;
         }
 
         [Route("Collections/{name}")]
@@ -193,6 +194,38 @@ namespace iCollections.Controllers
             };
 
             return View(collectionlist);
+        }
+
+        // GET: Collections/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var selectedCollection = await _collectionRepo.FindByIdAsync(id ?? -1);
+            selectedCollection.User = _userRepo.GetUserById(id ?? -1);
+            if (selectedCollection == null)
+            {
+                return NotFound();
+            }
+
+            return View(selectedCollection);
+        }
+
+        // POST: Collections/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var collection = await _collectionRepo.FindByIdAsync(id);
+            var name = collection.Name;
+            await _collectionRepo.DeleteByIdAsync(id);
+            // line 224 produces error: SqlException: The DELETE statement conflicted with the REFERENCE constraint "CollectionKeyword_fk_Collection". The conflict occurred in database "ICollections-App", table "dbo.CollectionKeyword", column 'collect_id'.
+            //The statement has been terminated.
+            ViewBag.SuccessMessage = name + " deleted!";
+            return RedirectToAction(nameof(Collections));
         }
     }
 }
