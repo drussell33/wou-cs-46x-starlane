@@ -22,13 +22,18 @@ namespace iCollections.Models
 
     public partial class CreateCollectionPublishing
     {
-        [Required]
+        [RegularExpression(@"^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$")]
+        [StringLength(30), MinLength(3)]
+        [Required(ErrorMessage = "The Collection Name must only contains letters or numbers and be between 3 and 30 characters")]
         [Display(Name = "iCollection Name")]
         public string CollectionName { get; set; }
 
+        [Required]
         [Display(Name = "Visibility")]
         public string Visibility { get; set; }
 
+        [RegularExpression(@"^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$", ErrorMessage = "The Collection Description must only contains letters or numbers and be between 3 and 30 characters")]
+        [StringLength(60)]
         public string Description { get; set; }
     }
 
