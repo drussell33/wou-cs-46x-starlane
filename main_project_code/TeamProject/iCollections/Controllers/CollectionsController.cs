@@ -197,19 +197,31 @@ namespace iCollections.Controllers
         }
 
         // GET: Collections/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return NotFound("404 error, request could not be granted.");
             }
 
+            // check authorization
+            var nastyId = _userManager.GetUserId(User);
+            var visitorId = _userRepo.GetIcollectionUserByIdentityId(nastyId).Id;
             var selectedCollection = await _collectionRepo.FindByIdAsync(id ?? -1);
-            selectedCollection.User = _userRepo.GetUserById(id ?? -1);
+
             if (selectedCollection == null)
             {
-                return NotFound();
+                return NotFound("404 error, request could not be granted.");
             }
+            
+            if (selectedCollection.UserId != visitorId)
+            {
+                // you dont own this collections GET OUTTA HERE!
+                return NotFound("404 error, request could not be granted.");
+            }
+
+            selectedCollection.User = _userRepo.GetUserById(visitorId);
 
             return View(selectedCollection);
         }

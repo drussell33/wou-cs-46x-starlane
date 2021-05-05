@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace iCollections.Tests.Tests
 {
-    public class TestDeleteCollectionsController
+    public class TestDeleteCollections
     {
         Mock<IcollectionRepository> mockCollectionsRepo = new Mock<IcollectionRepository>();
 
@@ -69,8 +69,9 @@ namespace iCollections.Tests.Tests
         }
 
         [Test]
-        public void UserpageController_UserWithNoCollectionsReturns_NoCollections()
+        public async Task DeleteCollections_CollectionsOwnerCanGoTo_DeleteScreen()
         {
+            // fake the user manager
             var mockStore = new Mock<IUserStore<IdentityUser>>();
             mockStore.Setup(x => x.FindByIdAsync("aabbcc", CancellationToken.None))
                 .ReturnsAsync(new IdentityUser()
@@ -80,45 +81,24 @@ namespace iCollections.Tests.Tests
                 });
 
             Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
-
             mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("aabbcc");
-
             mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
                             .Returns(new Collection[] { }.ToList());
 
-            var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, mockPhotosRepo.Object, mockCollectionsRepo.Object);
-            var result = userPageController.Index("medinas");
-            var userProfile = (result as ViewResult).ViewData.Model as UserProfile;
+            // fake the user repo and collections repo (the irepository methods)
+            mockCollectionsRepo.Setup(m => m.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult(mockCollectionsRepo.Object.GetAll().ToList()[11]));
 
-            Assert.That(userProfile.recentCollections.Count, Is.EqualTo(0));
+            // need to handle '_userRepo.GetUserById(id ?? -1);'
+            mockUsersRepo.Setup(m => m.GetUserById(It.IsAny<int>())).Returns(mockUsersRepo.Object.GetAll().ToList()[3]);
+
+            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            var result = await controller.Delete(3);
+            var actualResult = result as ViewResult;
+            var collectionToBeDeleted = actualResult.Model as Collection;
+
+            Assert.That(actualResult, Is.Not.Null);
+            Assert.That(collectionToBeDeleted.Id, Is.EqualTo(mockCollectionsRepo.Object.GetAll().ToList()[11].Id));
         }
 
-        // if user doesnt exist.
-        [Test]
-        public void UserpageController_UserNotLoggedInShows_NoSessionUser()
-        {
-            var mockStore = new Mock<IUserStore<IdentityUser>>();
-            mockStore.Setup(x => x.FindByIdAsync("aabbcc", CancellationToken.None))
-                .ReturnsAsync(new IdentityUser()
-                {
-                    UserName = "haroldo@gmail.com",
-                    Id = "aabbcc"
-                });
-
-            Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
-
-            mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns((string)null);
-
-            mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
-                            .Returns(new Collection[] { }.ToList());
-
-            mockUsersRepo.Setup(m => m.GetTargetUser(It.IsAny<string>())).Returns(new IcollectionUser{Id = 23});
-
-            var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, mockPhotosRepo.Object, mockCollectionsRepo.Object);
-            var result = userPageController.Index("medinas");
-            var userProfile = (result as ViewResult).ViewData.Model as UserProfile;
-
-            Assert.That(userProfile.ProfileVisitor, Is.Null);
-        }
     }
 }
