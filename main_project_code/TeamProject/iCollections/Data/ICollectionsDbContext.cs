@@ -140,6 +140,16 @@ namespace iCollections.Data
                 entity.Property(e => e.User1Id).HasColumnName("user1_id");
 
                 entity.Property(e => e.User2Id).HasColumnName("user2_id");
+
+                entity.HasOne(d => d.User1)
+                    .WithMany(p => p.FriendsWithUser1)
+                    .HasForeignKey(d => d.User1Id)
+                    .HasConstraintName("FriendsWith_fk_ICollectionUser_One");
+
+                entity.HasOne(d => d.User2)
+                    .WithMany(p => p.FriendsWithUser2)
+                    .HasForeignKey(d => d.User2Id)
+                    .HasConstraintName("FriendsWith_fk_ICollectionUser_Two");
             });
 
             modelBuilder.Entity<IcollectionUser>(entity =>

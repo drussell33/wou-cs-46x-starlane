@@ -66,5 +66,6 @@ Copy the following into a separate folder in case you mess something up:
 
 ## Step 7:
 
++ Set up secret for seeded user's password `dotnet user-secrets set "SeedUserPW" <pw>` OR set it up in Azure Key Vault via Portal (Warning: Costs money probably)
 + If you want deploy your app but I don't see why since we just want to reset database stuff
 
