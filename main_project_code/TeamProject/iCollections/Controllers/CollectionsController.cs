@@ -196,7 +196,7 @@ namespace iCollections.Controllers
             return View(collectionlist);
         }
 
-        // GET: Collections/Delete/5
+        // GET: Collections/Delete/5 -> 5 is id of collection
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {

@@ -1,8 +1,8 @@
-# How to reset models and database on Azure from scratch (assuming VSCode)
+# How to reset models and database on Azure (assuming VSCode)
 
-*May be missing some steps*
+## Use case:
 
-### Before you do this, try running the scripts that Scot gives if you have a windows machine
+You're using a Mac and you need to change your models or something about the database so that your code can work. Mac doesn't have SQL Server. For Windows users, it would probably be easier to set up the databases locally for very simple changes or to make sure completely your changes don't break anything, feel free to go through this tutorial or run the deploy scripts on your own Azure account. I assume the steps are almost identical on Visual Studio.
 
 ## Background:
 
@@ -17,9 +17,9 @@ Copy the following into a separate folder in case you mess something up:
 
 ## Step 2:
 
-*Start here if you have first if you just need to reset databases*
+**Start here if you already have Azure servers and databases set up**
 
-+ Get connection string from Azure (write everything down)
++ Get connection string from Azure (write all credentials down)
 + Use VSCode mssql extension to run down (if needed), up, and seed sql scripts
 
 *May need to restart connection to get this to work*
@@ -51,7 +51,7 @@ Copy the following into a separate folder in case you mess something up:
 
 ## Step 5:
 
-*If you have not made a auth db on Azure yet, do it now*
+*If you have not made an auth db on Azure yet, do it now*
 
 + Make a up script automatically
 + Run: \
@@ -63,9 +63,14 @@ Copy the following into a separate folder in case you mess something up:
 + Seed accounts (Hareem, Talia, etc) by simply running the web app locally
 + Run: \
     `dotnet run`
++ Seed photos? (ask Derek)
 
 ## Step 7:
 
 + Set up secret for seeded user's password `dotnet user-secrets set "SeedUserPW" <pw>` OR set it up in Azure Key Vault via Portal (Warning: Costs money probably)
 + If you want deploy your app but I don't see why since we just want to reset database stuff
+
+## Step 8:
+
++ Tell whoever is running the production Azure apps to reset database.
 
