@@ -1,0 +1,60 @@
+# How to reset models and database on Azure from scratch (assuming VSCode)
+
+*May be missing some steps*
+
+### Before you do this, try running the scripts that Scot gives if you have a windows machine
+
+## Background:
+
+Copy the following into a separate folder in case you mess something up:
++ All the models made by scaffolding
++ appsettings.json
++ old dbcontexts
+
+## Step 1:
+
++ Make Azure servers and databases (CS 460)
+
+## Step 2:
+
+*Start here if you have first if you just need to reset databases*
+
++ Get connection string from Azure (write everything down)
++ Use VSCode mssql extension to run down (if needed), up, and seed sql scripts
+
+*May need to restart connection to get this to work*
+
+## Step 3:
+
++ Put connection string in appsettings.json in "ConnectionStrings" {}
++ Take out password field from string ie "Password={}"
++ Run:  \
+    `dotnet user-secrets set "ICollections:ServerPassword" "{password}"`
++ Add these lines to ConfigureServices() in Startup.cs (assuming your connection strings have that name and both use the same password) \
+    `var authBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("AuthenticationConnection"));`
+            `var appBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("ICollectionsConnection"));`
+            `authBuilder.Password = Configuration["ICollections:ServerPassword"];`
+            `appBuilder.Password = Configuration["ICollections:ServerPassword"];`
+
+## Step 4:
+
++ Do migration stuff
++ Run: \
+    `dotnet ef database update --context ApplicationDbContext`
++ Scaffold database tables (FROM APP DB ONLY!!!)
++ RUN: \
+    `dotnet ef dbcontext scaffold "{Put your connection string to app db here}" Microsoft.EntityFrameworkCore.SqlServer --context ICollectionsDbContext --context-dir Data --output-dir Models --verbose --force`
++ Change the optionsBuilder.UseSqlServer() to have reference to connection string rather than your actual string for security reasons
++ Error when I run this (which I guess I have to do???)
++ RUN: \
+    `dotnet aspnet-codegenerator controller -name ICollectionsUsersController -m IcollectionUser -dc ICollectionsDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries --force`
+
+## Step 5:
+
+
+
+
+
+
+
+
