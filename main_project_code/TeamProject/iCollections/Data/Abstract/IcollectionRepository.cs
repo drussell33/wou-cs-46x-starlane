@@ -8,6 +8,6 @@ namespace iCollections.Data.Abstract
     {
         List<Collection> GetMostRecentiCollections(int userId, int howMany);
 
-        Collection GetCollectionById(int? collectionID);
+        Collection GetCollectionById(int collectionID);
     }
 }

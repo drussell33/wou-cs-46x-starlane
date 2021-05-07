@@ -19,7 +19,7 @@ namespace iCollections.Data.Concrete
             return GetAll().Where(c => c.User.Id == userId).OrderByDescending(c => c.DateMade).Take(howMany).ToList();
         }
 
-        public Collection GetCollectionById(int? collectionID)
+        public Collection GetCollectionById(int collectionID)
         {
             return GetAll().Where(m => m.Id == collectionID).FirstOrDefault();
         }

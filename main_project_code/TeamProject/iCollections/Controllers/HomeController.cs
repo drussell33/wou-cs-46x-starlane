@@ -41,7 +41,6 @@ namespace iCollections.Controllers
 
         public IActionResult Index()
         {
-
             return View();
         }
 
@@ -54,37 +53,47 @@ namespace iCollections.Controllers
         [Route("/ocean_environment")]
         public IActionResult Ocean_environment(int? collectionID)
         {
+            List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
+            
             if (collectionID == null)
             {
                 return View();
             }
-
-            Collection newCollection = new Collection();
-            //newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
-            newCollection = _colRepo.GetCollectionById(collectionID);
-            int collectionId = (int)newCollection.Id;
-            int collectionOwnerId = (int)newCollection.UserId;
-            var collectionPhotos = _collectionPhotoRepo.GetAllCollectionPhotosbyCollectionId(collectionId);
-            //var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
-            
-            var photos = _photoRepo.GetAllUserPhotos(collectionOwnerId);
-
-            List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
-
-            foreach (var image in collectionPhotos)
+            else
             {
-                foreach (var photo in photos)
-                {
-                    if (image.PhotoId == photo.Id)
-                    {
-                        RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), photo.Name, image.PhotoRank, image.Description);
-                        AllPhotos.Add(renderingPhoto);
-                    }
-                }
-            }
-            ViewData["collectionTitle"] = newCollection.Name;
+                Collection newCollection = new Collection();
+                //newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
+                newCollection = _colRepo.GetCollectionById((int)collectionID);
 
-            return View(AllPhotos);
+                if (newCollection != null)
+                {
+                    int collectionId = (int)collectionID;
+                    int collectionOwnerId = (int)newCollection.UserId;
+                    var collectionPhotos = _collectionPhotoRepo.GetAllCollectionPhotosbyCollectionId(collectionId);
+                    //var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
+
+                    var photos = _photoRepo.GetAllUserPhotos(collectionOwnerId);
+
+                    foreach (var image in collectionPhotos)
+                    {
+                        foreach (var photo in photos)
+                        {
+                            if (image.PhotoId == photo.Id)
+                            {
+                                RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), photo.Name, image.PhotoRank, image.Description);
+                                AllPhotos.Add(renderingPhoto);
+                            }
+                        }
+                    }
+                    ViewData["collectionTitle"] = newCollection.Name;
+                    return View(AllPhotos);
+                }
+
+
+                return View(AllPhotos);
+            }
+            
+            
             
         }
 
@@ -96,31 +105,35 @@ namespace iCollections.Controllers
             {
                 return View();
             }
-
+            List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
             Collection newCollection = new Collection();
             //newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
-            newCollection = _colRepo.GetCollectionById(collectionID);
-            int collectionId = (int)newCollection.Id;
-            int collectionOwnerId = (int)newCollection.UserId;
-            var collectionPhotos = _collectionPhotoRepo.GetAllCollectionPhotosbyCollectionId(collectionId);
-            //var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
+            newCollection = _colRepo.GetCollectionById((int)collectionID);
 
-            var photos = _photoRepo.GetAllUserPhotos(collectionOwnerId);
-
-            List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
-            
-            foreach (var image in collectionPhotos)
+            if (newCollection != null)
             {
-                foreach (var photo in photos)
+                int collectionId = (int)collectionID;
+                int collectionOwnerId = (int)newCollection.UserId;
+                var collectionPhotos = _collectionPhotoRepo.GetAllCollectionPhotosbyCollectionId(collectionId);
+                //var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
+
+                var photos = _photoRepo.GetAllUserPhotos(collectionOwnerId);
+
+                foreach (var image in collectionPhotos)
                 {
-                    if (image.PhotoId == photo.Id)
+                    foreach (var photo in photos)
                     {
-                        RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), photo.Name, image.PhotoRank, image.Description);
-                        AllPhotos.Add(renderingPhoto);
+                        if (image.PhotoId == photo.Id)
+                        {
+                            RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), photo.Name, image.PhotoRank, image.Description);
+                            AllPhotos.Add(renderingPhoto);
+                        }
                     }
                 }
+                ViewData["collectionTitle"] = newCollection.Name;
+                return View(AllPhotos);
             }
-            ViewData["collectionTitle"] = newCollection.Name;
+
 
             return View(AllPhotos);
         }
