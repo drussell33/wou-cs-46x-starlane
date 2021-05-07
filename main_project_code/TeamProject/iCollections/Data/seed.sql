@@ -12,12 +12,6 @@
 	('Shoes'),
 	('Games'),
 	('Trophies');
-	
-INSERT INTO [ICollectionUser] (first_name, last_name, user_name) VALUES
-	('Talia', 'Knott', 'TaliaK'),
-	('Zayden', 'Clark', 'ZaydenC'),
-	('Hareem', 'Davila', 'DavilaH'),
-	('Krzysztof', 'Ponce', 'KrzysztofP');
 
 
 INSERT INTO [Follow] (follower,followed, began) VALUES

@@ -41,6 +41,7 @@ namespace iCollections.Controllers
         public IActionResult Collections(string name, string keywords, string sort)
         {
             //Initial state, no sort or search requested.
+            if (TempData["SuccessMessage"] != null) { ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString(); }
             if (keywords == null && sort == null)
             {
                 if (name == null)
@@ -233,11 +234,10 @@ namespace iCollections.Controllers
         {
             var collection = await _collectionRepo.FindByIdAsync(id);
             var name = collection.Name;
+            var owner = _userRepo.GetUserById(collection.UserId ?? -1).UserName;
             await _collectionRepo.DeleteByIdAsync(id);
-            // line 236 produces error: SqlException: The DELETE statement conflicted with the REFERENCE constraint "CollectionKeyword_fk_Collection". The conflict occurred in database "ICollections-App", table "dbo.CollectionKeyword", column 'collect_id'.
-            //The statement has been terminated.
-            ViewBag.SuccessMessage = name + " deleted!";
-            return RedirectToAction(nameof(Collections));
+            TempData["SuccessMessage"] = name + " deleted!";
+            return RedirectToAction(owner, "Collections");
         }
     }
 }
