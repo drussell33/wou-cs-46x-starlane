@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace iCollections.Tests.Tests
 {
-    public class TestDeleteCollections
+    public class TestDeleteCollectionsInterface
     {
         Mock<IcollectionRepository> mockCollectionsRepo = new Mock<IcollectionRepository>();
 
@@ -53,8 +53,7 @@ namespace iCollections.Tests.Tests
             mockUsersRepo.Setup(m => m.GetAll()).Returns(new IcollectionUser[]{
                 new IcollectionUser {Id = 1, FirstName = "Harold", LastName = "Martin", UserName = "haroldo", ProfilePicId = 1},
                 new IcollectionUser {Id = 2, FirstName = "Michael", LastName = "Jordan", UserName = "jordan2", ProfilePicId = 2},
-                new IcollectionUser {Id = 3, FirstName = "Elton", LastName = "Brand", UserName = "brandy", ProfilePicId = 3},
-                new IcollectionUser {Id = 4, FirstName = "Gerardo", LastName = "Medina", UserName = "medinas", ProfilePicId = 4}
+                new IcollectionUser {Id = 3, FirstName = "Gerardo", LastName = "Medina", UserName = "medinas", ProfilePicId = 4}
             }.AsQueryable<IcollectionUser>());
 
             mockUsersRepo.Setup(m => m.GetReadableID(It.IsAny<string>())).Returns(4);
@@ -62,8 +61,7 @@ namespace iCollections.Tests.Tests
             mockPhotosRepo.Setup(m => m.GetAll()).Returns(new Photo[]{
                 new Photo {Id = 1, UserId = 1, PhotoGuid = new Guid(), Name = "prof1"},
                 new Photo {Id = 2, UserId = 2, PhotoGuid = new Guid(), Name = "prof2"},
-                new Photo {Id = 3, UserId = 3, PhotoGuid = new Guid(), Name = "prof3"},
-                new Photo {Id = 4, UserId = 4, PhotoGuid = new Guid(), Name = "prof4"},
+                new Photo {Id = 3, UserId = 3, PhotoGuid = new Guid(), Name = "prof3"}
             }.AsQueryable<Photo>());
 
         }
@@ -82,17 +80,16 @@ namespace iCollections.Tests.Tests
 
             Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
             mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("aabbcc");
-            mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
-                            .Returns(new Collection[] { }.ToList());
 
             // fake the user repo and collections repo (the irepository methods)
+            mockUsersRepo.Setup(m => m.GetIcollectionUserByIdentityId(It.IsAny<string>())).Returns(mockUsersRepo.Object.GetAll().ToList()[2]);
             mockCollectionsRepo.Setup(m => m.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult(mockCollectionsRepo.Object.GetAll().ToList()[11]));
 
             // need to handle '_userRepo.GetUserById(id ?? -1);'
-            mockUsersRepo.Setup(m => m.GetUserById(It.IsAny<int>())).Returns(mockUsersRepo.Object.GetAll().ToList()[3]);
+            mockUsersRepo.Setup(m => m.GetUserById(It.IsAny<int>())).Returns(mockUsersRepo.Object.GetAll().ToList()[2]);
 
             var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, mockCollectionsRepo.Object);
-            var result = await controller.Delete(3);
+            var result = await controller.Delete(12);
             var actualResult = result as ViewResult;
             var collectionToBeDeleted = actualResult.Model as Collection;
 
@@ -100,5 +97,85 @@ namespace iCollections.Tests.Tests
             Assert.That(collectionToBeDeleted.Id, Is.EqualTo(mockCollectionsRepo.Object.GetAll().ToList()[11].Id));
         }
 
+        [Test]
+        public async Task DeleteCollections_NotCollectionOwnerGets_Error()
+        {
+            // fake the user manager
+            var mockStore = new Mock<IUserStore<IdentityUser>>();
+            mockStore.Setup(x => x.FindByIdAsync("aabbcc", CancellationToken.None))
+                .ReturnsAsync(new IdentityUser()
+                {
+                    UserName = "medinas@gmail.com",
+                    Id = "aabbcc"
+                });
+
+            Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
+            mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("aabbcc");
+
+            // fake the user repo and collections repo (the irepository methods)
+            mockUsersRepo.Setup(m => m.GetIcollectionUserByIdentityId(It.IsAny<string>())).Returns(mockUsersRepo.Object.GetAll().ToList()[0]);
+            mockCollectionsRepo.Setup(m => m.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult(mockCollectionsRepo.Object.GetAll().ToList()[12]));
+
+            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            var result = await controller.Delete(12);
+            var actualResult = result as RedirectToActionResult;
+
+            Assert.That(actualResult.ControllerName, Is.EqualTo("Error"));
+            Assert.That(actualResult.ActionName, Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public async Task DeleteCollections_CollectionDoesNotExistReturns_Error()
+        {
+            // fake the user manager
+            var mockStore = new Mock<IUserStore<IdentityUser>>();
+            mockStore.Setup(x => x.FindByIdAsync("aabbcc", CancellationToken.None))
+                .ReturnsAsync(new IdentityUser()
+                {
+                    UserName = "medinas@gmail.com",
+                    Id = "aabbcc"
+                });
+
+            Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
+            mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("aabbcc");
+
+            // fake the user repo and collections repo (the irepository methods)
+            mockUsersRepo.Setup(m => m.GetIcollectionUserByIdentityId(It.IsAny<string>())).Returns(mockUsersRepo.Object.GetAll().ToList()[0]);
+            mockCollectionsRepo.Setup(m => m.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Collection>(null));
+
+            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            var result = await controller.Delete(77);
+            var actualResult = result as RedirectToActionResult;
+
+            Assert.That(actualResult.ControllerName, Is.EqualTo("Error"));
+            Assert.That(actualResult.ActionName, Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public async Task DeleteCollections_PassingInNullReturns_Error()
+        {
+            // fake the user manager
+            var mockStore = new Mock<IUserStore<IdentityUser>>();
+            mockStore.Setup(x => x.FindByIdAsync("aabbcc", CancellationToken.None))
+                .ReturnsAsync(new IdentityUser()
+                {
+                    UserName = "medinas@gmail.com",
+                    Id = "aabbcc"
+                });
+
+            Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
+            mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("aabbcc");
+
+            // fake the user repo and collections repo (the irepository methods)
+            mockUsersRepo.Setup(m => m.GetIcollectionUserByIdentityId(It.IsAny<string>())).Returns(mockUsersRepo.Object.GetAll().ToList()[0]);
+            mockCollectionsRepo.Setup(m => m.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Collection>(null));
+
+            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            var result = await controller.Delete(null);
+            var actualResult = result as RedirectToActionResult;
+
+            Assert.That(actualResult.ControllerName, Is.EqualTo("Error"));
+            Assert.That(actualResult.ActionName, Is.EqualTo("Index"));
+        }
     }
 }

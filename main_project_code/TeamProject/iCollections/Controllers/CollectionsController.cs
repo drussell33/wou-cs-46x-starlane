@@ -203,26 +203,22 @@ namespace iCollections.Controllers
         {
             if (id == null)
             {
-                return NotFound("404 error, request could not be granted.");
+                return RedirectToAction("Index", "Error", new ErrorMessage{StatusCode = 404, Message = "404 error, request could not be granted."});
             }
 
             // check authorization
             var nastyId = _userManager.GetUserId(User);
-            var visitorId = _userRepo.GetIcollectionUserByIdentityId(nastyId).Id;
+            var visitor = _userRepo.GetIcollectionUserByIdentityId(nastyId);
             var selectedCollection = await _collectionRepo.FindByIdAsync(id ?? -1);
 
-            if (selectedCollection == null)
+            if (selectedCollection == null || selectedCollection.UserId != visitor.Id)
             {
-                return NotFound("404 error, request could not be granted.");
-            }
-            
-            if (selectedCollection.UserId != visitorId)
-            {
-                // you dont own this collections GET OUTTA HERE!
-                return NotFound("404 error, request could not be granted.");
+                // if collection requested don't exist or you dont own this collections GET OUTTA HERE!
+                return RedirectToAction("Index", "Error", new ErrorMessage{StatusCode = 404, Message = "404 error, request could not be granted."});
             }
 
-            selectedCollection.User = _userRepo.GetUserById(visitorId);
+            // view uses user; visitor is owner
+            selectedCollection.User = _userRepo.GetUserById(visitor.Id);
 
             return View(selectedCollection);
         }
@@ -232,7 +228,17 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // Authorize
+            var nastyId = _userManager.GetUserId(User);
+            var visitorId = _userRepo.GetIcollectionUserByIdentityId(nastyId).Id;
             var collection = await _collectionRepo.FindByIdAsync(id);
+
+            if (collection == null || collection.UserId != visitorId)
+            {
+                // if collection requested don't exist or current user does not own it
+                return RedirectToAction("Index", "Error", new ErrorMessage{StatusCode = 404, Message = "404 error, request could not be granted."});
+            }
+
             var name = collection.Name;
             var owner = _userRepo.GetUserById(collection.UserId ?? -1).UserName;
             await _collectionRepo.DeleteByIdAsync(id);
