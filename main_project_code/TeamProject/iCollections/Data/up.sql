@@ -67,10 +67,6 @@ ALTER TABLE [Follow] ADD CONSTRAINT [Follow_fk_ICollectionUser_One] FOREIGN KEY 
 
 ALTER TABLE [Follow] ADD CONSTRAINT [Follow_fk_ICollectionUser_Two] FOREIGN KEY ([followed]) REFERENCES [ICollectionUser] ([id]);
 
-ALTER TABLE [Follow] ADD CONSTRAINT [Follow_fk_ICollectionUser_One] FOREIGN KEY ([follower]) REFERENCES [ICollectionUser] ([id]);
-
-ALTER TABLE [Follow] ADD CONSTRAINT [Follow_fk_ICollectionUser_Two] FOREIGN KEY ([followed]) REFERENCES [ICollectionUser] ([id]);
-
 ALTER TABLE [Collection] ADD CONSTRAINT [Collection_fk_ICollectionUser] FOREIGN KEY ([user_id]) REFERENCES [ICollectionUser] ([id]);
 
 ALTER TABLE [Photo] ADD CONSTRAINT [Photo_fk_ICollectionUser] FOREIGN KEY ([user_id]) REFERENCES [ICollectionUser] ([id]);
@@ -79,10 +75,10 @@ ALTER TABLE [FriendsWith] ADD CONSTRAINT [FriendsWith_fk_ICollectionUser_One] FO
 
 ALTER TABLE [FriendsWith] ADD CONSTRAINT [FriendsWith_fk_ICollectionUser_Two] FOREIGN KEY ([user2_id]) REFERENCES [ICollectionUser] ([id]);
 
-ALTER TABLE [CollectionPhoto] ADD CONSTRAINT [CollectionPhoto_fk_Collection] FOREIGN KEY ([collect_id]) REFERENCES [Collection] ([id]);
+ALTER TABLE [CollectionPhoto] ADD CONSTRAINT [CollectionPhoto_fk_Collection] FOREIGN KEY ([collect_id]) REFERENCES [Collection] ([id]) ON DELETE CASCADE;
 
 ALTER TABLE [CollectionPhoto] ADD CONSTRAINT [CollectionPhoto_fk_Photo] FOREIGN KEY ([photo_id]) REFERENCES [Photo] ([id]);
 
-ALTER TABLE [CollectionKeyword] ADD CONSTRAINT [CollectionKeyword_fk_Collection] FOREIGN KEY ([collect_id]) REFERENCES [Collection] ([id]);
+ALTER TABLE [CollectionKeyword] ADD CONSTRAINT [CollectionKeyword_fk_Collection] FOREIGN KEY ([collect_id]) REFERENCES [Collection] ([id]) ON DELETE CASCADE;
 
 ALTER TABLE [CollectionKeyword] ADD CONSTRAINT [CollectionKeyword_fk_Keyword] FOREIGN KEY ([keyword_id]) REFERENCES [Keyword] ([id]);

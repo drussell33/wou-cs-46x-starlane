@@ -93,5 +93,30 @@ namespace iCollections.Data.Concrete
             await DeleteAsync(await FindByIdAsync(id));
             return;
         }
+
+        // public virtual void Delete(TEntity entity)
+        // {
+        //     if (entity == null)
+        //     {
+        //         throw new Exception("Entity to delete was null");
+        //     }
+        //     else
+        //     {
+        //         _dbSet.Remove(entity);
+        //         _context.SaveChanges();
+        //     }
+        //     return;
+        // }
+
+        // public virtual TEntity FindById(int id)
+        // {
+        //     TEntity entity = _dbSet.Find(id);
+        //     return entity;
+        // }
+
+        // public virtual void DeleteById(int id)
+        // {
+        //     Delete(FindById(id));
+        // }
     }
 }

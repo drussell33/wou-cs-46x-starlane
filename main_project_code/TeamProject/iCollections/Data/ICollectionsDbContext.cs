@@ -31,7 +31,7 @@ namespace iCollections.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Name=ICollectionsConnection");
+                optionsBuilder.UseSqlServer("Name=CollectionsConnection");
             }
         }
 
@@ -62,11 +62,6 @@ namespace iCollections.Data
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.Property(e => e.Visibility).HasColumnName("visibility");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Collections)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("Collection_fk_ICollectionUser");
             });
 
             modelBuilder.Entity<CollectionKeyword>(entity =>
@@ -82,16 +77,6 @@ namespace iCollections.Data
                     .HasColumnName("date_added");
 
                 entity.Property(e => e.KeywordId).HasColumnName("keyword_id");
-
-                entity.HasOne(d => d.Collect)
-                    .WithMany(p => p.CollectionKeywords)
-                    .HasForeignKey(d => d.CollectId)
-                    .HasConstraintName("CollectionKeyword_fk_Collection");
-
-                entity.HasOne(d => d.Keyword)
-                    .WithMany(p => p.CollectionKeywords)
-                    .HasForeignKey(d => d.KeywordId)
-                    .HasConstraintName("CollectionKeyword_fk_Keyword");
             });
 
             modelBuilder.Entity<CollectionPhoto>(entity =>
@@ -115,16 +100,6 @@ namespace iCollections.Data
                 entity.Property(e => e.Title)
                     .HasMaxLength(50)
                     .HasColumnName("title");
-
-                entity.HasOne(d => d.Collect)
-                    .WithMany(p => p.CollectionPhotoes)
-                    .HasForeignKey(d => d.CollectId)
-                    .HasConstraintName("CollectionPhoto_fk_Collection");
-
-                entity.HasOne(d => d.Photo)
-                    .WithMany(p => p.CollectionPhotoes)
-                    .HasForeignKey(d => d.PhotoId)
-                    .HasConstraintName("CollectionPhoto_fk_Photo");
             });
 
             modelBuilder.Entity<Follow>(entity =>
@@ -144,13 +119,11 @@ namespace iCollections.Data
                 entity.HasOne(d => d.FollowedNavigation)
                     .WithMany(p => p.FollowFollowedNavigations)
                     .HasForeignKey(d => d.Followed)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Follow_fk_ICollectionUser_Two");
 
                 entity.HasOne(d => d.FollowerNavigation)
                     .WithMany(p => p.FollowFollowerNavigations)
                     .HasForeignKey(d => d.Follower)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Follow_fk_ICollectionUser_One");
             });
 
@@ -248,12 +221,6 @@ namespace iCollections.Data
                     .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Photos)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("Photo_fk_ICollectionUser");
             });
 
             OnModelCreatingPartial(modelBuilder);
