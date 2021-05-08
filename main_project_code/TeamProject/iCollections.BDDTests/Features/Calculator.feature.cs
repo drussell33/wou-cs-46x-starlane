@@ -39,7 +39,7 @@ namespace iCollections.BDDTests.Features
 
 Simple calculator for adding **two** numbers
 
-Link to a feature: [Calculator](Fuji.BDDTests/Features/Calculator.feature)
+Link to a feature: [Calculator](iCollections.BDDTests/Features/Calculator.feature)
 ***Further read***: **[Learn more about how to generate Living Documentation](https://docs.specflow.org/projects/specflow-livingdoc/en/latest/LivingDocGenerator/Generating-Documentation.html)**", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
