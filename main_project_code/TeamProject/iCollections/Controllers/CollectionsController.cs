@@ -23,9 +23,10 @@ namespace iCollections.Controllers
         private readonly IIcollectionUserRepository _userRepo;
         private readonly ICollectionKeywordRepository _collectionkeywordRepo;
         private readonly IPhotoRepository _photoRepo;
+        private readonly IcollectionRepository _collectionRepo;
 
 
-        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo)
+        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo, IcollectionRepository cols)
         {
             _logger = logger;
             _userManager = userManager;
@@ -33,13 +34,14 @@ namespace iCollections.Controllers
             _userRepo = userRepo;
             _collectionkeywordRepo = collectionkeywordRepo;
             _photoRepo = photoRepo;
-
+            _collectionRepo = cols;
         }
 
         [Route("Collections/{name}")]
         public IActionResult Collections(string name, string keywords, string sort)
         {
             //Initial state, no sort or search requested.
+            if (TempData["SuccessMessage"] != null) { ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString(); }
             if (keywords == null && sort == null)
             {
                 if (name == null)
@@ -193,6 +195,55 @@ namespace iCollections.Controllers
             };
 
             return View(collectionlist);
+        }
+
+        // GET: Collections/Delete/5 -> 5 is id of collection
+        [Authorize]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Error", new ErrorMessage{StatusCode = 404, Message = "404 error, request could not be granted."});
+            }
+
+            // check authorization
+            var nastyId = _userManager.GetUserId(User);
+            var visitor = _userRepo.GetIcollectionUserByIdentityId(nastyId);
+            var selectedCollection = await _collectionRepo.FindByIdAsync(id ?? -1);
+
+            if (selectedCollection == null || selectedCollection.UserId != visitor.Id)
+            {
+                // if collection requested don't exist or you dont own this collections GET OUTTA HERE!
+                return RedirectToAction("Index", "Error", new ErrorMessage{StatusCode = 404, Message = "404 error, request could not be granted."});
+            }
+
+            // view uses user; visitor is owner
+            selectedCollection.User = _userRepo.GetUserById(visitor.Id);
+
+            return View(selectedCollection);
+        }
+
+        // POST: Collections/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            // Authorize
+            var nastyId = _userManager.GetUserId(User);
+            var visitorId = _userRepo.GetIcollectionUserByIdentityId(nastyId).Id;
+            var collection = await _collectionRepo.FindByIdAsync(id);
+
+            if (collection == null || collection.UserId != visitorId)
+            {
+                // if collection requested don't exist or current user does not own it
+                return RedirectToAction("Index", "Error", new ErrorMessage{StatusCode = 404, Message = "404 error, request could not be granted."});
+            }
+
+            var name = collection.Name;
+            var owner = _userRepo.GetUserById(collection.UserId ?? -1).UserName;
+            await _collectionRepo.DeleteByIdAsync(id);
+            TempData["SuccessMessage"] = name + " deleted!";
+            return RedirectToAction(owner, "Collections");
         }
     }
 }

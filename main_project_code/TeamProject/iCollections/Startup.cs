@@ -35,8 +35,8 @@ namespace iCollections
         {
             var authBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("AuthenticationConnection"));
             var appBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("ICollectionsConnection"));
-            //authBuilder.Password = Configuration["ICollections:ServerPassword"];
-            //appBuilder.Password = Configuration["ICollections:ServerPassword"];
+            authBuilder.Password = Configuration["ICollections:ServerPassword"];
+            appBuilder.Password = Configuration["ICollections:ServerPassword"];
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -51,6 +51,8 @@ namespace iCollections
             services.AddScoped<ICollectionKeywordRepository, CollectionKeywordRepository>();
             services.AddScoped<IIcollectionUserRepository, IcollectionUserRepository>();
             services.AddScoped<IcollectionRepository, CollectionRepository>();
+            services.AddScoped<IFriendsWithRepository, FriendsWithRepository>();
+            services.AddScoped<IFollowRepository, FollowRepository>();
             services.AddScoped<ICollectionPhotoRepository, CollectionPhotoRepository>();
 
 
