@@ -14,5 +14,7 @@ namespace iCollections.Data.Abstract
         Guid GetProfilePicGuid(int myId);
 
         void ChangePhotoName(Guid id, string newName);
+
+        List<Photo> GetAllUserPhotos(int appUserId);
     }
 }

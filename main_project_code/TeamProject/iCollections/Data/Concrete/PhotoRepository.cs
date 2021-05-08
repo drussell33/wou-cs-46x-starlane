@@ -43,5 +43,11 @@ namespace iCollections.Data.Concrete
             AddOrUpdate(selectedPhoto);
         }
 
+        public List<Photo> GetAllUserPhotos(int appUserId)
+        {
+            return GetAll().Where(u => u.UserId == appUserId).ToList();
+              
+        }
+
     }
 }
