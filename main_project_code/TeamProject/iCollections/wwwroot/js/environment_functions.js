@@ -142,3 +142,5 @@ function LoadDemoImagesToScene(scene, photoData, positionCordinateData) {
 
 
 export { sum, practiceInit, GatherPhotoData, LoadImagesToScene, LoadDemoImagesToScene }
+
+/*delete me later*/
