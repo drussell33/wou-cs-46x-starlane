@@ -19,6 +19,5 @@ namespace iCollections.Data.Concrete
             return GetAll().Where(c => c.User.Id == userId).OrderByDescending(c => c.DateMade).Take(howMany).ToList();
         }
 
-
     }
 }

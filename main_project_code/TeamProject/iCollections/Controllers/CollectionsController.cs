@@ -202,60 +202,74 @@ namespace iCollections.Controllers
         [Authorize]
         [HttpPost]
         [Route("Collections/{name}/AddFavorite")]
-        public IActionResult AddFavorite(int collection, string visiteduser, string activeuser)
+        public async Task<IActionResult> AddFavoriteAsync(int collection, string visiteduser, string activeuser)
         {
             string result = "";
             IcollectionUser loggedinuser = _userRepo.GetIcollectionUserByUsername(activeuser);
-            FavoriteCollection myfavorites = _favoritecollectionRepo.GetMyFavoritesByUser(loggedinuser);
+            var myfavorites = _favoritecollectionRepo.GetMyFavoritesByUser(loggedinuser);
 
             //Logged in user is not valid
             if (loggedinuser == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            //'My Favorites' doesn't exist
-            else if (myfavorites == null)
+            //'My Favorites' is empty
+            if (myfavorites.Count() < 1)
             {
-                FavoriteCollection myfavorites_postCreate = _favoritecollectionRepo.CreateFavoriteCollectionByName(loggedinuser, "My Favorites");
-                
-                Collection favorite = _collectionRepo.FindByIdAsync(collection).Result;
+                Console.WriteLine("noposwow");
+                FavoriteCollection myfavs = new FavoriteCollection
+                {
+                    User = loggedinuser,
+                    Name = "My Favorites",
+                    DateMade = DateTime.UtcNow,
+                    UserId = loggedinuser.Id,
+                    Visibility = 1,
+                    Route = "MyFavorites",
+                    Collect = await _collectionRepo.FindByIdAsync(collection)
+                };
 
-                myfavorites_postCreate.Collections.Add(favorite);
-
-                _favoritecollectionRepo.AddOrUpdateAsync(myfavorites_postCreate);
-
-
+                await _favoritecollectionRepo.AddOrUpdateAsync(myfavs);
 
                 result = "creating my favorties";
                 return Json(new { activeuser, collection, result });
             }
-
-            //'My Favorites' already exists 
-            else if (myfavorites != null)
+            //'My Favorites' does exist
+            if (myfavorites != null)
             {
-                //Check 'My Favorites' for collection
-                foreach (Collection c in myfavorites.Collections)
+                //Check for collection in 'My Favorites'
+                while (myfavorites.Count() > 0)
                 {
-                    //Collection already in my favorites 
-                    if (c.Id == collection)
+                    //Collection is in 'My Favorites'
+                    if (myfavorites.Find(c=>c.CollectId == collection) != null)
                     {
-
+                        result = "Already in Favorites!";
+                        return Json(new { activeuser, collection, result });
                     }
+                    //Not in 'My Favorites'
+                    else
+                    {
+                        FavoriteCollection myfavs = new FavoriteCollection
+                        {
+                            User = loggedinuser,
+                            Name = "My Favorites",
+                            DateMade = DateTime.UtcNow,
+                            UserId = loggedinuser.Id,
+                            Visibility = 1,
+                            Route = "MyFavorites",
+                            Collect = await _collectionRepo.FindByIdAsync(collection)
+                        };
+
+                        await _favoritecollectionRepo.AddOrUpdateAsync(myfavs);
+
+                        result = "Adding to Favorites";
+                        return Json(new { activeuser, collection, result });
+                    }
+
                 }
-
-                //If collection does not already exist in 'My Favorites', then add.
-                return Json(new { activeuser, collection, result });
+                
             }
-            
-            
-            System.Console.WriteLine(collection);
-            System.Console.WriteLine(visiteduser);
-            System.Console.WriteLine(activeuser);
-
+            result = "Not a valid collection";
             return Json(new { activeuser, collection, result });
         }
-
-        
     }
 }

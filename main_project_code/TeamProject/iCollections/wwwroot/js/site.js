@@ -161,11 +161,6 @@ function addFavorite(data) {
     $("#" + data.collection).removeClass('btn-outline-primary');
     $("#" + data.collection).attr({disabled:true});
 
-    //data.button.addClass('active');
-    //$(this).text('test');
-    console.log(data.activeuser);
-    console.log(data.collection);
-
 }
 function errorOnAjax() {
     console.log("ERROR in ajax request");

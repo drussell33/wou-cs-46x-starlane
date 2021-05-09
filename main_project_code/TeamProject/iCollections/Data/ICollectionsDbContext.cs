@@ -21,7 +21,6 @@ namespace iCollections.Data
         public virtual DbSet<Collection> Collections { get; set; }
         public virtual DbSet<CollectionKeyword> CollectionKeywords { get; set; }
         public virtual DbSet<CollectionPhoto> CollectionPhotos { get; set; }
-        public virtual DbSet<Favorite> Favorites { get; set; }
         public virtual DbSet<FavoriteCollection> FavoriteCollections { get; set; }
         public virtual DbSet<Follow> Follows { get; set; }
         public virtual DbSet<FriendsWith> FriendsWiths { get; set; }
@@ -129,11 +128,13 @@ namespace iCollections.Data
                     .HasConstraintName("CollectionPhoto_fk_Photo");
             });
 
-            modelBuilder.Entity<Favorite>(entity =>
+            modelBuilder.Entity<FavoriteCollection>(entity =>
             {
-                entity.ToTable("Favorite");
+                entity.ToTable("FavoriteCollection");
 
                 entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CollectId).HasColumnName("collect_id");
 
                 entity.Property(e => e.DateMade)
                     .HasColumnType("datetime")
@@ -153,35 +154,15 @@ namespace iCollections.Data
 
                 entity.Property(e => e.Visibility).HasColumnName("visibility");
 
+                entity.HasOne(d => d.Collect)
+                    .WithMany(p => p.FavoriteCollections)
+                    .HasForeignKey(d => d.CollectId)
+                    .HasConstraintName("FavoriteCollection_fk_FavoritCollection");
+
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Favorites)
+                    .WithMany(p => p.FavoriteCollections)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("Favorite_fk_ICollectionUser");
-            });
-
-            modelBuilder.Entity<FavoriteCollection>(entity =>
-            {
-                entity.ToTable("FavoriteCollection");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.CollectionId).HasColumnName("collection_id");
-
-                entity.Property(e => e.DateAdded)
-                    .HasColumnType("datetime")
-                    .HasColumnName("date_added");
-
-                entity.Property(e => e.FavoriteId).HasColumnName("favorite_id");
-
-                entity.HasOne(d => d.Collection)
-                    .WithMany(p => p.FavoriteCollections)
-                    .HasForeignKey(d => d.CollectionId)
-                    .HasConstraintName("FavoriteCollection_fk_Collection");
-
-                entity.HasOne(d => d.Favorite)
-                    .WithMany(p => p.FavoriteCollections)
-                    .HasForeignKey(d => d.FavoriteId)
-                    .HasConstraintName("FavoriteCollection_fk_Favorite");
+                    .HasConstraintName("FavoriteCollection_fk_ICollectionUser");
             });
 
             modelBuilder.Entity<Follow>(entity =>
