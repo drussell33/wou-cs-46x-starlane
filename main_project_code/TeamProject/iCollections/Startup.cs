@@ -51,7 +51,7 @@ namespace iCollections
             services.AddScoped<ICollectionKeywordRepository, CollectionKeywordRepository>();
             services.AddScoped<IIcollectionUserRepository, IcollectionUserRepository>();
             services.AddScoped<IcollectionRepository, CollectionRepository>();
-
+            services.AddScoped<IFavoriteCollectionRepository, FavoriteCollectionRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()

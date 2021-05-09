@@ -155,7 +155,11 @@ for (var i = 0; i < fav_btns.length; i++) {
 
 function addFavorite(data) {
 
-    $("#" + data.collection).addClass('active');
+    $("#" + data.collection).addClass('Active');
+    $("#" + data.collection).text(data.result);
+    $("#" + data.collection).addClass('btn-primary');
+    $("#" + data.collection).removeClass('btn-outline-primary');
+    $("#" + data.collection).attr({disabled:true});
 
     //data.button.addClass('active');
     //$(this).text('test');

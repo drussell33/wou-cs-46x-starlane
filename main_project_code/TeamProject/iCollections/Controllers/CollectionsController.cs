@@ -24,9 +24,10 @@ namespace iCollections.Controllers
         private readonly ICollectionKeywordRepository _collectionkeywordRepo;
         private readonly IPhotoRepository _photoRepo;
         private readonly IFavoriteCollectionRepository _favoritecollectionRepo;
+        private readonly IcollectionRepository _collectionRepo;
 
 
-        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo, IFavoriteCollectionRepository favoritecollectionRepo)
+        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo, IFavoriteCollectionRepository favoritecollectionRepo, IcollectionRepository collectionrepo)
         {
             _logger = logger;
             _userManager = userManager;
@@ -35,6 +36,7 @@ namespace iCollections.Controllers
             _collectionkeywordRepo = collectionkeywordRepo;
             _photoRepo = photoRepo;
             _favoritecollectionRepo = favoritecollectionRepo;
+            _collectionRepo = collectionrepo;
 
         }
 
@@ -204,17 +206,54 @@ namespace iCollections.Controllers
         {
             string result = "";
             IcollectionUser loggedinuser = _userRepo.GetIcollectionUserByUsername(activeuser);
-            FavoriteCollection favorites = _favoritecollectionRepo.GetMyFavoritesByUser(loggedinuser);
-            if (favorites == null)
+            FavoriteCollection myfavorites = _favoritecollectionRepo.GetMyFavoritesByUser(loggedinuser);
+
+            //Logged in user is not valid
+            if (loggedinuser == null)
             {
-                
+                return RedirectToAction("Index", "Home");
             }
+
+            //'My Favorites' doesn't exist
+            else if (myfavorites == null)
+            {
+                FavoriteCollection myfavorites_postCreate = _favoritecollectionRepo.CreateFavoriteCollectionByName(loggedinuser, "My Favorites");
+                
+                Collection favorite = _collectionRepo.FindByIdAsync(collection).Result;
+
+                myfavorites_postCreate.Collections.Add(favorite);
+
+                _favoritecollectionRepo.AddOrUpdateAsync(myfavorites_postCreate);
+
+
+
+                result = "creating my favorties";
+                return Json(new { activeuser, collection, result });
+            }
+
+            //'My Favorites' already exists 
+            else if (myfavorites != null)
+            {
+                //Check 'My Favorites' for collection
+                foreach (Collection c in myfavorites.Collections)
+                {
+                    //Collection already in my favorites 
+                    if (c.Id == collection)
+                    {
+
+                    }
+                }
+
+                //If collection does not already exist in 'My Favorites', then add.
+                return Json(new { activeuser, collection, result });
+            }
+            
             
             System.Console.WriteLine(collection);
             System.Console.WriteLine(visiteduser);
             System.Console.WriteLine(activeuser);
 
-            return Json(new { activeuser, collection });
+            return Json(new { activeuser, collection, result });
         }
 
         

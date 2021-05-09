@@ -7,5 +7,8 @@ namespace iCollections.Data.Abstract
     public interface IFavoriteCollectionRepository : IRepository<FavoriteCollection>
     {
         FavoriteCollection GetMyFavoritesByUser(IcollectionUser user);
+
+        FavoriteCollection CreateFavoriteCollectionByName(IcollectionUser user, string name);
+
     }
 }
