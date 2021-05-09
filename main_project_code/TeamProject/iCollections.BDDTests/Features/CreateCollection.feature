@@ -63,4 +63,5 @@ Scenario Outline: Non-user cannot click on The Create Collection button in the n
 	| FirstName |
 	| Andre     |
 	| Joanna    |
+	| People    |
 

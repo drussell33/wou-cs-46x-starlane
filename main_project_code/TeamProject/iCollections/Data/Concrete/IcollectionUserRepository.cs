@@ -19,9 +19,19 @@ namespace iCollections.Data.Concrete
                 && x.LastName == user.LastName);
         }
 
+        public virtual bool Exists(string UserName)
+        {
+            return _dbSet.Any(x => x.UserName == UserName);
+        }
+
         public virtual IcollectionUser GetIcollectionUserByIdentityId(string identityID)
         {
             return _dbSet.Where(u => u.AspnetIdentityId == identityID).FirstOrDefault();
+        }
+
+        public virtual IcollectionUser GetUserById(int id)
+        {
+            return _dbSet.FirstOrDefault(x => x.Id == id);
         }
 
         public int GetReadableUserID(string nastyString)
@@ -36,7 +46,7 @@ namespace iCollections.Data.Concrete
 
         public int GetProfilePicID(int userId)
         {
-            return _dbSet.FirstOrDefault(u => u.Id == userId).ProfilePicId ?? -1;
+            return _dbSet.FirstOrDefault(u => u.Id == userId).ProfilePicId ?? 0;
         }
 
         public IcollectionUser GetSessionUser(string sessionUserId)

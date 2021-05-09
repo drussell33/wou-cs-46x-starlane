@@ -25,8 +25,9 @@ namespace iCollections.Controllers
         private readonly IPhotoRepository _photoRepo;
         private readonly IcollectionRepository _colRepo;
         private readonly ICollectionPhotoRepository _collectionPhotoRepo;
+        private readonly ICollectionKeywordRepository _collectionKeywords;
 
-        public CreateCollectionController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, /*ICollectionsDbContext collectionsDbContext,*/ IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo, ICollectionPhotoRepository collectionphotoRepo)
+        public CreateCollectionController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, /*ICollectionsDbContext collectionsDbContext,*/ IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo, ICollectionPhotoRepository collectionphotoRepo, ICollectionKeywordRepository collectionKeywords)
         {
             _logger = logger;
             _userManager = userManager;
@@ -35,6 +36,7 @@ namespace iCollections.Controllers
             _photoRepo = photoRepo;
             _colRepo = colRepo;
             _collectionPhotoRepo = collectionphotoRepo;
+            _collectionKeywords = collectionKeywords;
         }
 
         [HttpGet]
@@ -169,6 +171,11 @@ namespace iCollections.Controllers
                                 }
                             }
                         }
+                        CollectionKeyword mandatoryKeyWord = new CollectionKeyword();
+                        mandatoryKeyWord.CollectId = newCollection.Id;
+                        mandatoryKeyWord.KeywordId = 1;
+                        await _collectionKeywords.AddOrUpdateAsync(mandatoryKeyWord);
+
                     }
                     
                 }

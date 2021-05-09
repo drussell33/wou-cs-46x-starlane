@@ -1,60 +1,98 @@
 ﻿@using iCollections.Data;
 @using Microsoft.AspNetCore.Identity;
 @inject ICollectionsDbContext AppContext
-@model UserProfile
+@model IcollectionUser
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<div class="row">
-    <!--Column 1 - About, content, etc-->
-    <div class="col col">
-        <!--About-->
-        <div class="row">
-            <form method="post" enctype="multipart/form-data" asp-controller="UserPage" asp-action="Edit">
-                <div class="col user-profile-obj" id="follow-button">
-                    @if (Model.ProfileOwner.ProfilePicId.HasValue)
-                    {
-                        <img class="user-profile-img" src="data:image;base64,@System.Convert.ToBase64String(@Model.ProfileOwner.Photos.FirstOrDefault(p => p.Id == Model.ProfileOwner.ProfilePicId.Value).Data)" />
-                    }
-                    else
-                    {
-                        <img class="user-profile-img">
-                    }
-                    <input id="profileimg" type="file" accept="image/*" name="profileimg"/>
-
-                    <div class="form-group">
-                        <h2><input class="form-control" value="@Model.ProfileOwner.UserName" name="username" minlength="2" placeholder="Username"/></h2>
-                        <h3><input class="form-control" value="@Model.ProfileOwner.FirstName" name="firstname" minlength="2" placeholder="First name"/></h3>
-                        <h3><input class="form-control" value="@Model.ProfileOwner.LastName" name="lastname" minlength="2" placeholder="Last name"/></h3>
-                    </div>
-                    
-                    <div class="about-me">
-                        <p>Date Joined: @DateTime.Now</p>
-                        <div class="form-group">
-                            <p>About me: <input class="form-text" value="@Model.ProfileOwner.AboutMe" name="aboutme" minlength="1" placeholder="About me"/></p>
+<div class="row py-5 px-4">
+    <div class="col-md-6 mx-auto">
+        <!-- Profile widget -->
+        <div class="bg-white shadow rounded overflow-hidden">
+            @using (Html.BeginForm("Edit", "UserPage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="px-4 pt-0 pb-4 cover">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="media align-items-end profile-head">
+                        <div class="profile mr-3">
+                            @{
+                                string profilePicSource = Model.Photos.FirstOrDefault(p => p.Id == Model.ProfilePicId).GetPhotoUrl();
+                                if (profilePicSource == null)
+                                {
+                                    <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                                }
+                                else
+                                {
+                                    <img src="@profilePicSource" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                                }
+                            }
                         </div>
-                        <p>Followers: @Model.ProfileOwner.FollowFollowedNavigations.ToList().Count</p>
-                        <p>Following: @Model.ProfileOwner.FollowFollowerNavigations.ToList().Count</p>
                     </div>
-                    <button class="btn btn-primary" type="submit">Done</button>
                 </div>
-            </form>
-        </div>
-
-        <!--Content-->
-        <div class="row">
-            <div class="col user-profile-obj">
-                <h2>Recent Photos:</h2>
-                @foreach (var photo in Model.ProfileOwner.Photos.Take<Photo>(10))
-                {
+                <div class="bg-light p-4 d-flex justify-content-end text-center">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <h5 class="font-weight-bold mb-0 d-block">@AppContext.Collections.Where(c => c.User.Id == Model.Id).ToList().Count</h5><small class="text-muted"> <i class="mr-1"></i><a asp-action="Collections" asp-route-name="@Model.UserName">iCollections</a></small>
+                        </li>
+                        <li class="list-inline-item">
+                            <h5 class="font-weight-bold mb-0 d-block">@Model.FollowFollowedNavigations.ToList().Count</h5><small class="text-muted"> <i class="mr-1"></i><a asp-action="Followers" asp-route-name="@Model.UserName">Followers</a></small>
+                        </li>
+                        <li class="list-inline-item">
+                            <h5 class="font-weight-bold mb-0 d-block">@Model.FollowFollowerNavigations.ToList().Count</h5><small class="text-muted"> <i class="mr-1"></i><a asp-action="Following" asp-route-name="@Model.UserName">Following</a></small>
+                        </li>
+                    </ul>
+                </div>
+                <div class="px-4 py-3">
+                    <label for="profileimg">Profile picture</label>
                     <div>
-                        <p>Name: @photo.Name</p>
-                        <p>Date Uploaded: @photo.DateUploaded</p>
+                        <input id="profileimg" type="file" accept="image/*" name="profileimg" />
                     </div>
-                }
+                    <div>
+                        @Html.LabelFor(m => m.UserName, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(m => m.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "Username", value = Model.UserName } })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.FirstName, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name", value = Model.FirstName, minlength = 2 } })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.LastName, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name", value = Model.LastName, minlength = 2 } })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    </div>
+                    <input type="hidden" name="id" value=@Model.Id />
+                    <h5 class="mb-0">About</h5>
+                    <div class="p-4 rounded shadow-sm bg-light">
+                        <p class="font-italic mb-0">
+                            @Html.LabelFor(m => m.AboutMe, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(m => m.AboutMe, new { htmlAttributes = new { @class = "form-control", placeholder = "About Me", value = Model.AboutMe, minlength=1 } })
+                            @Html.ValidationMessageFor(m => m.AboutMe, "", new { @class = "text-danger" })
+                        </p>
+                        @if (@Model.DateJoined != null)
+                        {
+                            <p class="font-italic mb-0">Date Joined: @Model.DateJoined</p>
+                        }
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-sm">Done</button>
+                </div>
+            }
+            <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Recent iCollections</h5>
+                    <a asp-action="Collections" asp-route-name="@Model.UserName" class="btn btn-link text-muted">Show all</a>
+                </div>
+                <div class="row">
+
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
