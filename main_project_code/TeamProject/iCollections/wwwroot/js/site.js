@@ -124,3 +124,54 @@ function sendNewPhotoName(imgURL, imageId, fileName) {
         closeNav();
     });
 }
+
+// When Add to Favorties button is clicked, select.
+fav_btns = document.getElementsByClassName("fav_btn");
+for (var i = 0; i < fav_btns.length; i++) {
+    fav_btns[i].addEventListener("click", function () {
+
+        let collection = $(this).attr('id');
+        let visiteduser = $(this).attr('value');
+        let activeuser = $(this).attr('name');
+        
+
+        let address = "/Collections/" + activeuser + "/AddFavorite";
+
+        $.ajax({
+            type: "Post",
+            dataType: "json",
+            url: address,
+            data: {
+                collection: collection,
+                visiteduser: visiteduser,
+                activeuser: activeuser
+            },
+            success: addFavorite,
+            error: errorOnAjax
+        });
+    });
+}
+
+
+function addFavorite(data) {
+
+    $("#" + data.collection).addClass('active');
+
+    //data.button.addClass('active');
+    //$(this).text('test');
+    console.log(data.activeuser);
+    console.log(data.collection);
+
+}
+function errorOnAjax() {
+    console.log("ERROR in ajax request");
+}
+
+
+
+
+
+
+
+
+

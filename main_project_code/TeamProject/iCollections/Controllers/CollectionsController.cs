@@ -23,9 +23,10 @@ namespace iCollections.Controllers
         private readonly IIcollectionUserRepository _userRepo;
         private readonly ICollectionKeywordRepository _collectionkeywordRepo;
         private readonly IPhotoRepository _photoRepo;
+        private readonly IFavoriteCollectionRepository _favoritecollectionRepo;
 
 
-        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo)
+        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo, IFavoriteCollectionRepository favoritecollectionRepo)
         {
             _logger = logger;
             _userManager = userManager;
@@ -33,6 +34,7 @@ namespace iCollections.Controllers
             _userRepo = userRepo;
             _collectionkeywordRepo = collectionkeywordRepo;
             _photoRepo = photoRepo;
+            _favoritecollectionRepo = favoritecollectionRepo;
 
         }
 
@@ -66,7 +68,7 @@ namespace iCollections.Controllers
                 };
 
                 var myId = _userRepo.GetReadableID(name);
-                ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+                //ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
                 return View(collectionlist);
             }
@@ -99,7 +101,7 @@ namespace iCollections.Controllers
                 };
 
                 var myId = _userRepo.GetReadableID(name);
-                ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+                //ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
                 return View(collectionlist);
             }
@@ -157,7 +159,7 @@ namespace iCollections.Controllers
                 };
 
                 var myId = _userRepo.GetReadableID(name);
-                ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+                //ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
                 return View(collectionlist);
             }
@@ -194,5 +196,27 @@ namespace iCollections.Controllers
 
             return View(collectionlist);
         }
+
+        [Authorize]
+        [HttpPost]
+        [Route("Collections/{name}/AddFavorite")]
+        public IActionResult AddFavorite(int collection, string visiteduser, string activeuser)
+        {
+            string result = "";
+            IcollectionUser loggedinuser = _userRepo.GetIcollectionUserByUsername(activeuser);
+            FavoriteCollection favorites = _favoritecollectionRepo.GetMyFavoritesByUser(loggedinuser);
+            if (favorites == null)
+            {
+                
+            }
+            
+            System.Console.WriteLine(collection);
+            System.Console.WriteLine(visiteduser);
+            System.Console.WriteLine(activeuser);
+
+            return Json(new { activeuser, collection });
+        }
+
+        
     }
 }
