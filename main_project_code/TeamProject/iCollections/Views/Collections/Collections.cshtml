@@ -120,7 +120,7 @@
                         <img src=@colls[rand.Next(6)] width="100" height="100" alt="" />
                     </td>
                     <td>
-                        <a href="#"> @ck.Collect.Name </a>
+                        <a asp-controller="Home" asp-action="@ck.Collect.Route" asp-route-collectionID="@ck.Collect.Id"> @ck.Collect.Name </a>
                     </td>
                     <td>
                         @ck.Keyword.Name

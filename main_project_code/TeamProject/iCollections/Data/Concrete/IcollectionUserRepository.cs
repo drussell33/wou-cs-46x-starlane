@@ -46,7 +46,7 @@ namespace iCollections.Data.Concrete
 
         public int GetProfilePicID(int userId)
         {
-            return _dbSet.FirstOrDefault(u => u.Id == userId).ProfilePicId ?? -1;
+            return _dbSet.FirstOrDefault(u => u.Id == userId).ProfilePicId ?? 0;
         }
 
         public IcollectionUser GetSessionUser(string sessionUserId)
