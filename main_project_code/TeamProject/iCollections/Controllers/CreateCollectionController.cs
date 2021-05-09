@@ -49,14 +49,6 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EnvironmentSelection([Bind("Route")] CreateCollectionRoute collection)
         {
-            /*string id = _userManager.GetUserId(User);
-            //IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-            IcollectionUser appUser = null;
-            if (id != null)
-            {
-                appUser = _userRepo.GetSessionUser(id);
-            }*/
-
             if (ModelState.IsValid)
             {
                 ViewData["routeName"] = collection.Route;
@@ -88,9 +80,16 @@ namespace iCollections.Controllers
             //Add in the ability to give a title and description for the photo to be used in the collection
             if (ModelState.IsValid)
             {
-                TempData["photoids"] = selectedPhotos;
+                ViewData["errorPresent"] = true;
 
-                return RedirectToAction("PublishingOptionsSelection");
+                if(selectedPhotos.Length > 0)
+                {
+                    TempData["photoids"] = selectedPhotos;
+                    ViewData["errorPresent"] = null;
+                    return RedirectToAction("PublishingOptionsSelection");
+                }
+
+                
             }
 
             TempData.Keep();
