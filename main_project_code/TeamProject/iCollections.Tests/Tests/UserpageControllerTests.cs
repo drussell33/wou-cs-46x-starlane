@@ -122,5 +122,72 @@ namespace iCollections.Tests.Tests
 
             Assert.That(userProfile.ProfileVisitor, Is.Null);
         }
+
+        [Test]
+        public void Edit_UserIsProfileOwnerReturns_EditViewAndModel()
+        {
+            var mockStore = new Mock<IUserStore<IdentityUser>>();
+            Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
+            mockStore.Setup(x => x.FindByIdAsync("aabbcc", CancellationToken.None))
+                .ReturnsAsync(new IdentityUser()
+                {
+                    UserName = "haroldo@gmail.com",
+                    Id = "aabbcc"
+                });
+            mockUsersRepo.Setup(m => m.GetTargetUser(It.IsAny<string>())).Returns(new IcollectionUser { Id = 1, AspnetIdentityId="aabbcc", UserName="haraldo" });
+            mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("aabbcc");
+
+            var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            ViewResult result = (ViewResult) userPageController.Edit("haraldo");
+            
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
+            Assert.AreEqual("haraldo", (result.Model as IcollectionUser).UserName);
+        }
+
+        [Test]
+        public void Edit_UserIsNotProfileOwner_RedirectsToHome()
+        {
+            var mockStore = new Mock<IUserStore<IdentityUser>>();
+            Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
+            mockStore.Setup(x => x.FindByIdAsync("aabbcc", CancellationToken.None))
+                .ReturnsAsync(new IdentityUser()
+                {
+                    UserName = "haroldo@gmail.com",
+                    Id = "aabbcc"
+                });
+            mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
+                            .Returns(new Collection[] { }.ToList());
+            mockUsersRepo.Setup(m => m.GetTargetUser(It.IsAny<string>())).Returns(new IcollectionUser { Id = 23 });
+            mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("aabbcc");
+
+            var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            RedirectToActionResult result = (RedirectToActionResult)userPageController.Edit("jordan2");
+            
+            Assert.AreEqual("Index", result.ActionName);
+            Assert.AreEqual("Home", result.ControllerName);
+        }
+
+        [Test]
+        public void Edit_UserDoesNotExistReturns_RedirectsToHome()
+        {
+            var mockStore = new Mock<IUserStore<IdentityUser>>();
+            Mock<UserManager<IdentityUser>> mockUserManager = new Mock<UserManager<IdentityUser>>(mockStore.Object, null, null, null, null, null, null, null, null);
+            mockStore.Setup(x => x.FindByIdAsync("aabbcc", CancellationToken.None))
+                .ReturnsAsync(new IdentityUser()
+                {
+                    UserName = "haroldo@gmail.com",
+                    Id = "aabbcc"
+                });
+            mockCollectionsRepo.Setup(m => m.GetMostRecentiCollections(It.IsAny<int>(), It.IsAny<int>()))
+                            .Returns(new Collection[] { }.ToList());
+            mockUsersRepo.Setup(m => m.GetTargetUser(It.IsAny<string>())).Returns(new IcollectionUser { Id = 23 });
+            mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("aabbcc");
+
+            var userPageController = new UserPageController(null, mockUserManager.Object, mockUsersRepo.Object, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            RedirectToActionResult result = (RedirectToActionResult)userPageController.Edit("jordan90");
+            Assert.AreEqual("Index", result.ActionName);
+            Assert.AreEqual("Home", result.ControllerName);
+        }
     }
 }

@@ -22,10 +22,7 @@ namespace iCollections.Controllers
         private readonly UserManager<IdentityUser> _userManager;
 
         private readonly IIcollectionUserRepository _userRepo;
-
-
         private readonly IPhotoRepository _photoRepo;
-
         private readonly IcollectionRepository _colRepo;
 
         public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo)
@@ -131,7 +128,8 @@ namespace iCollections.Controllers
         [HttpPost]
         public IActionResult EditPost(IcollectionUser fu, int id, IFormFile profileimg)
         {
-            var user = _db.IcollectionUsers.FirstOrDefault(u => u.Id == id);
+            var user = _userRepo.GetUserById(id);
+            //var user = _db.IcollectionUsers.FirstOrDefault(u => u.Id == id);
             if (ModelState.IsValid)
             {
                 Console.WriteLine("Valid");
@@ -152,12 +150,14 @@ namespace iCollections.Controllers
                         var profileImg = new Photo { Name = profileimg.FileName, Data = ms.ToArray(), DateUploaded = DateTime.Now, UserId = user.Id };
                         ms.Close();
                         ms.Dispose();
-                        _db.Photos.Add(profileImg);
-                        _db.SaveChanges();
+                        //_db.Photos.Add(profileImg);
+                        _photoRepo.AddOrUpdate(profileImg);
+                        //_db.SaveChanges();
                         user.ProfilePicId = profileImg.Id;
                     }
-                    _db.IcollectionUsers.Update(user);
-                    _db.SaveChanges();
+                    _userRepo.AddOrUpdate(user);
+                    //_db.IcollectionUsers.Update(user);
+                    //_db.SaveChanges();
                 }
                 return RedirectToAction("Index", "UserPage", new { name = user.UserName });
             }
