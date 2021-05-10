@@ -1,10 +1,23 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
 namespace iCollections.Models
 {
+    /*public class IcollectionUserMetaDta
+    {
+        [Remote(action: "IsUserNameAvailable", controller: "ICollectionsUsers", ErrorMessage = "Username is not available")]
+        [Required(ErrorMessage = "Please Enter UserName")]
+        public string UserName { get; set; }
+    }
+    [MetadataType(typeof(IcollectionUserMetaDta))]
+    public partial class IcollectionUser
+    {
+
+    }*/
     public partial class IcollectionUser
     {
         public IcollectionUser()
@@ -22,6 +35,10 @@ namespace iCollections.Models
         public string AspnetIdentityId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        [Remote(action: "IsUserNameAvailable", controller: "ICollectionsUsers", ErrorMessage = "Username is not available")]
+        [Required(ErrorMessage = "Please Enter UserName")]
+        [MinLength(2)]
         public string UserName { get; set; }
         public DateTime? DateJoined { get; set; }
         public string AboutMe { get; set; }

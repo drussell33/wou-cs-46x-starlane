@@ -14,8 +14,12 @@ namespace iCollections.Data.Abstract
         Task<TEntity> FindByIdAsync(int id);
         Task<bool> ExistsAsync(int id);
         IQueryable<TEntity> GetAll();
+        TEntity AddOrUpdate(TEntity entity);
         Task<TEntity> AddOrUpdateAsync(TEntity entity);
         Task DeleteAsync(TEntity entity);
         Task DeleteByIdAsync(int id);
+        // TEntity FindById(int id);
+        // void DeleteById(int id);
+        // void Delete(TEntity entity);
     }
 }

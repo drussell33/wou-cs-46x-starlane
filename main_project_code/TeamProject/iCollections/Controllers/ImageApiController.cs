@@ -28,6 +28,7 @@ namespace iCollections.Controllers
         {
             var guid = Guid.Parse(id);
             var selectedPhoto = _photoRepo.GetPhoto(guid);
+            if (selectedPhoto.Data == null) return new EmptyResult();
             return File(selectedPhoto.Data, "image/base64");
         }
 

@@ -3,6 +3,9 @@ using iCollections.Data.Abstract;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 
 namespace iCollections.Data.Concrete
@@ -17,6 +20,11 @@ namespace iCollections.Data.Concrete
         public List<Collection> GetMostRecentiCollections(int userId, int howMany)
         {
             return GetAll().Where(c => c.User.Id == userId).OrderByDescending(c => c.DateMade).Take(howMany).ToList();
+        }
+
+        public List<Collection> GetICollectionsForThisUser(int userId)
+        {
+            return GetAll().Include(r => r.User).Where(r => r.User.Id == userId).ToList();
         }
 
     }
