@@ -120,15 +120,24 @@ namespace iCollections.Controllers
             string address = "/api/image/thumbnail/";
             int profile_pic_id = usersRepo.GetProfilePicID(myId);
             
-            try {
-                var guid = photoRepo.GetProfilePicGuid(profile_pic_id);
-                string url = address + guid;
-                return url;
+            if(profile_pic_id != 0)
+            {
+                try
+                {
+                    var guid = photoRepo.GetProfilePicGuid(profile_pic_id);
+                    string url = address + guid;
+                    return url;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
             }
-            catch (Exception)
+            else
             {
                 return null;
             }
+              
         }
 
         public List<PhotoInfo> GetMyPhotosInfo(int myId)

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using iCollections.Data.Abstract;
 
 namespace iCollections.Controllers
 {
@@ -18,13 +19,24 @@ namespace iCollections.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly ICollectionsDbContext _collectionsDbContext;
+        //private readonly ICollectionsDbContext _collectionsDbContext;
 
-        public CreateCollectionController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
+        private readonly IIcollectionUserRepository _userRepo;
+        private readonly IPhotoRepository _photoRepo;
+        private readonly IcollectionRepository _colRepo;
+        private readonly ICollectionPhotoRepository _collectionPhotoRepo;
+        private readonly ICollectionKeywordRepository _collectionKeywords;
+
+        public CreateCollectionController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, /*ICollectionsDbContext collectionsDbContext,*/ IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo, ICollectionPhotoRepository collectionphotoRepo, ICollectionKeywordRepository collectionKeywords)
         {
             _logger = logger;
             _userManager = userManager;
-            _collectionsDbContext = collectionsDbContext;
+            //_collectionsDbContext = collectionsDbContext;
+            _userRepo = userRepo;
+            _photoRepo = photoRepo;
+            _colRepo = colRepo;
+            _collectionPhotoRepo = collectionphotoRepo;
+            _collectionKeywords = collectionKeywords;
         }
 
         [HttpGet]
@@ -37,9 +49,6 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EnvironmentSelection([Bind("Route")] CreateCollectionRoute collection)
         {
-            string id = _userManager.GetUserId(User);
-            IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-
             if (ModelState.IsValid)
             {
                 ViewData["routeName"] = collection.Route;
@@ -71,9 +80,16 @@ namespace iCollections.Controllers
             //Add in the ability to give a title and description for the photo to be used in the collection
             if (ModelState.IsValid)
             {
-                TempData["photoids"] = selectedPhotos;
+                ViewData["errorPresent"] = true;
 
-                return RedirectToAction("PublishingOptionsSelection");
+                if(selectedPhotos.Length > 0)
+                {
+                    TempData["photoids"] = selectedPhotos;
+                    ViewData["errorPresent"] = null;
+                    return RedirectToAction("PublishingOptionsSelection");
+                }
+
+                
             }
 
             TempData.Keep();
@@ -98,15 +114,20 @@ namespace iCollections.Controllers
         public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description")]CreateCollectionPublishing collection)
         {
             string id = _userManager.GetUserId(User);
-            IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+            //IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+            IcollectionUser appUser = null;
+            if (id != null)
+            {
+                appUser = _userRepo.GetSessionUser(id);
+            }
 
-            // Get route selection from tempdata cookie
-            string route = "nothing";
+           // Get route selection from tempdata cookie
+           string route = "nothing";
             if (TempData.ContainsKey("route"))
             {
                 route = TempData["route"].ToString();
             }
-            TempData.Keep();
+            //TempData.Keep();
             Debug.WriteLine(collection);
             if (ModelState.IsValid)
             {
@@ -115,10 +136,12 @@ namespace iCollections.Controllers
                 newCollection.UserId = appUser.Id;
                 newCollection.DateMade = DateTime.Now;
                 newCollection.Visibility = 1;
-                newCollection.Name = collection.CollectionName;               
+                newCollection.Name = collection.CollectionName;
 
-                _collectionsDbContext.Collections.Add(newCollection);
-                await _collectionsDbContext.SaveChangesAsync();
+                //_collectionsDbContext.Collections.Add(newCollection);
+                //await _collectionsDbContext.SaveChangesAsync();
+                await _colRepo.AddOrUpdateAsync(newCollection);
+
 
                 // Get photo selection from tempdata cookie
                 if (TempData.ContainsKey("photoids"))
@@ -128,7 +151,8 @@ namespace iCollections.Controllers
                     {
                         for (var i = 0; i < objectArray.Length; i++)
                         {
-                            foreach (var photo in _collectionsDbContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
+                            //foreach (var photo in _collectionsDbContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
+                            foreach (var photo in _photoRepo.GetAllUserPhotos(appUser.Id))
                             {
                                 if (objectArray[i].ToString() == photo.Id.ToString())
                                 {
@@ -140,15 +164,23 @@ namespace iCollections.Controllers
                                     newCollectionPhoto.DateAdded = DateTime.Now;
                                     newCollectionPhoto.Title = "new title";
                                     newCollectionPhoto.Description = "new description";
-                                    _collectionsDbContext.CollectionPhotos.Add(newCollectionPhoto);
-                                    await _collectionsDbContext.SaveChangesAsync();
+                                    //_collectionsDbContext.CollectionPhotos.Add(newCollectionPhoto);
+                                    await _collectionPhotoRepo.AddOrUpdateAsync(newCollectionPhoto);
+                                    //await _collectionsDbContext.SaveChangesAsync();
                                 }
                             }
                         }
+                        CollectionKeyword mandatoryKeyWord = new CollectionKeyword();
+                        mandatoryKeyWord.CollectId = newCollection.Id;
+                        mandatoryKeyWord.KeywordId = 1;
+                        await _collectionKeywords.AddOrUpdateAsync(mandatoryKeyWord);
+
                     }
                     
                 }
-
+                TempData.Remove("photoids");
+                TempData.Remove("route");
+                TempData.Clear();
                 return RedirectToAction("PublishingSuccess");
             }
             string[] dropDownList = new string[] { "private", "friends", "public" };
@@ -162,8 +194,14 @@ namespace iCollections.Controllers
         {
 
             string id = _userManager.GetUserId(User);
-            IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-            var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
+            //IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
+            IcollectionUser appUser = null;
+            if (id != null)
+            {
+                appUser = _userRepo.GetSessionUser(id);
+            }
+            //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
+            var collections = _colRepo.GetMostRecentiCollections(appUser.Id, 10);
             return View(collections);
         }
     }

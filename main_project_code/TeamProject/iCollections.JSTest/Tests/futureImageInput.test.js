@@ -1,6 +1,6 @@
 import {practiceInit} from '../../iCollections/wwwroot/js/jest_testing_functions'
 //const sum = require('./sum');
-
+//Derek Sprint 3
 test('CanvasObject_ShouldCreateAndModify_True', () => {
     //Arrange
     var canvas = document.createElement('canvas');

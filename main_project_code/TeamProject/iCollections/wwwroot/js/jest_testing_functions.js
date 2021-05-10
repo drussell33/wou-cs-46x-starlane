@@ -1,8 +1,4 @@
-﻿//const $ = require('./lib/jquery/dist/jquery.min.js');
-//import {$} from '../../iCollections/wwwroot/lib/jquery/dist/jquery.min.js';
-//import * as $ from '../../iCollections/wwwroot/lib/jquery/dist/jquery.js';
-//const $ = require('../../iCollections/wwwroot/lib/jquery/dist/jquery.js');
-
+﻿
 function sum(a, b) {
     return a + b;
 }

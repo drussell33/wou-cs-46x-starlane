@@ -27,5 +27,11 @@ namespace iCollections.Data.Concrete
             return GetAll().Include(r => r.User).Where(r => r.User.Id == userId).ToList();
         }
 
+        public Collection GetCollectionById(int collectionID)
+        {
+            return GetAll().Where(m => m.Id == collectionID).FirstOrDefault();
+        }
+
+
     }
 }

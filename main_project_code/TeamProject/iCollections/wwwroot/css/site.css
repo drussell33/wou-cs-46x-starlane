@@ -199,7 +199,7 @@ h1 {
 
 /*Home Page Styles */
 
-.clear-section {
+/*.clear-section {
   background-color: #fff;
 }
 
@@ -218,11 +218,11 @@ h1 {
 }
 
 .landing-image {
-  max-width: 95%;
-  height: auto;
+  max-width: 100%;
+  height: auto;*/
   /* padding-left: 110px; */
-  margin: 5px;
-}
+  /*margin: 2px;
+}*/
 
 .options {
   padding: 20px;
