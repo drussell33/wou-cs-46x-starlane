@@ -216,7 +216,6 @@ namespace iCollections.Controllers
             //'My Favorites' is empty
             if (myfavorites.Count() < 1)
             {
-                Console.WriteLine("noposwow");
                 FavoriteCollection myfavs = new FavoriteCollection
                 {
                     User = loggedinuser,
@@ -230,7 +229,7 @@ namespace iCollections.Controllers
 
                 await _favoritecollectionRepo.AddOrUpdateAsync(myfavs);
 
-                result = "creating my favorties";
+                result = "Added to Favorites!";
                 return Json(new { activeuser, collection, result });
             }
             //'My Favorites' does exist
@@ -261,7 +260,7 @@ namespace iCollections.Controllers
 
                         await _favoritecollectionRepo.AddOrUpdateAsync(myfavs);
 
-                        result = "Adding to Favorites";
+                        result = "Added to Favorites!";
                         return Json(new { activeuser, collection, result });
                     }
 
