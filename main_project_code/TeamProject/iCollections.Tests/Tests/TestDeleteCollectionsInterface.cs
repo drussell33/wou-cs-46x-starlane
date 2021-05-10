@@ -88,7 +88,7 @@ namespace iCollections.Tests.Tests
             // need to handle '_userRepo.GetUserById(id ?? -1);'
             mockUsersRepo.Setup(m => m.GetUserById(It.IsAny<int>())).Returns(mockUsersRepo.Object.GetAll().ToList()[2]);
 
-            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, null ,mockCollectionsRepo.Object);
             var result = await controller.Delete(12);
             var actualResult = result as ViewResult;
             var collectionToBeDeleted = actualResult.Model as Collection;
@@ -116,7 +116,7 @@ namespace iCollections.Tests.Tests
             mockUsersRepo.Setup(m => m.GetIcollectionUserByIdentityId(It.IsAny<string>())).Returns(mockUsersRepo.Object.GetAll().ToList()[0]);
             mockCollectionsRepo.Setup(m => m.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult(mockCollectionsRepo.Object.GetAll().ToList()[12]));
 
-            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, null,mockCollectionsRepo.Object);
             var result = await controller.Delete(12);
             var actualResult = result as RedirectToActionResult;
 
@@ -143,7 +143,7 @@ namespace iCollections.Tests.Tests
             mockUsersRepo.Setup(m => m.GetIcollectionUserByIdentityId(It.IsAny<string>())).Returns(mockUsersRepo.Object.GetAll().ToList()[0]);
             mockCollectionsRepo.Setup(m => m.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Collection>(null));
 
-            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, null, mockCollectionsRepo.Object);
             var result = await controller.Delete(77);
             var actualResult = result as RedirectToActionResult;
 
@@ -170,7 +170,7 @@ namespace iCollections.Tests.Tests
             mockUsersRepo.Setup(m => m.GetIcollectionUserByIdentityId(It.IsAny<string>())).Returns(mockUsersRepo.Object.GetAll().ToList()[0]);
             mockCollectionsRepo.Setup(m => m.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Collection>(null));
 
-            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, mockCollectionsRepo.Object);
+            var controller = new CollectionsController(null, mockUserManager.Object, mockUsersRepo.Object, null, mockPhotosRepo.Object, null ,mockCollectionsRepo.Object);
             var result = await controller.Delete(null);
             var actualResult = result as RedirectToActionResult;
 
