@@ -5,10 +5,10 @@ namespace iCollections.Data.Abstract
 {
     public interface ICollectionKeywordRepository : IRepository<CollectionKeyword>
     {
-        List<CollectionKeyword> GetCollectionKeywordsByUser(IcollectionUser user);
+        List<CollectionKeyword> GetPublicCollectionKeywordsByUser(IcollectionUser user);
 
-        List<CollectionKeyword> GetCollectionKeywordsByUserSortedAscending(IcollectionUser user, string sort);
+        List<CollectionKeyword> GetPublicCollectionKeywordsByUserSortedAscending(IcollectionUser user, string sort);
 
-        List<CollectionKeyword> GetUserCollectionKeywordsByKeyword(IcollectionUser user, string keyword);
+        List<CollectionKeyword> GetUserPublicCollectionKeywordsByKeyword(IcollectionUser user, string keyword);
     }
 }

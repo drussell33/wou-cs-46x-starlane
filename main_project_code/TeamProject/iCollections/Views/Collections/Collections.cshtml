@@ -15,10 +15,8 @@
 
         <div class="row">
             <div class="col-2" style="padding-right:0;">
-                @{
-                    string profilePicSource = ViewBag.ProfilePicUrl;
-                }
-                <img src="@profilePicSource" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                @{string profilePicSource = ViewBag.ProfilePicUrl;}
+                    <img src="@profilePicSource" alt="..." width="130" class="rounded mb-2 img-thumbnail">
             </div>
             <div class="col-2" style="padding-left:0;">
                 <br />
@@ -108,16 +106,23 @@
                     <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=name">Name</a></th>
                     <th scope="col"><a style="color:black;"
                         href="?name=@Model.VisitedUser.UserName&sort=keyword">Keyword(s)</a></th>
-                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=date">Date
-                            Created</a></th>
-                    <th scope="col"><span style="color:black;">Delete</span></th>
+                    <th scope="col">
+                        <a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=date">Date
+                            Created</a>
+                    </th>
+                    <!-- <th scope="col"><span style="color:black;">Delete</span></th> -->
                 </tr>
             </thead>
             @foreach (CollectionKeyword ck in Model.SearchResults)
             {
                 <tr>
                     <td>
-                        <img src=@colls[rand.Next(6)] width="100" height="100" alt="" />
+                        <div class="row-auto">
+                            <div class="col">
+                                <img src=@colls[rand.Next(6)] width="118" height="118" alt="" />
+                            </div>
+                            <div class="col"><button type="button" class="btn btn-outline-primary btn-sm fav_btn" data-bs-toggle="button" id="@ck.CollectId" value="@Model.VisitedUser.UserName" name="@Model.LoggedInUser.UserName">Add to Favorites</button></div>
+                        </div>
                     </td>
                     <td>
                         <a asp-controller="Home" asp-action="@ck.Collect.Route" asp-route-collectionID="@ck.Collect.Id"> @ck.Collect.Name </a>
@@ -128,9 +133,15 @@
                     <td>
                         @ck.Collect.DateMade
                     </td>
+
+                    <!--
+                    
                     <td>
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@ck.Collect.Id">Delete</a>
-                    </td>
+                    </td> 
+                    
+                    -->
+
                 </tr>
             }
 

@@ -50,7 +50,7 @@ namespace iCollections.Controllers
                 List<CollectionKeyword> filtered = new List<CollectionKeyword>();
                 foreach(string token in keys)
                 {
-                    var coll_keys = _collectionsDbContext.CollectionKeywords.Include(c=>c.Collect).ThenInclude(u=>u.User).Where(k => k.Keyword.Name == token).ToList();
+                    var coll_keys = _collectionsDbContext.CollectionKeywords.Include(c=>c.Collect).ThenInclude(u=>u.User).Where(k => k.Keyword.Name == token && k.Collect.Visibility == 1).ToList();
                     
                     filtered.AddRange(coll_keys);
                                        

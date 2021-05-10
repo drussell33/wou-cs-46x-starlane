@@ -21,6 +21,7 @@ namespace iCollections.Data
         public virtual DbSet<Collection> Collections { get; set; }
         public virtual DbSet<CollectionKeyword> CollectionKeywords { get; set; }
         public virtual DbSet<CollectionPhoto> CollectionPhotos { get; set; }
+        public virtual DbSet<FavoriteCollection> FavoriteCollections { get; set; }
         public virtual DbSet<Follow> Follows { get; set; }
         public virtual DbSet<FriendsWith> FriendsWiths { get; set; }
         public virtual DbSet<IcollectionUser> IcollectionUsers { get; set; }
@@ -100,6 +101,43 @@ namespace iCollections.Data
                 entity.Property(e => e.Title)
                     .HasMaxLength(50)
                     .HasColumnName("title");
+            });
+
+            modelBuilder.Entity<FavoriteCollection>(entity =>
+            {
+                entity.ToTable("FavoriteCollection");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CollectId).HasColumnName("collect_id");
+
+                entity.Property(e => e.DateMade)
+                    .HasColumnType("datetime")
+                    .HasColumnName("date_made");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Route)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("route");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.Property(e => e.Visibility).HasColumnName("visibility");
+
+                entity.HasOne(d => d.Collect)
+                    .WithMany(p => p.FavoriteCollections)
+                    .HasForeignKey(d => d.CollectId)
+                    .HasConstraintName("FavoriteCollection_fk_FavoritCollection");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.FavoriteCollections)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FavoriteCollection_fk_ICollectionUser");
             });
 
             modelBuilder.Entity<Follow>(entity =>
