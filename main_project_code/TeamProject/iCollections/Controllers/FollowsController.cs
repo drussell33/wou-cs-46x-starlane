@@ -14,12 +14,12 @@ namespace iCollections.Controllers
 {
     public class FollowsController : Controller
     {
-        private readonly ICollectionsDbContext _db;
+        //private readonly ICollectionsDbContext _db;
         private readonly IFollowRepository _followRepo;
         private readonly IIcollectionUserRepository _userRepo;
-        public FollowsController(ICollectionsDbContext context, IFollowRepository followRepo, IIcollectionUserRepository userRepo)
+        public FollowsController(IFollowRepository followRepo, IIcollectionUserRepository userRepo)
         {
-            _db = context;
+            //_db = context;
             _followRepo = followRepo;
             _userRepo = userRepo;
         }
@@ -56,8 +56,8 @@ namespace iCollections.Controllers
         // GET: Follows/Create
         public IActionResult Create()
         {
-            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName");
-            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName");
+            ViewData["Followed"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName");
+            ViewData["Follower"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName");
             return View();
         }
 
@@ -75,8 +75,8 @@ namespace iCollections.Controllers
                 await _followRepo.AddOrUpdateAsync(follow);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Followed);
-            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            ViewData["Followed"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Follower);
             return View(follow);
         }
 
@@ -94,8 +94,8 @@ namespace iCollections.Controllers
             {
                 return NotFound();
             }
-            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Followed);
-            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            ViewData["Followed"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Follower);
             return View(follow);
         }
 
@@ -132,8 +132,8 @@ namespace iCollections.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Followed);
-            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            ViewData["Followed"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Follower);
             return View(follow);
         }
 
@@ -191,6 +191,10 @@ namespace iCollections.Controllers
             var user_1 = _userRepo.GetUserById(follower);
             //var user_2 = _db.IcollectionUsers.FirstOrDefault(x => x.Id == followed);
             var user_2 = _userRepo.GetUserById(followed);
+            if (user_1 == null || user_2 == null)
+            {
+                return Json(new { success = false, follower = follower, followed = followed, message = "User does not exist." });
+            }
             //if (_db.Follows.FirstOrDefault(x => x.Follower == follower && x.Followed == followed) == null)
             if (_followRepo.GetFollowLight(x => x.Follower == follower && x.Followed == followed) == null)
             {
