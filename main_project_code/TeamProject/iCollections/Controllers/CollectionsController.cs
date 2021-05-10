@@ -65,7 +65,7 @@ namespace iCollections.Controllers
                 {
                     LoggedInUser = active_user,
                     VisitedUser = user,
-                    SearchResults = _collectionkeywordRepo.GetCollectionKeywordsByUser(user),
+                    SearchResults = _collectionkeywordRepo.GetPublicCollectionKeywordsByUser(user),
                     SuggestedKeywords = null
 
                 };
@@ -91,7 +91,7 @@ namespace iCollections.Controllers
 
                 IcollectionUser active_user = _userRepo.GetIcollectionUserByIdentityId(_userManager.GetUserId(User));
 
-                List<CollectionKeyword> sorted = _collectionkeywordRepo.GetCollectionKeywordsByUserSortedAscending(user, sort);
+                List<CollectionKeyword> sorted = _collectionkeywordRepo.GetPublicCollectionKeywordsByUserSortedAscending(user, sort);
 
                 BrowseList collectionlist = new BrowseList
                 {
@@ -127,7 +127,7 @@ namespace iCollections.Controllers
                 List<CollectionKeyword> filtered = new List<CollectionKeyword>();
                 foreach (string token in keys)
                 {
-                    var coll_keys = _collectionkeywordRepo.GetUserCollectionKeywordsByKeyword(user, token);
+                    var coll_keys = _collectionkeywordRepo.GetUserPublicCollectionKeywordsByKeyword(user, token);
 
                     filtered.AddRange(coll_keys);
                 }
@@ -192,7 +192,7 @@ namespace iCollections.Controllers
             {
                 LoggedInUser = user,
                 VisitedUser = user,
-                SearchResults = _collectionkeywordRepo.GetCollectionKeywordsByUser(user),
+                SearchResults = _collectionkeywordRepo.GetPublicCollectionKeywordsByUser(user),
                 SuggestedKeywords = null
                 
             };
@@ -225,7 +225,7 @@ namespace iCollections.Controllers
                 LoggedInUser = user,
                 VisitedUser = user,
                 MyFavorites = _favoritecollectionRepo.GetMyFavoritesByUser(user),
-                SearchResults = _collectionkeywordRepo.GetCollectionKeywordsByUser(user),
+                SearchResults = _collectionkeywordRepo.GetPublicCollectionKeywordsByUser(user),
                 SuggestedKeywords = null
 
             };
