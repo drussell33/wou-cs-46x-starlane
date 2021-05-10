@@ -106,9 +106,11 @@
                     <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=name">Name</a></th>
                     <th scope="col"><a style="color:black;"
                         href="?name=@Model.VisitedUser.UserName&sort=keyword">Keyword(s)</a></th>
-                    <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=date">Date
-                            Created</a></th>
-                    <th scope="col"><span style="color:black;">Delete</span></th>
+                    <th scope="col">
+                        <a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=date">Date
+                            Created</a>
+                    </th>
+                    <!-- <th scope="col"><span style="color:black;">Delete</span></th> -->
                 </tr>
             </thead>
             @foreach (CollectionKeyword ck in Model.SearchResults)
@@ -131,9 +133,15 @@
                     <td>
                         @ck.Collect.DateMade
                     </td>
+
+                    <!--
+                    
                     <td>
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@ck.Collect.Id">Delete</a>
-                    </td>
+                    </td> 
+                    
+                    -->
+
                 </tr>
             }
 
