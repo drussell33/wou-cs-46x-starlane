@@ -71,7 +71,7 @@ namespace iCollections.Controllers
                 };
 
                 var myId = _userRepo.GetReadableID(name);
-                //ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+                ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
                 return View(collectionlist);
             }
@@ -104,7 +104,7 @@ namespace iCollections.Controllers
                 };
 
                 var myId = _userRepo.GetReadableID(name);
-                //ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+                ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
                 return View(collectionlist);
             }
@@ -162,7 +162,7 @@ namespace iCollections.Controllers
                 };
 
                 var myId = _userRepo.GetReadableID(name);
-                //ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+                ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
 
                 return View(collectionlist);
             }
