@@ -54,7 +54,6 @@ namespace iCollections
             services.AddScoped<IFriendsWithRepository, FriendsWithRepository>();
             services.AddScoped<IFollowRepository, FollowRepository>();
             services.AddScoped<ICollectionPhotoRepository, CollectionPhotoRepository>();
-
             services.AddScoped<IFavoriteCollectionRepository, FavoriteCollectionRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

@@ -305,6 +305,43 @@ namespace iCollections.Controllers
             return Json(new { activeuser, collection, result });
         }
 
+        [Authorize]
+        [HttpPost]
+        [Route("Collections/{name}/MyCollection/MakePrivate")]
+        public async Task<IActionResult> MakePrivate(int collection, bool visibility, string activeuser)
+        {
+            IcollectionUser loggedinuser = _userRepo.GetIcollectionUserByUsername(activeuser);
+
+            //Logged in user is not valid
+            if (loggedinuser == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Collection mycollection = _collectionRepo.GetCollectionById(collection);
+
+            if (mycollection == null)
+            {
+                return Json("Not a valid collection");
+            }
+
+            if (visibility == true)
+            {
+                mycollection.Visibility = 0;
+                await _collectionRepo.AddOrUpdateAsync(mycollection);
+                return Json("Collection set to private");
+            }
+
+            if (visibility == false)
+            {
+                mycollection.Visibility = 1;
+                await _collectionRepo.AddOrUpdateAsync(mycollection);
+                return Json("Collection set to public");
+            }
+
+            return Json("Visibility could not be set");
+        }
+
         // GET: Collections/Delete/5 -> 5 is id of collection
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
