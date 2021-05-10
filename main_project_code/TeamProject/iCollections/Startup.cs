@@ -53,6 +53,7 @@ namespace iCollections
             services.AddScoped<IcollectionRepository, CollectionRepository>();
             services.AddScoped<IFriendsWithRepository, FriendsWithRepository>();
             services.AddScoped<IFollowRepository, FollowRepository>();
+            services.AddScoped<ICollectionPhotoRepository, CollectionPhotoRepository>();
 
             services.AddScoped<IFavoriteCollectionRepository, FavoriteCollectionRepository>();
 

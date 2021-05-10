@@ -1,4 +1,5 @@
 ﻿INSERT INTO [Keyword] ([name]) VALUES 
+	('New iCollection'),
 	('Sports'),
 	('Cards'),
 	('Fish'),

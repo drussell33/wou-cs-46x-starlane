@@ -98,19 +98,19 @@
                         {
                             if (Model.recentCollections.ElementAtOrDefault(0) != null)
                             {
-                                <div class="col-lg-6 mb-2 pr-lg-1"><div class="d-flex px-3 py-5 width-full rounded border"><a href="#" class="text-bold flex-auto min-width-0">@Model.recentCollections[0].Name</a></div></div>
+                                <div class="col-lg-6 mb-2 pr-lg-1"><div class="d-flex px-3 py-5 width-full rounded border"><a asp-controller="Home" asp-action="@Model.recentCollections[0].Route" asp-route-collectionID="@Model.recentCollections[0].Id" class="text-bold flex-auto min-width-0">@Model.recentCollections[0].Name</a></div></div>
                             }
                             if (Model.recentCollections.ElementAtOrDefault(1) != null)
                             {
-                                <div class="col-lg-6 mb-2 pl-lg-1"><div class="d-flex px-3 py-5 width-full rounded border"><a href="#" class="text-bold flex-auto min-width-0">@Model.recentCollections[1].Name</a></div></div>
+                                <div class="col-lg-6 mb-2 pl-lg-1"><div class="d-flex px-3 py-5 width-full rounded border"><a asp-controller="Home" asp-action="@Model.recentCollections[1].Route" asp-route-collectionID="@Model.recentCollections[1].Id" class="text-bold flex-auto min-width-0">@Model.recentCollections[1].Name</a></div></div>
                             }
                             if (Model.recentCollections.ElementAtOrDefault(2) != null)
                             {
-                                <div class="col-lg-6 pr-lg-1 mb-2"><div class="d-flex px-3 py-5 width-full rounded border"><a href="#" class="text-bold flex-auto min-width-0">@Model.recentCollections[2].Name</a></div></div>
+                                <div class="col-lg-6 pr-lg-1 mb-2"><div class="d-flex px-3 py-5 width-full rounded border"><a  asp-controller="Home" asp-action="@Model.recentCollections[2].Route" asp-route-collectionID="@Model.recentCollections[2].Id" class="text-bold flex-auto min-width-0">@Model.recentCollections[2].Name</a></div></div>
                             }
                             if (Model.recentCollections.ElementAtOrDefault(3) != null)
                             {
-                                <div class="col-lg-6 pl-lg-1"><div class="d-flex px-3 py-5 width-full rounded border"><a href="#" class="text-bold flex-auto min-width-0">@Model.recentCollections[3].Name</a></div></div>
+                                <div class="col-lg-6 pl-lg-1"><div class="d-flex px-3 py-5 width-full rounded border"><a asp-controller="Home" asp-action="@Model.recentCollections[3].Route" asp-route-collectionID="@Model.recentCollections[3].Id" class="text-bold flex-auto min-width-0">@Model.recentCollections[3].Name</a></div></div>
                             }
                         }
                         else
