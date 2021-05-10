@@ -1,0 +1,23 @@
+﻿@model BrowseList
+
+@{
+    ViewData["Title"] = "Collections";
+}
+
+<div class="row">
+    <div class="col">
+        <h1>Collections:</h1>
+        @if (Model.SearchResults.Count() == 0)
+        {
+            <h2>It looks like this user doesn't have any Collections yet. Bummer!</h2>
+        }
+        @foreach(FavoriteCollection c in Model.MyFavorites)
+        {
+            <div class="collection-container">
+                <a class="btn btn-primary" asp-controller="Home" asp-action="" asp-route-name="">@c.Collect.Name</a>
+                <p>Owner: @c.User.UserName</p>
+                <p>@c.DateMade</p>
+            </div>
+        }
+    </div>
+</div>

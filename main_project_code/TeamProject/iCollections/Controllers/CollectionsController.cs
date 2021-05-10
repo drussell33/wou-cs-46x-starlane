@@ -200,6 +200,39 @@ namespace iCollections.Controllers
         }
 
         [Authorize]
+        [Route("Collections/{name}/MyFavorites")]
+        public IActionResult MyFavorites(string name)
+        {
+            if (name == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            IcollectionUser user = _userRepo.GetIcollectionUserByUsername(name);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            string sessionusername = _userManager.GetUserId(User);
+            if (sessionusername != user.AspnetIdentityId)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
+            BrowseList collectionlist = new BrowseList
+            {
+                LoggedInUser = user,
+                VisitedUser = user,
+                MyFavorites = _favoritecollectionRepo.GetMyFavoritesByUser(user),
+                SearchResults = _collectionkeywordRepo.GetCollectionKeywordsByUser(user),
+                SuggestedKeywords = null
+
+            };
+
+            return View(collectionlist);
+        }
+
+        [Authorize]
         [HttpPost]
         [Route("Collections/{name}/AddFavorite")]
         public async Task<IActionResult> AddFavoriteAsync(int collection, string visiteduser, string activeuser)

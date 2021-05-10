@@ -3,7 +3,7 @@ using iCollections.Data.Abstract;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace iCollections.Data.Concrete
 {
@@ -15,7 +15,7 @@ namespace iCollections.Data.Concrete
         }
         public List<FavoriteCollection> GetMyFavoritesByUser(IcollectionUser user)
         {
-            return _dbSet.Where(u => u.User == user && u.Name == "My Favorites").ToList();
+            return _dbSet.Include(c => c.Collect).Where(u => u.User == user && u.Name == "My Favorites").ToList();
         }
 
     }
