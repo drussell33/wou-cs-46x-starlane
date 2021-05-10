@@ -124,3 +124,84 @@ function sendNewPhotoName(imgURL, imageId, fileName) {
         closeNav();
     });
 }
+
+// When Add to Favorties button is clicked.
+fav_btns = document.getElementsByClassName("fav_btn");
+for (var i = 0; i < fav_btns.length; i++) {
+    fav_btns[i].addEventListener("click", function () {
+
+        let collection = $(this).attr('id');
+        let visiteduser = $(this).attr('value');
+        let activeuser = $(this).attr('name');
+        
+
+        let address = "/Collections/" + activeuser + "/AddFavorite";
+
+        $.ajax({
+            type: "Post",
+            dataType: "json",
+            url: address,
+            data: {
+                collection: collection,
+                visiteduser: visiteduser,
+                activeuser: activeuser
+            },
+            success: addFavorite,
+            error: errorOnAjax
+        });
+    });
+}
+
+
+function addFavorite(data) {
+
+    $("#" + data.collection).addClass('Active');
+    $("#" + data.collection).text(data.result);
+    $("#" + data.collection).addClass('btn-primary');
+    $("#" + data.collection).removeClass('btn-outline-primary');
+    $("#" + data.collection).attr({disabled:true});
+
+}
+function errorOnAjax() {
+    console.log("ERROR in ajax request");
+}
+
+
+
+//MyCollection visibility checkboxes.
+pvt_btns = document.getElementsByClassName("pvt_btn");
+for (var i = 0; i < pvt_btns.length; i++) {
+    pvt_btns[i].addEventListener("click", function () {
+
+        let collection = $(this).attr('id');
+        let visibility = $(this).is(':checked');
+        let activeuser = $(this).attr('name');
+
+        let address = "/Collections/" + activeuser + "/Mycollection/MakePrivate";
+
+        $.ajax({
+            type: "Post",
+            dataType: "json",
+            url: address,
+            data: {
+                collection: collection,
+                visibility: visibility,
+                activeuser: activeuser
+            },
+            success: addFavorite,
+            error: errorOnAjax
+        });
+
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
