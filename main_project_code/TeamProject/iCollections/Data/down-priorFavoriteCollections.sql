@@ -8,8 +8,6 @@ ALTER TABLE [CollectionPhoto] DROP CONSTRAINT [CollectionPhoto_fk_Collection];
 ALTER TABLE [CollectionPhoto] DROP CONSTRAINT [CollectionPhoto_fk_Photo]; 
 ALTER TABLE [CollectionKeyword] DROP CONSTRAINT [CollectionKeyword_fk_Collection]; 
 ALTER TABLE [CollectionKeyword] DROP CONSTRAINT [CollectionKeyword_fk_Keyword];
-ALTER TABLE [FavoriteCollection] DROP CONSTRAINT [FavoriteCollection_fk_ICollectionUser];
-ALTER TABLE [FavoriteCollection] DROP CONSTRAINT [FavoriteCollection_fk_Collection];
 
 
 DROP TABLE [Follow];
@@ -20,4 +18,3 @@ DROP TABLE [FriendsWith];
 DROP TABLE [CollectionPhoto];
 DROP TABLE [CollectionKeyword];
 DROP TABLE [ICollectionUser];
-DROP TABLE [FavoriteCollection]
