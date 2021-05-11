@@ -36,7 +36,7 @@ namespace iCollections.BDDTests.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "HomePage", "\tThis is going to test the route functions, that take in a collection id, and ret" +
-                    "urn a list of rending photos\r\n\tThat will be passed through the dom.", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "urn a list of rending photos\n\tThat will be passed through the dom.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
