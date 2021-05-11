@@ -1,9 +1,7 @@
-Baltazar Ortiz #177895376
-
 Feature: Delete Collections
-	This is going to test deleting collections. That the collections controller correctly chooses
+	Baltazar Ortiz #177895376
+    This is going to test deleting collections. That the collections controller correctly chooses
     whether a collection gets deleted.
-
 
 Scenario Outline: User with no collections plans gets shown that he does not have collections.
     Given when a user has no iCollections 
