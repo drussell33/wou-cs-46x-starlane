@@ -20,4 +20,4 @@ DROP TABLE [FriendsWith];
 DROP TABLE [CollectionPhoto];
 DROP TABLE [CollectionKeyword];
 DROP TABLE [ICollectionUser];
-DROP TABLE [FavoriteCollection]
+DROP TABLE [FavoriteCollection];
