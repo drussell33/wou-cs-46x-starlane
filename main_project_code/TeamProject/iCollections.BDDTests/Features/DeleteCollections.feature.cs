@@ -35,9 +35,9 @@ namespace iCollections.BDDTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Delete Collections", "\tBaltazar Ortiz #177895376\n    This is going to test deleting collections. That t" +
-                    "he collections controller correctly chooses\n    whether a collection gets delete" +
-                    "d.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Delete Collections", "\tBaltazar Ortiz #177895376\r\n    This is going to test deleting collections. That " +
+                    "the collections controller correctly chooses\r\n    whether a collection gets dele" +
+                    "ted.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

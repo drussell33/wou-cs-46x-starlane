@@ -36,10 +36,15 @@ namespace iCollections.BDDTests.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "CreateCollection", @"	Creating A Collection 
-
-	* As a user of this site with an account that is currently using the site, the user should not receive any cookie error messages from the web console available in their web browser. 
-	* As a user of this site that is in the process of creating a collection, a tempdata cookie will appear, and then disposed of when the user continues using the site.
-	* As a user of this site that is creating a collection, I want instructions for the accepted input for titles and descriptions, with clear error messages if I use an unaccepted character. 
+	Derek Russell
+	User Story ID: 177878474, Sprint 5, 4 Points.
+		The Original Acceptance Criteria:
+			* As a user of this site with an account that is currently using the site, the user should not receive any cookie error messages from the web console available in their web browser. 
+			* As a user of this site that is in the process of creating a collection, a tempdata cookie will appear, and then disposed of when the user continues using the site.
+	Then continuing with: 
+	Derek Russell
+	User Story ID: 177895357, Sprint 6, 2 Points.
+	
 
 Going through the process from logging in,  to publishing a newly made iCollection. ", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
@@ -81,7 +86,7 @@ Going through the process from logging in,  to publishing a newly made iCollecti
         
         public virtual void FeatureBackground()
         {
-#line 11
+#line 16
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
@@ -209,7 +214,7 @@ Going through the process from logging in,  to publishing a newly made iCollecti
                         "new byte[] {1,2,3}",
                         "64",
                         "new Guid()"});
-#line 13
+#line 18
  testRunner.Given("the following photos exist", ((string)(null)), table1, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -242,7 +247,7 @@ Going through the process from logging in,  to publishing a newly made iCollecti
                         "9001",
                         "64",
                         "new Guid()"});
-#line 36
+#line 41
  testRunner.And("the following photos do not exist", ((string)(null)), table2, "And ");
 #line hidden
         }
@@ -262,7 +267,7 @@ Going through the process from logging in,  to publishing a newly made iCollecti
             argumentsOfScenario.Add("Page", page);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on The Create Collection button in the nav bar will direct to the enviro" +
                     "nment selection page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 45
+#line 50
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -282,19 +287,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 11
+#line 16
 this.FeatureBackground();
 #line hidden
-#line 46
+#line 51
  testRunner.Given(string.Format("I am a logged in user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 47
+#line 52
  testRunner.When("I Click Create new Collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 48
+#line 53
  testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 49
+#line 54
    testRunner.And("I can see the two differnt environment options for me to select", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -314,7 +319,7 @@ this.FeatureBackground();
             argumentsOfScenario.Add("FirstName", firstName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Non-user cannot click on The Create Collection button in the nav bar will direct " +
                     "to the environment selection page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 58
+#line 63
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -334,17 +339,74 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 11
+#line 16
 this.FeatureBackground();
 #line hidden
-#line 59
+#line 64
  testRunner.Given(string.Format("I am a logged in user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 60
+#line 65
  testRunner.When("I Click Create new Collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 61
+#line 66
  testRunner.Then("I can see a 404 error message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("On the environment selection page the user must click the checkbox of one of the " +
+            "environment options before clicking continue and be directed to the photo select" +
+            "ion page.")]
+        [NUnit.Framework.TestCaseAttribute("Ocean_Environment", "PhotoSelection", null)]
+        [NUnit.Framework.TestCaseAttribute("Gallery_Environment", "PhotoSelection", null)]
+        [NUnit.Framework.TestCaseAttribute("Null", "EnvironmentSelection", null)]
+        [NUnit.Framework.TestCaseAttribute("Ocean_Environment && Gallery_Environment", "EnvironmentSelection", null)]
+        public virtual void OnTheEnvironmentSelectionPageTheUserMustClickTheCheckboxOfOneOfTheEnvironmentOptionsBeforeClickingContinueAndBeDirectedToThePhotoSelectionPage_(string checkbox, string page, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("checkbox", checkbox);
+            argumentsOfScenario.Add("Page", page);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("On the environment selection page the user must click the checkbox of one of the " +
+                    "environment options before clicking continue and be directed to the photo select" +
+                    "ion page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 74
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 16
+this.FeatureBackground();
+#line hidden
+#line 75
+ testRunner.Given("I am a logged in user creating a collection on the environment selection page and" +
+                        " select the \'<Checkbox>\' Environment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 76
+ testRunner.When("I Click the Continue button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 77
+ testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 78
+   testRunner.And("The http context contains an encrypted tempdata cookie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
