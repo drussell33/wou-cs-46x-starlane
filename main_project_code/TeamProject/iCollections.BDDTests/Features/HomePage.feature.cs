@@ -78,167 +78,167 @@ namespace iCollections.BDDTests.Features
         {
 #line 5
 #line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Visibility",
                         "UserId",
                         "Route"});
-            table3.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "10",
                         "First Collection Fish",
                         "1",
                         "8",
                         "Ocean_environment"});
-            table3.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "13",
                         "Second Collection Dogs",
                         "1",
                         "64",
                         "gallery_environment"});
-            table3.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "16",
                         "Third Collection Shoes",
                         "1",
                         "3",
                         "Ocean_environment"});
-            table3.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "45",
                         "Forth Collection Puzzels",
                         "1",
                         "3",
                         "gallery_environment"});
 #line 6
- testRunner.Given("the following collections exist", ((string)(null)), table3, "Given ");
+ testRunner.Given("the following collections exist", ((string)(null)), table9, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Visibility",
                         "UserId",
                         "Route"});
-            table4.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "0",
                         "Bad Collection 1",
                         "1",
                         "8",
                         "Ocean_environment"});
-            table4.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "11",
                         "Worse Collection 2",
                         "1",
                         "0",
                         "gallery_environment"});
-            table4.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "15",
                         "HORRIBLE Collection 3",
                         "1",
                         "3",
                         "IMLOST!"});
-            table4.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "$0",
                         "DICKSDICKSDIC Collection 4",
                         "9001",
                         "666",
                         "WTFisHAPPENING!!!1!"});
 #line 13
- testRunner.And("the following collections do not exist", ((string)(null)), table4, "And ");
+ testRunner.And("the following collections do not exist", ((string)(null)), table10, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Data",
                         "UserId",
                         "PhotoGuid"});
-            table5.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "40",
                         "First Photo Fish",
                         "new byte[] {1,2,3}",
                         "8",
                         "new Guid()"});
-            table5.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "41",
                         "Second Photo Fish",
                         "new byte[] {1,2,3}",
                         "8",
                         "new Guid()"});
-            table5.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "45",
                         "Third Photo Shoes",
                         "new byte[] {1,2,3}",
                         "3",
                         "new Guid()"});
-            table5.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "48",
                         "Fourth Photo Dogs",
                         "new byte[] {1,2,3}",
                         "64",
                         "new Guid()"});
 #line 21
- testRunner.Given("the following photos exist", ((string)(null)), table5, "Given ");
+ testRunner.Given("the following photos exist", ((string)(null)), table11, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Data",
                         "UserId",
                         "PhotoGuid"});
-            table6.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "0",
                         "First Photo Bad",
                         "new byte[] {1,2,3}",
                         "4",
                         "new Guid()"});
-            table6.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "-1",
                         "Second Photo Bad",
                         "new byte[] {1,2,3}",
                         "8",
                         "new Guid()"});
-            table6.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "16",
                         "Third Photo Bad",
                         "new byte[] {1,2,3}",
                         "0",
                         "new Guid()"});
-            table6.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "45",
                         "Fourth Photo Bad",
                         "9001",
                         "64",
                         "new Guid()"});
 #line 28
- testRunner.And("the following photos do not exist", ((string)(null)), table6, "And ");
+ testRunner.And("the following photos do not exist", ((string)(null)), table12, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "CollectId",
                         "PhotoId",
                         "PhotoRank",
                         "Title",
                         "Description"});
-            table7.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "80",
                         "10",
                         "40",
                         "2",
                         "Second Photo Fish",
                         "Description1"});
-            table7.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "81",
                         "10",
                         "41",
                         "1",
                         "First Photo Fish",
                         "Description2"});
-            table7.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "82",
                         "13",
                         "45",
                         "1",
                         "Third Photo Shoes",
                         "Description3"});
-            table7.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "83",
                         "16",
                         "48",
@@ -246,37 +246,37 @@ namespace iCollections.BDDTests.Features
                         "Fourth Photo Dogs",
                         "Description4"});
 #line 36
- testRunner.Given("the following collectionPhotos exist", ((string)(null)), table7, "Given ");
+ testRunner.Given("the following collectionPhotos exist", ((string)(null)), table13, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "CollectId",
                         "PhotoId",
                         "PhotoRank",
                         "Title",
                         "Description"});
-            table8.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "80",
                         "10",
                         "40",
                         "2",
                         "Second Photo Fish",
                         "Description1"});
-            table8.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "81",
                         "10",
                         "41",
                         "1",
                         "First Photo Fish",
                         "Description2"});
-            table8.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "82",
                         "13",
                         "45",
                         "1",
                         "Third Photo Shoes",
                         "Description3"});
-            table8.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "83",
                         "16",
                         "48",
@@ -284,7 +284,7 @@ namespace iCollections.BDDTests.Features
                         "Fourth Photo Dogs",
                         "Description4"});
 #line 43
- testRunner.And("the following collectionPhotos do not exist", ((string)(null)), table8, "And ");
+ testRunner.And("the following collectionPhotos do not exist", ((string)(null)), table14, "And ");
 #line hidden
         }
         

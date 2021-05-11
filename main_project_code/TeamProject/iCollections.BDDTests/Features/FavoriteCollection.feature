@@ -71,7 +71,7 @@ Scenario Outline: Clicking on the favorites button, if collection is already in 
 	When I click on add to favorites button
 		And the collection is already in '<favoritecollections>'
 	Then the '<collections>' will not be added
-		and I will be notified
+		And I will be notified
 	Examples:
 	| FirstName  | Collections  |favoritescollection 
 	| Taliak     | 10			|My Favorites
