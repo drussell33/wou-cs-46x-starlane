@@ -7,6 +7,8 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using iCollections.Data.Abstract;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace iCollections.Controllers
 {
@@ -27,10 +29,35 @@ namespace iCollections.Controllers
 
         public IActionResult Index()
         {
-            string nastyStringId = _userManager.GetUserId(User);
-            int userId = _userRepo.GetReadableUserID(nastyStringId);
+            string userAspId = _userManager.GetUserId(User);
+            int userId = _userRepo.GetReadableUserID(userAspId);
             var photos = _photoRepo.GetMyPhotosInfo(userId);
             return View(photos);
         }
+
+        [Authorize]
+        [HttpPost]
+        public JsonResult UploadNewPhoto(IFormFile photo, string name, int userId)
+        {
+            var uploader = new PhotoUploader(_photoRepo, userId);
+            uploader.UploadImage(name, photo);
+            return Json(new { success = true });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<JsonResult> DeletePhoto(Guid photoId)
+        {
+            var photo = _photoRepo.GetPhoto(photoId);
+            await _photoRepo.DeleteAsync(photo);
+            return Json(new { success = true });
+        }
+
+        [Authorize]
+        public void RenamePhoto()
+        {
+
+        }
+
     }
 }

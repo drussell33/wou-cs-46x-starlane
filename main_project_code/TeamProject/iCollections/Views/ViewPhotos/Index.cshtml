@@ -23,16 +23,32 @@
                 <h1 class="display-4">No photos uploaded yet</h1>
                 <p class="lead">Photos will be displayed after you upload them.</p>
             </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                <div class="bg-white rounded pic-thumbnail" onclick="photoGalleryUpload()">
+                    <div class="p-4">
+                        <h5 class="text-dark">Upload New Photo</h5>
+                        <p class="small text-muted mb-0"><span class="glyphicon glyphicon-plus"></span></p>
+                    </div>
+                </div>
+            </div>
         </div>
     }
     else
     {
         <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                <div class="bg-white rounded pic-thumbnail" onclick="photoGalleryUpload()">
+                    <div class="p-4">
+                        <h5 class="text-dark">Upload New Photo</h5>
+                        <p class="small text-muted mb-0"><span class="glyphicon glyphicon-plus"></span></p>
+                    </div>
+                </div>
+            </div>
             @foreach (var PhotoData in Model)
             {
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded pic-thumbnail" onclick="openNav()"><img src=@PhotoData.Url alt=""
-                    class="img-fluid card-img-top">
+                    <div class="bg-white rounded pic-thumbnail" onclick="openNav()">
+                        <img src=@PhotoData.Url alt="" class="img-fluid card-img-top">
 
                         <div class="p-4">
                             <h5 class="text-dark">@System.IO.Path.GetFileNameWithoutExtension(PhotoData.PhotoName)</h5>
@@ -44,3 +60,5 @@
         </div>
     }
 </div>
+
+<script src="~/js/manage_photos.js" asp-append-version="true"></script>
