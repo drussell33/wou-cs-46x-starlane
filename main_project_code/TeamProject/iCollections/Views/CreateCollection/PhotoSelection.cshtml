@@ -15,7 +15,9 @@
 <h1>Photo Selection page</h1>
 @if (ViewData["errorPresent"] != null)
 {
-    <h3 class="checkboxWarning">You need to select at least one photo to continue.</h3>
+    <h3 class="checkboxWarning">Ocean Environment must be 1-8 photos</h3>
+    <h3 class="checkboxWarning">Gallery Environment must be 1-40 photos</h3>
+    <h3 class="checkboxWarning">Please choose your photos accordingly</h3>
 }
 <form asp-action="PhotoSelection" method="post">
     @if (SignInManager.IsSignedIn(User))

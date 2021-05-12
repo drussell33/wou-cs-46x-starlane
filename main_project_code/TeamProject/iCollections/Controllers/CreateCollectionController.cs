@@ -82,14 +82,25 @@ namespace iCollections.Controllers
             {
                 ViewData["errorPresent"] = true;
 
-                if(selectedPhotos.Length > 0)
+                string selectedRoute = TempData["route"].ToString();
+
+                if (selectedRoute == "Ocean_environment" && selectedPhotos.Length > 0 && selectedPhotos.Length < 9)
                 {
                     TempData["photoids"] = selectedPhotos;
                     ViewData["errorPresent"] = null;
+                    TempData.Keep();
                     return RedirectToAction("PublishingOptionsSelection");
                 }
 
-                
+                if (selectedRoute == "gallery_environment" && selectedPhotos.Length > 0 && selectedPhotos.Length < 40)
+                {
+                    TempData["photoids"] = selectedPhotos;
+                    ViewData["errorPresent"] = null;
+                    TempData.Keep();
+                    return RedirectToAction("PublishingOptionsSelection");
+                }
+
+
             }
 
             TempData.Keep();

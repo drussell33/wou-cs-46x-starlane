@@ -57,20 +57,23 @@
                                 if (event1.DateMade > event3.Began)
                                 {
                                     Model.recentCollections.RemoveAt(0);
-                                    <div class="post feed-object">
-                                        <div class="post-header">
-                                            <div class="fake-image"></div>
-                                            <div class="post-info">
-                                                <div class="activity"><a href="userpage/@event1.User.UserName">@event1.User.FirstName</a> made an
-                                                    iCollection</div>
-                                                <div class="date">@string.Format("{0:MMMM dd, yyyy}", event1.DateMade)</div>
-                                            </div>
-                                        </div>
+                <div class="post feed-object">
+                    <div class="post-header">
+                        <div class="fake-image"></div>
+                        <div class="post-info">
+                            <div class="activity">
+                                <a href="userpage/@event1.User.UserName">@event1.User.FirstName</a> made an
+                                iCollection
+                            </div>
+                            <div class="date">@string.Format("{0:MMMM dd, yyyy}", event1.DateMade)</div>
+                        </div>
+                    </div>
 
-                                        <!-- collection here -->
-                                        @* <span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>*@
-                                         <span class="thumbnail"><a asp-controller="Home" asp-action="@event1.Route" asp-route-collectionID="@event1.Id">@event1.Name</a></span>
-                                    </div>
+                    <!-- collection here -->
+                    @* <span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>*@
+                    <!-- collection here UPDATED -->
+                    <span class="thumbnail"><a asp-controller="Home" asp-action="@event1.Route" asp-route-collectionID="@event1.Id">@event1.Name</a></span>
+                </div>
                                 }
                                 else
                                 {
