@@ -87,39 +87,6 @@ To generate living documentation, create a Documentation folder and then run one
         {
 #line 14
 #line hidden
-            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
-                        "UserName",
-                        "Email",
-                        "FirstName",
-                        "LastName",
-                        "Password"});
-            table15.AddRow(new string[] {
-                        "TaliaK",
-                        "knott@example.com",
-                        "Talia",
-                        "Knott",
-                        "Hello123#"});
-            table15.AddRow(new string[] {
-                        "ZaydenC",
-                        "clark@example.com",
-                        "Zayden",
-                        "Clark",
-                        "Hello123#"});
-            table15.AddRow(new string[] {
-                        "DavilaH",
-                        "hareem@example.com",
-                        "Hareem",
-                        "Davila",
-                        "Hello123#"});
-            table15.AddRow(new string[] {
-                        "KrzysztofP",
-                        "krzysztof@example.com",
-                        "Krzysztof",
-                        "Ponce",
-                        "Hello123#"});
-#line 15
- testRunner.Given("the following users exist", ((string)(null)), table15, "Given ");
-#line hidden
             TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Email",
@@ -127,19 +94,52 @@ To generate living documentation, create a Documentation folder and then run one
                         "LastName",
                         "Password"});
             table16.AddRow(new string[] {
+                        "TaliaK",
+                        "knott@example.com",
+                        "Talia",
+                        "Knott",
+                        "Hello123#"});
+            table16.AddRow(new string[] {
+                        "ZaydenC",
+                        "clark@example.com",
+                        "Zayden",
+                        "Clark",
+                        "Hello123#"});
+            table16.AddRow(new string[] {
+                        "DavilaH",
+                        "hareem@example.com",
+                        "Hareem",
+                        "Davila",
+                        "Hello123#"});
+            table16.AddRow(new string[] {
+                        "KrzysztofP",
+                        "krzysztof@example.com",
+                        "Krzysztof",
+                        "Ponce",
+                        "Hello123#"});
+#line 15
+ testRunner.Given("the following users exist", ((string)(null)), table16, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                        "UserName",
+                        "Email",
+                        "FirstName",
+                        "LastName",
+                        "Password"});
+            table17.AddRow(new string[] {
                         "AndreC",
                         "colea@example.com",
                         "Andre",
                         "Cole",
                         "0a9dfi3.a"});
-            table16.AddRow(new string[] {
+            table17.AddRow(new string[] {
                         "JoannaV",
                         "valdezJ@example.com",
                         "Joanna",
                         "Valdez",
                         "d9u(*dsF4"});
 #line 21
- testRunner.And("the following users do not exist", ((string)(null)), table16, "And ");
+ testRunner.And("the following users do not exist", ((string)(null)), table17, "And ");
 #line hidden
         }
         
