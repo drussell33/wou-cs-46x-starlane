@@ -11,7 +11,10 @@
 	Then continuing with: 
 	Derek Russell
 	User Story ID: 178035014, Sprint 6, 4 Points.
-
+			The Original Form of Acceptance Criteria that is being sought after in BDD testing:
+			* As a user of this site, that clicks any link to another user's published iCollection, I would like to see the collections title on the same page as the rendered environment.
+			* As a user of this site, that clicks any link to another user's published iCollection, I would like to see the collections description on the same page as the rendered environment.
+			* As a user of this site, that clicks any link to another user's published iCollection, I would like to see the collections keywords on the same page as the rendered environment.
 
 Background:
 	Given the following collections exist
@@ -58,7 +61,7 @@ Background:
 	  | 82 | 13        | 45       | 1         | Third Photo Shoes  | Description3  |
 	  | 83 | 16        | 48       | 1         | Fourth Photo Dogs  | Description4  |
 
-
+# 
 Scenario Outline: Clicking on the Preview Button for the Ocean Environment on the HomePage will redirect to the sample ocean environment page.
 	Given I am on the Home Page
 	When I Click Preview Ocean Environment

@@ -8,6 +8,9 @@
 	Then continuing with: 
 	Derek Russell
 	User Story ID: 177895357, Sprint 6, 2 Points.
+		The Original Form of Acceptance Criteria that is being sought after in BDD testing:
+			* As a user of this site that is creating an icollection I would like to select exisiting Keywords(Tags) to attach to the collection when I publish it.
+			* As a user of this site that is creating an icollection I would like to create new Keywords(Tags) to attach to the collection when I publish it.
 	
 
 Going through the process from logging in,  to publishing a newly made iCollection. 
