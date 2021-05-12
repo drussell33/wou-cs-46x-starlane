@@ -67,9 +67,7 @@ Scenario Outline: Clicking on the Preview Button for the Ocean Environment on th
 	Examples:
      | Page              |
      | Ocean_environment |
-     | Ocean_environment |
-     | Ocean_environment |
-     | Ocean_environment |
+
 
 
 Scenario Outline: Clicking on the Preview Button for the Gallery Environment on the HomePage will redirect to the sample gallery environment page.
@@ -80,7 +78,5 @@ Scenario Outline: Clicking on the Preview Button for the Gallery Environment on 
 	Examples:
      | Page                |
      | gallery_environment |
-     | gallery_environment |
-     | gallery_environment |
-     | gallery_environment |
+
 
