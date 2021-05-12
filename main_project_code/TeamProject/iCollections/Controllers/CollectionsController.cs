@@ -23,10 +23,11 @@ namespace iCollections.Controllers
         private readonly IIcollectionUserRepository _userRepo;
         private readonly ICollectionKeywordRepository _collectionkeywordRepo;
         private readonly IPhotoRepository _photoRepo;
+        private readonly IFavoriteCollectionRepository _favoritecollectionRepo;
         private readonly IcollectionRepository _collectionRepo;
 
 
-        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo, IcollectionRepository cols)
+        public CollectionsController(ILogger<CollectionsController> logger, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, ICollectionKeywordRepository collectionkeywordRepo, IPhotoRepository photoRepo, IFavoriteCollectionRepository favoritecollectionRepo, IcollectionRepository collectionrepo)
         {
             _logger = logger;
             _userManager = userManager;
@@ -34,7 +35,9 @@ namespace iCollections.Controllers
             _userRepo = userRepo;
             _collectionkeywordRepo = collectionkeywordRepo;
             _photoRepo = photoRepo;
-            _collectionRepo = cols;
+            _favoritecollectionRepo = favoritecollectionRepo;
+            _collectionRepo = collectionrepo;
+
         }
 
         [Route("Collections/{name}")]
@@ -62,7 +65,7 @@ namespace iCollections.Controllers
                 {
                     LoggedInUser = active_user,
                     VisitedUser = user,
-                    SearchResults = _collectionkeywordRepo.GetCollectionKeywordsByUser(user),
+                    SearchResults = _collectionkeywordRepo.GetPublicCollectionKeywordsByUser(user),
                     SuggestedKeywords = null
 
                 };
@@ -88,7 +91,7 @@ namespace iCollections.Controllers
 
                 IcollectionUser active_user = _userRepo.GetIcollectionUserByIdentityId(_userManager.GetUserId(User));
 
-                List<CollectionKeyword> sorted = _collectionkeywordRepo.GetCollectionKeywordsByUserSortedAscending(user, sort);
+                List<CollectionKeyword> sorted = _collectionkeywordRepo.GetPublicCollectionKeywordsByUserSortedAscending(user, sort);
 
                 BrowseList collectionlist = new BrowseList
                 {
@@ -124,7 +127,7 @@ namespace iCollections.Controllers
                 List<CollectionKeyword> filtered = new List<CollectionKeyword>();
                 foreach (string token in keys)
                 {
-                    var coll_keys = _collectionkeywordRepo.GetUserCollectionKeywordsByKeyword(user, token);
+                    var coll_keys = _collectionkeywordRepo.GetUserPublicCollectionKeywordsByKeyword(user, token);
 
                     filtered.AddRange(coll_keys);
                 }
@@ -189,12 +192,154 @@ namespace iCollections.Controllers
             {
                 LoggedInUser = user,
                 VisitedUser = user,
-                SearchResults = _collectionkeywordRepo.GetCollectionKeywordsByUser(user),
+                SearchResults = _collectionkeywordRepo.GetPublicCollectionKeywordsByUser(user),
                 SuggestedKeywords = null
                 
             };
 
             return View(collectionlist);
+        }
+
+        [Authorize]
+        [Route("Collections/{name}/MyFavorites")]
+        public IActionResult MyFavorites(string name)
+        {
+            if (name == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            IcollectionUser user = _userRepo.GetIcollectionUserByUsername(name);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            string sessionusername = _userManager.GetUserId(User);
+            if (sessionusername != user.AspnetIdentityId)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
+            BrowseList collectionlist = new BrowseList
+            {
+                LoggedInUser = user,
+                VisitedUser = user,
+                MyFavorites = _favoritecollectionRepo.GetMyFavoritesByUser(user),
+                SearchResults = _collectionkeywordRepo.GetPublicCollectionKeywordsByUser(user),
+                SuggestedKeywords = null
+
+            };
+
+            return View(collectionlist);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("Collections/{name}/AddFavorite")]
+        public async Task<IActionResult> AddFavoriteAsync(int collection, string visiteduser, string activeuser)
+        {
+            string result = "";
+            IcollectionUser loggedinuser = _userRepo.GetIcollectionUserByUsername(activeuser);
+            var myfavorites = _favoritecollectionRepo.GetMyFavoritesByUser(loggedinuser);
+
+            //Logged in user is not valid
+            if (loggedinuser == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            //'My Favorites' is empty
+            if (myfavorites.Count() < 1)
+            {
+                FavoriteCollection myfavs = new FavoriteCollection
+                {
+                    User = loggedinuser,
+                    Name = "My Favorites",
+                    DateMade = DateTime.UtcNow,
+                    UserId = loggedinuser.Id,
+                    Visibility = 1,
+                    Route = "MyFavorites",
+                    Collect = await _collectionRepo.FindByIdAsync(collection)
+                };
+
+                await _favoritecollectionRepo.AddOrUpdateAsync(myfavs);
+
+                result = "Added to Favorites!";
+                return Json(new { activeuser, collection, result });
+            }
+            //'My Favorites' does exist
+            if (myfavorites != null)
+            {
+                //Check for collection in 'My Favorites'
+                while (myfavorites.Count() > 0)
+                {
+                    //Collection is in 'My Favorites'
+                    if (myfavorites.Find(c=>c.CollectId == collection) != null)
+                    {
+                        result = "Already in Favorites!";
+                        return Json(new { activeuser, collection, result });
+                    }
+                    //Not in 'My Favorites'
+                    else
+                    {
+                        FavoriteCollection myfavs = new FavoriteCollection
+                        {
+                            User = loggedinuser,
+                            Name = "My Favorites",
+                            DateMade = DateTime.UtcNow,
+                            UserId = loggedinuser.Id,
+                            Visibility = 1,
+                            Route = "MyFavorites",
+                            Collect = await _collectionRepo.FindByIdAsync(collection)
+                        };
+
+                        await _favoritecollectionRepo.AddOrUpdateAsync(myfavs);
+
+                        result = "Added to Favorites!";
+                        return Json(new { activeuser, collection, result });
+                    }
+
+                }
+                
+            }
+            result = "Not a valid collection";
+            return Json(new { activeuser, collection, result });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("Collections/{name}/MyCollection/MakePrivate")]
+        public async Task<IActionResult> MakePrivate(int collection, bool visibility, string activeuser)
+        {
+            IcollectionUser loggedinuser = _userRepo.GetIcollectionUserByUsername(activeuser);
+
+            //Logged in user is not valid
+            if (loggedinuser == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Collection mycollection = _collectionRepo.GetCollectionById(collection);
+
+            if (mycollection == null)
+            {
+                return Json("Not a valid collection");
+            }
+
+            if (visibility == true)
+            {
+                mycollection.Visibility = 0;
+                await _collectionRepo.AddOrUpdateAsync(mycollection);
+                return Json("Collection set to private");
+            }
+
+            if (visibility == false)
+            {
+                mycollection.Visibility = 1;
+                await _collectionRepo.AddOrUpdateAsync(mycollection);
+                return Json("Collection set to public");
+            }
+
+            return Json("Visibility could not be set");
         }
 
         // GET: Collections/Delete/5 -> 5 is id of collection

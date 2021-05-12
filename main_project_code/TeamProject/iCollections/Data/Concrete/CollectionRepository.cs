@@ -19,12 +19,12 @@ namespace iCollections.Data.Concrete
 
         public List<Collection> GetMostRecentiCollections(int userId, int howMany)
         {
-            return GetAll().Where(c => c.User.Id == userId).OrderByDescending(c => c.DateMade).Take(howMany).ToList();
+            return GetAll().Where(c => c.User.Id == userId && c.Visibility == 1).OrderByDescending(c => c.DateMade).Take(howMany).ToList();
         }
 
         public List<Collection> GetICollectionsForThisUser(int userId)
         {
-            return GetAll().Include(r => r.User).Where(r => r.User.Id == userId).ToList();
+            return GetAll().Include(r => r.User).Where(r => r.User.Id == userId && r.Visibility == 1).ToList();
         }
 
         public Collection GetCollectionById(int collectionID)

@@ -1,6 +1,17 @@
 ﻿Feature: HomePage
-	This is going to test the route functions, that take in a collection id, and return a list of rending photos
-	That will be passed through the dom.
+	This is going to test the route functions, that take in a collection id, and return a list of rending photos That will be passed through the DOM.
+
+	Derek Russell
+	User Story ID: 177878958, Sprint 5, 2 Points.
+		The Original Acceptance Criteria:
+			* When the user is on the homepage, there is a nice, semi-professional landing page photo of a laptop viewing an iCollection.
+			* If the user clicks on the gallery environment sample button, they will be brought to a gallery environment collection with sample photos.
+			* If the user clicks on the ocean environment sample button, they will be brought to a ocean environment collection with sample photos.
+	
+	Then continuing with: 
+	Derek Russell
+	User Story ID: 178035014, Sprint 6, 4 Points.
+
 
 Background:
 	Given the following collections exist
@@ -56,9 +67,7 @@ Scenario Outline: Clicking on the Preview Button for the Ocean Environment on th
 	Examples:
      | Page              |
      | Ocean_environment |
-     | Ocean_environment |
-     | Ocean_environment |
-     | Ocean_environment |
+
 
 
 Scenario Outline: Clicking on the Preview Button for the Gallery Environment on the HomePage will redirect to the sample gallery environment page.
@@ -69,7 +78,5 @@ Scenario Outline: Clicking on the Preview Button for the Gallery Environment on 
 	Examples:
      | Page                |
      | gallery_environment |
-     | gallery_environment |
-     | gallery_environment |
-     | gallery_environment |
+
 

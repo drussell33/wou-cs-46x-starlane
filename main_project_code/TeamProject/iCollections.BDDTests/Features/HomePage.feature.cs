@@ -35,8 +35,18 @@ namespace iCollections.BDDTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "HomePage", "\tThis is going to test the route functions, that take in a collection id, and ret" +
-                    "urn a list of rending photos\r\n\tThat will be passed through the dom.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "HomePage", @"	This is going to test the route functions, that take in a collection id, and return a list of rending photos That will be passed through the DOM.
+
+	Derek Russell
+	User Story ID: 177878958, Sprint 5, 2 Points.
+		The Original Acceptance Criteria:
+			* When the user is on the homepage, there is a nice, semi-professional landing page photo of a laptop viewing an iCollection.
+			* If the user clicks on the gallery environment sample button, they will be brought to a gallery environment collection with sample photos.
+			* If the user clicks on the ocean environment sample button, they will be brought to a ocean environment collection with sample photos.
+	
+	Then continuing with: 
+	Derek Russell
+	User Story ID: 178035014, Sprint 6, 4 Points.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,215 +86,215 @@ namespace iCollections.BDDTests.Features
         
         public virtual void FeatureBackground()
         {
-#line 5
+#line 16
 #line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Visibility",
                         "UserId",
                         "Route"});
-            table3.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "10",
                         "First Collection Fish",
                         "1",
                         "8",
                         "Ocean_environment"});
-            table3.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "13",
                         "Second Collection Dogs",
                         "1",
                         "64",
                         "gallery_environment"});
-            table3.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "16",
                         "Third Collection Shoes",
                         "1",
                         "3",
                         "Ocean_environment"});
-            table3.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "45",
                         "Forth Collection Puzzels",
                         "1",
                         "3",
                         "gallery_environment"});
-#line 6
- testRunner.Given("the following collections exist", ((string)(null)), table3, "Given ");
+#line 17
+ testRunner.Given("the following collections exist", ((string)(null)), table9, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Visibility",
                         "UserId",
                         "Route"});
-            table4.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "0",
                         "Bad Collection 1",
                         "1",
                         "8",
                         "Ocean_environment"});
-            table4.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "11",
                         "Worse Collection 2",
                         "1",
                         "0",
                         "gallery_environment"});
-            table4.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "15",
                         "HORRIBLE Collection 3",
                         "1",
                         "3",
                         "IMLOST!"});
-            table4.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "$0",
                         "DICKSDICKSDIC Collection 4",
                         "9001",
                         "666",
                         "WTFisHAPPENING!!!1!"});
-#line 13
- testRunner.And("the following collections do not exist", ((string)(null)), table4, "And ");
+#line 24
+ testRunner.And("the following collections do not exist", ((string)(null)), table10, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Data",
                         "UserId",
                         "PhotoGuid"});
-            table5.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "40",
                         "First Photo Fish",
                         "new byte[] {1,2,3}",
                         "8",
                         "new Guid()"});
-            table5.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "41",
                         "Second Photo Fish",
                         "new byte[] {1,2,3}",
                         "8",
                         "new Guid()"});
-            table5.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "45",
                         "Third Photo Shoes",
                         "new byte[] {1,2,3}",
                         "3",
                         "new Guid()"});
-            table5.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "48",
                         "Fourth Photo Dogs",
                         "new byte[] {1,2,3}",
                         "64",
                         "new Guid()"});
-#line 21
- testRunner.Given("the following photos exist", ((string)(null)), table5, "Given ");
+#line 32
+ testRunner.Given("the following photos exist", ((string)(null)), table11, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Data",
                         "UserId",
                         "PhotoGuid"});
-            table6.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "0",
                         "First Photo Bad",
                         "new byte[] {1,2,3}",
                         "4",
                         "new Guid()"});
-            table6.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "-1",
                         "Second Photo Bad",
                         "new byte[] {1,2,3}",
                         "8",
                         "new Guid()"});
-            table6.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "16",
                         "Third Photo Bad",
                         "new byte[] {1,2,3}",
                         "0",
                         "new Guid()"});
-            table6.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "45",
                         "Fourth Photo Bad",
                         "9001",
                         "64",
                         "new Guid()"});
-#line 28
- testRunner.And("the following photos do not exist", ((string)(null)), table6, "And ");
+#line 39
+ testRunner.And("the following photos do not exist", ((string)(null)), table12, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "CollectId",
                         "PhotoId",
                         "PhotoRank",
                         "Title",
                         "Description"});
-            table7.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "80",
                         "10",
                         "40",
                         "2",
                         "Second Photo Fish",
                         "Description1"});
-            table7.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "81",
                         "10",
                         "41",
                         "1",
                         "First Photo Fish",
                         "Description2"});
-            table7.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "82",
                         "13",
                         "45",
                         "1",
                         "Third Photo Shoes",
                         "Description3"});
-            table7.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "83",
                         "16",
                         "48",
                         "1",
                         "Fourth Photo Dogs",
                         "Description4"});
-#line 36
- testRunner.Given("the following collectionPhotos exist", ((string)(null)), table7, "Given ");
+#line 47
+ testRunner.Given("the following collectionPhotos exist", ((string)(null)), table13, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "CollectId",
                         "PhotoId",
                         "PhotoRank",
                         "Title",
                         "Description"});
-            table8.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "80",
                         "10",
                         "40",
                         "2",
                         "Second Photo Fish",
                         "Description1"});
-            table8.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "81",
                         "10",
                         "41",
                         "1",
                         "First Photo Fish",
                         "Description2"});
-            table8.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "82",
                         "13",
                         "45",
                         "1",
                         "Third Photo Shoes",
                         "Description3"});
-            table8.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "83",
                         "16",
                         "48",
                         "1",
                         "Fourth Photo Dogs",
                         "Description4"});
-#line 43
- testRunner.And("the following collectionPhotos do not exist", ((string)(null)), table8, "And ");
+#line 54
+ testRunner.And("the following collectionPhotos do not exist", ((string)(null)), table14, "And ");
 #line hidden
         }
         
@@ -302,7 +312,7 @@ namespace iCollections.BDDTests.Features
             argumentsOfScenario.Add("Page", page);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on the Preview Button for the Ocean Environment on the HomePage will red" +
                     "irect to the sample ocean environment page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 51
+#line 62
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -322,19 +332,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
+#line 16
 this.FeatureBackground();
 #line hidden
-#line 52
+#line 63
  testRunner.Given("I am on the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 53
+#line 64
  testRunner.When("I Click Preview Ocean Environment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 54
+#line 65
  testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 55
+#line 66
    testRunner.And("I can see the ocean environment preview with its title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -355,7 +365,7 @@ this.FeatureBackground();
             argumentsOfScenario.Add("Page", page);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on the Preview Button for the Gallery Environment on the HomePage will r" +
                     "edirect to the sample gallery environment page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 64
+#line 75
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -375,19 +385,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
+#line 16
 this.FeatureBackground();
 #line hidden
-#line 65
+#line 76
  testRunner.Given("I am on the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 66
+#line 77
  testRunner.When("I Click Preview Gallery Environment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 67
+#line 78
  testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 68
+#line 79
    testRunner.And("I can see the gallery environment preview with its title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }

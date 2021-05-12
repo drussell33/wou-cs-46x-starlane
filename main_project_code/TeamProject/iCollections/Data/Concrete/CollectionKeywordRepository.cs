@@ -14,26 +14,26 @@ namespace iCollections.Data.Concrete
 
         }
 
-        public List<CollectionKeyword> GetCollectionKeywordsByUser(IcollectionUser user)
+        public List<CollectionKeyword> GetPublicCollectionKeywordsByUser(IcollectionUser user)
         {
-            return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).ToList();
+            return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user && c.Collect.Visibility == 1).ToList();
         }
 
-        public List<CollectionKeyword> GetCollectionKeywordsByUserSortedAscending(IcollectionUser user, string sort)
+        public List<CollectionKeyword> GetPublicCollectionKeywordsByUserSortedAscending(IcollectionUser user, string sort)
         {
             if (sort == "name")
             {
-                return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).OrderBy(n => n.Collect.Name).ToList();
+                return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user && c.Collect.Visibility == 1).OrderBy(n => n.Collect.Name).ToList();
             }
 
             else if (sort == "keyword")
             {
-                return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).OrderBy(n => n.Keyword.Name).ToList();
+                return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user && c.Collect.Visibility == 1).OrderBy(n => n.Keyword.Name).ToList();
             }
 
             else if (sort == "date")
             {
-                return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user).OrderBy(n => n.Collect.DateMade).ToList();
+                return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user && c.Collect.Visibility == 1).OrderBy(n => n.Collect.DateMade).ToList();
             }
             else
             {
@@ -41,9 +41,9 @@ namespace iCollections.Data.Concrete
             }
         }
 
-        public List<CollectionKeyword> GetUserCollectionKeywordsByKeyword(IcollectionUser user, string keyword)
+        public List<CollectionKeyword> GetUserPublicCollectionKeywordsByKeyword(IcollectionUser user, string keyword)
         {
-            return _dbSet.Include(c => c.Collect).Include(k => k.Keyword).Where(c => c.Collect.User == user && c.Keyword.Name.Contains(keyword)).OrderBy(c => c.Collect.Name).ToList();
+            return _dbSet.Include(c => c.Collect).Include(k => k.Keyword).Where(c => c.Collect.User == user && c.Collect.Visibility == 1 && c.Keyword.Name.Contains(keyword)).OrderBy(c => c.Collect.Name).ToList();
         }
     }
 }
