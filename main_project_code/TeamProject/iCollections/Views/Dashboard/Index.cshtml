@@ -99,7 +99,8 @@
                                     </div>
 
                                     <!-- collection here -->
-                <span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>
+                                    @*<span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>*@
+                                    <span class="thumbnail"><a asp-controller="Home" asp-action="@event1.Route" asp-route-collectionID="@event1.Id">@event1.Name</a></span>
                                 </div>
                             }
                         }
@@ -127,7 +128,8 @@
                             </div>
 
                             <!-- collection here -->
-                <span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>
+                                @*<span class="thumbnail"><a href="Feed.cshtml">@event1.Name</a></span>*@
+                                <span class="thumbnail"><a asp-controller="Home" asp-action="@event1.Route" asp-route-collectionID="@event1.Id">@event1.Name</a></span>
                         </div>
                     }
                 }
