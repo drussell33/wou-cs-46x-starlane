@@ -18,7 +18,16 @@
             @foreach (var follow in Model.Follows)
             {
                 <tr>
-                    <td><div class="profile-pic"></div></td>
+                    <td>
+                        @if (follow.FollowerNavigation.ProfilePicId.HasValue)
+                        {
+                            <img src="@AppContext.Photos.FirstOrDefault(p => p.Id == follow.FollowerNavigation.ProfilePicId).GetPhotoUrl()" alt="crocs" class="profile-pic">
+                        }
+                        else
+                        {
+                            <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="null avatar" class="profile-pic">
+                        } 
+                    </td>
                     <td>@follow.FollowerNavigation.FirstName</td>
                     <td>@follow.FollowerNavigation.LastName</td>
                     <td><a href="../@follow.FollowerNavigation.UserName"><em>@follow.FollowerNavigation.UserName</em></a></td>
