@@ -91,5 +91,18 @@ namespace iCollections.BDDTests.Steps
             IEnumerable<IWebElement> avatar = _driver.FindElements(By.ClassName("profile-pic"));
             Assert.That(avatar.First().TagName, Is.EqualTo("img"));
         }
+
+        [When(@"I go to '(.*)' follower page")]
+        public void IGoToUserFollowerPage(string User)
+        {
+            _driver.Navigate().GoToUrl(_hostBaseName + @"userpage/" + User + "/followers");
+        }
+
+        [Then(@"the followers profile pictures show")]
+        public void ShowFollowersPictures()
+        {
+            IEnumerable<IWebElement> avatar = _driver.FindElements(By.ClassName("profile-pic"));
+            Assert.That(avatar.First().TagName, Is.EqualTo("img"));
+        }
     }
 }

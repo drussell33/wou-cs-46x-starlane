@@ -78,38 +78,38 @@ namespace iCollections.BDDTests.Features
         {
 #line 6
 #line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Email",
                         "FirstName",
                         "LastName",
                         "Password"});
-            table1.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "TaliaK",
                         "knott@example.com",
                         "Talia",
                         "Knott",
                         "Abcd987?6"});
-            table1.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "ZaydenC",
                         "clark@example.com",
                         "Zayden",
                         "Clark",
                         "Abcd987?6"});
-            table1.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "DavilaH",
                         "hareem@example.com",
                         "Hareem",
                         "Davila",
                         "Abcd987?6"});
-            table1.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "KrzysztofP",
                         "krzysztof@example.com",
                         "Krzysztof",
                         "Ponce",
                         "Abcd987?6"});
 #line 7
- testRunner.Given("the following users exist", ((string)(null)), table1, "Given ");
+ testRunner.Given("the following users exist", ((string)(null)), table15, "Given ");
 #line hidden
         }
         
@@ -154,23 +154,23 @@ this.FeatureBackground();
 #line 16
     testRunner.And("I am logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
                             "Owner",
                             "CollectionName"});
-                table2.AddRow(new string[] {
+                table16.AddRow(new string[] {
                             "Hareem",
                             "Superbad"});
-                table2.AddRow(new string[] {
+                table16.AddRow(new string[] {
                             "Talia",
                             "Puzzel Gallery Test"});
-                table2.AddRow(new string[] {
+                table16.AddRow(new string[] {
                             "Talia",
                             "My Fish"});
-                table2.AddRow(new string[] {
+                table16.AddRow(new string[] {
                             "Talia",
                             "My Beer"});
 #line 17
-    testRunner.And("others I follow/friends with have posted iCollections", ((string)(null)), table2, "And ");
+    testRunner.And("others I follow/friends with have posted iCollections", ((string)(null)), table16, "And ");
 #line hidden
 #line 23
     testRunner.When("I go to the \'Dashboard\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -183,17 +183,17 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Follows shows profile pictures")]
+        [NUnit.Framework.DescriptionAttribute("Following shows profile pictures")]
         [NUnit.Framework.TestCaseAttribute("DavilaH", null)]
         [NUnit.Framework.TestCaseAttribute("TaliaK", null)]
         [NUnit.Framework.TestCaseAttribute("ZaydenC", null)]
         [NUnit.Framework.TestCaseAttribute("KrzysztofP", null)]
-        public virtual void FollowsShowsProfilePictures(string user, string[] exampleTags)
+        public virtual void FollowingShowsProfilePictures(string user, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("User", user);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Follows shows profile pictures", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Following shows profile pictures", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -225,6 +225,54 @@ this.FeatureBackground();
 #line hidden
 #line 35
     testRunner.Then("the followees profile pictures show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Followers shows profile pictures")]
+        [NUnit.Framework.TestCaseAttribute("DavilaH", null)]
+        [NUnit.Framework.TestCaseAttribute("TaliaK", null)]
+        [NUnit.Framework.TestCaseAttribute("ZaydenC", null)]
+        [NUnit.Framework.TestCaseAttribute("KrzysztofP", null)]
+        public virtual void FollowersShowsProfilePictures(string user, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("User", user);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Followers shows profile pictures", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 43
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 6
+this.FeatureBackground();
+#line hidden
+#line 44
+    testRunner.Given(string.Format("I am on \'{0}\' profile page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 45
+    testRunner.When(string.Format("I go to \'{0}\' follower page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 46
+    testRunner.Then("the followers profile pictures show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

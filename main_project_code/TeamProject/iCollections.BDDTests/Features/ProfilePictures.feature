@@ -29,7 +29,7 @@ Scenario Outline: Dashboard profile pictures show up
 	| Hareem    |
 	| Krzysztof |
 
-Scenario Outline: Follows shows profile pictures
+Scenario Outline: Following shows profile pictures
     Given I am on '<User>' profile page
     When I go to '<User>' following page
     Then the followees profile pictures show
@@ -40,3 +40,13 @@ Scenario Outline: Follows shows profile pictures
     | ZaydenC       |
     | KrzysztofP    |
 
+Scenario Outline: Followers shows profile pictures
+    Given I am on '<User>' profile page
+    When I go to '<User>' follower page
+    Then the followers profile pictures show
+    Examples:
+    | User          |
+    | DavilaH       |
+    | TaliaK        |
+    | ZaydenC       |
+    | KrzysztofP    |
