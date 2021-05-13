@@ -104,29 +104,69 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
     testRunner.Given("I am logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "Owner",
                             "CollectionName"});
-                table15.AddRow(new string[] {
+                table1.AddRow(new string[] {
                             "Hareem",
                             "Superbad"});
-                table15.AddRow(new string[] {
+                table1.AddRow(new string[] {
                             "Talia",
                             "Puzzel Gallery Test"});
-                table15.AddRow(new string[] {
+                table1.AddRow(new string[] {
                             "Talia",
                             "My Fish"});
-                table15.AddRow(new string[] {
+                table1.AddRow(new string[] {
                             "Talia",
                             "My Beer"});
 #line 8
-    testRunner.And("others I follow/friends with have posted iCollections", ((string)(null)), table15, "And ");
+    testRunner.And("others I follow/friends with have posted iCollections", ((string)(null)), table1, "And ");
 #line hidden
 #line 14
     testRunner.When("I go to the \'Dashboard\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 15
     testRunner.Then("the event will show the profile picture of the user that posted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Follows shows profile pictures")]
+        public virtual void FollowsShowsProfilePictures()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Follows shows profile pictures", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 17
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 18
+    testRunner.Given("I am on Hareem\'s profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 19
+    testRunner.When("I go to Hareem\'s following page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 20
+    testRunner.Then("the users Hareem follows profile pictures show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

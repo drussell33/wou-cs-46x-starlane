@@ -14,8 +14,8 @@ Scenario Outline: Dashboard profile pictures show up
     When I go to the 'Dashboard' page
     Then the event will show the profile picture of the user that posted 
 
-# Scenario Outline: Follows shows profile pictures
-#     Given I am on a registered user's profile page
-#     When I go to the user's following page
-#     Then the users the registered user follows profile pictures show
+Scenario Outline: Follows shows profile pictures
+    Given I am on Hareem's profile page
+    When I go to Hareem's following page
+    Then the users Hareem follows profile pictures show
 

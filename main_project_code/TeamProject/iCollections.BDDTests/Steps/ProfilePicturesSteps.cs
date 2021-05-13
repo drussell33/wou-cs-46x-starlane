@@ -22,7 +22,7 @@ namespace Fuji.BDDTests.Steps
     {
 
         private readonly ScenarioContext _ctx;
-        private string _hostBaseName = @"https://localhost:5001/";
+        private string _hostBaseName = @"https://icollections.azurewebsites.net/";
         private readonly IWebDriver _driver;
 
         public ProfilePicturesSteps(ScenarioContext scenarioContext, IWebDriver driver)
@@ -65,8 +65,28 @@ namespace Fuji.BDDTests.Steps
         [Then(@"the event will show the profile picture of the user that posted")]
         public void ShowProfilePicture()
         {
-            IWebElement avatar = _driver.FindElement(By.ClassName("avatar"));
+            IWebElement avatar = _driver.FindElement(By.ClassName("fake-image"));
             Assert.That(avatar.TagName, Is.EqualTo("img"));
+        }
+
+        [Given(@"I am on Hareem's profile page")]
+        public void IAmOnHareemsProfilePage()
+        {
+            _driver.Navigate().GoToUrl(_hostBaseName + @"userpage/DavilaH");
+        }
+
+        [When(@"I go to Hareem's following page")]
+        public void IGoToHareemFollowingPage()
+        {
+            _driver.Navigate().GoToUrl(_hostBaseName + @"userpage/DavilaH/following");
+        }
+
+        [Then(@"the users Hareem follows profile pictures show")]
+        public void ShowHareemsFolloweesPictures()
+        {
+            IEnumerable<IWebElement> avatar = _driver.FindElements(By.ClassName("fake-image"));
+            Assert.That(avatar.Count, Is.EqualTo(2));
+            Assert.That(avatar.First().TagName, Is.EqualTo("img"));
         }
     }
 }
