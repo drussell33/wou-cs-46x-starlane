@@ -74,14 +74,58 @@ namespace iCollections.BDDTests.Features
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 6
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "UserName",
+                        "Email",
+                        "FirstName",
+                        "LastName",
+                        "Password"});
+            table1.AddRow(new string[] {
+                        "TaliaK",
+                        "knott@example.com",
+                        "Talia",
+                        "Knott",
+                        "Abcd987?6"});
+            table1.AddRow(new string[] {
+                        "ZaydenC",
+                        "clark@example.com",
+                        "Zayden",
+                        "Clark",
+                        "Abcd987?6"});
+            table1.AddRow(new string[] {
+                        "DavilaH",
+                        "hareem@example.com",
+                        "Hareem",
+                        "Davila",
+                        "Abcd987?6"});
+            table1.AddRow(new string[] {
+                        "KrzysztofP",
+                        "krzysztof@example.com",
+                        "Krzysztof",
+                        "Ponce",
+                        "Abcd987?6"});
+#line 7
+ testRunner.Given("the following users exist", ((string)(null)), table1, "Given ");
+#line hidden
+        }
+        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Dashboard profile pictures show up")]
-        public virtual void DashboardProfilePicturesShowUp()
+        [NUnit.Framework.TestCaseAttribute("Talia", null)]
+        [NUnit.Framework.TestCaseAttribute("Zayden", null)]
+        [NUnit.Framework.TestCaseAttribute("Hareem", null)]
+        [NUnit.Framework.TestCaseAttribute("Krzysztof", null)]
+        public virtual void DashboardProfilePicturesShowUp(string firstName, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("FirstName", firstName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dashboard profile pictures show up", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 6
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -101,31 +145,37 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
-    testRunner.Given("I am logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Owner",
-                            "CollectionName"});
-                table1.AddRow(new string[] {
-                            "Hareem",
-                            "Superbad"});
-                table1.AddRow(new string[] {
-                            "Talia",
-                            "Puzzel Gallery Test"});
-                table1.AddRow(new string[] {
-                            "Talia",
-                            "My Fish"});
-                table1.AddRow(new string[] {
-                            "Talia",
-                            "My Beer"});
-#line 8
-    testRunner.And("others I follow/friends with have posted iCollections", ((string)(null)), table1, "And ");
-#line hidden
-#line 14
-    testRunner.When("I go to the \'Dashboard\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 6
+this.FeatureBackground();
 #line hidden
 #line 15
+    testRunner.Given(string.Format("I am a user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 16
+    testRunner.And("I am logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Owner",
+                            "CollectionName"});
+                table2.AddRow(new string[] {
+                            "Hareem",
+                            "Superbad"});
+                table2.AddRow(new string[] {
+                            "Talia",
+                            "Puzzel Gallery Test"});
+                table2.AddRow(new string[] {
+                            "Talia",
+                            "My Fish"});
+                table2.AddRow(new string[] {
+                            "Talia",
+                            "My Beer"});
+#line 17
+    testRunner.And("others I follow/friends with have posted iCollections", ((string)(null)), table2, "And ");
+#line hidden
+#line 23
+    testRunner.When("I go to the \'Dashboard\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 24
     testRunner.Then("the event will show the profile picture of the user that posted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -134,12 +184,17 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Follows shows profile pictures")]
-        public virtual void FollowsShowsProfilePictures()
+        [NUnit.Framework.TestCaseAttribute("DavilaH", null)]
+        [NUnit.Framework.TestCaseAttribute("TaliaK", null)]
+        [NUnit.Framework.TestCaseAttribute("ZaydenC", null)]
+        [NUnit.Framework.TestCaseAttribute("KrzysztofP", null)]
+        public virtual void FollowsShowsProfilePictures(string user, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("User", user);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Follows shows profile pictures", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 17
+#line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -159,14 +214,17 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 18
-    testRunner.Given("I am on Hareem\'s profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 6
+this.FeatureBackground();
 #line hidden
-#line 19
-    testRunner.When("I go to Hareem\'s following page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 33
+    testRunner.Given(string.Format("I am on \'{0}\' profile page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 20
-    testRunner.Then("the users Hareem follows profile pictures show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 34
+    testRunner.When(string.Format("I go to \'{0}\' following page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 35
+    testRunner.Then("the followees profile pictures show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

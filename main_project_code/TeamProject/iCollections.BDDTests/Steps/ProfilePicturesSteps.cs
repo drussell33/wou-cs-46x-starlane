@@ -9,7 +9,7 @@ using OpenQA.Selenium.Firefox;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
-namespace Fuji.BDDTests.Steps
+namespace iCollections.BDDTests.Steps
 {
     public class TestiCollectionPost
     {
@@ -22,7 +22,9 @@ namespace Fuji.BDDTests.Steps
     {
 
         private readonly ScenarioContext _ctx;
-        private string _hostBaseName = @"https://icollections.azurewebsites.net/";
+        // private string _hostBaseName = @"https://icollections.azurewebsites.net/";
+        private string _hostBaseName = @"https://localhost:5001/";
+
         private readonly IWebDriver _driver;
 
         public ProfilePicturesSteps(ScenarioContext scenarioContext, IWebDriver driver)
@@ -35,10 +37,12 @@ namespace Fuji.BDDTests.Steps
         public void WhenILogin()
         {
             _driver.Navigate().GoToUrl(_hostBaseName + @"Identity/Account/Login");
-            // Enter email and password into the input fields
-            _driver.FindElement(By.Id("Input_Email")).SendKeys("clark@example.com");
-            _driver.FindElement(By.Id("Input_Password")).SendKeys("Abcd987?6");  // could submit form by "hitting enter" with (u.Password + Keys.Enter)
-            // can "submit" the form by calling submit on any element in the form or actually click the submit button
+            string firstName = (string)_ctx["FirstName"];
+            IEnumerable<TestUser> users = (IEnumerable<TestUser>)_ctx["Users"];
+            TestUser u = users.Where(u => u.FirstName == firstName).FirstOrDefault();
+            _driver.Navigate().GoToUrl(_hostBaseName + @"Identity/Account/Login");
+            _driver.FindElement(By.Id("Input_Email")).SendKeys(u.Email);
+            _driver.FindElement(By.Id("Input_Password")).SendKeys(u.Password);
             _driver.FindElement(By.Id("account")).FindElement(By.CssSelector("button[type=submit]")).Click();
         }
 
@@ -65,27 +69,26 @@ namespace Fuji.BDDTests.Steps
         [Then(@"the event will show the profile picture of the user that posted")]
         public void ShowProfilePicture()
         {
-            IWebElement avatar = _driver.FindElement(By.ClassName("fake-image"));
+            IWebElement avatar = _driver.FindElement(By.ClassName("profile-pic"));
             Assert.That(avatar.TagName, Is.EqualTo("img"));
         }
 
-        [Given(@"I am on Hareem's profile page")]
-        public void IAmOnHareemsProfilePage()
+        [Given(@"I am on '(.*)' profile page")]
+        public void IAmOnUserProfilePage(string User)
         {
-            _driver.Navigate().GoToUrl(_hostBaseName + @"userpage/DavilaH");
+            _driver.Navigate().GoToUrl(_hostBaseName + @"userpage/" + User);
         }
 
-        [When(@"I go to Hareem's following page")]
-        public void IGoToHareemFollowingPage()
+        [When(@"I go to '(.*)' following page")]
+        public void IGoToUserFollowingPage(string User)
         {
-            _driver.Navigate().GoToUrl(_hostBaseName + @"userpage/DavilaH/following");
+            _driver.Navigate().GoToUrl(_hostBaseName + @"userpage/" + User + "/following");
         }
 
-        [Then(@"the users Hareem follows profile pictures show")]
-        public void ShowHareemsFolloweesPictures()
+        [Then(@"the followees profile pictures show")]
+        public void ShowFolloweesPictures()
         {
-            IEnumerable<IWebElement> avatar = _driver.FindElements(By.ClassName("fake-image"));
-            Assert.That(avatar.Count, Is.EqualTo(2));
+            IEnumerable<IWebElement> avatar = _driver.FindElements(By.ClassName("profile-pic"));
             Assert.That(avatar.First().TagName, Is.EqualTo("img"));
         }
     }

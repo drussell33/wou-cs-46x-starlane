@@ -13,14 +13,16 @@
     <div class="col-sm options">
         <div class="col">
             <div class="row">
-                @if (Model.TargetUser.ProfilePicId.HasValue)
-                {
-                    <img src="@AppContext.Photos.FirstOrDefault(p => p.Id == Model.TargetUser.ProfilePicId).GetPhotoUrl()" alt="crocs" class="fake-image">
-                }
-                else
-                {
-                    <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="null avatar" class="fake-image">
-                } 
+                <div class="col">
+                    @if (Model.TargetUser.ProfilePicId.HasValue)
+                    {
+                        <img src="@AppContext.Photos.FirstOrDefault(p => p.Id == Model.TargetUser.ProfilePicId).GetPhotoUrl()" alt="profile picture" class="main-dashboard-avatar" width="130">
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="null avatar" class="main-dashboard-avatar" width="130">
+                    } 
+                </div>
                 <div class="col">
                     <h2>@Model.TargetUser.FirstName @Model.TargetUser.LastName</h2>
                     <h3><em>@Model.TargetUser.UserName</em></h3>
@@ -47,11 +49,11 @@
                 <td>
                 @if (follow.FollowedNavigation.ProfilePicId.HasValue)
                 {
-                    <img src="@AppContext.Photos.FirstOrDefault(p => p.Id == follow.FollowedNavigation.ProfilePicId).GetPhotoUrl()" alt="crocs" class="fake-image">
+                    <img src="@AppContext.Photos.FirstOrDefault(p => p.Id == follow.FollowedNavigation.ProfilePicId).GetPhotoUrl()" alt="crocs" class="profile-pic">
                 }
                 else
                 {
-                    <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="null avatar" class="fake-image">
+                    <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="null avatar" class="profile-pic">
                 } 
                 </td>
                 <td>@follow.FollowedNavigation.FirstName</td>

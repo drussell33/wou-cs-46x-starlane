@@ -93,10 +93,9 @@ body {
   text-align: right;
 }
 
-.fake-image {
+.profile-pic {
   height: 50px;
   width: 50px;
-  background-color: black;
   display: inline-block;
 }
 

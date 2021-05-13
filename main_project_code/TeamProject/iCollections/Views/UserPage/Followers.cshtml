@@ -18,7 +18,7 @@
             @foreach (var follow in Model.Follows)
             {
                 <tr>
-                    <td><div class="fake-image"></div></td>
+                    <td><div class="profile-pic"></div></td>
                     <td>@follow.FollowerNavigation.FirstName</td>
                     <td>@follow.FollowerNavigation.LastName</td>
                     <td><a href="../@follow.FollowerNavigation.UserName"><em>@follow.FollowerNavigation.UserName</em></a></td>
