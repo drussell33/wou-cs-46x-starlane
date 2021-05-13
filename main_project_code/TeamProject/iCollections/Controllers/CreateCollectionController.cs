@@ -26,8 +26,9 @@ namespace iCollections.Controllers
         private readonly IcollectionRepository _colRepo;
         private readonly ICollectionPhotoRepository _collectionPhotoRepo;
         private readonly ICollectionKeywordRepository _collectionKeywords;
+        private readonly IKeywordRepository _keywordRepo;
 
-        public CreateCollectionController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, /*ICollectionsDbContext collectionsDbContext,*/ IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo, ICollectionPhotoRepository collectionphotoRepo, ICollectionKeywordRepository collectionKeywords)
+        public CreateCollectionController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, /*ICollectionsDbContext collectionsDbContext,*/ IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo, ICollectionPhotoRepository collectionphotoRepo, ICollectionKeywordRepository collectionKeywords, IKeywordRepository keywords)
         {
             _logger = logger;
             _userManager = userManager;
@@ -37,6 +38,7 @@ namespace iCollections.Controllers
             _colRepo = colRepo;
             _collectionPhotoRepo = collectionphotoRepo;
             _collectionKeywords = collectionKeywords;
+            _keywordRepo = keywords;
         }
 
         [HttpGet]
@@ -117,12 +119,14 @@ namespace iCollections.Controllers
             // figure out how to do privacy options
             string[] dropDownList = new string[] { "private", "friends", "public" };
             ViewData["Visibility"] = new SelectList(dropDownList);
+            var activeKeywords = _keywordRepo.GetAll();
+            ViewData["KeywordsAvailable"] = activeKeywords;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description")]CreateCollectionPublishing collection)
+        public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description")]CreateCollectionPublishing collection, string[] selectedKeywords)
         {
             string id = _userManager.GetUserId(User);
             //IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
@@ -181,10 +185,23 @@ namespace iCollections.Controllers
                                 }
                             }
                         }
-                        CollectionKeyword mandatoryKeyWord = new CollectionKeyword();
-                        mandatoryKeyWord.CollectId = newCollection.Id;
-                        mandatoryKeyWord.KeywordId = 1;
-                        await _collectionKeywords.AddOrUpdateAsync(mandatoryKeyWord);
+                        foreach(var keyword in selectedKeywords)
+                        {
+                            CollectionKeyword addingKeyword = new CollectionKeyword();
+                            addingKeyword.CollectId = newCollection.Id;
+                            int selectedKeywordId;
+                            int.TryParse(keyword, out selectedKeywordId);
+                            addingKeyword.KeywordId = selectedKeywordId;
+                            //addingKeyword.KeywordId = keyword;
+                            await _collectionKeywords.AddOrUpdateAsync(addingKeyword);
+                        }
+
+
+
+                        //CollectionKeyword mandatoryKeyWord = new CollectionKeyword();
+                       // mandatoryKeyWord.CollectId = newCollection.Id;
+                       // mandatoryKeyWord.KeywordId = 1;
+                       // await _collectionKeywords.AddOrUpdateAsync(mandatoryKeyWord);
 
                     }
                     
@@ -196,8 +213,10 @@ namespace iCollections.Controllers
             }
             string[] dropDownList = new string[] { "private", "friends", "public" };
             ViewData["Visibility"] = new SelectList(dropDownList);
+            var activeKeywords = _keywordRepo.GetAll();
+            ViewData["KeywordsAvailable"] = activeKeywords;
 
-            return RedirectToAction("PublishingSuccess");
+            return View("PublishingOptionsSelection", collection);
         }
 
         [HttpGet]

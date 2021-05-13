@@ -11,7 +11,7 @@
 
         <div class="col-6">
             @*<input type="hidden" asp-for="CollectionPhotosIds" value="@Model.CollectionPhotosIds" class="form-check-input" id="">
-                <input type="hidden" asp-for="Route" value="@Model.Route" class="form-check-input" id="">*@
+        <input type="hidden" asp-for="Route" value="@Model.Route" class="form-check-input" id="">*@
 
             <div class="form-group">
                 <label asp-for="CollectionName" class="col-sm-4 col-form-label">Collection Name</label>
@@ -31,11 +31,47 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
-            <a class="btn btn-primary" asp-controller="CreateCollection" asp-action="PhotoSelection">Back</a>
+
             <div class="form-group">
-                <input type="submit" value="Publish" class="btn btn-primary" />
+                <label class="control-label">Select Assignment Tags</label>
+                <div class="col-md-offset-2 col-md-10">
+                    <table>
+                        <tr>
+                            @{
+                                foreach (var tag in ViewBag.KeywordsAvailable)
+                                {
+                                    {
+                                    @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedKeywords"
+                                               value="@tag.Id" />
+                                        @tag.Id
+                                        @: @tag.Name
+                                    @:</td>
+                                }
+                                @:</tr>
+                                }
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <a class="btn btn-primary" asp-controller="CreateCollection" asp-action="PhotoSelection">Back</a>
+                <div class="form-group">
+                    <input type="submit" value="Publish" class="btn btn-primary" />
+                </div>
+
             </div>
-        </div>
     </div>
 </form>
 
