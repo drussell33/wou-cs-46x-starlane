@@ -121,7 +121,10 @@
                             <div class="col">
                                 <img src=@colls[rand.Next(6)] width="118" height="118" alt="" />
                             </div>
-                            <div class="col"><button type="button" class="btn btn-outline-primary btn-sm fav_btn" data-bs-toggle="button" id="@ck.CollectId" value="@Model.VisitedUser.UserName" name="@Model.LoggedInUser.UserName">Add to Favorites</button></div>
+                            @if (Model.LoggedInUser != null)
+                            {
+                                <div class="col"><button type="button" class="btn btn-outline-primary btn-sm fav_btn" data-bs-toggle="button" id="@ck.CollectId" value="@Model.VisitedUser.UserName" name="@Model.LoggedInUser.UserName">Add to Favorites</button></div>
+                            }
                         </div>
                     </td>
                     <td>
