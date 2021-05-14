@@ -32,6 +32,13 @@ namespace iCollections.Data.Concrete
             return GetAll().Where(m => m.Id == collectionID).FirstOrDefault();
         }
 
+        public List<Collection> GetMostRecentCompleteiCollections(int userId, int howMany)
+        {
+            //return GetAll().Where(c => c.User.Id == userId && c.Visibility == 1).OrderByDescending(c => c.DateMade).Take(howMany).ToList();
+            //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
+            return GetAll().Where(c => c.User.Id == userId && c.Visibility == 1).Include("CollectionKeywords").Include("Keyword").OrderByDescending(c => c.DateMade).Take(howMany).ToList();
+        }
+
 
     }
 }

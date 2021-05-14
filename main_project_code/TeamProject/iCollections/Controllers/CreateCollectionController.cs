@@ -185,7 +185,8 @@ namespace iCollections.Controllers
                                 }
                             }
                         }
-                        foreach(var keyword in selectedKeywords)
+                        
+                        foreach (var keyword in selectedKeywords)
                         {
                             CollectionKeyword addingKeyword = new CollectionKeyword();
                             addingKeyword.CollectId = newCollection.Id;
@@ -231,7 +232,7 @@ namespace iCollections.Controllers
                 appUser = _userRepo.GetSessionUser(id);
             }
             //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
-            var collections = _colRepo.GetMostRecentiCollections(appUser.Id, 10);
+            var collections = _colRepo.GetMostRecentCompleteiCollections(appUser.Id, 10);
             return View(collections);
         }
     }
