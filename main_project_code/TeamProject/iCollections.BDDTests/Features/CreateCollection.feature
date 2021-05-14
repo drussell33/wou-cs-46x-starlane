@@ -9,7 +9,6 @@ Going through the process from logging in,  to publishing a newly made iCollecti
 
 
 Background:
-
 	Given the following photos exist
 	  | Id | Name           | Data               | UserId  | PhotoGuid  |
 	  | 40 |  Photo Fish 1  | new byte[] {1,2,3} | 8       | new Guid() |
@@ -41,7 +40,7 @@ Background:
 	  | 45 | Fourth Photo Bad  | 9001               | 64      | new Guid() |
 
 
-
+@ignore
 Scenario Outline: Clicking on The Create Collection button in the nav bar will direct to the environment selection page.
 	Given I am a logged in user with first name '<FirstName>'
 	When I Click Create new Collection
@@ -54,7 +53,7 @@ Scenario Outline: Clicking on The Create Collection button in the nav bar will d
 	| Hareem    | EnvironmentSelection |
 	| Krzysztof | EnvironmentSelection |
 
-
+@ignore
 Scenario Outline: Non-user cannot click on The Create Collection button in the nav bar will direct to the environment selection page.
 	Given I am a logged in user with first name '<FirstName>'
 	When I Click Create new Collection

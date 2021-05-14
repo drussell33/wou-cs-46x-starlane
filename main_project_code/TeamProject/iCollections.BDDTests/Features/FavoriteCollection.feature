@@ -7,7 +7,6 @@
 
  The process of adding a collection to 'My Favorites'
 
-
 Background:
 
 	Given the following collections exist
@@ -30,6 +29,7 @@ Given the following users exist
 	  | ZaydenC    | clark@example.com     | Zayden    | Clark    | Hello123# |
 	  | DavilaH    | hareem@example.com    | Hareem    | Davila   | Hello123# |
 	  | KrzysztofP | krzysztof@example.com | Krzysztof | Ponce    | Hello123# |
+
 	And the following users do not exist
 	  | UserName | Email               | FirstName | LastName | Password  |
 	  | AndreC   | colea@example.com   | Andre     | Cole     | 0a9dfi3.a |
@@ -52,20 +52,20 @@ Given the following FavoriteCollections exist
 
 	
 
-
+@ignore
 Scenario Outline: Clicking on the favorites button, the collection will be added to the users list if it is not already in my favorites
 	Given I am a logged in user with user name '<username>'
 	When I click on add to favorites button
 	Then the corresonping '<collections>' will be added to '<favoritescollection>'
 	  And I will be notified of it 
 	Examples:
-	| FirstName  | Collections  |favoritescollection 
-	| Taliak     | 10			|My Favorites
-	| Zaydenc    | 16			|My Favorites
-	| Davilah    | 45			|My Favorites
-	| Krzysztofp | 16			|My Favorites
+	| FirstName  | Collections  |favoritescollection |
+	| Taliak     | 10			|My Favorites|
+	| Zaydenc    | 16			|My Favorites|
+	| Davilah    | 45			|My Favorites|
+	| Krzysztofp | 16			|My Favorites|
 
-
+@ignore
 Scenario Outline: Clicking on the favorites button, if collection is already in a user's favorites list, the user must be notified of it and the collection will not be added.
 	Given I am a logged in user with user name '<username>'
 	When I click on add to favorites button
@@ -73,9 +73,9 @@ Scenario Outline: Clicking on the favorites button, if collection is already in 
 	Then the '<collections>' will not be added
 		And I will be notified
 	Examples:
-	| FirstName  | Collections  |favoritescollection 
-	| Taliak     | 10			|My Favorites
-	| Zaydenc    | 16			|My Favorites
-	| Davilah    | 45			|My Favorites
-	| Krzysztofp | 16			|My Favorites
+	| FirstName  | Collections  |favoritescollection |
+	| Taliak     | 10			|My Favorites|
+	| Zaydenc    | 16			|My Favorites|
+	| Davilah    | 45			|My Favorites|
+	| Krzysztofp | 16			|My Favorites|
 

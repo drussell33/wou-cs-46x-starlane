@@ -81,7 +81,7 @@ ALTER TABLE [Collection] ADD CONSTRAINT [Collection_fk_ICollectionUser] FOREIGN 
 
 ALTER TABLE [FavoriteCollection] ADD CONSTRAINT [FavoriteCollection_fk_ICollectionUser] FOREIGN KEY ([user_id]) REFERENCES [ICollectionUser] ([id]);
 
-ALTER TABLE [FavoriteCollection] ADD CONSTRAINT [FavoriteCollection_fk_Collection] FOREIGN KEY ([collect_id]) REFERENCES [Collection] ([id]);
+ALTER TABLE [FavoriteCollection] ADD CONSTRAINT [FavoriteCollection_fk_Collection] FOREIGN KEY ([collect_id]) REFERENCES [Collection] ([id]) ON DELETE CASCADE;
 
 ALTER TABLE [Photo] ADD CONSTRAINT [Photo_fk_ICollectionUser] FOREIGN KEY ([user_id]) REFERENCES [ICollectionUser] ([id]);
 

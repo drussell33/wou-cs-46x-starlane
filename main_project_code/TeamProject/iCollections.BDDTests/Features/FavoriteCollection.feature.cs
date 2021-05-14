@@ -81,7 +81,7 @@ namespace iCollections.BDDTests.Features
         
         public virtual void FeatureBackground()
         {
-#line 11
+#line 10
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
@@ -113,7 +113,7 @@ namespace iCollections.BDDTests.Features
                         "1",
                         "3",
                         "gallery_environment"});
-#line 13
+#line 12
  testRunner.Given("the following collections exist", ((string)(null)), table3, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -146,7 +146,7 @@ namespace iCollections.BDDTests.Features
                         "9001",
                         "666",
                         "WTFisHAPPENING!!!1!"});
-#line 20
+#line 19
  testRunner.And("the following collections do not exist", ((string)(null)), table4, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -179,7 +179,7 @@ namespace iCollections.BDDTests.Features
                         "Krzysztof",
                         "Ponce",
                         "Hello123#"});
-#line 27
+#line 26
 testRunner.Given("the following users exist", ((string)(null)), table5, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -254,16 +254,24 @@ testRunner.Given("the following FavoriteCollections exist", ((string)(null)), ta
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Clicking on the favorites button, the collection will be added to the users list " +
             "if it is not already in my favorites")]
-        [NUnit.Framework.TestCaseAttribute("Taliak", "10", null)]
-        [NUnit.Framework.TestCaseAttribute("Zaydenc", "16", null)]
-        [NUnit.Framework.TestCaseAttribute("Davilah", "45", null)]
-        [NUnit.Framework.TestCaseAttribute("Krzysztofp", "16", null)]
-        public virtual void ClickingOnTheFavoritesButtonTheCollectionWillBeAddedToTheUsersListIfItIsNotAlreadyInMyFavorites(string firstName, string collections, string[] exampleTags)
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
+        [NUnit.Framework.TestCaseAttribute("Taliak", "10", "My Favorites", null)]
+        [NUnit.Framework.TestCaseAttribute("Zaydenc", "16", "My Favorites", null)]
+        [NUnit.Framework.TestCaseAttribute("Davilah", "45", "My Favorites", null)]
+        [NUnit.Framework.TestCaseAttribute("Krzysztofp", "16", "My Favorites", null)]
+        public virtual void ClickingOnTheFavoritesButtonTheCollectionWillBeAddedToTheUsersListIfItIsNotAlreadyInMyFavorites(string firstName, string collections, string favoritescollection, string[] exampleTags)
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "ignore"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("FirstName", firstName);
             argumentsOfScenario.Add("Collections", collections);
+            argumentsOfScenario.Add("favoritescollection", favoritescollection);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on the favorites button, the collection will be added to the users list " +
                     "if it is not already in my favorites", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 56
@@ -286,7 +294,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 11
+#line 10
 this.FeatureBackground();
 #line hidden
 #line 57
@@ -296,7 +304,7 @@ this.FeatureBackground();
  testRunner.When("I click on add to favorites button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 59
- testRunner.Then("the corresonping \'<collections>\' will be added to \'<favoritescollection>\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the corresonping \'<collections>\' will be added to \'{0}\'", favoritescollection), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 60
    testRunner.And("I will be notified of it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -308,16 +316,24 @@ this.FeatureBackground();
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Clicking on the favorites button, if collection is already in a user\'s favorites " +
             "list, the user must be notified of it and the collection will not be added.")]
-        [NUnit.Framework.TestCaseAttribute("Taliak", "10", null)]
-        [NUnit.Framework.TestCaseAttribute("Zaydenc", "16", null)]
-        [NUnit.Framework.TestCaseAttribute("Davilah", "45", null)]
-        [NUnit.Framework.TestCaseAttribute("Krzysztofp", "16", null)]
-        public virtual void ClickingOnTheFavoritesButtonIfCollectionIsAlreadyInAUsersFavoritesListTheUserMustBeNotifiedOfItAndTheCollectionWillNotBeAdded_(string firstName, string collections, string[] exampleTags)
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
+        [NUnit.Framework.TestCaseAttribute("Taliak", "10", "My Favorites", null)]
+        [NUnit.Framework.TestCaseAttribute("Zaydenc", "16", "My Favorites", null)]
+        [NUnit.Framework.TestCaseAttribute("Davilah", "45", "My Favorites", null)]
+        [NUnit.Framework.TestCaseAttribute("Krzysztofp", "16", "My Favorites", null)]
+        public virtual void ClickingOnTheFavoritesButtonIfCollectionIsAlreadyInAUsersFavoritesListTheUserMustBeNotifiedOfItAndTheCollectionWillNotBeAdded_(string firstName, string collections, string favoritescollection, string[] exampleTags)
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "ignore"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("FirstName", firstName);
             argumentsOfScenario.Add("Collections", collections);
+            argumentsOfScenario.Add("favoritescollection", favoritescollection);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on the favorites button, if collection is already in a user\'s favorites " +
                     "list, the user must be notified of it and the collection will not be added.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 69
@@ -340,7 +356,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 11
+#line 10
 this.FeatureBackground();
 #line hidden
 #line 70
