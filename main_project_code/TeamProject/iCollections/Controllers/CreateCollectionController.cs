@@ -119,14 +119,14 @@ namespace iCollections.Controllers
             // figure out how to do privacy options
             string[] dropDownList = new string[] { "private", "friends", "public" };
             ViewData["Visibility"] = new SelectList(dropDownList);
-            var activeKeywords = _keywordRepo.GetAll();
-            ViewData["KeywordsAvailable"] = activeKeywords;
+            var activeKeywords = _keywordRepo.GetAll().Select(c => c.Name);
+            ViewData["KeywordsAvailable"] = new SelectList(activeKeywords); ;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description")]CreateCollectionPublishing collection, string[] selectedKeywords)
+        public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description", "SelectedKeyword")]CreateCollectionPublishing collection)
         {
             string id = _userManager.GetUserId(User);
             //IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
@@ -185,24 +185,29 @@ namespace iCollections.Controllers
                                 }
                             }
                         }
-                        
-                        foreach (var keyword in selectedKeywords)
+
+
+                        CollectionKeyword addingKeyword = new CollectionKeyword();
+                        addingKeyword.CollectId = newCollection.Id;
+                        addingKeyword.KeywordId = collection.SelectedKeyword;
+
+                        /*foreach (var keyword in selectedKeywords)
                         {
                             CollectionKeyword addingKeyword = new CollectionKeyword();
                             addingKeyword.CollectId = newCollection.Id;
                             int selectedKeywordId;
                             int.TryParse(keyword, out selectedKeywordId);
-                            addingKeyword.KeywordId = selectedKeywordId;
+                            addingKeyword.CollectId = newCollection.Id;
                             //addingKeyword.KeywordId = keyword;
                             await _collectionKeywords.AddOrUpdateAsync(addingKeyword);
-                        }
+                        }*/
 
 
 
                         //CollectionKeyword mandatoryKeyWord = new CollectionKeyword();
-                       // mandatoryKeyWord.CollectId = newCollection.Id;
-                       // mandatoryKeyWord.KeywordId = 1;
-                       // await _collectionKeywords.AddOrUpdateAsync(mandatoryKeyWord);
+                        // mandatoryKeyWord.CollectId = newCollection.Id;
+                        // mandatoryKeyWord.KeywordId = 1;
+                        // await _collectionKeywords.AddOrUpdateAsync(mandatoryKeyWord);
 
                     }
                     
@@ -215,7 +220,7 @@ namespace iCollections.Controllers
             string[] dropDownList = new string[] { "private", "friends", "public" };
             ViewData["Visibility"] = new SelectList(dropDownList);
             var activeKeywords = _keywordRepo.GetAll();
-            ViewData["KeywordsAvailable"] = activeKeywords;
+            ViewData["KeywordsAvailable"] = new SelectList(activeKeywords); ;
 
             return View("PublishingOptionsSelection", collection);
         }
@@ -233,6 +238,7 @@ namespace iCollections.Controllers
             }
             //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
             var collections = _colRepo.GetMostRecentCompleteiCollections(appUser.Id, 10);
+
             return View(collections);
         }
     }

@@ -36,7 +36,8 @@ namespace iCollections.Data.Concrete
         {
             //return GetAll().Where(c => c.User.Id == userId && c.Visibility == 1).OrderByDescending(c => c.DateMade).Take(howMany).ToList();
             //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
-            return GetAll().Where(c => c.User.Id == userId && c.Visibility == 1).Include("CollectionKeywords").Include("Keyword").OrderByDescending(c => c.DateMade).Take(howMany).ToList();
+            var collections = GetAll().Where(c => c.User.Id == userId && c.Visibility == 1).Include("CollectionKeywords").OrderByDescending(c => c.DateMade).Take(howMany).ToList();
+            return collections;
         }
 
 
