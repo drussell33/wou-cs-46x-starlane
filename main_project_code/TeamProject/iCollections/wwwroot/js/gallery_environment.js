@@ -10,7 +10,7 @@ $(document).ready(function MakeGallery() {
     var photoData = [];
     photoData = GatherPhotoData(photoData);
 
-    /*let photoDemoData = [
+    let photoDemoData = [
         { "srcData": './images/card_pics/IMG-0782.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0783.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0784.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
@@ -56,9 +56,9 @@ $(document).ready(function MakeGallery() {
         { "srcData": './images/card_pics/IMG-0827.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0828.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0829.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-    ];*/
+    ];
 
-    let photoDemoData = [
+    /*let photoDemoData = [
         { "srcData": './images/card_pics/IMG-0782.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0783.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0784.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
@@ -70,7 +70,7 @@ $(document).ready(function MakeGallery() {
         { "srcData": './images/card_pics/IMG-0790.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0791.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0792.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-    ];
+    ];*/
 
 
 
@@ -220,10 +220,10 @@ $(document).ready(function MakeGallery() {
         let wallGroup = new THREE.Group();
         scene.add(wallGroup);
 
-        let wall1 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 0.001), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-        let wall2 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 0.001), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-        let wall3 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 0.001), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-        let wall4 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 0.001), new THREE.MeshLambertMaterial({ color: 0xffffff }));
+        let wall1 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), new THREE.MeshLambertMaterial({ color: 0xffffff }));
+        let wall2 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), new THREE.MeshLambertMaterial({ color: 0xffffff }));
+        let wall3 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), new THREE.MeshLambertMaterial({ color: 0xffffff }));
+        let wall4 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), new THREE.MeshLambertMaterial({ color: 0xffffff }));
 
         wallGroup.add(wall1, wall2, wall3, wall4);
         wallGroup.position.y = 3;
@@ -294,56 +294,72 @@ $(document).ready(function MakeGallery() {
 
 
         let positionCordinateData = [
-            //Row One
-            { "xAxis": -4000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": -3000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": -2000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": -1000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": 0, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": 1000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": 2000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": 3000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": 4000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            //Row Two
-            { "xAxis": -4000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": -3000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": -2000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": -1000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": 0, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": 1000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": 2000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": 3000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": 4000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            //Row Three
-            { "xAxis": -4000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": -3000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": -2000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": -1000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": 0, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": 1000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": 2000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": 3000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": 4000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            //Row Four
-            { "xAxis": -4000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": -3000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": -2000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": -1000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": 0, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": 1000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": 2000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": 3000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": 4000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            //Row Five
-            { "xAxis": -4000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": -3000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": -2000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": -1000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": 0, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": 1000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": 2000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": 3000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": 4000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
+            //Inner Circle
+            { "xAxis": 0, "yAxis": 250, "zAxis": -1300, "yRotation": null },
+            { "xAxis": 1300, "yAxis": 250, "zAxis": 0, "yRotation": -1.57 },
+            { "xAxis": 0, "yAxis": 250, "zAxis": 1300, "yRotation": Math.PI },
+            { "xAxis": -1300, "yAxis": 250, "zAxis": 0, "yRotation": 1.57 },
+            { "xAxis": 1300, "yAxis": 250, "zAxis": -1300, "yRotation": -0.78 },
+            { "xAxis": -1300, "yAxis": 250, "zAxis": -1300, "yRotation": 0.78 },
+            { "xAxis": 1300, "yAxis": 250, "zAxis": 1300, "yRotation": 3.92 },
+            { "xAxis": -1300, "yAxis": 250, "zAxis": 1300, "yRotation": -3.92 },
+
+            //Second Layer
+            { "xAxis": 700, "yAxis": 250, "zAxis": -2300, "yRotation": null },
+            { "xAxis": -700, "yAxis": 250, "zAxis": -2300, "yRotation": null },
+            { "xAxis": 2300, "yAxis": 250, "zAxis": 700, "yRotation": -1.57 },
+            { "xAxis": 2300, "yAxis": 250, "zAxis": -700, "yRotation": -1.57 },
+            { "xAxis": 700, "yAxis": 250, "zAxis": 2300, "yRotation": Math.PI },
+            { "xAxis": -700, "yAxis": 250, "zAxis": 2300, "yRotation": Math.PI },
+            { "xAxis": -2300, "yAxis": 250, "zAxis": 700, "yRotation": 1.57 },
+            { "xAxis": -2300, "yAxis": 250, "zAxis": -700, "yRotation": 1.57 },
+            { "xAxis": 2300, "yAxis": 250, "zAxis": -2300, "yRotation": -0.78 },
+            { "xAxis": -2300, "yAxis": 250, "zAxis": -2300, "yRotation": 0.78 },
+            { "xAxis": 2300, "yAxis": 250, "zAxis": 2300, "yRotation": 3.92 },
+            { "xAxis": -2300, "yAxis": 250, "zAxis": 2300, "yRotation": -3.92 },
+
+
+            //Third Layer
+            { "xAxis": 0, "yAxis": 250, "zAxis": -3300, "yRotation": null },
+            { "xAxis": 1200, "yAxis": 250, "zAxis": -3300, "yRotation": null },
+            { "xAxis": -1200, "yAxis": 250, "zAxis": -3300, "yRotation": null },
+            { "xAxis": 2200, "yAxis": 250, "zAxis": -3300, "yRotation": null },
+            { "xAxis": -2200, "yAxis": 250, "zAxis": -3300, "yRotation": null },
+
+            { "xAxis": 3300, "yAxis": 250, "zAxis": 0, "yRotation": -1.57 },
+            { "xAxis": 3300, "yAxis": 250, "zAxis": 1200, "yRotation": -1.57 },
+            { "xAxis": 3300, "yAxis": 250, "zAxis": -1200, "yRotation": -1.57 },
+            { "xAxis": 3300, "yAxis": 250, "zAxis": 2200, "yRotation": -1.57 },
+            { "xAxis": 3300, "yAxis": 250, "zAxis": -2200, "yRotation": -1.57 },
+
+            { "xAxis": 0, "yAxis": 250, "zAxis": 3300, "yRotation": Math.PI },
+            { "xAxis": 1200, "yAxis": 250, "zAxis": 3300, "yRotation": Math.PI },
+            { "xAxis": -1200, "yAxis": 250, "zAxis": 3300, "yRotation": Math.PI },
+            { "xAxis": 2200, "yAxis": 250, "zAxis": 3300, "yRotation": Math.PI },
+            { "xAxis": -2200, "yAxis": 250, "zAxis": 3300, "yRotation": Math.PI },
+
+            { "xAxis": -3300, "yAxis": 250, "zAxis": 0, "yRotation": 1.57 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": 1200, "yRotation": 1.57 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": -1200, "yRotation": 1.57 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": 2200, "yRotation": 1.57 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": -2200, "yRotation": 1.57 },
+
+
+            { "xAxis": 3300, "yAxis": 250, "zAxis": -3300, "yRotation": -0.78 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": -3300, "yRotation": 0.78 },
+            { "xAxis": 3300, "yAxis": 250, "zAxis": 3300, "yRotation": 3.92 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": 3300, "yRotation": -3.92 },
+
+            //Fourth Layer
+            { "xAxis": 0, "yAxis": 250, "zAxis": -4300, "yRotation": null },
+            { "xAxis": 4300, "yAxis": 250, "zAxis": 0, "yRotation": -1.57 },
+            { "xAxis": 0, "yAxis": 250, "zAxis": 4300, "yRotation": Math.PI },
+            { "xAxis": -4300, "yAxis": 250, "zAxis": 0, "yRotation": 1.57 },
+            { "xAxis": 4300, "yAxis": 250, "zAxis": -4300, "yRotation": -0.78 },
+            { "xAxis": -4300, "yAxis": 250, "zAxis": -4300, "yRotation": 0.78 },
+            { "xAxis": 4300, "yAxis": 250, "zAxis": 4300, "yRotation": 3.92 },
+            { "xAxis": -4300, "yAxis": 250, "zAxis": 4300, "yRotation": -3.92 },
+
         ];
 
 
