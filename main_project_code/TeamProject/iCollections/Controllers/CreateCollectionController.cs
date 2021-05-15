@@ -119,8 +119,8 @@ namespace iCollections.Controllers
             // figure out how to do privacy options
             string[] dropDownList = new string[] { "private", "friends", "public" };
             ViewData["Visibility"] = new SelectList(dropDownList);
-            var activeKeywords = _keywordRepo.GetAll().Select(c => c.Name);
-            ViewData["KeywordsAvailable"] = new SelectList(activeKeywords); ;
+            var activeKeywords = _keywordRepo.GetAll();
+            ViewData["KeywordsAvailable"] = new SelectList(activeKeywords, "Id", "Name");
             return View();
         }
 
@@ -190,24 +190,7 @@ namespace iCollections.Controllers
                         CollectionKeyword addingKeyword = new CollectionKeyword();
                         addingKeyword.CollectId = newCollection.Id;
                         addingKeyword.KeywordId = collection.SelectedKeyword;
-
-                        /*foreach (var keyword in selectedKeywords)
-                        {
-                            CollectionKeyword addingKeyword = new CollectionKeyword();
-                            addingKeyword.CollectId = newCollection.Id;
-                            int selectedKeywordId;
-                            int.TryParse(keyword, out selectedKeywordId);
-                            addingKeyword.CollectId = newCollection.Id;
-                            //addingKeyword.KeywordId = keyword;
-                            await _collectionKeywords.AddOrUpdateAsync(addingKeyword);
-                        }*/
-
-
-
-                        //CollectionKeyword mandatoryKeyWord = new CollectionKeyword();
-                        // mandatoryKeyWord.CollectId = newCollection.Id;
-                        // mandatoryKeyWord.KeywordId = 1;
-                        // await _collectionKeywords.AddOrUpdateAsync(mandatoryKeyWord);
+                        await _collectionKeywords.AddOrUpdateAsync(addingKeyword);
 
                     }
                     
@@ -220,7 +203,7 @@ namespace iCollections.Controllers
             string[] dropDownList = new string[] { "private", "friends", "public" };
             ViewData["Visibility"] = new SelectList(dropDownList);
             var activeKeywords = _keywordRepo.GetAll();
-            ViewData["KeywordsAvailable"] = new SelectList(activeKeywords); ;
+            ViewData["KeywordsAvailable"] = new SelectList(activeKeywords, "Id", "Name");
 
             return View("PublishingOptionsSelection", collection);
         }
@@ -237,7 +220,7 @@ namespace iCollections.Controllers
                 appUser = _userRepo.GetSessionUser(id);
             }
             //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
-            var collections = _colRepo.GetMostRecentCompleteiCollections(appUser.Id, 10);
+            var collections = _colRepo.GetMostRecentiCollections(appUser.Id, 10);
 
             return View(collections);
         }

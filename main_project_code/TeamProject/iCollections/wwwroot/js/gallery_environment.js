@@ -10,7 +10,7 @@ $(document).ready(function MakeGallery() {
     var photoData = [];
     photoData = GatherPhotoData(photoData);
 
-    let photoDemoData = [
+    /*let photoDemoData = [
         { "srcData": './images/card_pics/IMG-0782.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0783.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0784.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
@@ -56,7 +56,27 @@ $(document).ready(function MakeGallery() {
         { "srcData": './images/card_pics/IMG-0827.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0828.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0829.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+    ];*/
+
+    let photoDemoData = [
+        { "srcData": './images/card_pics/IMG-0782.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0783.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0784.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0785.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0786.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0787.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0788.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0789.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0790.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0791.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/card_pics/IMG-0792.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
     ];
+
+
+
+
+
+
 
     if (photoData.length === 0) {
         console.log("Photo Data is NUll")

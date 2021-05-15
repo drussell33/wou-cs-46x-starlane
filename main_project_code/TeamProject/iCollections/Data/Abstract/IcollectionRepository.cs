@@ -11,7 +11,5 @@ namespace iCollections.Data.Abstract
         List<Collection> GetICollectionsForThisUser(int userId);
 
         Collection GetCollectionById(int collectionID);
-
-        public List<Collection> GetMostRecentCompleteiCollections(int userId, int howMany);
     }
 }
