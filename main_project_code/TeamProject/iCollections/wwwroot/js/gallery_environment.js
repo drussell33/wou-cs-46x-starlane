@@ -85,7 +85,7 @@ $(document).ready(function MakeGallery() {
 
 
     let camera, scene, renderer, controls, container;
-    let floorMat;
+    let floorMat, wallMat;
 
     const objects = [];
 
@@ -215,33 +215,6 @@ $(document).ready(function MakeGallery() {
         raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10);
 
 
-        // Testing Walls group creation
-
-        let wallGroup = new THREE.Group();
-        scene.add(wallGroup);
-
-        let wall1 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-        let wall2 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-        let wall3 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-        let wall4 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-
-        wallGroup.add(wall1, wall2, wall3, wall4);
-        wallGroup.position.y = 3;
-
-        wall1.position.z = -5000;
-        wall2.position.x = -5000;
-        wall2.rotation.y = Math.PI / 2;
-        wall3.position.x = 5000;
-        wall3.rotation.y = -Math.PI / 2;
-        wall4.position.z = 5000;
-        wall4.rotation.y = Math.PI;
-
-        for (var i = 0; i < wallGroup.children.length; i++) {
-            wallGroup.children[i].BBox = new THREE.Box3();
-            wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]);
-        }
-
-
 
         // Hardwood floor replacement 
 
@@ -293,6 +266,112 @@ $(document).ready(function MakeGallery() {
 
 
 
+        // Testing Walls group creation
+
+
+        wallMat = new THREE.MeshStandardMaterial({
+            roughness: 0.7,
+            color: 0xffffff,
+            bumpScale: 0.002,
+            metalness: 0.2
+        });
+        textureLoader.load("images/textures/brick_diffuse.jpg", function (map) {
+
+            map.wrapS = THREE.RepeatWrapping;
+            map.wrapT = THREE.RepeatWrapping;
+            map.anisotropy = 4;
+            map.repeat.set(7, 4);
+            map.encoding = THREE.sRGBEncoding;
+            wallMat.map = map;
+            wallMat.needsUpdate = true;
+
+        });
+        textureLoader.load("images/textures/brick_bump.jpg", function (map) {
+
+            map.wrapS = THREE.RepeatWrapping;
+            map.wrapT = THREE.RepeatWrapping;
+            map.anisotropy = 4;
+            map.repeat.set(7, 4);
+            wallMat.bumpMap = map;
+            wallMat.needsUpdate = true;
+
+        });
+
+        //const boxGeometry = new THREE.BoxGeometry(10000, 2000, 500);
+        //const boxMesh = new THREE.Mesh(boxGeometry, wallMat);
+       // boxMesh.position.set(10000, 2000, -500);
+       // scene.add(boxMesh);
+
+        let wallGroup = new THREE.Group();
+        scene.add(wallGroup);
+
+        let wall1 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), wallMat);
+        let wall2 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), wallMat);
+        let wall3 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), wallMat);
+        let wall4 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), wallMat);
+
+        wallGroup.add(wall1, wall2, wall3, wall4);
+        wallGroup.position.y = 3;
+
+        wall1.position.z = -5000;
+        wall2.position.x = -5000;
+        wall2.rotation.y = Math.PI / 2;
+        wall3.position.x = 5000;
+        wall3.rotation.y = -Math.PI / 2;
+        wall4.position.z = 5000;
+        wall4.rotation.y = Math.PI;
+
+        for (var i = 0; i < wallGroup.children.length; i++) {
+            wallGroup.children[i].BBox = new THREE.Box3();
+            wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]);
+        }
+
+
+        //Brick Wall Replacement
+
+        /*let wallGeometry = new THREE.BoxGeometry(10000, 2000, 1);
+        //wallGeometry.position.z = -5000;
+
+        wallMat = new THREE.MeshStandardMaterial({
+            roughness: 0.7,
+            color: 0xffffff,
+            bumpScale: 0.002,
+            metalness: 0.2
+        });
+        textureLoader.load("images/textures/brick_diffuse.jpg", function (map) {
+
+            map.wrapS = THREE.RepeatWrapping;
+            map.wrapT = THREE.RepeatWrapping;
+            map.anisotropy = 4;
+            map.repeat.set(1, 1);
+            map.encoding = THREE.sRGBEncoding;
+            wallMat.map = map;
+            wallMat.needsUpdate = true;
+
+        });
+        textureLoader.load("images/textures/brick_bump.jpg", function (map) {
+
+            map.wrapS = THREE.RepeatWrapping;
+            map.wrapT = THREE.RepeatWrapping;
+            map.anisotropy = 4;
+            map.repeat.set(1, 1);
+            wallMat.bumpMap = map;
+            wallMat.needsUpdate = true;
+
+        });
+
+        //const walldemo = new THREE.Mesh(wallGeometry, wallMat);
+        //scene.add(walldemo);
+        const boxMesh = new THREE.Mesh(wallGeometry, wallMat);
+        boxMesh.position.set(- 0.5, 0.25, - 1);
+        boxMesh.castShadow = true;
+        scene.add(boxMesh);*/
+
+        
+
+
+
+        //Photo locations 
         let positionCordinateData = [
             //Inner Circle
             { "xAxis": 0, "yAxis": 250, "zAxis": -1300, "yRotation": null },
