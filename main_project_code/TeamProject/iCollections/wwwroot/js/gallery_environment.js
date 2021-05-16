@@ -98,23 +98,6 @@ $(document).ready(function MakeGallery() {
         { "srcData": './images/card_pics/IMG-0829.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
     ];*/
 
-    /*let photoDemoData = [
-        { "srcData": './images/card_pics/IMG-0782.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0783.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0784.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0785.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0786.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0787.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0788.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0789.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0790.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0791.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-        { "srcData": './images/card_pics/IMG-0792.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-    ];*/
-
-
-
-
 
 
 
@@ -176,15 +159,6 @@ $(document).ready(function MakeGallery() {
         var cube = new THREE.Mesh(nightGeometry, cubeMaterial);
         cube.position.y = 2000;
         scene.add(cube);
-
-        // lighting
-        //var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.3);
-       // scene.add(ambientLight);
-
-
-
-
-
 
 
         // Creates the event liseners for the pointerlock controls and key / mouse functions
@@ -333,7 +307,7 @@ $(document).ready(function MakeGallery() {
 
 
 
-        // Testing Walls group creation
+        // Brick Wall Replacement
 
 
         wallMat = new THREE.MeshStandardMaterial({
@@ -364,10 +338,6 @@ $(document).ready(function MakeGallery() {
 
         });
 
-        //const boxGeometry = new THREE.BoxGeometry(10000, 2000, 500);
-        //const boxMesh = new THREE.Mesh(boxGeometry, wallMat);
-       // boxMesh.position.set(10000, 2000, -500);
-       // scene.add(boxMesh);
 
         let wallGroup = new THREE.Group();
         scene.add(wallGroup);
@@ -394,51 +364,10 @@ $(document).ready(function MakeGallery() {
         }
 
 
-        //Brick Wall Replacement
-
-        /*let wallGeometry = new THREE.BoxGeometry(10000, 2000, 1);
-        //wallGeometry.position.z = -5000;
-
-        wallMat = new THREE.MeshStandardMaterial({
-            roughness: 0.7,
-            color: 0xffffff,
-            bumpScale: 0.002,
-            metalness: 0.2
-        });
-        textureLoader.load("images/textures/brick_diffuse.jpg", function (map) {
-
-            map.wrapS = THREE.RepeatWrapping;
-            map.wrapT = THREE.RepeatWrapping;
-            map.anisotropy = 4;
-            map.repeat.set(1, 1);
-            map.encoding = THREE.sRGBEncoding;
-            wallMat.map = map;
-            wallMat.needsUpdate = true;
-
-        });
-        textureLoader.load("images/textures/brick_bump.jpg", function (map) {
-
-            map.wrapS = THREE.RepeatWrapping;
-            map.wrapT = THREE.RepeatWrapping;
-            map.anisotropy = 4;
-            map.repeat.set(1, 1);
-            wallMat.bumpMap = map;
-            wallMat.needsUpdate = true;
-
-        });
-
-        //const walldemo = new THREE.Mesh(wallGeometry, wallMat);
-        //scene.add(walldemo);
-        const boxMesh = new THREE.Mesh(wallGeometry, wallMat);
-        boxMesh.position.set(- 0.5, 0.25, - 1);
-        boxMesh.castShadow = true;
-        scene.add(boxMesh);*/
-
-        
-
-
 
         //Photo locations 
+
+
         let positionCordinateData = [
             //Inner Circle
             { "xAxis": 0, "yAxis": 250, "zAxis": -1300, "yRotation": null },
