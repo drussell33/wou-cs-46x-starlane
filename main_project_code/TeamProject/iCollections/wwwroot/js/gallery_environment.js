@@ -113,12 +113,39 @@ $(document).ready(function MakeGallery() {
         //basic scene attributes
         scene = new THREE.Scene();
         scene.background = new THREE.Color(0xcce0ff);
-        scene.fog = new THREE.Fog(0xffffff, 500, 10000);
+        //scene.fog = new THREE.Fog(0xffffff, 500, 10000);
 
         //General light source
         const light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75);
         light.position.set(0.5, 1, 0.75);
         scene.add(light);
+
+        // Skybox
+
+        var nightGeometry = new THREE.BoxGeometry(20000, 20000, 20000);
+        var cubeMaterials = [
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("images/night_skybox/nightsky_ft.png"), side: THREE.DoubleSide }), //front side
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('images/night_skybox/nightsky_bk.png'), side: THREE.DoubleSide }), //back side
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('images/night_skybox/nightsky_up.png'), side: THREE.DoubleSide }), //up side
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('images/night_skybox/nightsky_dn.png'), side: THREE.DoubleSide }), //down side
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('images/night_skybox/nightsky_rt.png'), side: THREE.DoubleSide }), //right side
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('images/night_skybox/nightsky_lf.png'), side: THREE.DoubleSide }) //left side
+        ];
+
+        var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
+        var cube = new THREE.Mesh(nightGeometry, cubeMaterial);
+        cube.position.y = 2000;
+        scene.add(cube);
+
+        // lighting
+        //var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.3);
+       // scene.add(ambientLight);
+
+
+
+
+
+
 
         // Creates the event liseners for the pointerlock controls and key / mouse functions
         controls = new PointerLockControls(camera, document.body);
@@ -218,7 +245,7 @@ $(document).ready(function MakeGallery() {
 
         // Hardwood floor replacement 
 
-        let floorGeometry = new THREE.PlaneGeometry(10000, 10000);
+        let floorGeometry = new THREE.PlaneGeometry(9000, 9000);
         floorGeometry.rotateX(- Math.PI / 2);
 
         floorMat = new THREE.MeshStandardMaterial({
@@ -305,20 +332,20 @@ $(document).ready(function MakeGallery() {
         let wallGroup = new THREE.Group();
         scene.add(wallGroup);
 
-        let wall1 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), wallMat);
-        let wall2 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), wallMat);
-        let wall3 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), wallMat);
-        let wall4 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 1), wallMat);
+        let wall1 = new THREE.Mesh(new THREE.BoxGeometry(9000, 2000, 1), wallMat);
+        let wall2 = new THREE.Mesh(new THREE.BoxGeometry(9000, 2000, 1), wallMat);
+        let wall3 = new THREE.Mesh(new THREE.BoxGeometry(9000, 2000, 1), wallMat);
+        let wall4 = new THREE.Mesh(new THREE.BoxGeometry(9000, 2000, 1), wallMat);
 
         wallGroup.add(wall1, wall2, wall3, wall4);
         wallGroup.position.y = 3;
 
-        wall1.position.z = -5000;
-        wall2.position.x = -5000;
+        wall1.position.z = -4500;
+        wall2.position.x = -4500;
         wall2.rotation.y = Math.PI / 2;
-        wall3.position.x = 5000;
+        wall3.position.x = 4500;
         wall3.rotation.y = -Math.PI / 2;
-        wall4.position.z = 5000;
+        wall4.position.z = 4500;
         wall4.rotation.y = Math.PI;
 
         for (var i = 0; i < wallGroup.children.length; i++) {
