@@ -34,6 +34,10 @@ namespace Fuji.BDDTests.Hooks
             //FirefoxDriver driver = new FirefoxDriver("C:\\Users\\morses", options);
             FirefoxDriver driver = new FirefoxDriver(options);
 
+            //ChromeOptions options = new ChromeOptions();
+            //options.AcceptInsecureCertificates = true;
+            //ChromeDriver driver = new ChromeDriver(options);
+
             // Make 'driver' available for DI
             container.RegisterInstanceAs<IWebDriver>(driver);
         }

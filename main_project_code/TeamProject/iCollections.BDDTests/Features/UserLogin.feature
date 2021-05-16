@@ -1,4 +1,4 @@
-﻿Feature: UserLogin
+﻿Feature: User Logins
 **As a registered user I would like to be able to login so I may be able to have a customized experience.**
 
 This feature ensures that users who have previously registered can successfully login and see a personalized message
@@ -14,16 +14,15 @@ To generate living documentation, create a Documentation folder and then run one
 Background:
 	Given the following users exist
 	  | UserName   | Email                 | FirstName | LastName | Password  |
-	  | TaliaK     | knott@example.com     | Talia     | Knott    | Hello123# |
-	  | ZaydenC    | clark@example.com     | Zayden    | Clark    | Hello123# |
-	  | DavilaH    | hareem@example.com    | Hareem    | Davila   | Hello123# |
-	  | KrzysztofP | krzysztof@example.com | Krzysztof | Ponce    | Hello123# |
+	  | TaliaK     | knott@example.com     | Talia     | Knott    | Abcd987?6 |
+	  | ZaydenC    | clark@example.com     | Zayden    | Clark    | Abcd987?6 |
+	  | DavilaH    | hareem@example.com    | Hareem    | Davila   | Abcd987?6 |
+	  | KrzysztofP | krzysztof@example.com | Krzysztof | Ponce    | Abcd987?6 |
 	And the following users do not exist
 	  | UserName | Email               | FirstName | LastName | Password  |
 	  | AndreC   | colea@example.com   | Andre     | Cole     | 0a9dfi3.a |
 	  | JoannaV  | valdezJ@example.com | Joanna    | Valdez   | d9u(*dsF4 |
 
-@ignore
 Scenario Outline: Existing user can login
 	Given I am a user with first name '<FirstName>'
 	When I login
@@ -37,7 +36,6 @@ Scenario Outline: Existing user can login
 	| Hareem    | Home |
 	| Krzysztof | Home |
 
-@ignore
 Scenario Outline: Non-user cannot login
 	Given I am a user with first name '<FirstName>'
 	When I login
@@ -48,7 +46,6 @@ Scenario Outline: Non-user cannot login
 	| Andre     |
 	| Joanna    |
 
-@ignore
 Scenario Outline: Non-user attempting to login is logged
 	Given I am a user with first name '<FirstName>'
 	When I login

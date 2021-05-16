@@ -72,7 +72,7 @@ Scenario Outline: Non-user cannot click on The Create Collection button in the n
 	| Joanna    |
 	| People    |
 
-
+@ignore
 Scenario Outline: On the environment selection page the user must click the checkbox of one of the environment options before clicking continue and be directed to the photo selection page. 
 	Given I am a logged in user creating a collection on the environment selection page and select the '<Checkbox>' Environment
 	When I Click the Continue button

@@ -35,7 +35,7 @@ namespace iCollections.BDDTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "HomePage", @"	This is going to test the route functions, that take in a collection id, and return a list of rending photos That will be passed through the DOM.
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "HomePage", @"	This is going to test the route functions, that take in a collection id, and return a list of rending photos That will be passed through the DOM. Yes.
 
 	Derek Russell
 	User Story ID: 177878958, Sprint 5, 2 Points.
@@ -46,7 +46,11 @@ namespace iCollections.BDDTests.Features
 	
 	Then continuing with: 
 	Derek Russell
-	User Story ID: 178035014, Sprint 6, 4 Points.", ProgrammingLanguage.CSharp, ((string[])(null)));
+	User Story ID: 178035014, Sprint 6, 4 Points.
+			The Original Form of Acceptance Criteria that is being sought after in BDD testing:
+			* As a user of this site, that clicks any link to another user's published iCollection, I would like to see the collections title on the same page as the rendered environment.
+			* As a user of this site, that clicks any link to another user's published iCollection, I would like to see the collections description on the same page as the rendered environment.
+			* As a user of this site, that clicks any link to another user's published iCollection, I would like to see the collections keywords on the same page as the rendered environment.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -86,7 +90,7 @@ namespace iCollections.BDDTests.Features
         
         public virtual void FeatureBackground()
         {
-#line 6
+#line 20
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
@@ -118,7 +122,7 @@ namespace iCollections.BDDTests.Features
                         "1",
                         "3",
                         "gallery_environment"});
-#line 9
+#line 23
  testRunner.Given("the following collections exist", ((string)(null)), table9, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
@@ -151,7 +155,7 @@ namespace iCollections.BDDTests.Features
                         "9001",
                         "666",
                         "WTFisHAPPENING!!!1!"});
-#line 17
+#line 31
  testRunner.And("the following collections do not exist", ((string)(null)), table10, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
@@ -184,7 +188,7 @@ namespace iCollections.BDDTests.Features
                         "new byte[] {1,2,3}",
                         "64",
                         "new Guid()"});
-#line 25
+#line 39
  testRunner.Given("the following photos exist", ((string)(null)), table11, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
@@ -217,7 +221,7 @@ namespace iCollections.BDDTests.Features
                         "9001",
                         "64",
                         "new Guid()"});
-#line 33
+#line 47
  testRunner.And("the following photos do not exist", ((string)(null)), table12, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
@@ -255,7 +259,7 @@ namespace iCollections.BDDTests.Features
                         "1",
                         "Fourth Photo Dogs",
                         "Description4"});
-#line 41
+#line 55
  testRunner.Given("the following collectionPhotos exist", ((string)(null)), table13, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
@@ -293,7 +297,7 @@ namespace iCollections.BDDTests.Features
                         "1",
                         "Fourth Photo Dogs",
                         "Description4"});
-#line 49
+#line 63
  testRunner.And("the following collectionPhotos do not exist", ((string)(null)), table14, "And ");
 #line hidden
         }
@@ -302,9 +306,6 @@ namespace iCollections.BDDTests.Features
         [NUnit.Framework.DescriptionAttribute("Clicking on the Preview Button for the Ocean Environment on the HomePage will red" +
             "irect to the sample ocean environment page.")]
         [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
-        [NUnit.Framework.TestCaseAttribute("Ocean_environment", null)]
-        [NUnit.Framework.TestCaseAttribute("Ocean_environment", null)]
-        [NUnit.Framework.TestCaseAttribute("Ocean_environment", null)]
         [NUnit.Framework.TestCaseAttribute("Ocean_environment", null)]
         public virtual void ClickingOnThePreviewButtonForTheOceanEnvironmentOnTheHomePageWillRedirectToTheSampleOceanEnvironmentPage_(string page, string[] exampleTags)
         {
@@ -319,66 +320,6 @@ namespace iCollections.BDDTests.Features
             argumentsOfScenario.Add("Page", page);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on the Preview Button for the Ocean Environment on the HomePage will red" +
                     "irect to the sample ocean environment page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 58
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 6
-this.FeatureBackground();
-#line hidden
-#line 59
- testRunner.Given("I am on the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 60
- testRunner.When("I Click Preview Ocean Environment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 61
- testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 62
-   testRunner.And("I can see the ocean environment preview with its title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Clicking on the Preview Button for the Gallery Environment on the HomePage will r" +
-            "edirect to the sample gallery environment page.")]
-        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
-        [NUnit.Framework.TestCaseAttribute("gallery_environment", null)]
-        [NUnit.Framework.TestCaseAttribute("gallery_environment", null)]
-        [NUnit.Framework.TestCaseAttribute("gallery_environment", null)]
-        [NUnit.Framework.TestCaseAttribute("gallery_environment", null)]
-        public virtual void ClickingOnThePreviewButtonForTheGalleryEnvironmentOnTheHomePageWillRedirectToTheSampleGalleryEnvironmentPage_(string page, string[] exampleTags)
-        {
-            string[] @__tags = new string[] {
-                    "ignore"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("Page", page);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on the Preview Button for the Gallery Environment on the HomePage will r" +
-                    "edirect to the sample gallery environment page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 72
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -399,19 +340,76 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 6
+#line 20
 this.FeatureBackground();
 #line hidden
 #line 73
  testRunner.Given("I am on the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 74
- testRunner.When("I Click Preview Gallery Environment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I Click Preview Ocean Environment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 75
  testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 76
+   testRunner.And("I can see the ocean environment preview with its title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Clicking on the Preview Button for the Gallery Environment on the HomePage will r" +
+            "edirect to the sample gallery environment page.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
+        [NUnit.Framework.TestCaseAttribute("gallery_environment", null)]
+        public virtual void ClickingOnThePreviewButtonForTheGalleryEnvironmentOnTheHomePageWillRedirectToTheSampleGalleryEnvironmentPage_(string page, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "ignore"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Page", page);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on the Preview Button for the Gallery Environment on the HomePage will r" +
+                    "edirect to the sample gallery environment page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 83
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 20
+this.FeatureBackground();
+#line hidden
+#line 84
+ testRunner.Given("I am on the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 85
+ testRunner.When("I Click Preview Gallery Environment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 86
+ testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 87
    testRunner.And("I can see the gallery environment preview with its title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
