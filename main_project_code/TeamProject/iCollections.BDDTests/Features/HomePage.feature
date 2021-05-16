@@ -1,5 +1,5 @@
 ﻿Feature: HomePage
-	This is going to test the route functions, that take in a collection id, and return a list of rending photos That will be passed through the DOM.
+	This is going to test the route functions, that take in a collection id, and return a list of rending photos That will be passed through the DOM. Yes.
 
 	Derek Russell
 	User Story ID: 177878958, Sprint 5, 2 Points.
