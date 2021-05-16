@@ -11,6 +11,46 @@ $(document).ready(function MakeGallery() {
     photoData = GatherPhotoData(photoData);
 
     let photoDemoData = [
+        { "srcData": './images/puzzel_pics/image_123923953.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(1).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(2).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(3).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(4).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(5).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(6).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(7).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(8).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(9).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(10).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(11).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(12).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(13).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(14).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(15).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(16).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(17).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(18).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(19).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(20).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(21).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(22).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(23).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(24).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(25).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(26).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(27).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(28).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+
+
+    ];
+
+
+
+
+
+
+
+/*    let photoDemoData = [
         { "srcData": './images/card_pics/IMG-0782.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0783.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0784.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
@@ -56,7 +96,7 @@ $(document).ready(function MakeGallery() {
         { "srcData": './images/card_pics/IMG-0827.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0828.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0829.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-    ];
+    ];*/
 
     /*let photoDemoData = [
         { "srcData": './images/card_pics/IMG-0782.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
