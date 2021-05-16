@@ -20,25 +20,23 @@ namespace iCollections.BDDTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Organize dashboard events")]
-    public partial class OrganizeDashboardEventsFeature
+    [NUnit.Framework.DescriptionAttribute("PublicICollections")]
+    public partial class PublicICollectionsFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "OrganizeDashboard.feature"
+#line 1 "PublicICollections.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Organize dashboard events", @"	This feature is setting up a dashboard page that organizes the events
-    (events are his followees and friends' icollections posted, secondhand friends, and who his followees have followed)
-    so that the most recent events are towards the top of the page and the earlier ones are towards the bottom
-    of the page. Baltazar Ortiz #177922126", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "PublicICollections", "Baltazar Ortiz #178115988\nBeing able to see registered users public iCollections." +
+                    "\nPublic iCollections can be viewed via the profile page.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,18 +74,26 @@ namespace iCollections.BDDTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("When a user does not follow nor is friends with another user, then there will be " +
-            "no events to show.")]
-        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
-        public virtual void WhenAUserDoesNotFollowNorIsFriendsWithAnotherUserThenThereWillBeNoEventsToShow_()
+        public virtual void FeatureBackground()
         {
-            string[] tagsOfScenario = new string[] {
-                    "ignore"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When a user does not follow nor is friends with another user, then there will be " +
-                    "no events to show.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 7
+#line hidden
 #line 8
+    testRunner.Given("I am in the profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("General public can view iCollections for a registered user")]
+        [NUnit.Framework.TestCaseAttribute("iCollections", null)]
+        [NUnit.Framework.TestCaseAttribute("Show all", null)]
+        public virtual void GeneralPublicCanViewICollectionsForARegisteredUser(string link, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Link", link);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("General public can view iCollections for a registered user", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 10
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -107,34 +113,33 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 9
-    testRunner.Given("a user does not follow anybody", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 10
-    testRunner.And("is not friends with another app user (no events)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 7
+this.FeatureBackground();
 #line hidden
 #line 11
-    testRunner.When("he goes to the dashboard", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("the user has iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 12
-    testRunner.Then("the dashboard will say \"No events yet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.When(string.Format("I click on the {0}", link), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 13
+    testRunner.Then("I can see a registered user\'s public iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Users that have activity on their dashboard get it displayed in an organized mann" +
-            "er.")]
-        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
-        public virtual void UsersThatHaveActivityOnTheirDashboardGetItDisplayedInAnOrganizedManner_()
+        [NUnit.Framework.DescriptionAttribute("General public cannot see iCollections if registered user does not have any")]
+        [NUnit.Framework.TestCaseAttribute("iCollections", null)]
+        [NUnit.Framework.TestCaseAttribute("Show all", null)]
+        public virtual void GeneralPublicCannotSeeICollectionsIfRegisteredUserDoesNotHaveAny(string link, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "ignore"};
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Users that have activity on their dashboard get it displayed in an organized mann" +
-                    "er.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 15
+            argumentsOfScenario.Add("Link", link);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("General public cannot see iCollections if registered user does not have any", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 19
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -154,14 +159,17 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 16
-    testRunner.Given("a user has events", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 7
+this.FeatureBackground();
 #line hidden
-#line 17
-    testRunner.When("he goes to the dashboard", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 20
+    testRunner.Given("the user has no iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 18
-    testRunner.Then("the dashboard will display at most 15 events in chronological order descending", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 21
+    testRunner.When(string.Format("I click on the {0}", link), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 22
+    testRunner.Then("no public iCollections show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

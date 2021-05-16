@@ -82,9 +82,11 @@ Going through the process from logging in, to publishing a newly made iCollectio
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("I will find a setting on the my collection page that corresponds to collection vi" +
             "sibility for each of my collections.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         public virtual void IWillFindASettingOnTheMyCollectionPageThatCorrespondsToCollectionVisibilityForEachOfMyCollections_()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("I will find a setting on the my collection page that corresponds to collection vi" +
                     "sibility for each of my collections.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
@@ -125,9 +127,11 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("If I am a user who has collections that are set to private, I will not be able to" +
             " find those collections on public pages.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         public virtual void IfIAmAUserWhoHasCollectionsThatAreSetToPrivateIWillNotBeAbleToFindThoseCollectionsOnPublicPages_()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("If I am a user who has collections that are set to private, I will not be able to" +
                     " find those collections on public pages.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
@@ -167,13 +171,15 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("If I am a visitor or user who has accessed a public page, I should not be able to" +
             " find any user collections that have been set to private.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         public virtual void IfIAmAVisitorOrUserWhoHasAccessedAPublicPageIShouldNotBeAbleToFindAnyUserCollectionsThatHaveBeenSetToPrivate_()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("If I am a visitor or user who has accessed a public page, I should not be able to" +
                     " find any user collections that have been set to private.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 22
+#line 23
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -193,14 +199,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 23
+#line 24
  testRunner.Given("I am a visitor or user of the site and have navigated to a page on the site that " +
                         "display public collections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 24
+#line 25
  testRunner.When("I browse though any of the collections displayed on those pages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 25
+#line 26
  testRunner.Then("I will not any collectoins a user has set to private.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

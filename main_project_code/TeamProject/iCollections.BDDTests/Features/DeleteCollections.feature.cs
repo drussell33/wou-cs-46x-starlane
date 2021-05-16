@@ -77,12 +77,14 @@ namespace iCollections.BDDTests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User with no collections plans gets shown that he does not have collections.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         public virtual void UserWithNoCollectionsPlansGetsShownThatHeDoesNotHaveCollections_()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User with no collections plans gets shown that he does not have collections.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 6
+#line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -102,13 +104,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
+#line 8
     testRunner.Given("when a user has no iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 8
+#line 9
     testRunner.When("he goes to the page showing the list of his collections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 9
+#line 10
     testRunner.Then("it will say something like \"No collections for this user\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -118,13 +120,15 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("The user who has published collections has a delete button to choose which collec" +
             "tion he or she wants to delete")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         public virtual void TheUserWhoHasPublishedCollectionsHasADeleteButtonToChooseWhichCollectionHeOrSheWantsToDelete()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The user who has published collections has a delete button to choose which collec" +
                     "tion he or she wants to delete", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 11
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -144,13 +148,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 12
+#line 14
     testRunner.Given("when a user has iCollection(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 13
+#line 15
     testRunner.When("he goes to the page showing the list of his collection(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 14
+#line 16
     testRunner.Then("the collection names will be shown in a table and each row will have a red delete" +
                         " button called \"Delete\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -161,13 +165,15 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("The user clicks on the delete button when viewing his collections and goes to a c" +
             "onfirmation page.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         public virtual void TheUserClicksOnTheDeleteButtonWhenViewingHisCollectionsAndGoesToAConfirmationPage_()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The user clicks on the delete button when viewing his collections and goes to a c" +
                     "onfirmation page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 16
+#line 19
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -187,16 +193,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 17
+#line 20
     testRunner.Given("the user has iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 18
+#line 21
     testRunner.And("is in the page showing his list of icollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 19
+#line 22
     testRunner.When("he clicks the delete button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 20
+#line 23
     testRunner.Then("he will go to a confirmation page showing the icollection information of the icol" +
                         "lection he wants to delete along with one button that says \"Cancel\" and another " +
                         "that says \"Delete this iCollection\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -208,13 +214,15 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("The user clicks the cancel button when on the delete [collection name] confirmati" +
             "on page.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         public virtual void TheUserClicksTheCancelButtonWhenOnTheDeleteCollectionNameConfirmationPage_()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The user clicks the cancel button when on the delete [collection name] confirmati" +
                     "on page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 22
+#line 26
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -234,13 +242,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 23
+#line 27
     testRunner.Given("the user is in the confirmation page of his icollection he wants to delete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 24
+#line 28
     testRunner.When("he presses the \"cancel\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 25
+#line 29
     testRunner.Then("he goes to the page showing the list of his collection(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -249,53 +257,13 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("The user confirms they want to delete their collection and getting redirected.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         public virtual void TheUserConfirmsTheyWantToDeleteTheirCollectionAndGettingRedirected_()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The user confirms they want to delete their collection and getting redirected.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 27
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 28
-    testRunner.Given("the user is in the confirmation page of his icollection he wants to delete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 29
-    testRunner.When("he presses the \"Delete this iCollection\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 30
-    testRunner.Then("the user will be directed back to the display iCollections page and there will be" +
-                        " a message that says, \"[name of deleted collection] deleted\", the selected iColl" +
-                        "ection will be deleted by the app and will not show up on display page anymore", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Another user gets a 404 error when trying to delete another user\'s icollection.")]
-        public virtual void AnotherUserGetsA404ErrorWhenTryingToDeleteAnotherUsersIcollection_()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Another user gets a 404 error when trying to delete another user\'s icollection.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -317,15 +285,59 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 33
-    testRunner.Given("a user is not the owner of a certain iCollection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("the user is in the confirmation page of his icollection he wants to delete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 34
-    testRunner.And("is on the page showing another user\'s icollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.When("he presses the \"Delete this iCollection\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 35
+    testRunner.Then("the user will be directed back to the display iCollections page and there will be" +
+                        " a message that says, \"[name of deleted collection] deleted\", the selected iColl" +
+                        "ection will be deleted by the app and will not show up on display page anymore", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Another user gets a 404 error when trying to delete another user\'s icollection.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
+        public virtual void AnotherUserGetsA404ErrorWhenTryingToDeleteAnotherUsersIcollection_()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Another user gets a 404 error when trying to delete another user\'s icollection.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 38
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 39
+    testRunner.Given("a user is not the owner of a certain iCollection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 40
+    testRunner.And("is on the page showing another user\'s icollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 41
     testRunner.When("he presses the Delete button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 36
+#line 42
     testRunner.Then("he will get redirected to an error page showing 404 error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
