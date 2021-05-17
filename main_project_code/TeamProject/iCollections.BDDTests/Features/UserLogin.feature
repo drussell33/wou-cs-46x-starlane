@@ -28,13 +28,13 @@ Scenario Outline: Existing user can login
 	When I login
 #	Then I am redirected to '<Url>'
 	Then I am redirected to the '<Page>' page
-	  And I can see a personalized message in the navbar that includes my email
+	#  And I can see a personalized message in the navbar that includes my email
 	Examples:
 	| FirstName | Page |
-	| Talia     | Home |
-	| Zayden    | Home |
-	| Hareem    | Home |
-	| Krzysztof | Home |
+	| Talia     | Dashboard |
+	| Zayden    | Dashboard |
+	| Hareem    | Dashboard |
+	| Krzysztof | Dashboard |
 
 Scenario Outline: Non-user cannot login
 	Given I am a user with first name '<FirstName>'

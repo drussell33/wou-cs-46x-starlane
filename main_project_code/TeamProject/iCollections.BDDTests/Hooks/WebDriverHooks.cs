@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
-namespace Fuji.BDDTests.Hooks
+namespace iCollections.BDDTests.Hooks
 {
     // Use DI to solve the problem of each step definition class needing to create/use
     // the same copy of the web driver, i.e. we need to share it since it represents the same browser session.

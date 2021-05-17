@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\Calculator - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\HomePage - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\UserLogin.feature.cs" />
   </ItemGroup>
 
@@ -36,6 +37,19 @@
     <Folder Include="Drivers\" />
     <Folder Include="Hooks\" />
     <Folder Include="Documentation\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Features\HomePageBetter.feature.cs">
+      <DependentUpon>HomePageBetter.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\HomePageBetter.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
   </ItemGroup>
 
 </Project>

@@ -305,18 +305,13 @@ namespace iCollections.BDDTests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Clicking on the Preview Button for the Ocean Environment on the HomePage will red" +
             "irect to the sample ocean environment page.")]
-        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
-        [NUnit.Framework.TestCaseAttribute("Ocean_environment", null)]
-        public virtual void ClickingOnThePreviewButtonForTheOceanEnvironmentOnTheHomePageWillRedirectToTheSampleOceanEnvironmentPage_(string page, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("ocean_environment_preview", "ocean_environment", null)]
+        [NUnit.Framework.TestCaseAttribute("gallery_environment_preview", "gallery_environment", null)]
+        public virtual void ClickingOnThePreviewButtonForTheOceanEnvironmentOnTheHomePageWillRedirectToTheSampleOceanEnvironmentPage_(string selectedButton, string page, string[] exampleTags)
         {
-            string[] @__tags = new string[] {
-                    "ignore"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("SelectedButton", selectedButton);
             argumentsOfScenario.Add("Page", page);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on the Preview Button for the Ocean Environment on the HomePage will red" +
                     "irect to the sample ocean environment page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
@@ -347,13 +342,10 @@ this.FeatureBackground();
  testRunner.Given("I am on the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 74
- testRunner.When("I Click Preview Ocean Environment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I Click the \'{0}\' button", selectedButton), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 75
  testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 76
-   testRunner.And("I can see the ocean environment preview with its title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -377,7 +369,7 @@ this.FeatureBackground();
             argumentsOfScenario.Add("Page", page);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on the Preview Button for the Gallery Environment on the HomePage will r" +
                     "edirect to the sample gallery environment page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 83
+#line 84
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -400,16 +392,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 20
 this.FeatureBackground();
 #line hidden
-#line 84
+#line 85
  testRunner.Given("I am on the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 85
+#line 86
  testRunner.When("I Click Preview Gallery Environment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 86
+#line 87
  testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 87
+#line 88
    testRunner.And("I can see the gallery environment preview with its title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }

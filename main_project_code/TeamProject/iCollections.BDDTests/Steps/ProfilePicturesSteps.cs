@@ -23,7 +23,7 @@ namespace iCollections.BDDTests.Steps
     {
 
         private readonly ScenarioContext _ctx;
-        // private string _hostBaseName = @"https://icollections.azurewebsites.net/";
+        //private string _hostBaseName = @"https://icollections.azurewebsites.net/";
         private string _hostBaseName = @"https://localhost:5001/";
         //private string _hostBaseName = @"https://localhost:44372/";
         

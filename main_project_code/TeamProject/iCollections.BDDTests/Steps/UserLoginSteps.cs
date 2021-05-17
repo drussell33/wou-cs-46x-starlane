@@ -26,16 +26,16 @@ namespace iCollections.BDDTests.Steps
 
         private readonly ScenarioContext _ctx;
         //private Table _userTable;
-        private string _hostBaseName = @"https://localhost:44372/";//5001/";
+        private string _hostBaseName = @"https://localhost:5001/";//5001/";
         private readonly IWebDriver _driver;
 
         public UserLoginsSteps(ScenarioContext scenarioContext, IWebDriver driver)
         {
             _driver = driver;
             _ctx = scenarioContext;
-            FirefoxOptions options = new FirefoxOptions();
-            options.AcceptInsecureCertificates = true;
-            _ctx["WebDriver"] = new FirefoxDriver(options);
+            //FirefoxOptions options = new FirefoxOptions();
+            //options.AcceptInsecureCertificates = true;
+            //_ctx["WebDriver"] = new FirefoxDriver(options);
 
             //    //ChromeOptions options = new ChromeOptions();
             //    //options.AcceptInsecureCertificates = true;
@@ -73,7 +73,7 @@ namespace iCollections.BDDTests.Steps
         public void WhenILogin()
         {
             // Fetch the webdriver (this is tedious, we can make this better)
-            IWebDriver driver = (IWebDriver)_ctx["WebDriver"];
+            //IWebDriver driver = (IWebDriver)_ctx["WebDriver"];
             // Go to the login page (waits until document.readyState is "complete" (but depending on your case it may not yet be "ready")
             _driver.Navigate().GoToUrl(_hostBaseName + @"Identity/Account/Login");
             // Get username and password for the user we're currently testing, look them up in the user table
@@ -101,9 +101,17 @@ namespace iCollections.BDDTests.Steps
         public void ThenIAmRedirectedToThePage(string pageName)
         {
             //IWebDriver driver = (IWebDriver)_ctx["WebDriver"];
-            if (pageName.Equals("Home"))
+            if (pageName.Equals("Dashboard"))
             {
-                Assert.That(_driver.Url, Is.EqualTo(_hostBaseName).IgnoreCase);
+                Assert.That(_driver.Url, Is.EqualTo(_hostBaseName + @"Dashboard"));
+            }
+            if (pageName.Equals("ocean_environment"))
+            {
+                Assert.That(_driver.Url, Is.EqualTo(_hostBaseName + @"ocean_environment"));
+            }
+            if (pageName.Equals("gallery_environment"))
+            {
+                Assert.That(_driver.Url, Is.EqualTo(_hostBaseName + @"gallery_environment"));
             }
             else
             {
@@ -114,7 +122,7 @@ namespace iCollections.BDDTests.Steps
         [Then(@"I can see a personalized message in the navbar that includes my email")]
         public void ThenICanSeeAPersonalizedMessageInTheNavbarThatIncludesMyEmail()
         {
-            IWebDriver driver = (IWebDriver)_ctx["WebDriver"];
+            //IWebDriver driver = (IWebDriver)_ctx["WebDriver"];
             // Look for "Hello <email>!" in the navbar
             string firstName = (string)_ctx["FirstName"];
             IEnumerable<TestUser> users = (IEnumerable<TestUser>)_ctx["Users"];

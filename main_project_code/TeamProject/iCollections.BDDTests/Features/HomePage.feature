@@ -68,15 +68,16 @@ Background:
 	  | 83 | 16        | 48       | 1         | Fourth Photo Dogs  | Description4  |
 
 
-@ignore
+
 Scenario Outline: Clicking on the Preview Button for the Ocean Environment on the HomePage will redirect to the sample ocean environment page.
 	Given I am on the Home Page
-	When I Click Preview Ocean Environment
+	When I Click the '<SelectedButton>' button
 	Then I am redirected to the '<Page>' page
-	  And I can see the ocean environment preview with its title 
 	Examples:
-     | Page              |
-     | Ocean_environment |
+	| SelectedButton              | Page                 |
+	| ocean_environment_preview   | ocean_environment    |
+	| gallery_environment_preview | gallery_environment  |
+
 
 
 @ignore

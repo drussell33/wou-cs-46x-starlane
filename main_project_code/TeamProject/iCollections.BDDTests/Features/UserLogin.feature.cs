@@ -145,10 +145,10 @@ To generate living documentation, create a Documentation folder and then run one
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Existing user can login")]
-        [NUnit.Framework.TestCaseAttribute("Talia", "Home", null)]
-        [NUnit.Framework.TestCaseAttribute("Zayden", "Home", null)]
-        [NUnit.Framework.TestCaseAttribute("Hareem", "Home", null)]
-        [NUnit.Framework.TestCaseAttribute("Krzysztof", "Home", null)]
+        [NUnit.Framework.TestCaseAttribute("Talia", "Dashboard", null)]
+        [NUnit.Framework.TestCaseAttribute("Zayden", "Dashboard", null)]
+        [NUnit.Framework.TestCaseAttribute("Hareem", "Dashboard", null)]
+        [NUnit.Framework.TestCaseAttribute("Krzysztof", "Dashboard", null)]
         public virtual void ExistingUserCanLogin(string firstName, string page, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -187,9 +187,6 @@ this.FeatureBackground();
 #line hidden
 #line 30
  testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 31
-   testRunner.And("I can see a personalized message in the navbar that includes my email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
