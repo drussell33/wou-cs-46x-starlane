@@ -84,7 +84,7 @@ namespace iCollections.BDDTests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Clicking on the Preview Button for the Ocean Environment on the HomePage will red" +
             "irect to the sample ocean environment page.")]
-        [NUnit.Framework.TestCaseAttribute("ocean_environment_preview", "Ocean_environment", null)]
+        [NUnit.Framework.TestCaseAttribute("ocean_environment_preview", "ocean_environment", null)]
         [NUnit.Framework.TestCaseAttribute("gallery_environment_preview", "gallery_environment", null)]
         public virtual void ClickingOnThePreviewButtonForTheOceanEnvironmentOnTheHomePageWillRedirectToTheSampleOceanEnvironmentPage_(string selectedButton, string page, string[] exampleTags)
         {

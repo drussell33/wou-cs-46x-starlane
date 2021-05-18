@@ -15,5 +15,5 @@ Scenario Outline: Clicking on the Preview Button for the Ocean Environment on th
 	Then I am redirected to the '<Page>' page
 	Examples:
 	| SelectedButton              | Page                 |
-	| ocean_environment_preview   | Ocean_environment    |
+	| ocean_environment_preview   | ocean_environment    |
 	| gallery_environment_preview | gallery_environment  |
