@@ -37,27 +37,31 @@ namespace iCollections.Controllers
 
         [Authorize]
         [HttpPost]
-        public JsonResult UploadNewPhoto(IFormFile photo, string name, int userId)
+        public IActionResult UploadNewPhoto(IFormFile photo, string name)
         {
+            string userAspId = _userManager.GetUserId(User);
+            int userId = _userRepo.GetReadableUserID(userAspId);
+            var photos = _photoRepo.GetMyPhotosInfo(userId);
             var uploader = new PhotoUploader(_photoRepo, userId);
-            uploader.UploadImage(name, photo);
-            return Json(new { success = true });
+            if (String.IsNullOrEmpty(name))
+            {
+                uploader.UploadImage(photo.FileName, photo);
+            }
+            else
+            {
+                uploader.UploadImage(name, photo);
+            }
+            return RedirectToAction("Index");
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<JsonResult> DeletePhoto(Guid photoId)
+        [Route("/api/deletePhoto")]
+        public async Task<JsonResult> DeletePhoto(string photoId)
         {
-            var photo = _photoRepo.GetPhoto(photoId);
-            await _photoRepo.DeleteAsync(photo);
+            var photo = _photoRepo.GetPhoto(Guid.Parse(photoId));
+            await _photoRepo.DeleteAsync(photo);   
             return Json(new { success = true });
         }
-
-        [Authorize]
-        public void RenamePhoto()
-        {
-
-        }
-
     }
 }

@@ -3,14 +3,14 @@ $('.pic-thumbnail').click(function (e) {
     if (e.ctrlKey) { }
     else {
         $('.selected-thumbnail').removeClass('selected-thumbnail');
-        $(this).addClass('selected-thumbnail');
+        $(this).find("img").addClass('selected-thumbnail');
     }
 });
 
 /* Set the width of the side navigation to 250px */
-function openNav() {
+$(".rename-btn").on("click", function() {
     document.getElementById("mySidenav").style.width = "250px";
-}
+})
 
 /* Set the width of the side navigation to 0 */
 function closeNav() {
@@ -18,8 +18,32 @@ function closeNav() {
     $('.selected-thumbnail').removeClass('selected-thumbnail');
 }
 
+// expand upload options
+$("#uploadNewPhoto").on("click", function () {
+    let e = $(this);
+    let item = e.siblings("div.my-hidden-object").first();
+    if (!item.is(":visible")) {
+        item.show();
+    }
+    else {
+        item.hide();
+    }
+})
+
+// expand photo options
+$(".gallery-picture").on("click", function () {
+    let e = $(this);
+    let item = e.siblings("div.my-hidden-object").first();
+    if (!item.is(":visible")) {
+        item.show();
+    }
+    else {
+        item.hide();
+    }
+})
+
 function isValidPhotoName(proposed) {
-    if (proposed == null || proposed == "") {
+    if (proposed === null || proposed === "") {
         // User cancelled the prompt -> ignore
         return false;
     }
@@ -34,23 +58,29 @@ function isValidPhotoName(proposed) {
 }
 
 // prompt user for new photo name
-function getNewPhotoName() {
-    var txt;
-    var txt = prompt("Add new photo name:");
+$("#submitRename").on("click", function () {
+    let e = $(this);
+    let input = e.prev();
+    let txt = input.val();
+    let validation = $("#filename-validation");
+
     if (!isValidPhotoName(txt)) {
-        closeNav();
+        validation.css("color", "red");
+        validation.text("Filename is not valid!");
     } else {
-        var url = $('.selected-thumbnail').find("img").first().attr('src');
-        var imageId = url.split("/").pop();
+        validation.text("");
+        let url = $('.selected-thumbnail').attr('src');
+        console.log(url);
+        let imageId = url.split("/").pop();
         sendNewPhotoName(url, imageId, txt);
     }
-}
+})
 
 // request update for new photo name
 function sendNewPhotoName(imgURL, imageId, fileName) {
     var req = $.post(imgURL, { id: imageId, fileName: fileName }, "text");
     req.done(function (data) {
-        $(".selected-thumbnail").find("h5").first().text(data);
+        $(".selected-thumbnail").next().find("h5").text(data);
         closeNav();
     });
 
@@ -60,29 +90,23 @@ function sendNewPhotoName(imgURL, imageId, fileName) {
     });
 }
 
-// When Add to Favorties button is clicked.
-fav_btns = document.getElementsByClassName("fav_btn");
-for (var i = 0; i < fav_btns.length; i++) {
-    fav_btns[i].addEventListener("click", function () {
+// delete photo
+$(".delete-btn").on("click", function () {
+    let e = $(this);
+    let hidden = e.parent();
+    let photo = hidden.siblings("img").first();
+    let container = hidden.parent().parent();
+    let address = "/api/deletePhoto";
 
-        let collection = $(this).attr('id');
-        let visiteduser = $(this).attr('value');
-        let activeuser = $(this).attr('name');
-        
-
-        let address = "/Collections/" + activeuser + "/AddFavorite";
-
-        $.ajax({
-            type: "Post",
-            dataType: "json",
-            url: address,
-            data: {
-                collection: collection,
-                visiteduser: visiteduser,
-                activeuser: activeuser
-            },
-            success: addFavorite,
-            error: errorOnAjax
-        });
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: address,
+        data: {
+            photoId: photo.attr('value')
+        },
+        success: function (data) {
+            container.remove();
+        }
     });
-}
+})

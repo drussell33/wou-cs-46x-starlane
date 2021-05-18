@@ -2,7 +2,10 @@
 
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#" onclick="getNewPhotoName()">Rename photo</a>
+    <h3>Rename photo</h3>
+    <input class="form-control rename-photo-custom-name" type="text" placeholder="Filename"/>
+    <a id="submitRename" href="#" class="btn btn-light">Go!</a>
+    <p id="filename-validation"></p>
 </div>
 
 <div class="px-lg-5">
@@ -24,11 +27,18 @@
                 <p class="lead">Photos will be displayed after you upload them.</p>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded pic-thumbnail" onclick="photoGalleryUpload()">
-                    <div class="p-4">
-                        <h5 class="text-dark">Upload New Photo</h5>
-                        <p class="small text-muted mb-0"><span class="glyphicon glyphicon-plus"></span></p>
-                    </div>
+                <div class="bg-white rounded pic-thumbnail">
+                    <form asp-action="UploadNewPhoto" enctype="multipart/form-data">
+                        <div class="p-4">
+                            <h5 id="uploadNewPhoto" class="text-dark">Upload New Photo</h5>
+                            <p class="small text-muted mb-0"><span class="glyphicon glyphicon-plus">+</span></p>
+                            <div class="form-group my-hidden-object">
+                                <input type="file" name="photo" />
+                                <input class="form-control" type="text" name="name" placeholder="Optional name" />
+                                <button class="btn btn-dark" type="submit">Upload</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -37,22 +47,35 @@
     {
         <div class="row">
             <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded pic-thumbnail" onclick="photoGalleryUpload()">
-                    <div class="p-4">
-                        <h5 class="text-dark">Upload New Photo</h5>
-                        <p class="small text-muted mb-0"><span class="glyphicon glyphicon-plus"></span></p>
-                    </div>
+                <div class="bg-white rounded pic-thumbnail">
+                    <form asp-action="UploadNewPhoto" enctype="multipart/form-data">
+                        <div class="p-4">
+                            <h5 id="uploadNewPhoto" class="text-dark">Upload New Photo</h5>
+                            <span class="glyphicon glyphicon-plus">+</span>
+                            <p class="small text-muted mb-0"></p>
+                            <div class="form-group my-hidden-object">
+                                <input type="file" name="photo" />
+                                <input class="form-control" type="text" name="name" placeholder="Optional name" />
+                                <button class="btn btn-dark" type="submit">Upload</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             @foreach (var PhotoData in Model)
             {
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded pic-thumbnail" onclick="openNav()">
-                        <img src=@PhotoData.Url alt="" class="img-fluid card-img-top">
+                    <div class="bg-white rounded pic-thumbnail">
+                        <img src=@PhotoData.Url alt="" class="img-fluid card-img-top gallery-picture" value="@PhotoData.Guid">
 
                         <div class="p-4">
                             <h5 class="text-dark">@System.IO.Path.GetFileNameWithoutExtension(PhotoData.PhotoName)</h5>
                             <p class="small text-muted mb-0"></p>
+                        </div>
+
+                        <div class="p-4 my-hidden-object">
+                            <a class="btn btn-light rename-btn">Rename</a>
+                            <a class="btn btn-danger text-light delete-btn">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -60,5 +83,3 @@
         </div>
     }
 </div>
-
-<script src="~/js/manage_photos.js" asp-append-version="true"></script>

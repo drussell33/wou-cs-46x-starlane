@@ -14,12 +14,10 @@ namespace iCollections.Controllers
 {
     public class FollowsController : Controller
     {
-        //private readonly ICollectionsDbContext _db;
         private readonly IFollowRepository _followRepo;
         private readonly IIcollectionUserRepository _userRepo;
         public FollowsController(IFollowRepository followRepo, IIcollectionUserRepository userRepo)
         {
-            //_db = context;
             _followRepo = followRepo;
             _userRepo = userRepo;
         }
@@ -27,7 +25,6 @@ namespace iCollections.Controllers
         // GET: Follows
         public async Task<IActionResult> Index()
         {
-            //var allFollows = _db.Follows.Include(f => f.FollowedNavigation).Include(f => f.FollowerNavigation);
             var allFollows = _followRepo.GetAll();
             return View(await allFollows.ToListAsync());
         }
@@ -40,10 +37,6 @@ namespace iCollections.Controllers
                 return NotFound();
             }
 
-            /*var follow = await _db.Follows
-                .Include(f => f.FollowedNavigation)
-                .Include(f => f.FollowerNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);*/
             var follow = await _followRepo.GetFollowAsync(id.Value);
             if (follow == null)
             {
@@ -70,8 +63,6 @@ namespace iCollections.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_db.Add(follow);
-                //await _db.SaveChangesAsync();
                 await _followRepo.AddOrUpdateAsync(follow);
                 return RedirectToAction(nameof(Index));
             }
@@ -88,7 +79,6 @@ namespace iCollections.Controllers
                 return NotFound();
             }
 
-            //var follow = await _db.Follows.FindAsync(id);
             var follow = await _followRepo.FindByIdAsync(id.Value);
             if (follow == null)
             {
@@ -115,8 +105,6 @@ namespace iCollections.Controllers
             {
                 try
                 {
-                    //_db.Update(follow);
-                    //await _db.SaveChangesAsync();
                     await _followRepo.AddOrUpdateAsync(follow);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -144,11 +132,6 @@ namespace iCollections.Controllers
             {
                 return NotFound();
             }
-
-            /*var follow = await _db.Follows
-                .Include(f => f.FollowedNavigation)
-                .Include(f => f.FollowerNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);*/
             var follow = await _followRepo.GetFollowAsync(id.Value);
             if (follow == null)
             {
@@ -163,17 +146,13 @@ namespace iCollections.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            //var follow = await _db.Follows.FindAsync(id);
             var follow = await _followRepo.FindByIdAsync(id);
-            //_db.Follows.Remove(follow);
-            //await _db.SaveChangesAsync();
             await _followRepo.DeleteAsync(follow);
             return RedirectToAction(nameof(Index));
         }
 
         private bool FollowExists(int id)
         {
-            //return _db.Follows.Any(e => e.Id == id);
             return _followRepo.Exists(id);
         }
 
@@ -187,22 +166,17 @@ namespace iCollections.Controllers
             {
                 return Json(new { success = false, follower = follower, followed = followed, message = "can't follow yourself" });
             }
-            //var user_1 = _db.IcollectionUsers.FirstOrDefault(x => x.Id == follower);
             var user_1 = _userRepo.GetUserById(follower);
-            //var user_2 = _db.IcollectionUsers.FirstOrDefault(x => x.Id == followed);
             var user_2 = _userRepo.GetUserById(followed);
             if (user_1 == null || user_2 == null)
             {
                 return Json(new { success = false, follower = follower, followed = followed, message = "User does not exist." });
             }
-            //if (_db.Follows.FirstOrDefault(x => x.Follower == follower && x.Followed == followed) == null)
             if (_followRepo.GetFollowLight(x => x.Follower == follower && x.Followed == followed) == null)
             {
                 var newFollow = new Follow { Follower = follower, FollowerNavigation = user_1, Followed = followed, FollowedNavigation = user_2, Began = DateTime.Now };
-                //_db.Follows.Add(newFollow);
                 try
                 {
-                    //_db.SaveChanges();
                     _followRepo.AddOrUpdate(newFollow);
                 }
                 catch (DbUpdateException dbe)
@@ -220,16 +194,10 @@ namespace iCollections.Controllers
         [Route("api/unfollow")]
         public async Task<JsonResult> Unfollow(int follower, int followed)
         {
-            /*Follow follow = _db.Follows
-                                .Include(f => f.FollowedNavigation)
-                                .Include(f => f.FollowerNavigation)
-                                .FirstOrDefault(x => x.Follower == follower && x.Followed == followed);*/
             Follow follow = _followRepo.GetFollow(x => x.Follower == follower && x.Followed == followed);
             if (follow != null)
             {
-                //_db.Follows.Remove(follow);
                 try {
-                    // _db.SaveChanges(); 
                     await _followRepo.DeleteAsync(follow);
                 }
                 catch (DbUpdateException dbe)

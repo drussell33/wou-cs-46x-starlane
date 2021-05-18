@@ -504,3 +504,7 @@ h1 {
   display: block;
 }
 
+.my-hidden-object {
+    display: none;
+}
+

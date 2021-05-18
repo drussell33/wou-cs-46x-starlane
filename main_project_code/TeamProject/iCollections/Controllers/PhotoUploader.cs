@@ -30,7 +30,7 @@ namespace iCollections.Controllers
             if (isProperImage(file.ContentType))
             {
                 Photo photo = new Photo();
-                photo.Name = (String.IsNullOrEmpty(customName)) ? file.FileName : customName;
+                photo.Name = String.IsNullOrEmpty(customName) ? file.FileName : customName;
                 MemoryStream ms = new MemoryStream();
                 file.CopyTo(ms);
                 photo.Data = ms.ToArray();
