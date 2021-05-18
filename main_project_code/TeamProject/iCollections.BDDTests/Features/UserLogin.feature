@@ -27,7 +27,7 @@ Scenario Outline: Existing user can login
 	Given I am a user with first name '<FirstName>'
 	When I login
 #	Then I am redirected to '<Url>'
-	Then I am redirected to the '<Page>' page
+#	Then I am redirected to the '<Page>' page
 	#  And I can see a personalized message in the navbar that includes my email
 	Examples:
 	| FirstName | Page |

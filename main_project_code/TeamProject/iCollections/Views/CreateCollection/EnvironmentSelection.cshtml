@@ -28,7 +28,7 @@
 
                     <div class="form-group">
                         @*<label asp-for="Route" class="control-label"></label>*@
-                        <input asp-for="Route" type="checkbox" class="form-control" value="Ocean_environment" />
+                        <input asp-for="Route" type="checkbox" class="form-control" id="ocean_environment" value="ocean_environment" />
                         <span asp-validation-for="Route" class="text-danger"></span>
                     </div>
 
@@ -40,7 +40,7 @@
                         <div class="col-6">
                             <h4>Arange a small number of photo around a central point so they can be viewed in a 360 dgree manner</h4>
                             <p>An ocean environment with a users selection of trophy fish can be previewed for an example.</p>
-                            <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Ocean_environment">Preview</a>
+                            <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="ocean_environment">Preview</a>
                         </div>
                         <div class="col-6">
                             <img src="~/img/ocean_example_thumbnail.jpg" class="landing-image" alt="2D Sample image" />
@@ -66,7 +66,7 @@
                 <div class="col-2">
                     <div class="form-group">
                         @*<label asp-for="Route" class="control-label"></label>*@
-                        <input asp-for="Route" type="checkbox" class="form-control" value="gallery_environment" data-val-required="The AcceptsTerms field is required." />
+                        <input asp-for="Route" type="checkbox" class="form-control" id="gallery_environment" value="gallery_environment" data-val-required="The AcceptsTerms field is required." />
                         <span asp-validation-for="Route" class="text-danger"></span>
                     </div>
 
@@ -89,7 +89,7 @@
     </section>
 
     <div class="form-group">
-        <input type="submit" value="Continue" class="btn btn-primary" />
+        <input id="continue_on" type="submit" value="Continue" class="btn btn-primary" />
     </div>
     @*<button type="submit" value="EnvironmentSelection" class="btn btn-primary">Continue</button>*@
 

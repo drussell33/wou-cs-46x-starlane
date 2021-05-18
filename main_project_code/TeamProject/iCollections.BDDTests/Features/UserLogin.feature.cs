@@ -87,39 +87,6 @@ To generate living documentation, create a Documentation folder and then run one
         {
 #line 14
 #line hidden
-            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
-                        "UserName",
-                        "Email",
-                        "FirstName",
-                        "LastName",
-                        "Password"});
-            table17.AddRow(new string[] {
-                        "TaliaK",
-                        "knott@example.com",
-                        "Talia",
-                        "Knott",
-                        "Abcd987?6"});
-            table17.AddRow(new string[] {
-                        "ZaydenC",
-                        "clark@example.com",
-                        "Zayden",
-                        "Clark",
-                        "Abcd987?6"});
-            table17.AddRow(new string[] {
-                        "DavilaH",
-                        "hareem@example.com",
-                        "Hareem",
-                        "Davila",
-                        "Abcd987?6"});
-            table17.AddRow(new string[] {
-                        "KrzysztofP",
-                        "krzysztof@example.com",
-                        "Krzysztof",
-                        "Ponce",
-                        "Abcd987?6"});
-#line 15
- testRunner.Given("the following users exist", ((string)(null)), table17, "Given ");
-#line hidden
             TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Email",
@@ -127,19 +94,52 @@ To generate living documentation, create a Documentation folder and then run one
                         "LastName",
                         "Password"});
             table18.AddRow(new string[] {
+                        "TaliaK",
+                        "knott@example.com",
+                        "Talia",
+                        "Knott",
+                        "Abcd987?6"});
+            table18.AddRow(new string[] {
+                        "ZaydenC",
+                        "clark@example.com",
+                        "Zayden",
+                        "Clark",
+                        "Abcd987?6"});
+            table18.AddRow(new string[] {
+                        "DavilaH",
+                        "hareem@example.com",
+                        "Hareem",
+                        "Davila",
+                        "Abcd987?6"});
+            table18.AddRow(new string[] {
+                        "KrzysztofP",
+                        "krzysztof@example.com",
+                        "Krzysztof",
+                        "Ponce",
+                        "Abcd987?6"});
+#line 15
+ testRunner.Given("the following users exist", ((string)(null)), table18, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+                        "UserName",
+                        "Email",
+                        "FirstName",
+                        "LastName",
+                        "Password"});
+            table19.AddRow(new string[] {
                         "AndreC",
                         "colea@example.com",
                         "Andre",
                         "Cole",
                         "0a9dfi3.a"});
-            table18.AddRow(new string[] {
+            table19.AddRow(new string[] {
                         "JoannaV",
                         "valdezJ@example.com",
                         "Joanna",
                         "Valdez",
                         "d9u(*dsF4"});
 #line 21
- testRunner.And("the following users do not exist", ((string)(null)), table18, "And ");
+ testRunner.And("the following users do not exist", ((string)(null)), table19, "And ");
 #line hidden
         }
         
@@ -184,9 +184,6 @@ this.FeatureBackground();
 #line hidden
 #line 28
  testRunner.When("I login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 30
- testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

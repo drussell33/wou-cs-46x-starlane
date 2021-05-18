@@ -51,7 +51,7 @@ namespace iCollections.Controllers
         }
 
         [Route("/ocean_environment")]
-        public IActionResult Ocean_environment(int? collectionID)
+        public IActionResult ocean_environment(int? collectionID)
         {
             List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
             

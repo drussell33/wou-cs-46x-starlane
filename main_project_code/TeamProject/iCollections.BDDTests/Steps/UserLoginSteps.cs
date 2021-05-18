@@ -97,7 +97,7 @@ namespace iCollections.BDDTests.Steps
 
         // -------------------------- THEN -------------------------
 
-        [Then(@"I am redirected to the '(.*)' page")]
+        /*[Then(@"I am redirected to the '(.*)' page")]
         public void ThenIAmRedirectedToThePage(string pageName)
         {
             //IWebDriver driver = (IWebDriver)_ctx["WebDriver"];
@@ -115,9 +115,9 @@ namespace iCollections.BDDTests.Steps
             }
             else
             {
-                Assert.Fail();
+                ScenarioContext.StepIsPending();
             }
-        }
+        }*/
 
         [Then(@"I can see a personalized message in the navbar that includes my email")]
         public void ThenICanSeeAPersonalizedMessageInTheNavbarThatIncludesMyEmail()
