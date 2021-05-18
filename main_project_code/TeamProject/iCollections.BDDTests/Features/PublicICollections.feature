@@ -2,26 +2,29 @@ Feature: PublicICollections
 
 Baltazar Ortiz #178115988
 Being able to see registered users public iCollections.
-Public iCollections can be viewed via the profile page.
+Public iCollections can be viewed via the profile page. Note: I am not logged in.
 
-Background:
-    Given I am in the profile page
-
-Scenario Outline: General public can view iCollections for a registered user
-	Given the user has iCollections
+Scenario Outline: General public can view iCollections for a registered user with iCollections via iCollections link
+    Given I am on '<User>' profile page
+	And the user has iCollections
     When I click on the <Link>
     Then I can see a registered user's public iCollections
     Examples:
-    | Link         |
-    | iCollections |
-    | Show all     |
+    | User          | Link          |
+    | DavilaH       | iCollections  |
+    | TaliaK        | iCollections  |
+    | ZaydenC       | iCollections  |
+    | KrzysztofP    | iCollections  |
 
-Scenario Outline: General public cannot see iCollections if registered user does not have any
-    Given the user has no iCollections
+Scenario Outline: General public can view iCollections for a registered user with iCollections via Show all link
+    Given I am on '<User>' profile page
+    And the user has iCollections
     When I click on the <Link>
-    Then no public iCollections show
+    Then I can see a registered user's public iCollections
     Examples:
-    | Link         |
-    | iCollections |
-    | Show all     |
+    | User          | Link          |
+    | DavilaH       | Show all      |
+    | TaliaK        | Show all      |
+    | ZaydenC       | Show all      |
+    | KrzysztofP    | Show all      |
 

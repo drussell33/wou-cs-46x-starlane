@@ -503,3 +503,12 @@ h1 {
   display: block;
 }
 
+.something-inside {
+  position: relative;
+}
+
+.place-at-bottom {
+  position: absolute;
+  bottom: 11px;
+}
+

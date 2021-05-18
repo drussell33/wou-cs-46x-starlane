@@ -14,9 +14,15 @@
                 asp-action="Collections">@Model.VisitedUser.FirstName's Collections</a></h1>
 
         <div class="row">
-            <div class="col-2" style="padding-right:0;">
-                @{string profilePicSource = ViewBag.ProfilePicUrl;}
-                    <img src="@profilePicSource" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+            <div class="col-2 something-inside" style="padding-right:0;">
+                @{
+                    string profilePicSource = ViewBag.ProfilePicUrl;
+                    if (profilePicSource == null)
+                    {
+                        profilePicSource = @Url.Content("~/img/default_profile_pic.jpg");
+                    }
+                    <img src="@profilePicSource" alt="..." width="130" class="rounded img-thumbnail place-at-bottom">
+                }
             </div>
             <div class="col-2" style="padding-left:0;">
                 <br />
@@ -121,7 +127,10 @@
                             <div class="col">
                                 <img src=@colls[rand.Next(6)] width="118" height="118" alt="" />
                             </div>
-                            <div class="col"><button type="button" class="btn btn-outline-primary btn-sm fav_btn" data-bs-toggle="button" id="@ck.CollectId" value="@Model.VisitedUser.UserName" name="@Model.LoggedInUser.UserName">Add to Favorites</button></div>
+                            @if (Model.LoggedInUser != null)
+                            {
+                                <div class="col"><button type="button" class="btn btn-outline-primary btn-sm fav_btn" data-bs-toggle="button" id="@ck.CollectId" value="@Model.VisitedUser.UserName" name="@Model.LoggedInUser.UserName">Add to Favorites</button></div>
+                            }
                         </div>
                     </td>
                     <td>
