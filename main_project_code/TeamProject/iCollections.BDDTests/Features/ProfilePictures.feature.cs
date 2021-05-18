@@ -20,32 +20,23 @@ namespace iCollections.BDDTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("UserLogin")]
-    public partial class UserLoginFeature
+    [NUnit.Framework.DescriptionAttribute("ProfilePictures")]
+    public partial class ProfilePicturesFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "UserLogin.feature"
+#line 1 "ProfilePictures.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "UserLogin", @"**As a registered user I would like to be able to login so I may be able to have a customized experience.**
-
-This feature ensures that users who have previously registered can successfully login and see a personalized message
-that confirms they are recognized by the application and logged in.  It also *defines* a set of seeded users for 
-future software test engineers to use when performing other kinds of tests.
-
-The steps we define here can be re-used when testing the *register* feature.
-
-To generate living documentation, create a Documentation folder and then run one of these from the project dir: 
-    `livingdoc test-assembly -t bin\Debug\net5.0\TestExecution.json -o Documentation bin\Debug\net5.0\Fuji.BDDNunitTests.dll`
-    `livingdoc feature-folder -t bin\Debug\net5.0\TestExecution.json -o Documentation .`", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "ProfilePictures", "Baltazar Ortiz #178115905\nSmall profile pictures show up when in the following pa" +
+                    "ge", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -85,85 +76,56 @@ To generate living documentation, create a Documentation folder and then run one
         
         public virtual void FeatureBackground()
         {
-#line 14
+#line 6
 #line hidden
-            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Email",
                         "FirstName",
                         "LastName",
                         "Password"});
-            table17.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "TaliaK",
                         "knott@example.com",
                         "Talia",
                         "Knott",
-                        "Hello123#"});
-            table17.AddRow(new string[] {
+                        "Abcd987?6"});
+            table15.AddRow(new string[] {
                         "ZaydenC",
                         "clark@example.com",
                         "Zayden",
                         "Clark",
-                        "Hello123#"});
-            table17.AddRow(new string[] {
+                        "Abcd987?6"});
+            table15.AddRow(new string[] {
                         "DavilaH",
                         "hareem@example.com",
                         "Hareem",
                         "Davila",
-                        "Hello123#"});
-            table17.AddRow(new string[] {
+                        "Abcd987?6"});
+            table15.AddRow(new string[] {
                         "KrzysztofP",
                         "krzysztof@example.com",
                         "Krzysztof",
                         "Ponce",
-                        "Hello123#"});
-#line 15
- testRunner.Given("the following users exist", ((string)(null)), table17, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
-                        "UserName",
-                        "Email",
-                        "FirstName",
-                        "LastName",
-                        "Password"});
-            table18.AddRow(new string[] {
-                        "AndreC",
-                        "colea@example.com",
-                        "Andre",
-                        "Cole",
-                        "0a9dfi3.a"});
-            table18.AddRow(new string[] {
-                        "JoannaV",
-                        "valdezJ@example.com",
-                        "Joanna",
-                        "Valdez",
-                        "d9u(*dsF4"});
-#line 21
- testRunner.And("the following users do not exist", ((string)(null)), table18, "And ");
+                        "Abcd987?6"});
+#line 7
+ testRunner.Given("the following users exist", ((string)(null)), table15, "Given ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Existing user can login")]
-        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
-        [NUnit.Framework.TestCaseAttribute("Talia", "Home", null)]
-        [NUnit.Framework.TestCaseAttribute("Zayden", "Home", null)]
-        [NUnit.Framework.TestCaseAttribute("Hareem", "Home", null)]
-        [NUnit.Framework.TestCaseAttribute("Krzysztof", "Home", null)]
-        public virtual void ExistingUserCanLogin(string firstName, string page, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Dashboard profile pictures show up")]
+        [NUnit.Framework.TestCaseAttribute("Talia", null)]
+        [NUnit.Framework.TestCaseAttribute("Zayden", null)]
+        [NUnit.Framework.TestCaseAttribute("Hareem", null)]
+        [NUnit.Framework.TestCaseAttribute("Krzysztof", null)]
+        public virtual void DashboardProfilePicturesShowUp(string firstName, string[] exampleTags)
         {
-            string[] @__tags = new string[] {
-                    "ignore"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("FirstName", firstName);
-            argumentsOfScenario.Add("Page", page);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Existing user can login", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 27
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dashboard profile pictures show up", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -183,43 +145,56 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 14
+#line 6
 this.FeatureBackground();
 #line hidden
-#line 28
- testRunner.Given(string.Format("I am a user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 15
+    testRunner.Given(string.Format("I am a user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 29
- testRunner.When("I login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
+    testRunner.And("I am logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 31
- testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Owner",
+                            "CollectionName"});
+                table16.AddRow(new string[] {
+                            "Hareem",
+                            "Superbad"});
+                table16.AddRow(new string[] {
+                            "Talia",
+                            "Puzzel Gallery Test"});
+                table16.AddRow(new string[] {
+                            "Talia",
+                            "My Fish"});
+                table16.AddRow(new string[] {
+                            "Talia",
+                            "My Beer"});
+#line 17
+    testRunner.And("others I follow/friends with have posted iCollections", ((string)(null)), table16, "And ");
 #line hidden
-#line 32
-   testRunner.And("I can see a personalized message in the navbar that includes my email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+    testRunner.When("I go to the \'Dashboard\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 24
+    testRunner.Then("the event will show the profile picture of the user that posted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Non-user cannot login")]
-        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
-        [NUnit.Framework.TestCaseAttribute("Andre", null)]
-        [NUnit.Framework.TestCaseAttribute("Joanna", null)]
-        public virtual void Non_UserCannotLogin(string firstName, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Following shows profile pictures")]
+        [NUnit.Framework.TestCaseAttribute("DavilaH", null)]
+        [NUnit.Framework.TestCaseAttribute("TaliaK", null)]
+        [NUnit.Framework.TestCaseAttribute("ZaydenC", null)]
+        [NUnit.Framework.TestCaseAttribute("KrzysztofP", null)]
+        public virtual void FollowingShowsProfilePictures(string user, string[] exampleTags)
         {
-            string[] @__tags = new string[] {
-                    "ignore"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("FirstName", firstName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Non-user cannot login", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 41
+            argumentsOfScenario.Add("User", user);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Following shows profile pictures", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -239,70 +214,65 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 14
+#line 6
 this.FeatureBackground();
 #line hidden
-#line 42
- testRunner.Given(string.Format("I am a user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 33
+    testRunner.Given(string.Format("I am on \'{0}\' profile page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
+#line 34
+    testRunner.When(string.Format("I go to \'{0}\' following page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 35
+    testRunner.Then("the followees profile pictures show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Followers shows profile pictures")]
+        [NUnit.Framework.TestCaseAttribute("DavilaH", null)]
+        [NUnit.Framework.TestCaseAttribute("TaliaK", null)]
+        [NUnit.Framework.TestCaseAttribute("ZaydenC", null)]
+        [NUnit.Framework.TestCaseAttribute("KrzysztofP", null)]
+        public virtual void FollowersShowsProfilePictures(string user, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("User", user);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Followers shows profile pictures", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 43
- testRunner.When("I login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 6
+this.FeatureBackground();
 #line hidden
 #line 44
- testRunner.Then("I can see a login error message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Given(string.Format("I am on \'{0}\' profile page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Non-user attempting to login is logged")]
-        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
-        [NUnit.Framework.TestCaseAttribute("Andre", null)]
-        [NUnit.Framework.TestCaseAttribute("Joanna", null)]
-        public virtual void Non_UserAttemptingToLoginIsLogged(string firstName, string[] exampleTags)
-        {
-            string[] @__tags = new string[] {
-                    "ignore"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("FirstName", firstName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Non-user attempting to login is logged", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 52
-this.ScenarioInitialize(scenarioInfo);
+#line 45
+    testRunner.When(string.Format("I go to \'{0}\' follower page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 14
-this.FeatureBackground();
-#line hidden
-#line 53
- testRunner.Given(string.Format("I am a user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 54
- testRunner.When("I login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 55
- testRunner.Then(string.Format("an unsuccessful login attempt by \'{0}\' is logged", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 46
+    testRunner.Then("the followers profile pictures show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
