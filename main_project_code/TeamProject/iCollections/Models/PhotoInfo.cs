@@ -7,5 +7,7 @@ namespace iCollections.Models
 
         public string PhotoName { get; set; }
 
+        public Guid Guid { get; set; }
+
     }
 }

@@ -512,3 +512,6 @@ h1 {
   bottom: 11px;
 }
 
+.my-hidden-object {
+    display: none;
+}

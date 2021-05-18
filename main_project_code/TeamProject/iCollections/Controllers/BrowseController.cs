@@ -1,4 +1,5 @@
 ﻿using iCollections.Data;
+using iCollections.Data.Abstract;
 using iCollections.Models;
 using iCollections.Utilities;
 using Microsoft.AspNetCore.Identity;
@@ -16,6 +17,7 @@ namespace iCollections.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ICollectionsDbContext _collectionsDbContext;
+        private readonly IIcollectionUserRepository _userRepo;
 
         private DatabaseHelper dbHelper;
 
@@ -23,7 +25,7 @@ namespace iCollections.Controllers
         {
             _userManager = userManager;
             _collectionsDbContext = collectionsDbContext;
-            dbHelper = new DatabaseHelper(_userManager, _collectionsDbContext);
+            dbHelper = new DatabaseHelper(_userManager, _collectionsDbContext, _userRepo);
         }
 
         public IActionResult Index(string keywords)

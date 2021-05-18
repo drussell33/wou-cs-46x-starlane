@@ -62,7 +62,7 @@ $("#photoUpload").submit(function (event) {
     }
 
 });
-
+/*
 // when a photo is clicked in view photos, highlight it
 $('.pic-thumbnail').click(function (e) {
     if (e.ctrlKey) { }
@@ -72,12 +72,12 @@ $('.pic-thumbnail').click(function (e) {
     }
 });
 
-/* Set the width of the side navigation to 250px */
+// Set the width of the side navigation to 250px 
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
 }
 
-/* Set the width of the side navigation to 0 */
+// Set the width of the side navigation to 0
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     $('.selected-thumbnail').removeClass('selected-thumbnail');
@@ -124,6 +124,7 @@ function sendNewPhotoName(imgURL, imageId, fileName) {
         closeNav();
     });
 }
+*/
 
 // When Add to Favorties button is clicked.
 fav_btns = document.getElementsByClassName("fav_btn");

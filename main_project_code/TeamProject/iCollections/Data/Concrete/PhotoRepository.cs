@@ -19,7 +19,7 @@ namespace iCollections.Data.Concrete
             string address = "/api/image/thumbnail/";
             var photosInformation = GetAll()
                                 .Where(row => row.User.Id == myId)
-                                .Select(myRows => new PhotoInfo { Url = address + myRows.PhotoGuid, PhotoName = myRows.Name })
+                                .Select(myRows => new PhotoInfo { Url = address + myRows.PhotoGuid, PhotoName = myRows.Name, Guid=myRows.PhotoGuid})
                                 .ToList();
 
             return photosInformation;
