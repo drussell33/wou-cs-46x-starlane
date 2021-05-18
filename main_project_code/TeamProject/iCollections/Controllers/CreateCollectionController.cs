@@ -152,6 +152,7 @@ namespace iCollections.Controllers
                 newCollection.DateMade = DateTime.Now;
                 newCollection.Visibility = 1;
                 newCollection.Name = collection.CollectionName;
+                newCollection.Description = collection.Description;
 
                 //_collectionsDbContext.Collections.Add(newCollection);
                 //await _collectionsDbContext.SaveChangesAsync();

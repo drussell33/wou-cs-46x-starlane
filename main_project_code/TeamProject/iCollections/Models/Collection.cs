@@ -24,6 +24,8 @@ namespace iCollections.Models
         //added in sprint 3
         public string Route { get; set; }
 
+        public string Description { get; set; }
+
         public virtual IcollectionUser User { get; set; }
         public virtual ICollection<CollectionKeyword> CollectionKeywords { get; set; }
         public virtual ICollection<CollectionPhoto> CollectionPhotoes { get; set; }

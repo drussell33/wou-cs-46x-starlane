@@ -45,6 +45,12 @@
     }
 }
 
+@{
+    if (ViewData["collectionDescription"] != null)
+    {
+        <h1>@ViewData["collectionDescription"].ToString()</h1>
+    }
+}
 
 <script src="~/js/gallery_environment.js" asp-append-version="true" type="module"></script>
 
