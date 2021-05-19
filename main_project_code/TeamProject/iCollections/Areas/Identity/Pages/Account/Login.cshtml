@@ -7,9 +7,7 @@
 	<div class="logo">login</div>
 	<div class="login-form-1">
 		<form id="login-form" class="text-left" method="POST">
-			@* <div class="login-form-main-message"> *@
-                <div asp-validation-summary="All" class="text-danger"></div>
-            @* </div> *@
+            <div asp-validation-summary="All" class="text-danger"></div>
 			<div class="main-login-form">
 				<div class="login-group">
 					<div class="form-group">
@@ -39,3 +37,5 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+@* https://bootsnipp.com/snippets/X04B0 *@
