@@ -13,5 +13,10 @@ namespace iCollections.Controllers
         {
             return View(error);
         }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
     }
 }
