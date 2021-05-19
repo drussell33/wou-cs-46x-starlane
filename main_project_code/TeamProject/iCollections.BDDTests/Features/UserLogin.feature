@@ -36,6 +36,7 @@ Scenario Outline: Existing user can login
 	| Hareem    | Dashboard |
 	| Krzysztof | Dashboard |
 
+@Ignore
 Scenario Outline: Non-user cannot login
 	Given I am a user with first name '<FirstName>'
 	When I login
@@ -46,6 +47,7 @@ Scenario Outline: Non-user cannot login
 	| Andre     |
 	| Joanna    |
 
+@Ignore
 Scenario Outline: Non-user attempting to login is logged
 	Given I am a user with first name '<FirstName>'
 	When I login
