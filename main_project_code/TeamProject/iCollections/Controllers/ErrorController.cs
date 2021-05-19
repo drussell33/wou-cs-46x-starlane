@@ -13,10 +13,5 @@ namespace iCollections.Controllers
         {
             return View(error);
         }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
     }
 }
