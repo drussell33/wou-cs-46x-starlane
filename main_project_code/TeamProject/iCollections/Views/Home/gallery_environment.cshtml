@@ -7,7 +7,7 @@
 @{
     if (ViewData["collectionTitle"] != null)
     {
-        <h1>@ViewData["collectionTitle"].ToString()</h1>
+        <h1 class="creation-page-title">@ViewData["collectionTitle"].ToString()</h1>
     }
 }
 
@@ -48,9 +48,21 @@
 @{
     if (ViewData["collectionDescription"] != null)
     {
-        <h3>@ViewData["collectionDescription"].ToString()</h3>
+
+        <div>
+            <h3 class="creation-page-title">@ViewData["collectionDescription"].ToString()</h3>
+        </div>
+
     }
 }
+
+<div class="row justify-content-end environment-buttons">
+    <div class="col-2">
+        <div class="">
+            <button class="btn btn-primary" onclick="goBack()">Go Back</button>
+        </div>
+    </div>
+</div>
 
 <script src="~/js/gallery_environment.js" asp-append-version="true" type="module"></script>
 
