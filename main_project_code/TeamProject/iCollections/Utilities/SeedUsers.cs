@@ -51,6 +51,10 @@ namespace iCollections.Utilities
                             // Doesn't already exist, so add a new user
                             context.Add(fu);
                             await context.SaveChangesAsync();
+
+                            //Hmmm.From what I'm reading now, maybe try going through IWebHostEnvironment to get both the WebRootPath and a WebRootFileProvider
+
+
                             //var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
                             //var src = "~/images/profile_pics/profile_pic_4.jpg";
                             //IFileProvider physicalProvider = new PhysicalFileProvider(src); 
