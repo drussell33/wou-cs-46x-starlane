@@ -2,6 +2,7 @@
 using iCollections.Data;
 using iCollections.Models;
 using iCollections.Utilities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,10 +27,13 @@ namespace iCollections.Utilities
         /// <param name="seedData">Array of seed data holding all the attributes needed to create the user objects</param>
         /// <param name="testUserPw">Password for all seed accounts</param>
         /// <returns></returns>
-        public static async Task Initialize(IServiceProvider serviceProvider, UserInfoData[] seedData, string testUserPw)
+        public static async Task Initialize(IServiceProvider serviceProvider, UserInfoData[] seedData, string testUserPw/*, IWebHostEnvironment hostEnvironment*/)
         {
+            //IWebHostEnvironment webHostEnvironment = hostEnvironment;  
+            
             try
             {
+             
                 // Get our application db context
                 //   For later reference -- this uses the "Service Locator anti-pattern", not usually a good pattern
                 //   but unavoidable here
@@ -37,6 +41,8 @@ namespace iCollections.Utilities
                 {
                     // Get the Identity user manager
                     var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+                    //IWebHostEnvironment env = context.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
 
                     foreach (var u in seedData)
                     {
