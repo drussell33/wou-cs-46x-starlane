@@ -85,38 +85,38 @@ namespace iCollections.BDDTests.Features
         {
 #line 12
 #line hidden
-            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Email",
                         "FirstName",
                         "LastName",
                         "Password"});
-            table16.AddRow(new string[] {
+            table18.AddRow(new string[] {
                         "TaliaK",
                         "knott@example.com",
                         "Talia",
                         "Knott",
                         "Abcd987?6"});
-            table16.AddRow(new string[] {
+            table18.AddRow(new string[] {
                         "ZaydenC",
                         "clark@example.com",
                         "Zayden",
                         "Clark",
                         "Abcd987?6"});
-            table16.AddRow(new string[] {
+            table18.AddRow(new string[] {
                         "DavilaH",
                         "hareem@example.com",
                         "Hareem",
                         "Davila",
                         "Abcd987?6"});
-            table16.AddRow(new string[] {
+            table18.AddRow(new string[] {
                         "KrzysztofP",
                         "krzysztof@example.com",
                         "Krzysztof",
                         "Ponce",
                         "Abcd987?6"});
 #line 13
- testRunner.Given("the following users exist", ((string)(null)), table16, "Given ");
+ testRunner.Given("the following users exist", ((string)(null)), table18, "Given ");
 #line hidden
         }
         

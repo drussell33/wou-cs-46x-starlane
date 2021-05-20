@@ -87,59 +87,59 @@ To generate living documentation, create a Documentation folder and then run one
         {
 #line 14
 #line hidden
-            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Email",
                         "FirstName",
                         "LastName",
                         "Password"});
-            table19.AddRow(new string[] {
+            table21.AddRow(new string[] {
                         "TaliaK",
                         "knott@example.com",
                         "Talia",
                         "Knott",
                         "Abcd987?6"});
-            table19.AddRow(new string[] {
+            table21.AddRow(new string[] {
                         "ZaydenC",
                         "clark@example.com",
                         "Zayden",
                         "Clark",
                         "Abcd987?6"});
-            table19.AddRow(new string[] {
+            table21.AddRow(new string[] {
                         "DavilaH",
                         "hareem@example.com",
                         "Hareem",
                         "Davila",
                         "Abcd987?6"});
-            table19.AddRow(new string[] {
+            table21.AddRow(new string[] {
                         "KrzysztofP",
                         "krzysztof@example.com",
                         "Krzysztof",
                         "Ponce",
                         "Abcd987?6"});
 #line 15
- testRunner.Given("the following users exist", ((string)(null)), table19, "Given ");
+ testRunner.Given("the following users exist", ((string)(null)), table21, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Email",
                         "FirstName",
                         "LastName",
                         "Password"});
-            table20.AddRow(new string[] {
+            table22.AddRow(new string[] {
                         "AndreC",
                         "colea@example.com",
                         "Andre",
                         "Cole",
                         "0a9dfi3.a"});
-            table20.AddRow(new string[] {
+            table22.AddRow(new string[] {
                         "JoannaV",
                         "valdezJ@example.com",
                         "Joanna",
                         "Valdez",
                         "d9u(*dsF4"});
 #line 21
- testRunner.And("the following users do not exist", ((string)(null)), table20, "And ");
+ testRunner.And("the following users do not exist", ((string)(null)), table22, "And ");
 #line hidden
         }
         
