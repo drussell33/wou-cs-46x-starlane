@@ -96,7 +96,6 @@ namespace iCollections.Tests.Tests
 
         // if user doesnt exist.
         [Test]
-        //[Ignore("Ignore a test")]
         public void UserpageController_UserNotLoggedInShows_NoSessionUser()
         {
             var mockStore = new Mock<IUserStore<IdentityUser>>();

@@ -35,8 +35,9 @@ namespace iCollections.BDDTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "PublicICollections", "Baltazar Ortiz #178115988\r\nBeing able to see registered users public iCollections" +
-                    ".\r\nPublic iCollections can be viewed via the profile page.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "PublicICollections", "Baltazar Ortiz #178115988\nBeing able to see registered users public iCollections." +
+                    "\nPublic iCollections can be viewed via the profile page. Note: I am not logged i" +
+                    "n.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,26 +75,22 @@ namespace iCollections.BDDTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void FeatureBackground()
-        {
-#line 7
-#line hidden
-#line 8
-    testRunner.Given("I am in the profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-        }
-        
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("General public can view iCollections for a registered user")]
-        [NUnit.Framework.TestCaseAttribute("iCollections", null)]
-        [NUnit.Framework.TestCaseAttribute("Show all", null)]
-        public virtual void GeneralPublicCanViewICollectionsForARegisteredUser(string link, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("General public can view iCollections for a registered user with iCollections via " +
+            "iCollections link")]
+        [NUnit.Framework.TestCaseAttribute("DavilaH", "iCollections", null)]
+        [NUnit.Framework.TestCaseAttribute("TaliaK", "iCollections", null)]
+        [NUnit.Framework.TestCaseAttribute("ZaydenC", "iCollections", null)]
+        [NUnit.Framework.TestCaseAttribute("KrzysztofP", "iCollections", null)]
+        public virtual void GeneralPublicCanViewICollectionsForARegisteredUserWithICollectionsViaICollectionsLink(string user, string link, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("User", user);
             argumentsOfScenario.Add("Link", link);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("General public can view iCollections for a registered user", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 10
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("General public can view iCollections for a registered user with iCollections via " +
+                    "iCollections link", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -113,16 +110,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
-this.FeatureBackground();
+#line 8
+    testRunner.Given(string.Format("I am on \'{0}\' profile page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 11
- testRunner.Given("the user has iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 9
+ testRunner.And("the user has iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 12
+#line 10
     testRunner.When(string.Format("I click on the {0}", link), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 13
+#line 11
     testRunner.Then("I can see a registered user\'s public iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -130,15 +127,20 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("General public cannot see iCollections if registered user does not have any")]
-        [NUnit.Framework.TestCaseAttribute("iCollections", null)]
-        [NUnit.Framework.TestCaseAttribute("Show all", null)]
-        public virtual void GeneralPublicCannotSeeICollectionsIfRegisteredUserDoesNotHaveAny(string link, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("General public can view iCollections for a registered user with iCollections via " +
+            "Show all link")]
+        [NUnit.Framework.TestCaseAttribute("DavilaH", "Show all", null)]
+        [NUnit.Framework.TestCaseAttribute("TaliaK", "Show all", null)]
+        [NUnit.Framework.TestCaseAttribute("ZaydenC", "Show all", null)]
+        [NUnit.Framework.TestCaseAttribute("KrzysztofP", "Show all", null)]
+        public virtual void GeneralPublicCanViewICollectionsForARegisteredUserWithICollectionsViaShowAllLink(string user, string link, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("User", user);
             argumentsOfScenario.Add("Link", link);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("General public cannot see iCollections if registered user does not have any", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("General public can view iCollections for a registered user with iCollections via " +
+                    "Show all link", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 19
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -159,17 +161,17 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
 #line 20
-    testRunner.Given("the user has no iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given(string.Format("I am on \'{0}\' profile page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 21
-    testRunner.When(string.Format("I click on the {0}", link), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.And("the user has iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 22
-    testRunner.Then("no public iCollections show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.When(string.Format("I click on the {0}", link), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 23
+    testRunner.Then("I can see a registered user\'s public iCollections", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -15,11 +15,13 @@ namespace iCollections.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ICollectionsDbContext _collectionsDbContext;
+        private readonly IIcollectionUserRepository _userRepo;
 
-        public DatabaseHelper(UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
+        public DatabaseHelper(UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext, IIcollectionUserRepository userRepo)
         {
             _userManager = userManager;
             _collectionsDbContext = collectionsDbContext;
+            _userRepo = userRepo;
         }
 
         public static bool isKeyInFriendship(IcollectionUser user1, IcollectionUser user2, int key)
@@ -27,9 +29,10 @@ namespace iCollections.Controllers
             return key == user1.Id || key == user2.Id;
         }
 
-        public static int GetReadableUserID(string complexId, ICollectionsDbContext _collectionsDbContext)
+        public static int GetReadableUserID(string aspNetId, IIcollectionUserRepository userRepo)
         {
-            var user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(i => i.AspnetIdentityId == complexId);
+            //var user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(i => i.AspnetIdentityId == aspNetId);
+            var user = userRepo.GetIcollectionUserByIdentityId(aspNetId);
             return user.Id;
         }
 

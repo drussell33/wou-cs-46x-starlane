@@ -43,9 +43,9 @@ namespace iCollections.Controllers
         public IActionResult Index()
         {
             // Determine user
-            string nastyStringId = _userManager.GetUserId(User);
-            int userId = DatabaseHelper.GetReadableUserID(nastyStringId, _collectionsDbContext);
-            string userName = DatabaseHelper.GetICollectionUserName(nastyStringId, _collectionsDbContext);
+            string aspNetId = _userManager.GetUserId(User);
+            int userId = DatabaseHelper.GetReadableUserID(aspNetId, _users);
+            string userName = DatabaseHelper.GetICollectionUserName(aspNetId, _collectionsDbContext);
 
             // start querying distants and my friends' collections
             var myFriends = _friends.GetMyFriends(userId);

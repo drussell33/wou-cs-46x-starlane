@@ -18,7 +18,7 @@ using Microsoft.Extensions.Logging;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using iCollections.Controllers;
-
+using iCollections.Data.Abstract;
 
 namespace iCollections.Areas.Identity.Pages.Account
 {
@@ -29,20 +29,25 @@ namespace iCollections.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly ICollectionsDbContext _iCollectionsDbContext;
+        //private readonly ICollectionsDbContext _iCollectionsDbContext;
+        private readonly IIcollectionUserRepository _userRepo;
+        private readonly IPhotoRepository _photoRepo;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ICollectionsDbContext context)
+            IIcollectionUserRepository userRepo,
+            IPhotoRepository photoRepo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _iCollectionsDbContext = context;
+            //_iCollectionsDbContext = context;
+            _userRepo = userRepo;
+            _photoRepo = photoRepo;
         }
 
         [BindProperty]
@@ -118,18 +123,21 @@ namespace iCollections.Areas.Identity.Pages.Account
                         AboutMe = Input.AboutMe
                         
                     };
-                    _iCollectionsDbContext.Add(fu);
-                    await _iCollectionsDbContext.SaveChangesAsync();
+                    //_iCollectionsDbContext.Add(fu);
+                    //await _iCollectionsDbContext.SaveChangesAsync();
+                    await _userRepo.AddOrUpdateAsync(fu);
 
-                    var userr = _iCollectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == user.Id);
-                    int numericUserId = userr.Id;
+                    //var userr = _iCollectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == user.Id);
+                    IcollectionUser userInDb = _userRepo.GetIcollectionUserByIdentityId(user.Id);
+                    int numericUserId = userInDb.Id;
 
                     try
                     {
-                        PhotoUploader photoUploader = new PhotoUploader(_iCollectionsDbContext, numericUserId);
+                        PhotoUploader photoUploader = new PhotoUploader(_photoRepo, numericUserId);
                         int photoId = photoUploader.UploadProfilePicture(Request.Form.Files[0].Name, Request.Form.Files[0]);
                         fu.ProfilePicId = photoId;
-                        _iCollectionsDbContext.SaveChanges();
+                        //_iCollectionsDbContext.SaveChanges();
+                        _userRepo.AddOrUpdate(fu);
                     }
                     catch (Exception)
                     {

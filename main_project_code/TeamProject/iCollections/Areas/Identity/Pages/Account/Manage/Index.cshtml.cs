@@ -10,7 +10,7 @@ using iCollections.Models;
 using iCollections.Data;
 using System.IO;
 using iCollections.Controllers;
-
+using iCollections.Data.Abstract;
 
 namespace iCollections.Areas.Identity.Pages.Account.Manage
 {
@@ -19,17 +19,21 @@ namespace iCollections.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        private readonly ICollectionsDbContext _iCollectionsDbContext;
+        //private readonly ICollectionsDbContext _iCollectionsDbContext;
+        private readonly IIcollectionUserRepository _userRepo;
+        private readonly IPhotoRepository _photoRepo;
 
 
         public IndexModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            ICollectionsDbContext context)
+            IIcollectionUserRepository userRepo,
+            IPhotoRepository photoRepo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _iCollectionsDbContext = context;
+            _userRepo = userRepo;
+            _photoRepo = photoRepo;
         }
 
         public string Username { get; set; }
@@ -97,15 +101,17 @@ namespace iCollections.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            var userr = _iCollectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == user.Id);
-            int numericUserId = userr.Id;
+            //var userr = _iCollectionsDbContext.IcollectionUsers.First(i => i.AspnetIdentityId == user.Id);
+            var userInDb = _userRepo.GetIcollectionUserByIdentityId(user.Id);
+            int numericUserId = userInDb.Id;
 
             try
             {
-                PhotoUploader photoUploader = new PhotoUploader(_iCollectionsDbContext, numericUserId);
+                PhotoUploader photoUploader = new PhotoUploader(_photoRepo, numericUserId);
                 int photoId = photoUploader.UploadProfilePicture(Request.Form.Files[0].Name, Request.Form.Files[0]);
-                userr.ProfilePicId = photoId;
-                _iCollectionsDbContext.SaveChanges();
+                userInDb.ProfilePicId = photoId;
+                //_iCollectionsDbContext.SaveChanges();
+                _userRepo.AddOrUpdate(userInDb);
             }
             catch (BadImageFormatException exception)
             {
