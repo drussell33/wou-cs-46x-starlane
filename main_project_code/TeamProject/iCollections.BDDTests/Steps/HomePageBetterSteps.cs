@@ -100,34 +100,7 @@ namespace iCollections.BDDTests.Steps
         }
 
 
-        [Given(@"I am on the '(.*)' page")]
-        [When(@"I am on the '(.*)' page")]
-        public void WhenIAmOnThePage(string pageName)
-        {
-            //IWebDriver driver = (IWebDriver)_ctx["WebDriver"];
-            if (pageName.Equals("EnvironmentSelection"))
-            {
-                _driver.Navigate().GoToUrl(_hostBaseName + @"CreateCollection/EnvironmentSelection");
-            }
-            else
-            {
-                ScenarioContext.StepIsPending();
-            }
-        }
-
-        [Given(@"I select the '(.*)' checkbox")]
-        [When(@"I select the '(.*)' checkbox")]
-        public void GivenISelectTheCheckbox(string buttonId)
-        {
-            if(buttonId != "null")
-            {
-                _driver.FindElement(By.Id(buttonId)).Click();
-            }
-            else
-            {
-                
-            }
-        }
+      
 
     }
 }

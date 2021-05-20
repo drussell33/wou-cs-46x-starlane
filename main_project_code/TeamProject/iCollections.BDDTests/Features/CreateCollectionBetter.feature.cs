@@ -20,23 +20,31 @@ namespace iCollections.BDDTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("ProfilePictures")]
-    public partial class ProfilePicturesFeature
+    [NUnit.Framework.DescriptionAttribute("CreateCollectionBetter")]
+    public partial class CreateCollectionBetterFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "ProfilePictures.feature"
+#line 1 "CreateCollectionBetter.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "ProfilePictures", "Baltazar Ortiz #178115905\r\nSmall profile pictures show up when in the following p" +
-                    "age", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "CreateCollectionBetter", @"	Creating A Collection 
+
+	Derek Russell
+	User Story ID: 177895357, Sprint 6, 2 Points.
+		The Original Form of Acceptance Criteria that is being sought after in BDD testing:
+			* As a user of this site that is creating an icollection I would like to select exisiting Keywords(Tags) to attach to the collection when I publish it.
+			* As a user of this site that is creating an icollection I would like to create new Keywords(Tags) to attach to the collection when I publish it.
+	
+
+Going through the process from logging in,  to publishing a newly made iCollection. ", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,56 +84,54 @@ namespace iCollections.BDDTests.Features
         
         public virtual void FeatureBackground()
         {
-#line 6
+#line 13
 #line hidden
-            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Email",
                         "FirstName",
                         "LastName",
                         "Password"});
-            table17.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "TaliaK",
                         "knott@example.com",
                         "Talia",
                         "Knott",
                         "Abcd987?6"});
-            table17.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "ZaydenC",
                         "clark@example.com",
                         "Zayden",
                         "Clark",
                         "Abcd987?6"});
-            table17.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "DavilaH",
                         "hareem@example.com",
                         "Hareem",
                         "Davila",
                         "Abcd987?6"});
-            table17.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "KrzysztofP",
                         "krzysztof@example.com",
                         "Krzysztof",
                         "Ponce",
                         "Abcd987?6"});
-#line 7
- testRunner.Given("the following users exist", ((string)(null)), table17, "Given ");
+#line 14
+ testRunner.Given("the following users exist", ((string)(null)), table3, "Given ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Dashboard profile pictures show up")]
-        [NUnit.Framework.TestCaseAttribute("Talia", null)]
-        [NUnit.Framework.TestCaseAttribute("Zayden", null)]
-        [NUnit.Framework.TestCaseAttribute("Hareem", null)]
-        [NUnit.Framework.TestCaseAttribute("Krzysztof", null)]
-        public virtual void DashboardProfilePicturesShowUp(string firstName, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Being a logged in User I can click the nav bar links")]
+        [NUnit.Framework.TestCaseAttribute("create_collection", "EnvironmentSelection", null)]
+        public virtual void BeingALoggedInUserICanClickTheNavBarLinks(string selectedButton, string page, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("FirstName", firstName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dashboard profile pictures show up", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 14
+            argumentsOfScenario.Add("SelectedButton", selectedButton);
+            argumentsOfScenario.Add("Page", page);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Being a logged in User I can click the nav bar links", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 22
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -145,55 +151,34 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 6
+#line 13
 this.FeatureBackground();
 #line hidden
-#line 15
-    testRunner.Given(string.Format("I am a user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 16
-    testRunner.And("I am logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-                TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Owner",
-                            "CollectionName"});
-                table18.AddRow(new string[] {
-                            "Hareem",
-                            "Superbad"});
-                table18.AddRow(new string[] {
-                            "Talia",
-                            "Puzzel Gallery Test"});
-                table18.AddRow(new string[] {
-                            "Talia",
-                            "My Fish"});
-                table18.AddRow(new string[] {
-                            "Talia",
-                            "My Beer"});
-#line 17
-    testRunner.And("others I follow/friends with have posted iCollections", ((string)(null)), table18, "And ");
-#line hidden
 #line 23
-    testRunner.When("I go to the \'Dashboard\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I am a User", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 24
-    testRunner.Then("the event will show the profile picture of the user that posted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I am a logged in user on the HomePage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 25
+   testRunner.And(string.Format("I Click the \'{0}\' Dropdown button", selectedButton), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 26
+ testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Following shows profile pictures")]
-        [NUnit.Framework.TestCaseAttribute("DavilaH", null)]
-        [NUnit.Framework.TestCaseAttribute("TaliaK", null)]
-        [NUnit.Framework.TestCaseAttribute("ZaydenC", null)]
-        [NUnit.Framework.TestCaseAttribute("KrzysztofP", null)]
-        public virtual void FollowingShowsProfilePictures(string user, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Creating a new collection, User doesnt selecte an environment and hits continue b" +
+            "ut the page is refreshed.")]
+        public virtual void CreatingANewCollectionUserDoesntSelecteAnEnvironmentAndHitsContinueButThePageIsRefreshed_()
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("User", user);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Following shows profile pictures", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a new collection, User doesnt selecte an environment and hits continue b" +
+                    "ut the page is refreshed.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -214,35 +199,43 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 6
+#line 13
 this.FeatureBackground();
 #line hidden
 #line 33
-    testRunner.Given(string.Format("I am on \'{0}\' profile page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am a User", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 34
-    testRunner.When(string.Format("I go to \'{0}\' following page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+   testRunner.And("I am a logged in user on the HomePage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 35
-    testRunner.Then("the followees profile pictures show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.And("I am on the \'EnvironmentSelection\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 36
+   testRunner.When("I Click the \'continue_on\' button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 37
+ testRunner.Then("I am redirected to the \'EnvironmentSelection\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Followers shows profile pictures")]
-        [NUnit.Framework.TestCaseAttribute("DavilaH", null)]
-        [NUnit.Framework.TestCaseAttribute("TaliaK", null)]
-        [NUnit.Framework.TestCaseAttribute("ZaydenC", null)]
-        [NUnit.Framework.TestCaseAttribute("KrzysztofP", null)]
-        public virtual void FollowersShowsProfilePictures(string user, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Creating a new collection, User can select an environment and continue to photo s" +
+            "election")]
+        [NUnit.Framework.TestCaseAttribute("ocean_environment", "PhotoSelection", null)]
+        [NUnit.Framework.TestCaseAttribute("gallery_environment", "PhotoSelection", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "EnvironmentSelection", null)]
+        public virtual void CreatingANewCollectionUserCanSelectAnEnvironmentAndContinueToPhotoSelection(string selectedCheckbox, string page, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("User", user);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Followers shows profile pictures", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 43
+            argumentsOfScenario.Add("selectedCheckbox", selectedCheckbox);
+            argumentsOfScenario.Add("Page", page);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a new collection, User can select an environment and continue to photo s" +
+                    "election", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 40
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -262,17 +255,26 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 6
+#line 13
 this.FeatureBackground();
 #line hidden
+#line 41
+ testRunner.Given("I am a User", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 42
+   testRunner.And("I am a logged in user on the HomePage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 43
+   testRunner.And("I am on the \'EnvironmentSelection\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
 #line 44
-    testRunner.Given(string.Format("I am on \'{0}\' profile page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.And(string.Format("I select the \'{0}\' checkbox", selectedCheckbox), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 45
-    testRunner.When(string.Format("I go to \'{0}\' follower page", user), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+   testRunner.When("I Click the \'continue_on\' button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 46
-    testRunner.Then("the followers profile pictures show", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -86,7 +86,7 @@ namespace iCollections.Controllers
 
                 string selectedRoute = TempData["route"].ToString();
 
-                if (selectedRoute == "Ocean_environment" && selectedPhotos.Length > 0 && selectedPhotos.Length < 9)
+                if (selectedRoute == "ocean_environment" && selectedPhotos.Length > 0 && selectedPhotos.Length < 9)
                 {
                     TempData["photoids"] = selectedPhotos;
                     ViewData["errorPresent"] = null;
@@ -117,7 +117,7 @@ namespace iCollections.Controllers
             TempData.Keep();
 
             // figure out how to do privacy options
-            string[] dropDownList = new string[] { "private", "friends", "public" };
+            string[] dropDownList = new string[] { "Public", "Private"};
             ViewData["Visibility"] = new SelectList(dropDownList);
             var activeKeywords = _keywordRepo.GetAll();
             ViewData["KeywordsAvailable"] = new SelectList(activeKeywords, "Id", "Name");
@@ -150,8 +150,13 @@ namespace iCollections.Controllers
                 newCollection.Route = route;
                 newCollection.UserId = appUser.Id;
                 newCollection.DateMade = DateTime.Now;
-                newCollection.Visibility = 1;
+                newCollection.Visibility = 0;
+                if (collection.Visibility == "Public")
+                {
+                    newCollection.Visibility = 1;
+                }
                 newCollection.Name = collection.CollectionName;
+                newCollection.Description = collection.Description;
 
                 //_collectionsDbContext.Collections.Add(newCollection);
                 //await _collectionsDbContext.SaveChangesAsync();

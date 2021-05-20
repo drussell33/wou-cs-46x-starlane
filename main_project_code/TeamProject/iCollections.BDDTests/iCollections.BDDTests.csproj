@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\Calculator - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\CreateCollection - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\HomePage - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\UserLogin.feature.cs" />
   </ItemGroup>
@@ -40,12 +41,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\CreateCollectionBetter.feature.cs">
+      <DependentUpon>CreateCollectionBetter.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\HomePageBetter.feature.cs">
       <DependentUpon>HomePageBetter.feature</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\CreateCollectionBetter.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\HomePageBetter.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>

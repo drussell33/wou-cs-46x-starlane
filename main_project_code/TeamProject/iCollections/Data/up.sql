@@ -32,6 +32,7 @@ CREATE TABLE [Collection] (
   [visibility] int NOT NULL,
   [user_id] int,
   [date_made] DateTime,
+  [Description] nvarchar(250),
   [route] nvarchar(100) NOT NULL
 );
 
