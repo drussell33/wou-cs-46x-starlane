@@ -19,6 +19,7 @@ namespace iCollections.Utilities
 {
     public static class SeedUsers
     {
+
         /// <summary>
         /// Initialize seed data for users.  Creates users for login using Identity and also application users.  One password
         /// is used for all accounts.
@@ -27,9 +28,11 @@ namespace iCollections.Utilities
         /// <param name="seedData">Array of seed data holding all the attributes needed to create the user objects</param>
         /// <param name="testUserPw">Password for all seed accounts</param>
         /// <returns></returns>
-        public static async Task Initialize(IServiceProvider serviceProvider, UserInfoData[] seedData, string testUserPw/*, IWebHostEnvironment hostEnvironment*/)
+        public static async Task Initialize(IServiceProvider serviceProvider, UserInfoData[] seedData, string testUserPw, IWebHostEnvironment hostEnvironment)
         {
-            //IWebHostEnvironment webHostEnvironment = hostEnvironment;  
+            IWebHostEnvironment webHostEnvironment = hostEnvironment;
+            string wwwPath = webHostEnvironment.WebRootPath;
+            string contentPath = webHostEnvironment.ContentRootPath;
             
             try
             {
@@ -61,16 +64,19 @@ namespace iCollections.Utilities
                             //Hmmm.From what I'm reading now, maybe try going through IWebHostEnvironment to get both the WebRootPath and a WebRootFileProvider
 
 
-                            //var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
-                            //var src = "~/images/profile_pics/profile_pic_4.jpg";
+                            var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
+                            var src = wwwPath + "/images/profile_pics/profile_pic_4.jpg";
                             //IFileProvider physicalProvider = new PhysicalFileProvider(src); 
                             //var img = File.Create(src);
                             //System.Drawing.Image img = System.Drawing.Image.FromFile(src);
-                            //byte[] imgdata = System.IO.File.ReadAllBytes(src);
+                            byte[] imgdata = System.IO.File.ReadAllBytes(src);
                             //byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
-                            //Photo profile_pic = new Photo { Name = "profile_pic", /*Data = imgdata,*/ DateUploaded = DateTime.Now, UserId = thatNewUser.Id };
-                            //context.Add(profile_pic);
-                            //await context.SaveChangesAsync();
+                            Photo profile_pic = new Photo { Name = "profile_pic", Data = imgdata, DateUploaded = DateTime.Now, UserId = thatNewUser.Id };
+                            context.Add(profile_pic);
+                            await context.SaveChangesAsync();
+                            
+                            var thatNewPhotoId = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
+                            thatNewUser.ProfilePicId = thatNewPhotoId.Id;
 
                             //var thatNewPhoto = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
                             //thatNewUser.ProfilePicId = profile_pic.Id;

@@ -24,6 +24,8 @@ namespace iCollections
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                // trying to seed photos 
+                var hostEnvironment = services.GetRequiredService<IWebHostEnvironment>();
                 try
                 {
                     // Get the IConfiguration service that allows us to query user-secrets and 
@@ -37,7 +39,8 @@ namespace iCollections
                     //var testUserPw = "Abcd987?6";
                     //var adminPw = config["SeedAdminPW"];
 
-                    SeedUsers.Initialize(services, SeedData.UserSeedData, testUserPw).Wait();
+                    // trying to seed photos by adding the hostEnvironment
+                    SeedUsers.Initialize(services, SeedData.UserSeedData, testUserPw, hostEnvironment).Wait();
                     SeedUsers.InitializeAdmin(services, "admin@example.com", "admin", adminPw, "The", "Admin").Wait();
                 }
                 catch (Exception ex)
