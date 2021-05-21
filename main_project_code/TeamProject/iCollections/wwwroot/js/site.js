@@ -14,7 +14,6 @@ function readURL(input) {
                 .attr('src', e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
-        showFileName();
         $("#customNameError").hide();
         $("#uploadPhotoError").hide();
     }
@@ -32,11 +31,6 @@ $('#upload').on('change', function () {
 
 var input = document.getElementById('upload');
 var infoArea = document.getElementById('upload-label');
-
-function showFileName() {
-    var fileName = input.files[0].name;
-    infoArea.textContent = 'File name: ' + fileName;
-}
 
 // check if the optional input is correct format 
 // and if photo is uploaded
