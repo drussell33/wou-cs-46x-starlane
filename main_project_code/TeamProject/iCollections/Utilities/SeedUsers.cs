@@ -28,7 +28,7 @@ namespace iCollections.Utilities
         /// <param name="seedData">Array of seed data holding all the attributes needed to create the user objects</param>
         /// <param name="testUserPw">Password for all seed accounts</param>
         /// <returns></returns>
-        public static async Task Initialize(IServiceProvider serviceProvider, UserInfoData[] seedData, string testUserPw, IWebHostEnvironment hostEnvironment)
+        public static async Task Initialize(IServiceProvider serviceProvider, UserInfoData[] seedData, string testUserPw, IWebHostEnvironment hostEnvironment, string[][] photoData)
         {
             IWebHostEnvironment webHostEnvironment = hostEnvironment;
             string wwwPath = webHostEnvironment.WebRootPath;
@@ -46,7 +46,8 @@ namespace iCollections.Utilities
                     var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
                     //IWebHostEnvironment env = context.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
-
+                    var profilePhotoPosition = 0;
+                    var photoAlbumPerUser = 1;
                     foreach (var u in seedData)
                     {
                         // Ensure this user exists or is newly created (Email is used for username since that is the default in Register and Login -- change those and then use username here if you want it different than email
@@ -65,7 +66,11 @@ namespace iCollections.Utilities
 
 
                             var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
-                            var src = wwwPath + "/images/profile_pics/profile_pic_4.jpg";
+                            //var src = wwwPath + "/images/profile_pics/profile_pic_4.jpg";
+
+                            var src = wwwPath + photoData[0][profilePhotoPosition];
+                            //var src = wwwPath + photoData[photoPosition].ImageLocation;
+
                             //IFileProvider physicalProvider = new PhysicalFileProvider(src); 
                             //var img = File.Create(src);
                             //System.Drawing.Image img = System.Drawing.Image.FromFile(src);
@@ -77,11 +82,26 @@ namespace iCollections.Utilities
                             
                             var thatNewPhotoId = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
                             thatNewUser.ProfilePicId = thatNewPhotoId.Id;
-
+                            context.Update(thatNewUser);
+                            await context.SaveChangesAsync();
                             //var thatNewPhoto = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
                             //thatNewUser.ProfilePicId = profile_pic.Id;
                             //await context.SaveChangesAsync();
+
+
+                            foreach (var albumphoto in photoData[photoAlbumPerUser])
+                            {
+                                var albumPhotoSrc = wwwPath + albumphoto;
+                                byte[] albumPhotoImageData = File.ReadAllBytes(albumPhotoSrc);
+                                Photo NewAlbumPhoto = new Photo { Name = "seeded photo", Data = albumPhotoImageData, DateUploaded = DateTime.Now, UserId = thatNewUser.Id };
+                                context.Add(NewAlbumPhoto);
+                                await context.SaveChangesAsync();
+                            }
                         }
+
+                        
+                        ++photoAlbumPerUser;
+                        ++profilePhotoPosition;
                         /*var src = "images/profile_pics/profile_pic_4.jpg";
                         System.Drawing.Image img = System.Drawing.Image.FromFile(src);
                         byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));

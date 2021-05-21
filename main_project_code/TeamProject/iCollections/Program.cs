@@ -40,7 +40,7 @@ namespace iCollections
                     //var adminPw = config["SeedAdminPW"];
 
                     // trying to seed photos by adding the hostEnvironment
-                    SeedUsers.Initialize(services, SeedData.UserSeedData, testUserPw, hostEnvironment).Wait();
+                    SeedUsers.Initialize(services, SeedData.UserSeedData, testUserPw, hostEnvironment, SeedPhotos.UserPhotoDataOrganized).Wait();
                     SeedUsers.InitializeAdmin(services, "admin@example.com", "admin", adminPw, "The", "Admin").Wait();
                 }
                 catch (Exception ex)
