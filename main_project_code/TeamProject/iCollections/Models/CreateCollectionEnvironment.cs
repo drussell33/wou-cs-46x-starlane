@@ -22,7 +22,7 @@ namespace iCollections.Models
 
     public partial class CreateCollectionPublishing
     {
-        [RegularExpression(@"^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$")]
+        [RegularExpression(@"^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$", ErrorMessage = "The Collection Name must only contains letters or numbers and be between 3 and 30 characters")]
         [StringLength(30), MinLength(3)]
         [Required(ErrorMessage = "The Collection Name must only contains letters or numbers and be between 3 and 30 characters")]
         [Display(Name = "iCollection Name")]
@@ -35,6 +35,10 @@ namespace iCollections.Models
         [RegularExpression(@"^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$", ErrorMessage = "The Collection Description must only contains letters or numbers and be between 3 and 30 characters")]
         [StringLength(60)]
         public string Description { get; set; }
+
+        [Required]
+        [Display(Name = "SelectedKeyword")]
+        public int SelectedKeyword { get; set; }
     }
 
 

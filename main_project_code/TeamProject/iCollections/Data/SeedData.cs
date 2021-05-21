@@ -29,7 +29,11 @@ namespace iCollections.Data
             new UserInfoData { UserName = "TaliaK", Email = "knott@example.com", FirstName = "Talia", LastName = "Knott" },
             new UserInfoData { UserName = "ZaydenC", Email = "clark@example.com", FirstName = "Zayden", LastName = "Clark" },
             new UserInfoData { UserName = "DavilaH", Email = "hareem@example.com", FirstName = "Hareem", LastName = "Davila" },
-            new UserInfoData { UserName = "KrzysztofP", Email = "krzysztof@example.com", FirstName = "Krzysztof", LastName = "Ponce" }
+            new UserInfoData { UserName = "KrzysztofP", Email = "krzysztof@example.com", FirstName = "Krzysztof", LastName = "Ponce" },
+            new UserInfoData { UserName = "AlphaTester1", Email = "alphatester1@example.com", FirstName = "Jessica", LastName = "Cruz" },
+            new UserInfoData { UserName = "AlphaTester2", Email = "alphatester2@example.com", FirstName = "Joe", LastName = "Fixit" },
+            new UserInfoData { UserName = "AlphaTester3", Email = "alphatester3@example.com", FirstName = "Jason", LastName = "Todd" },
+            new UserInfoData { UserName = "AlphaTester4", Email = "alphatester4@example.com", FirstName = "James", LastName = "Howlett" }
         };
     }
 }

@@ -35,8 +35,8 @@ namespace iCollections.BDDTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "ProfilePictures", "Baltazar Ortiz #178115905\nSmall profile pictures show up when in the following pa" +
-                    "ge", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "ProfilePictures", "Baltazar Ortiz #178115905\r\nSmall profile pictures show up when in the following p" +
+                    "age", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -78,38 +78,38 @@ namespace iCollections.BDDTests.Features
         {
 #line 6
 #line hidden
-            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Email",
                         "FirstName",
                         "LastName",
                         "Password"});
-            table15.AddRow(new string[] {
+            table19.AddRow(new string[] {
                         "TaliaK",
                         "knott@example.com",
                         "Talia",
                         "Knott",
                         "Abcd987?6"});
-            table15.AddRow(new string[] {
+            table19.AddRow(new string[] {
                         "ZaydenC",
                         "clark@example.com",
                         "Zayden",
                         "Clark",
                         "Abcd987?6"});
-            table15.AddRow(new string[] {
+            table19.AddRow(new string[] {
                         "DavilaH",
                         "hareem@example.com",
                         "Hareem",
                         "Davila",
                         "Abcd987?6"});
-            table15.AddRow(new string[] {
+            table19.AddRow(new string[] {
                         "KrzysztofP",
                         "krzysztof@example.com",
                         "Krzysztof",
                         "Ponce",
                         "Abcd987?6"});
 #line 7
- testRunner.Given("the following users exist", ((string)(null)), table15, "Given ");
+ testRunner.Given("the following users exist", ((string)(null)), table19, "Given ");
 #line hidden
         }
         
@@ -154,23 +154,23 @@ this.FeatureBackground();
 #line 16
     testRunner.And("I am logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-                TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
                             "Owner",
                             "CollectionName"});
-                table16.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "Hareem",
                             "Superbad"});
-                table16.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "Talia",
                             "Puzzel Gallery Test"});
-                table16.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "Talia",
                             "My Fish"});
-                table16.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "Talia",
                             "My Beer"});
 #line 17
-    testRunner.And("others I follow/friends with have posted iCollections", ((string)(null)), table16, "And ");
+    testRunner.And("others I follow/friends with have posted iCollections", ((string)(null)), table20, "And ");
 #line hidden
 #line 23
     testRunner.When("I go to the \'Dashboard\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

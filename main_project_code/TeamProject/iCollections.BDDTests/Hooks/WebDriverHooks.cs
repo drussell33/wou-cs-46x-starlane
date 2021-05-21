@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
-namespace Fuji.BDDTests.Hooks
+namespace iCollections.BDDTests.Hooks
 {
     // Use DI to solve the problem of each step definition class needing to create/use
     // the same copy of the web driver, i.e. we need to share it since it represents the same browser session.
@@ -33,6 +33,10 @@ namespace Fuji.BDDTests.Hooks
             // I'm not sure why but I needed to tell it where the geckodriver folder was or it wouldn't run
             //FirefoxDriver driver = new FirefoxDriver("C:\\Users\\morses", options);
             FirefoxDriver driver = new FirefoxDriver(options);
+
+            //ChromeOptions options = new ChromeOptions();
+            //options.AcceptInsecureCertificates = true;
+            //ChromeDriver driver = new ChromeDriver(options);
 
             // Make 'driver' available for DI
             container.RegisterInstanceAs<IWebDriver>(driver);

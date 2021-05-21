@@ -32,8 +32,16 @@
     margin: 0;
     position: absolute;
     top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%)
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.photo-select-checkbox {
+    margin: auto;
+    width: 100%;
+    height: 2rem;
 }
 
 .checkboxWarning {
@@ -138,11 +146,20 @@
 }
 
 
-/*How Does cite Work section */
+/*How Does site Work section */
 
 .box-photo {
     max-width: 100%;
     height: 100%;
     /* padding-left: 110px; */
     margin: 2px;
+}
+
+.environment-buttons {
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+
+.creation-page-title {
+    padding-bottom: 1%;
 }

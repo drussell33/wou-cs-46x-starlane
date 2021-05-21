@@ -63,6 +63,8 @@ namespace iCollections.Data
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.Property(e => e.Visibility).HasColumnName("visibility");
+
+                entity.Property(e => e.Description).HasMaxLength(250);
             });
 
             modelBuilder.Entity<CollectionKeyword>(entity =>

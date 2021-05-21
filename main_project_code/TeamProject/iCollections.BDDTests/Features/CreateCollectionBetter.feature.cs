@@ -20,32 +20,31 @@ namespace iCollections.BDDTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("User Logins")]
-    public partial class UserLoginsFeature
+    [NUnit.Framework.DescriptionAttribute("CreateCollectionBetter")]
+    public partial class CreateCollectionBetterFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "UserLogin.feature"
+#line 1 "CreateCollectionBetter.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "User Logins", @"**As a registered user I would like to be able to login so I may be able to have a customized experience.**
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "CreateCollectionBetter", @"	Creating A Collection 
 
-This feature ensures that users who have previously registered can successfully login and see a personalized message
-that confirms they are recognized by the application and logged in.  It also *defines* a set of seeded users for 
-future software test engineers to use when performing other kinds of tests.
+	Derek Russell
+	User Story ID: 177895357, Sprint 6, 2 Points.
+		The Original Form of Acceptance Criteria that is being sought after in BDD testing:
+			* As a user of this site that is creating an icollection I would like to select exisiting Keywords(Tags) to attach to the collection when I publish it.
+			* As a user of this site that is creating an icollection I would like to create new Keywords(Tags) to attach to the collection when I publish it.
+	
 
-The steps we define here can be re-used when testing the *register* feature.
-
-To generate living documentation, create a Documentation folder and then run one of these from the project dir: 
-    `livingdoc test-assembly -t bin\Debug\net5.0\TestExecution.json -o Documentation bin\Debug\net5.0\Fuji.BDDNunitTests.dll`
-    `livingdoc feature-folder -t bin\Debug\net5.0\TestExecution.json -o Documentation .`", ProgrammingLanguage.CSharp, ((string[])(null)));
+Going through the process from logging in,  to publishing a newly made iCollection. ", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -85,78 +84,54 @@ To generate living documentation, create a Documentation folder and then run one
         
         public virtual void FeatureBackground()
         {
-#line 14
+#line 13
 #line hidden
-            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Email",
                         "FirstName",
                         "LastName",
                         "Password"});
-            table21.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "TaliaK",
                         "knott@example.com",
                         "Talia",
                         "Knott",
                         "Abcd987?6"});
-            table21.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "ZaydenC",
                         "clark@example.com",
                         "Zayden",
                         "Clark",
                         "Abcd987?6"});
-            table21.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "DavilaH",
                         "hareem@example.com",
                         "Hareem",
                         "Davila",
                         "Abcd987?6"});
-            table21.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "KrzysztofP",
                         "krzysztof@example.com",
                         "Krzysztof",
                         "Ponce",
                         "Abcd987?6"});
-#line 15
- testRunner.Given("the following users exist", ((string)(null)), table21, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
-                        "UserName",
-                        "Email",
-                        "FirstName",
-                        "LastName",
-                        "Password"});
-            table22.AddRow(new string[] {
-                        "AndreC",
-                        "colea@example.com",
-                        "Andre",
-                        "Cole",
-                        "0a9dfi3.a"});
-            table22.AddRow(new string[] {
-                        "JoannaV",
-                        "valdezJ@example.com",
-                        "Joanna",
-                        "Valdez",
-                        "d9u(*dsF4"});
-#line 21
- testRunner.And("the following users do not exist", ((string)(null)), table22, "And ");
+#line 14
+ testRunner.Given("the following users exist", ((string)(null)), table3, "Given ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Existing user can login")]
-        [NUnit.Framework.TestCaseAttribute("Talia", "Dashboard", null)]
-        [NUnit.Framework.TestCaseAttribute("Zayden", "Dashboard", null)]
-        [NUnit.Framework.TestCaseAttribute("Hareem", "Dashboard", null)]
-        [NUnit.Framework.TestCaseAttribute("Krzysztof", "Dashboard", null)]
-        public virtual void ExistingUserCanLogin(string firstName, string page, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Being a logged in User I can click the nav bar links")]
+        [NUnit.Framework.TestCaseAttribute("create_collection", "EnvironmentSelection", null)]
+        public virtual void BeingALoggedInUserICanClickTheNavBarLinks(string selectedButton, string page, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("FirstName", firstName);
+            argumentsOfScenario.Add("SelectedButton", selectedButton);
             argumentsOfScenario.Add("Page", page);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Existing user can login", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 26
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Being a logged in User I can click the nav bar links", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 22
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -176,36 +151,90 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 14
+#line 13
 this.FeatureBackground();
 #line hidden
-#line 27
- testRunner.Given(string.Format("I am a user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 23
+ testRunner.Given("I am a User", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 28
- testRunner.When("I login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 24
+ testRunner.When("I am a logged in user on the HomePage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 25
+   testRunner.And(string.Format("I Click the \'{0}\' Dropdown button", selectedButton), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 26
+ testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Non-user cannot login")]
-        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
-        [NUnit.Framework.TestCaseAttribute("Andre", null)]
-        [NUnit.Framework.TestCaseAttribute("Joanna", null)]
-        public virtual void Non_UserCannotLogin(string firstName, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Creating a new collection, User doesnt selecte an environment and hits continue b" +
+            "ut the page is refreshed.")]
+        public virtual void CreatingANewCollectionUserDoesntSelecteAnEnvironmentAndHitsContinueButThePageIsRefreshed_()
         {
-            string[] @__tags = new string[] {
-                    "Ignore"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("FirstName", firstName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Non-user cannot login", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a new collection, User doesnt selecte an environment and hits continue b" +
+                    "ut the page is refreshed.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 32
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 13
+this.FeatureBackground();
+#line hidden
+#line 33
+ testRunner.Given("I am a User", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 34
+   testRunner.And("I am a logged in user on the HomePage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 35
+   testRunner.And("I am on the \'EnvironmentSelection\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 36
+   testRunner.When("I Click the \'continue_on\' button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 37
+ testRunner.Then("I am redirected to the \'EnvironmentSelection\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Creating a new collection, User can select an environment and continue to photo s" +
+            "election")]
+        [NUnit.Framework.TestCaseAttribute("ocean_environment", "PhotoSelection", null)]
+        [NUnit.Framework.TestCaseAttribute("gallery_environment", "PhotoSelection", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "EnvironmentSelection", null)]
+        public virtual void CreatingANewCollectionUserCanSelectAnEnvironmentAndContinueToPhotoSelection(string selectedCheckbox, string page, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("selectedCheckbox", selectedCheckbox);
+            argumentsOfScenario.Add("Page", page);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a new collection, User can select an environment and continue to photo s" +
+                    "election", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 40
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -226,70 +255,26 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 14
+#line 13
 this.FeatureBackground();
 #line hidden
 #line 41
- testRunner.Given(string.Format("I am a user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am a User", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 42
- testRunner.When("I login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+   testRunner.And("I am a logged in user on the HomePage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 43
- testRunner.Then("I can see a login error message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.And("I am on the \'EnvironmentSelection\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Non-user attempting to login is logged")]
-        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
-        [NUnit.Framework.TestCaseAttribute("Andre", null)]
-        [NUnit.Framework.TestCaseAttribute("Joanna", null)]
-        public virtual void Non_UserAttemptingToLoginIsLogged(string firstName, string[] exampleTags)
-        {
-            string[] @__tags = new string[] {
-                    "Ignore"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("FirstName", firstName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Non-user attempting to login is logged", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 51
-this.ScenarioInitialize(scenarioInfo);
+#line 44
+   testRunner.And(string.Format("I select the \'{0}\' checkbox", selectedCheckbox), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 14
-this.FeatureBackground();
+#line 45
+   testRunner.When("I Click the \'continue_on\' button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 52
- testRunner.Given(string.Format("I am a user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 53
- testRunner.When("I login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 54
- testRunner.Then(string.Format("an unsuccessful login attempt by \'{0}\' is logged", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 46
+ testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

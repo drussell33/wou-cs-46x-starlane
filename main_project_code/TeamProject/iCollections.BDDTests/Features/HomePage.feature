@@ -1,6 +1,20 @@
 ﻿Feature: HomePage
-	This is going to test the route functions, that take in a collection id, and return a list of rending photos
-	That will be passed through the dom.
+	This is going to test the route functions, that take in a collection id, and return a list of rending photos That will be passed through the DOM. Yes.
+
+	Derek Russell
+	User Story ID: 177878958, Sprint 5, 2 Points.
+		The Original Acceptance Criteria:
+			* When the user is on the homepage, there is a nice, semi-professional landing page photo of a laptop viewing an iCollection.
+			* If the user clicks on the gallery environment sample button, they will be brought to a gallery environment collection with sample photos.
+			* If the user clicks on the ocean environment sample button, they will be brought to a ocean environment collection with sample photos.
+	
+	Then continuing with: 
+	Derek Russell
+	User Story ID: 178035014, Sprint 6, 4 Points.
+			The Original Form of Acceptance Criteria that is being sought after in BDD testing:
+			* As a user of this site, that clicks any link to another user's published iCollection, I would like to see the collections title on the same page as the rendered environment.
+			* As a user of this site, that clicks any link to another user's published iCollection, I would like to see the collections description on the same page as the rendered environment.
+			* As a user of this site, that clicks any link to another user's published iCollection, I would like to see the collections keywords on the same page as the rendered environment.
 
 
 Background:
@@ -54,18 +68,16 @@ Background:
 	  | 83 | 16        | 48       | 1         | Fourth Photo Dogs  | Description4  |
 
 
-@ignore
+
 Scenario Outline: Clicking on the Preview Button for the Ocean Environment on the HomePage will redirect to the sample ocean environment page.
 	Given I am on the Home Page
-	When I Click Preview Ocean Environment
+	When I Click the '<SelectedButton>' button
 	Then I am redirected to the '<Page>' page
-	  And I can see the ocean environment preview with its title 
 	Examples:
-     | Page              |
-     | Ocean_environment |
-     | Ocean_environment |
-     | Ocean_environment |
-     | Ocean_environment |
+	| SelectedButton              | Page                 |
+	| ocean_environment_preview   | ocean_environment    |
+	| gallery_environment_preview | gallery_environment  |
+
 
 
 @ignore
@@ -77,7 +89,5 @@ Scenario Outline: Clicking on the Preview Button for the Gallery Environment on 
 	Examples:
      | Page                |
      | gallery_environment |
-     | gallery_environment |
-     | gallery_environment |
-     | gallery_environment |
+
 

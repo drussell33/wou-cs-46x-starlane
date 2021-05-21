@@ -83,39 +83,6 @@ namespace iCollections.BDDTests.Features
         {
 #line 10
 #line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Id",
-                        "Name",
-                        "Visibility",
-                        "UserId",
-                        "Route"});
-            table3.AddRow(new string[] {
-                        "10",
-                        "First Collection Fish",
-                        "1",
-                        "8",
-                        "Ocean_environment"});
-            table3.AddRow(new string[] {
-                        "13",
-                        "Second Collection Dogs",
-                        "1",
-                        "64",
-                        "gallery_environment"});
-            table3.AddRow(new string[] {
-                        "16",
-                        "Third Collection Shoes",
-                        "1",
-                        "3",
-                        "Ocean_environment"});
-            table3.AddRow(new string[] {
-                        "45",
-                        "Forth Collection Puzzels",
-                        "1",
-                        "3",
-                        "gallery_environment"});
-#line 12
- testRunner.Given("the following collections exist", ((string)(null)), table3, "Given ");
-#line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
@@ -123,64 +90,64 @@ namespace iCollections.BDDTests.Features
                         "UserId",
                         "Route"});
             table4.AddRow(new string[] {
+                        "10",
+                        "First Collection Fish",
+                        "1",
+                        "8",
+                        "Ocean_environment"});
+            table4.AddRow(new string[] {
+                        "13",
+                        "Second Collection Dogs",
+                        "1",
+                        "64",
+                        "gallery_environment"});
+            table4.AddRow(new string[] {
+                        "16",
+                        "Third Collection Shoes",
+                        "1",
+                        "3",
+                        "Ocean_environment"});
+            table4.AddRow(new string[] {
+                        "45",
+                        "Forth Collection Puzzels",
+                        "1",
+                        "3",
+                        "gallery_environment"});
+#line 12
+ testRunner.Given("the following collections exist", ((string)(null)), table4, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Id",
+                        "Name",
+                        "Visibility",
+                        "UserId",
+                        "Route"});
+            table5.AddRow(new string[] {
                         "0",
                         "Bad Collection 1",
                         "1",
                         "8",
                         "Ocean_environment"});
-            table4.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "11",
                         "Worse Collection 2",
                         "1",
                         "0",
                         "gallery_environment"});
-            table4.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "15",
                         "HORRIBLE Collection 3",
                         "1",
                         "3",
                         "IMLOST!"});
-            table4.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "$0",
                         "kityy Collection 4",
                         "9001",
                         "666",
                         "WTFisHAPPENING!!!1!"});
 #line 19
- testRunner.And("the following collections do not exist", ((string)(null)), table4, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "UserName",
-                        "Email",
-                        "FirstName",
-                        "LastName",
-                        "Password"});
-            table5.AddRow(new string[] {
-                        "TaliaK",
-                        "knott@example.com",
-                        "Talia",
-                        "Knott",
-                        "Hello123#"});
-            table5.AddRow(new string[] {
-                        "ZaydenC",
-                        "clark@example.com",
-                        "Zayden",
-                        "Clark",
-                        "Hello123#"});
-            table5.AddRow(new string[] {
-                        "DavilaH",
-                        "hareem@example.com",
-                        "Hareem",
-                        "Davila",
-                        "Hello123#"});
-            table5.AddRow(new string[] {
-                        "KrzysztofP",
-                        "krzysztof@example.com",
-                        "Krzysztof",
-                        "Ponce",
-                        "Hello123#"});
-#line 26
-testRunner.Given("the following users exist", ((string)(null)), table5, "Given ");
+ testRunner.And("the following collections do not exist", ((string)(null)), table5, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
@@ -189,65 +156,98 @@ testRunner.Given("the following users exist", ((string)(null)), table5, "Given "
                         "LastName",
                         "Password"});
             table6.AddRow(new string[] {
+                        "TaliaK",
+                        "knott@example.com",
+                        "Talia",
+                        "Knott",
+                        "Hello123#"});
+            table6.AddRow(new string[] {
+                        "ZaydenC",
+                        "clark@example.com",
+                        "Zayden",
+                        "Clark",
+                        "Hello123#"});
+            table6.AddRow(new string[] {
+                        "DavilaH",
+                        "hareem@example.com",
+                        "Hareem",
+                        "Davila",
+                        "Hello123#"});
+            table6.AddRow(new string[] {
+                        "KrzysztofP",
+                        "krzysztof@example.com",
+                        "Krzysztof",
+                        "Ponce",
+                        "Hello123#"});
+#line 26
+testRunner.Given("the following users exist", ((string)(null)), table6, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "UserName",
+                        "Email",
+                        "FirstName",
+                        "LastName",
+                        "Password"});
+            table7.AddRow(new string[] {
                         "AndreC",
                         "colea@example.com",
                         "Andre",
                         "Cole",
                         "0a9dfi3.a"});
-            table6.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "JoannaV",
                         "valdezJ@example.com",
                         "Joanna",
                         "Valdez",
                         "d9u(*dsF4"});
 #line 33
- testRunner.And("the following users do not exist", ((string)(null)), table6, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Name",
-                        "userid",
-                        "collectionid"});
-            table7.AddRow(new string[] {
-                        "My Favorites",
-                        "1",
-                        "16"});
-            table7.AddRow(new string[] {
-                        "My Favorites",
-                        "2",
-                        "45"});
-            table7.AddRow(new string[] {
-                        "My Favorites",
-                        "3",
-                        "45"});
-            table7.AddRow(new string[] {
-                        "My Favorites",
-                        "4",
-                        "13"});
-#line 38
-testRunner.Given("the following FavoriteCollections exist", ((string)(null)), table7, "Given ");
+ testRunner.And("the following users do not exist", ((string)(null)), table7, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
                         "userid",
                         "collectionid"});
             table8.AddRow(new string[] {
+                        "My Favorites",
+                        "1",
+                        "16"});
+            table8.AddRow(new string[] {
+                        "My Favorites",
+                        "2",
+                        "45"});
+            table8.AddRow(new string[] {
+                        "My Favorites",
+                        "3",
+                        "45"});
+            table8.AddRow(new string[] {
+                        "My Favorites",
+                        "4",
+                        "13"});
+#line 38
+testRunner.Given("the following FavoriteCollections exist", ((string)(null)), table8, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "userid",
+                        "collectionid"});
+            table9.AddRow(new string[] {
                         "my not so favorites",
                         "6",
                         "2"});
-            table8.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "i hate these",
                         "7",
                         "9"});
-            table8.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "null",
                         "3",
                         "8"});
-            table8.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "i forgot",
                         "4",
                         "3"});
 #line 46
- testRunner.And("the following FavoriteCollections do not exist", ((string)(null)), table8, "And ");
+ testRunner.And("the following FavoriteCollections do not exist", ((string)(null)), table9, "And ");
 #line hidden
         }
         

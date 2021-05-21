@@ -3,7 +3,8 @@ import {GatherPhotoData} from '../../iCollections/wwwroot/js/jest_testing_functi
 //import '@testing-library/jest-dom/extend-expect';
 import {toHaveClass} from '@testing-library/jest-dom/matchers'
 
-// Derek Sprint 4 and 5 
+//Derek Russell
+//User Story ID: 177878958, Sprint 5, 2 Points.
 
     test('GatherPhotoData_MakeingFakeDOMWithRowsForFunctionToFind_mightWork', () => {
         //Arrange

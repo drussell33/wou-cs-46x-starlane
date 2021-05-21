@@ -26,8 +26,9 @@ namespace iCollections.Controllers
         private readonly IcollectionRepository _colRepo;
         private readonly ICollectionPhotoRepository _collectionPhotoRepo;
         private readonly ICollectionKeywordRepository _collectionKeywords;
+        private readonly IKeywordRepository _keywordRepo;
 
-        public CreateCollectionController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, /*ICollectionsDbContext collectionsDbContext,*/ IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo, ICollectionPhotoRepository collectionphotoRepo, ICollectionKeywordRepository collectionKeywords)
+        public CreateCollectionController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, /*ICollectionsDbContext collectionsDbContext,*/ IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo, ICollectionPhotoRepository collectionphotoRepo, ICollectionKeywordRepository collectionKeywords, IKeywordRepository keywords)
         {
             _logger = logger;
             _userManager = userManager;
@@ -37,6 +38,7 @@ namespace iCollections.Controllers
             _colRepo = colRepo;
             _collectionPhotoRepo = collectionphotoRepo;
             _collectionKeywords = collectionKeywords;
+            _keywordRepo = keywords;
         }
 
         [HttpGet]
@@ -82,14 +84,25 @@ namespace iCollections.Controllers
             {
                 ViewData["errorPresent"] = true;
 
-                if(selectedPhotos.Length > 0)
+                string selectedRoute = TempData["route"].ToString();
+
+                if (selectedRoute == "ocean_environment" && selectedPhotos.Length > 0 && selectedPhotos.Length < 9)
                 {
                     TempData["photoids"] = selectedPhotos;
                     ViewData["errorPresent"] = null;
+                    TempData.Keep();
                     return RedirectToAction("PublishingOptionsSelection");
                 }
 
-                
+                if (selectedRoute == "gallery_environment" && selectedPhotos.Length > 0 && selectedPhotos.Length < 40)
+                {
+                    TempData["photoids"] = selectedPhotos;
+                    ViewData["errorPresent"] = null;
+                    TempData.Keep();
+                    return RedirectToAction("PublishingOptionsSelection");
+                }
+
+
             }
 
             TempData.Keep();
@@ -104,14 +117,16 @@ namespace iCollections.Controllers
             TempData.Keep();
 
             // figure out how to do privacy options
-            string[] dropDownList = new string[] { "private", "friends", "public" };
+            string[] dropDownList = new string[] { "Public", "Private"};
             ViewData["Visibility"] = new SelectList(dropDownList);
+            var activeKeywords = _keywordRepo.GetAll();
+            ViewData["KeywordsAvailable"] = new SelectList(activeKeywords, "Id", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description")]CreateCollectionPublishing collection)
+        public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description", "SelectedKeyword")]CreateCollectionPublishing collection)
         {
             string id = _userManager.GetUserId(User);
             //IcollectionUser appUser = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
@@ -135,8 +150,13 @@ namespace iCollections.Controllers
                 newCollection.Route = route;
                 newCollection.UserId = appUser.Id;
                 newCollection.DateMade = DateTime.Now;
-                newCollection.Visibility = 1;
+                newCollection.Visibility = 0;
+                if (collection.Visibility == "Public")
+                {
+                    newCollection.Visibility = 1;
+                }
                 newCollection.Name = collection.CollectionName;
+                newCollection.Description = collection.Description;
 
                 //_collectionsDbContext.Collections.Add(newCollection);
                 //await _collectionsDbContext.SaveChangesAsync();
@@ -170,10 +190,12 @@ namespace iCollections.Controllers
                                 }
                             }
                         }
-                        CollectionKeyword mandatoryKeyWord = new CollectionKeyword();
-                        mandatoryKeyWord.CollectId = newCollection.Id;
-                        mandatoryKeyWord.KeywordId = 1;
-                        await _collectionKeywords.AddOrUpdateAsync(mandatoryKeyWord);
+
+
+                        CollectionKeyword addingKeyword = new CollectionKeyword();
+                        addingKeyword.CollectId = newCollection.Id;
+                        addingKeyword.KeywordId = collection.SelectedKeyword;
+                        await _collectionKeywords.AddOrUpdateAsync(addingKeyword);
 
                     }
                     
@@ -185,8 +207,10 @@ namespace iCollections.Controllers
             }
             string[] dropDownList = new string[] { "private", "friends", "public" };
             ViewData["Visibility"] = new SelectList(dropDownList);
+            var activeKeywords = _keywordRepo.GetAll();
+            ViewData["KeywordsAvailable"] = new SelectList(activeKeywords, "Id", "Name");
 
-            return RedirectToAction("PublishingSuccess");
+            return View("PublishingOptionsSelection", collection);
         }
 
         [HttpGet]
@@ -202,6 +226,7 @@ namespace iCollections.Controllers
             }
             //var collections = _collectionsDbContext.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == appUser.UserName).Collections.OrderByDescending(c => c.DateMade);
             var collections = _colRepo.GetMostRecentiCollections(appUser.Id, 10);
+
             return View(collections);
         }
     }

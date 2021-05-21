@@ -74,8 +74,8 @@ namespace iCollections.Tests.Tests
             Assert.That(mv.Valid, Is.True);
         }
 
-        //Derek Russell: User Story for Sprint 5
-
+        // Derek Russell
+        // User Story ID: 177878474, Sprint 5, 4 Points.
         // Getting the Form Value for the Collection Publishing, which denotes the end environment view
         [Test]
         public void CreateCollectionPublishing_DefaultIs_NOTValid()

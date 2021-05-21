@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create iCollection";
 }
 
-<h1>Environment Selection page</h1>
+<h1 class="creation-page-title">Environment Selection</h1>
 <h4>Please Select from one of the following environments</h4>
 @if (ViewData["routeName"] != null )
 {
@@ -14,7 +14,7 @@
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <section class="clear-section " id="">
-        <div class="container-fluid">
+        <div class="container-fluid cf-padding">
             <div class="row">
                 @*<div class="col-2 form-group ">
 
@@ -26,21 +26,22 @@
                     </div>*@
                 <div class="col-2">
 
-                    <div class="form-group">
+                    <div class="form-group environment-select-checkbox">
                         @*<label asp-for="Route" class="control-label"></label>*@
-                        <input asp-for="Route" type="checkbox" class="form-control" value="Ocean_environment" />
+                        <input asp-for="Route" type="checkbox" class="form-control" id="ocean_environment" value="ocean_environment" />
                         <span asp-validation-for="Route" class="text-danger"></span>
                     </div>
 
 
                 </div>
                 <div class="col-10">
-                    <h1>A Sample of 360 Environment</h1>
+                    <h1>Ocean Environment</h1>
                     <div class="row">
                         <div class="col-6">
-                            <h4>Arange a small number of photo around a central point so they can be viewed in a 360 dgree manner</h4>
-                            <p>An ocean environment with a users selection of trophy fish can be previewed for an example.</p>
-                            <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Ocean_environment">Preview</a>
+                            <h3>360 Degree View</h3>
+                            <h4>1 to 8 photos capacity</h4>
+                            <p>Ocean environment with water and a Sunset that has the photos partially submerged</p>
+                            <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="ocean_environment">Preview</a>
                         </div>
                         <div class="col-6">
                             <img src="~/img/ocean_example_thumbnail.jpg" class="landing-image" alt="2D Sample image" />
@@ -52,7 +53,7 @@
     </section>
 
     <section class="silver-section" id="">
-        <div class="container-fluid">
+        <div class="container-fluid cf-padding">
             <div class="row">
 
                 @*<div class="col-2 form-group">
@@ -64,19 +65,20 @@
 
                     </div>*@
                 <div class="col-2">
-                    <div class="form-group">
+                    <div class="form-group environment-select-checkbox">
                         @*<label asp-for="Route" class="control-label"></label>*@
-                        <input asp-for="Route" type="checkbox" class="form-control" value="gallery_environment" data-val-required="The AcceptsTerms field is required." />
+                        <input asp-for="Route" type="checkbox" class="form-control" id="gallery_environment" value="gallery_environment" data-val-required="The AcceptsTerms field is required." />
                         <span asp-validation-for="Route" class="text-danger"></span>
                     </div>
 
                 </div>
                 <div class="col-10">
-                    <h1>Sample of 3D environment</h1>
+                    <h1>Open Air Night Gallery</h1>
                     <div class="row">
                         <div class="col-6">
-                            <h4>Arange a small to large number of photos into a 3D gallery environment world that you want walk through</h4>
-                            <p>A gallery environment where a user has upload photos of their puzzels can be previewed for an example.</p>
+                            <h3>Full Virtual Environment</h3>
+                            <h4>1 to 40 photos capacity</h4>
+                            <p>Gallery Environment with Minimalist Interior and Night Sky Setting</p>
                             <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="gallery_environment">Preview</a>
                         </div>
                         <div class="col-6">
@@ -88,11 +90,15 @@
         </div>
     </section>
 
-    <div class="form-group">
-        <input type="submit" value="Continue" class="btn btn-primary" />
-    </div>
-    @*<button type="submit" value="EnvironmentSelection" class="btn btn-primary">Continue</button>*@
 
+
+    <div class="row justify-content-end environment-buttons">
+        <div class="col-2">
+            <div class="form-group">
+                <input id="continue_on" type="submit" value="Continue" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
 </form>
 
 @section Scripts {

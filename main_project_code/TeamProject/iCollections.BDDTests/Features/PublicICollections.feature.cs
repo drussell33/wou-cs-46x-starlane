@@ -35,9 +35,9 @@ namespace iCollections.BDDTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "PublicICollections", "Baltazar Ortiz #178115988\nBeing able to see registered users public iCollections." +
-                    "\nPublic iCollections can be viewed via the profile page. Note: I am not logged i" +
-                    "n.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "PublicICollections", "Baltazar Ortiz #178115988\r\nBeing able to see registered users public iCollections" +
+                    ".\r\nPublic iCollections can be viewed via the profile page. Note: I am not logged" +
+                    " in.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

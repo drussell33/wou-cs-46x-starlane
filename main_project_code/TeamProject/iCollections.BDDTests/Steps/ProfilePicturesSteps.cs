@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fuji.BDDTests.Steps;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -22,8 +23,10 @@ namespace iCollections.BDDTests.Steps
     {
 
         private readonly ScenarioContext _ctx;
-        // private string _hostBaseName = @"https://icollections.azurewebsites.net/";
+        //private string _hostBaseName = @"https://icollections.azurewebsites.net/";
         private string _hostBaseName = @"https://localhost:5001/";
+        //private string _hostBaseName = @"https://localhost:44372/";
+        
 
         private readonly IWebDriver _driver;
 

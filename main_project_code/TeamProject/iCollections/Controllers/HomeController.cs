@@ -51,12 +51,14 @@ namespace iCollections.Controllers
         }
 
         [Route("/ocean_environment")]
-        public IActionResult Ocean_environment(int? collectionID)
+        public IActionResult ocean_environment(int? collectionID)
         {
             List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
             
             if (collectionID == null)
             {
+                ViewData["collectionTitle"] = "Example Ocean Environment";
+                ViewData["collectionDescription"] = "This is the 360 Degree View environment with the Ocean Setting.";
                 return View();
             }
             else
@@ -86,6 +88,7 @@ namespace iCollections.Controllers
                         }
                     }
                     ViewData["collectionTitle"] = newCollection.Name;
+                    ViewData["collectionDescription"] = newCollection.Description;
                     return View(AllPhotos);
                 }
 
@@ -103,6 +106,8 @@ namespace iCollections.Controllers
         {
             if (collectionID == null)
             {
+                ViewData["collectionTitle"] = "Example Gallery Environment";
+                ViewData["collectionDescription"] = "This is the full virtual environment in an evening gallery setting";
                 return View();
             }
             List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
@@ -131,6 +136,7 @@ namespace iCollections.Controllers
                     }
                 }
                 ViewData["collectionTitle"] = newCollection.Name;
+                ViewData["collectionDescription"] = newCollection.Description;
                 return View(AllPhotos);
             }
 

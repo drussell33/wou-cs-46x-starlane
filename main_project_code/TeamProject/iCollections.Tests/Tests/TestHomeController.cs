@@ -17,7 +17,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
 
-//Derek Russell: User Story for Sprint 4
+//Derek Russell
+//User Story ID: 177878958, Sprint 5, 2 Points.
 
 namespace iCollections.Tests.Tests
 {
@@ -127,7 +128,7 @@ namespace iCollections.Tests.Tests
         {
             HomeController controller = GetHomeControllerWithLoggedInUser();
 
-            IActionResult result = controller.Ocean_environment(10);
+            IActionResult result = controller.ocean_environment(10);
             
             string username = controller.User.Identity.Name;        // <-- this one works because we set it up with: mockContext.SetupGet(ctx => ctx.User.Identity.Name).Returns()
   
@@ -141,7 +142,7 @@ namespace iCollections.Tests.Tests
         {
             HomeController controller = GetHomeControllerWithLoggedInUser();
 
-            var result = controller.Ocean_environment(10);
+            var result = controller.ocean_environment(10);
 
             Assert.That(result, Is.TypeOf<ViewResult>());
         }
@@ -162,7 +163,7 @@ namespace iCollections.Tests.Tests
         {
             HomeController controller = GetHomeControllerWithLoggedInUser();
 
-            IActionResult result = controller.Ocean_environment(10);
+            IActionResult result = controller.ocean_environment(10);
 
             List<RenderingPhoto> vm = (result as ViewResult).Model as List<RenderingPhoto>;
 

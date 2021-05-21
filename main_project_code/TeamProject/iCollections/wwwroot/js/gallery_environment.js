@@ -11,6 +11,46 @@ $(document).ready(function MakeGallery() {
     photoData = GatherPhotoData(photoData);
 
     let photoDemoData = [
+        { "srcData": './images/puzzel_pics/image_123923953.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(1).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(2).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(3).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(4).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(5).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(6).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(7).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(8).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(9).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(10).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(11).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(12).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(13).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(14).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(15).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(16).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(17).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(18).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(19).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(20).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(21).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(22).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(23).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(24).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(25).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(26).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(27).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+        { "srcData": './images/puzzel_pics/image_123923953(28).JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
+
+
+    ];
+
+
+
+
+
+
+
+/*    let photoDemoData = [
         { "srcData": './images/card_pics/IMG-0782.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0783.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0784.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
@@ -56,7 +96,10 @@ $(document).ready(function MakeGallery() {
         { "srcData": './images/card_pics/IMG-0827.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0828.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
         { "srcData": './images/card_pics/IMG-0829.JPG', "srcTitle": 'Future Title', "srcRank": 1, "srcDescription": "Future Description" },
-    ];
+    ];*/
+
+
+
 
     if (photoData.length === 0) {
         console.log("Photo Data is NUll")
@@ -65,7 +108,7 @@ $(document).ready(function MakeGallery() {
 
 
     let camera, scene, renderer, controls, container;
-    let floorMat;
+    let floorMat, wallMat;
 
     const objects = [];
 
@@ -93,12 +136,30 @@ $(document).ready(function MakeGallery() {
         //basic scene attributes
         scene = new THREE.Scene();
         scene.background = new THREE.Color(0xcce0ff);
-        scene.fog = new THREE.Fog(0xffffff, 500, 10000);
+        //scene.fog = new THREE.Fog(0xffffff, 500, 10000);
 
         //General light source
         const light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75);
         light.position.set(0.5, 1, 0.75);
         scene.add(light);
+
+        // Skybox
+
+        var nightGeometry = new THREE.BoxGeometry(20000, 20000, 20000);
+        var cubeMaterials = [
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("images/night_skybox/nightsky_ft.png"), side: THREE.DoubleSide }), //front side
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('images/night_skybox/nightsky_bk.png'), side: THREE.DoubleSide }), //back side
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('images/night_skybox/nightsky_up.png'), side: THREE.DoubleSide }), //up side
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('images/night_skybox/nightsky_dn.png'), side: THREE.DoubleSide }), //down side
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('images/night_skybox/nightsky_rt.png'), side: THREE.DoubleSide }), //right side
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('images/night_skybox/nightsky_lf.png'), side: THREE.DoubleSide }) //left side
+        ];
+
+        var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
+        var cube = new THREE.Mesh(nightGeometry, cubeMaterial);
+        cube.position.y = 2000;
+        scene.add(cube);
+
 
         // Creates the event liseners for the pointerlock controls and key / mouse functions
         controls = new PointerLockControls(camera, document.body);
@@ -195,37 +256,10 @@ $(document).ready(function MakeGallery() {
         raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10);
 
 
-        // Testing Walls group creation
-
-        let wallGroup = new THREE.Group();
-        scene.add(wallGroup);
-
-        let wall1 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 0.001), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-        let wall2 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 0.001), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-        let wall3 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 0.001), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-        let wall4 = new THREE.Mesh(new THREE.BoxGeometry(10000, 2000, 0.001), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-
-        wallGroup.add(wall1, wall2, wall3, wall4);
-        wallGroup.position.y = 3;
-
-        wall1.position.z = -5000;
-        wall2.position.x = -5000;
-        wall2.rotation.y = Math.PI / 2;
-        wall3.position.x = 5000;
-        wall3.rotation.y = -Math.PI / 2;
-        wall4.position.z = 5000;
-        wall4.rotation.y = Math.PI;
-
-        for (var i = 0; i < wallGroup.children.length; i++) {
-            wallGroup.children[i].BBox = new THREE.Box3();
-            wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]);
-        }
-
-
 
         // Hardwood floor replacement 
 
-        let floorGeometry = new THREE.PlaneGeometry(10000, 10000);
+        let floorGeometry = new THREE.PlaneGeometry(9000, 9000);
         floorGeometry.rotateX(- Math.PI / 2);
 
         floorMat = new THREE.MeshStandardMaterial({
@@ -273,57 +307,134 @@ $(document).ready(function MakeGallery() {
 
 
 
+        // Brick Wall Replacement
+
+
+        wallMat = new THREE.MeshStandardMaterial({
+            roughness: 0.7,
+            color: 0xffffff,
+            bumpScale: 0.002,
+            metalness: 0.2
+        });
+        textureLoader.load("images/textures/brick_diffuse.jpg", function (map) {
+
+            map.wrapS = THREE.RepeatWrapping;
+            map.wrapT = THREE.RepeatWrapping;
+            map.anisotropy = 4;
+            map.repeat.set(7, 4);
+            map.encoding = THREE.sRGBEncoding;
+            wallMat.map = map;
+            wallMat.needsUpdate = true;
+
+        });
+        textureLoader.load("images/textures/brick_bump.jpg", function (map) {
+
+            map.wrapS = THREE.RepeatWrapping;
+            map.wrapT = THREE.RepeatWrapping;
+            map.anisotropy = 4;
+            map.repeat.set(7, 4);
+            wallMat.bumpMap = map;
+            wallMat.needsUpdate = true;
+
+        });
+
+
+        let wallGroup = new THREE.Group();
+        scene.add(wallGroup);
+
+        let wall1 = new THREE.Mesh(new THREE.BoxGeometry(9000, 2000, 1), wallMat);
+        let wall2 = new THREE.Mesh(new THREE.BoxGeometry(9000, 2000, 1), wallMat);
+        let wall3 = new THREE.Mesh(new THREE.BoxGeometry(9000, 2000, 1), wallMat);
+        let wall4 = new THREE.Mesh(new THREE.BoxGeometry(9000, 2000, 1), wallMat);
+
+        wallGroup.add(wall1, wall2, wall3, wall4);
+        wallGroup.position.y = 3;
+
+        wall1.position.z = -4500;
+        wall2.position.x = -4500;
+        wall2.rotation.y = Math.PI / 2;
+        wall3.position.x = 4500;
+        wall3.rotation.y = -Math.PI / 2;
+        wall4.position.z = 4500;
+        wall4.rotation.y = Math.PI;
+
+        for (var i = 0; i < wallGroup.children.length; i++) {
+            wallGroup.children[i].BBox = new THREE.Box3();
+            wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]);
+        }
+
+
+
+        //Photo locations 
+
+
         let positionCordinateData = [
-            //Row One
-            { "xAxis": -4000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": -3000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": -2000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": -1000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": 0, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": 1000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": 2000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": 3000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            { "xAxis": 4000, "yAxis": 250, "zAxis": -2000, "yRotation": null },
-            //Row Two
-            { "xAxis": -4000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": -3000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": -2000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": -1000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": 0, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": 1000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": 2000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": 3000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            { "xAxis": 4000, "yAxis": 250, "zAxis": -4000, "yRotation": null },
-            //Row Three
-            { "xAxis": -4000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": -3000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": -2000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": -1000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": 0, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": 1000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": 2000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": 3000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            { "xAxis": 4000, "yAxis": 250, "zAxis": 1500, "yRotation": Math.PI },
-            //Row Four
-            { "xAxis": -4000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": -3000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": -2000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": -1000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": 0, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": 1000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": 2000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": 3000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            { "xAxis": 4000, "yAxis": 250, "zAxis": 3500, "yRotation": Math.PI },
-            //Row Five
-            { "xAxis": -4000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": -3000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": -2000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": -1000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": 0, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": 1000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": 2000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": 3000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
-            { "xAxis": 4000, "yAxis": 250, "zAxis": 4900, "yRotation": Math.PI },
+            //Inner Circle
+            { "xAxis": 0, "yAxis": 250, "zAxis": -1300, "yRotation": null },
+            { "xAxis": 1300, "yAxis": 250, "zAxis": 0, "yRotation": -1.57 },
+            { "xAxis": 0, "yAxis": 250, "zAxis": 1300, "yRotation": Math.PI },
+            { "xAxis": -1300, "yAxis": 250, "zAxis": 0, "yRotation": 1.57 },
+            { "xAxis": 1300, "yAxis": 250, "zAxis": -1300, "yRotation": -0.78 },
+            { "xAxis": -1300, "yAxis": 250, "zAxis": -1300, "yRotation": 0.78 },
+            { "xAxis": 1300, "yAxis": 250, "zAxis": 1300, "yRotation": 3.92 },
+            { "xAxis": -1300, "yAxis": 250, "zAxis": 1300, "yRotation": -3.92 },
+
+            //Second Layer
+            { "xAxis": 700, "yAxis": 250, "zAxis": -2300, "yRotation": null },
+            { "xAxis": -700, "yAxis": 250, "zAxis": -2300, "yRotation": null },
+            { "xAxis": 2300, "yAxis": 250, "zAxis": 700, "yRotation": -1.57 },
+            { "xAxis": 2300, "yAxis": 250, "zAxis": -700, "yRotation": -1.57 },
+            { "xAxis": 700, "yAxis": 250, "zAxis": 2300, "yRotation": Math.PI },
+            { "xAxis": -700, "yAxis": 250, "zAxis": 2300, "yRotation": Math.PI },
+            { "xAxis": -2300, "yAxis": 250, "zAxis": 700, "yRotation": 1.57 },
+            { "xAxis": -2300, "yAxis": 250, "zAxis": -700, "yRotation": 1.57 },
+            { "xAxis": 2300, "yAxis": 250, "zAxis": -2300, "yRotation": -0.78 },
+            { "xAxis": -2300, "yAxis": 250, "zAxis": -2300, "yRotation": 0.78 },
+            { "xAxis": 2300, "yAxis": 250, "zAxis": 2300, "yRotation": 3.92 },
+            { "xAxis": -2300, "yAxis": 250, "zAxis": 2300, "yRotation": -3.92 },
+
+
+            //Third Layer
+            { "xAxis": 0, "yAxis": 250, "zAxis": -3300, "yRotation": null },
+            { "xAxis": 1200, "yAxis": 250, "zAxis": -3300, "yRotation": null },
+            { "xAxis": -1200, "yAxis": 250, "zAxis": -3300, "yRotation": null },
+            { "xAxis": 2200, "yAxis": 250, "zAxis": -3300, "yRotation": null },
+            { "xAxis": -2200, "yAxis": 250, "zAxis": -3300, "yRotation": null },
+
+            { "xAxis": 3300, "yAxis": 250, "zAxis": 0, "yRotation": -1.57 },
+            { "xAxis": 3300, "yAxis": 250, "zAxis": 1200, "yRotation": -1.57 },
+            { "xAxis": 3300, "yAxis": 250, "zAxis": -1200, "yRotation": -1.57 },
+            { "xAxis": 3300, "yAxis": 250, "zAxis": 2200, "yRotation": -1.57 },
+            { "xAxis": 3300, "yAxis": 250, "zAxis": -2200, "yRotation": -1.57 },
+
+            { "xAxis": 0, "yAxis": 250, "zAxis": 3300, "yRotation": Math.PI },
+            { "xAxis": 1200, "yAxis": 250, "zAxis": 3300, "yRotation": Math.PI },
+            { "xAxis": -1200, "yAxis": 250, "zAxis": 3300, "yRotation": Math.PI },
+            { "xAxis": 2200, "yAxis": 250, "zAxis": 3300, "yRotation": Math.PI },
+            { "xAxis": -2200, "yAxis": 250, "zAxis": 3300, "yRotation": Math.PI },
+
+            { "xAxis": -3300, "yAxis": 250, "zAxis": 0, "yRotation": 1.57 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": 1200, "yRotation": 1.57 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": -1200, "yRotation": 1.57 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": 2200, "yRotation": 1.57 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": -2200, "yRotation": 1.57 },
+
+
+            { "xAxis": 3300, "yAxis": 250, "zAxis": -3300, "yRotation": -0.78 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": -3300, "yRotation": 0.78 },
+            { "xAxis": 3300, "yAxis": 250, "zAxis": 3300, "yRotation": 3.92 },
+            { "xAxis": -3300, "yAxis": 250, "zAxis": 3300, "yRotation": -3.92 },
+
+            //Fourth Layer
+            { "xAxis": 0, "yAxis": 250, "zAxis": -4300, "yRotation": null },
+            { "xAxis": 4300, "yAxis": 250, "zAxis": 0, "yRotation": -1.57 },
+            { "xAxis": 0, "yAxis": 250, "zAxis": 4300, "yRotation": Math.PI },
+            { "xAxis": -4300, "yAxis": 250, "zAxis": 0, "yRotation": 1.57 },
+            { "xAxis": 4300, "yAxis": 250, "zAxis": -4300, "yRotation": -0.78 },
+            { "xAxis": -4300, "yAxis": 250, "zAxis": -4300, "yRotation": 0.78 },
+            { "xAxis": 4300, "yAxis": 250, "zAxis": 4300, "yRotation": 3.92 },
+            { "xAxis": -4300, "yAxis": 250, "zAxis": 4300, "yRotation": -3.92 },
+
         ];
 
 
