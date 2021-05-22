@@ -188,7 +188,6 @@ namespace iCollections.Data
                 "/images/tool_pics/IMG-0853.JPG",
                 "/images/tool_pics/IMG-0854.JPG",
                 "/images/tool_pics/IMG-0855.JPG",
-                "/images/tool_pics/IMG-0856.JPG",
                 "/images/tool_pics/IMG-0857.JPG",
                 "/images/tool_pics/IMG-0858.JPG",
             },
