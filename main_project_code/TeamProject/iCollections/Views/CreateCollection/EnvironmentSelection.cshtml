@@ -16,23 +16,11 @@
     <section class="clear-section " id="">
         <div class="container-fluid cf-padding">
             <div class="row">
-                @*<div class="col-2 form-group ">
-
-                        <div class="form-check align-content-center environment-select-checkbox">
-                            <input type="checkbox" asp-for="Route" value="Ocean_environment" class="form-check-input" id="">
-                            <label class="form-check-label" for="exampleCheck1">Select</label>
-                        </div>
-
-                    </div>*@
                 <div class="col-2">
-
                     <div class="form-group environment-select-checkbox">
-                        @*<label asp-for="Route" class="control-label"></label>*@
                         <input asp-for="Route" type="checkbox" class="form-control" id="ocean_environment" value="ocean_environment" />
                         <span asp-validation-for="Route" class="text-danger"></span>
                     </div>
-
-
                 </div>
                 <div class="col-10">
                     <h1>Ocean Environment</h1>
@@ -55,18 +43,8 @@
     <section class="silver-section" id="">
         <div class="container-fluid cf-padding">
             <div class="row">
-
-                @*<div class="col-2 form-group">
-
-                        <div class="form-check align-content-center environment-select-checkbox">
-                            <input type="checkbox" asp-for="Route" value="gallery_environment" class="form-check-input" id="">
-                            <label class="form-check-label" for="exampleCheck1">Select</label>
-                        </div>
-
-                    </div>*@
                 <div class="col-2">
                     <div class="form-group environment-select-checkbox">
-                        @*<label asp-for="Route" class="control-label"></label>*@
                         <input asp-for="Route" type="checkbox" class="form-control" id="gallery_environment" value="gallery_environment" data-val-required="The AcceptsTerms field is required." />
                         <span asp-validation-for="Route" class="text-danger"></span>
                     </div>

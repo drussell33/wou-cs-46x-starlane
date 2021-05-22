@@ -30,6 +30,7 @@ namespace iCollections.Utilities
         /// <returns></returns>
         public static async Task Initialize(IServiceProvider serviceProvider, UserInfoData[] seedData, string testUserPw, IWebHostEnvironment hostEnvironment, string[][] photoData)
         {
+            //Need the hosting environment in order to seed the photos from the wwwroot to the sql server db
             IWebHostEnvironment webHostEnvironment = hostEnvironment;
             string wwwPath = webHostEnvironment.WebRootPath;
             string contentPath = webHostEnvironment.ContentRootPath;
@@ -45,7 +46,6 @@ namespace iCollections.Utilities
                     // Get the Identity user manager
                     var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-                    //IWebHostEnvironment env = context.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
                     var profilePhotoPosition = 0;
                     var photoAlbumPerUser = 1;
                     foreach (var u in seedData)
@@ -62,33 +62,25 @@ namespace iCollections.Utilities
                             context.Add(fu);
                             await context.SaveChangesAsync();
 
-                            //Hmmm.From what I'm reading now, maybe try going through IWebHostEnvironment to get both the WebRootPath and a WebRootFileProvider
 
-
+                            //Gets that new user created just above
                             var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
-                            //var src = wwwPath + "/images/profile_pics/profile_pic_4.jpg";
-
+     
+                            //uploads a profile picture for that user
                             var src = wwwPath + photoData[0][profilePhotoPosition];
-                            //var src = wwwPath + photoData[photoPosition].ImageLocation;
-
-                            //IFileProvider physicalProvider = new PhysicalFileProvider(src); 
-                            //var img = File.Create(src);
-                            //System.Drawing.Image img = System.Drawing.Image.FromFile(src);
                             byte[] imgdata = System.IO.File.ReadAllBytes(src);
-                            //byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
                             Photo profile_pic = new Photo { Name = "profile_pic", Data = imgdata, DateUploaded = DateTime.Now, UserId = thatNewUser.Id };
                             context.Add(profile_pic);
                             await context.SaveChangesAsync();
                             
+                            //sets the profile picture as that new users profile picture, whoa.
                             var thatNewPhotoId = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
                             thatNewUser.ProfilePicId = thatNewPhotoId.Id;
                             context.Update(thatNewUser);
                             await context.SaveChangesAsync();
-                            //var thatNewPhoto = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
-                            //thatNewUser.ProfilePicId = profile_pic.Id;
-                            //await context.SaveChangesAsync();
 
 
+                            //uploads an alubum for photos for the user.
                             foreach (var albumphoto in photoData[photoAlbumPerUser])
                             {
                                 var albumPhotoSrc = wwwPath + albumphoto;
@@ -99,26 +91,9 @@ namespace iCollections.Utilities
                             }
                         }
 
-                        
                         ++photoAlbumPerUser;
                         ++profilePhotoPosition;
-                        /*var src = "images/profile_pics/profile_pic_4.jpg";
-                        System.Drawing.Image img = System.Drawing.Image.FromFile(src);
-                        byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
-                        Photo profile_pic = new Photo { Name = "profile_pic", Data = bytes, DateUploaded = DateTime.Now*//*, UserId = fu.Id *//*};
-                        context.Photos.Add(profile_pic);
-                        await context.SaveChangesAsync();*/
 
-                        //second attempts
-                        /*var src = "~/images/profile_pics/profile_pic_4.jpg";
-                        System.Drawing.Image img = System.Drawing.Image.FromFile(src);
-                        byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
-                        Photo profile_pic = new Photo { Name = "profile_pic", Data = bytes, DateUploaded = DateTime.Now, UserId = fu.Id };
-                        context.Add(profile_pic);
-                        await context.SaveChangesAsync();*/
-                        /*Now making sure that the admin role exists and give it to this user.
-                        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                        await EnsureRoleForUser(roleManager, userManager, identityID, "admin");*/
                     }
                 }
             }
