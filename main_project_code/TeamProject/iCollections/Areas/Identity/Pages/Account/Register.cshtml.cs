@@ -29,7 +29,6 @@ namespace iCollections.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        //private readonly ICollectionsDbContext _iCollectionsDbContext;
         private readonly IIcollectionUserRepository _userRepo;
         private readonly IPhotoRepository _photoRepo;
 
@@ -45,7 +44,6 @@ namespace iCollections.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            //_iCollectionsDbContext = context;
             _userRepo = userRepo;
             _photoRepo = photoRepo;
         }
