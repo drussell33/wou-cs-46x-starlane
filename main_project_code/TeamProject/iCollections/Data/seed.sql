@@ -372,68 +372,67 @@
 	
 
 INSERT INTO [Follow] (follower,followed,began) VALUES
-	(1,2, '04/29/2021 5:50 AM'),
-	(1,3, '04/25/2021 5:50 AM'),
-	(1,4, '04/26/2021 5:50 AM'),
-	(1,5, '04/27/2021 5:50 AM'),
-	(1,6, '04/28/2021 5:50 AM'),
-	(1,7, '04/29/2021 5:50 AM'),
-	(1,8, '04/30/2021 5:50 AM'),
+	(1,2, '05/20/2021 5:50 AM'),
+	(1,3, '05/19/2021 5:50 AM'),
+	(1,4, '05/18/2021 5:50 AM'),
+	(1,5, '05/17/2021 5:50 AM'),
+	(1,6, '05/16/2021 5:50 AM'),
+	(1,7, '05/12/2021 5:50 AM'),
+	(1,8, '05/11/2021 5:50 AM'),
 
-	(2,1, '04/28/2021 5:50 AM'),
-	(2,3, '04/22/2021 5:50 AM'),
-	(2,4, '04/23/2021 5:50 AM'),
-	(2,5, '04/24/2021 5:50 AM'),
-	(2,6, '04/25/2021 5:50 AM'),
-	(2,7, '04/26/2021 5:50 AM'),
-	(2,8, '04/27/2021 5:50 AM'),
+	(2,1, '05/16/2021 5:50 AM'),
+	(2,3, '05/20/2021 5:50 AM'),
+	(2,4, '05/17/2021 5:50 AM'),
+	(2,5, '05/13/2021 5:50 AM'),
+	(2,6, '05/13/2021 5:50 AM'),
+	(2,7, '05/14/2021 5:50 AM'),
+	(2,8, '05/09/2021 5:50 AM'),
 
-	(3,1, '04/24/2021 5:50 AM'),
-	(3,2, '04/24/2021 5:50 AM'),
-	(3,4, '04/23/2021 5:50 AM'),
-	(3,5, '04/22/2021 5:50 AM'),
-	(3,6, '04/21/2021 5:50 AM'),
-	(3,7, '04/20/2021 5:50 AM'),
-	(3,8, '04/19/2021 5:50 AM'),
+	(3,1, '05/22/2021 5:50 AM'),
+	(3,2, '05/21/2021 5:50 AM'),
+	(3,4, '05/21/2021 5:50 AM'),
+	(3,5, '05/11/2021 5:50 AM'),
+	(3,6, '05/11/2021 5:50 AM'),
+	(3,7, '05/10/2021 5:50 AM'),
+	(3,8, '05/09/2021 5:50 AM'),
 
-	(4,1, '04/14/2021 5:50 AM'),
-	(4,2, '04/14/2021 5:50 AM'),
-	(4,3, '04/13/2021 5:50 AM'),
-	(4,5, '04/14/2021 5:50 AM'),
-	(4,6, '04/14/2021 5:50 AM'),
-	(4,7, '04/14/2021 5:50 AM'),
-	(4,8, '04/14/2021 5:50 AM'),
+	(4,1, '05/18/2021 5:50 AM'),
+	(4,2, '05/18/2021 5:50 AM'),
+	(4,3, '05/18/2021 5:50 AM'),
+	(4,5, '05/18/2021 5:50 AM'),
+	(4,6, '05/18/2021 5:50 AM'),
+	(4,7, '05/12/2021 5:50 AM'),
+	(4,8, '05/11/2021 5:50 AM'),
 
-	(5,1, '04/17/2021 4:52 AM'),
-	(5,2, '04/17/2021 4:52 AM'),
-	(5,3, '04/17/2021 4:52 AM'),
-	(5,4, '04/17/2021 4:52 AM'),
-	(5,6, '04/17/2021 4:52 AM'),
-	(5,7, '04/19/2021 5:51 AM'),
-	(5,8, '04/12/2021 6:50 AM'),
+	(5,1, '05/15/2021 4:52 AM'),
+	(5,2, '05/15/2021 4:52 AM'),
+	(5,3, '05/15/2021 4:52 AM'),
+	(5,4, '05/12/2021 4:52 AM'),
+	(5,6, '05/7/2021 4:52 AM'),
 
-	(6,1, '04/26/2021 5:52 AM'),
-	(6,2, '04/26/2021 5:52 AM'),
-	(6,3, '04/26/2021 5:52 AM'),
-	(6,4, '04/26/2021 5:52 AM'),
-	(6,5, '04/26/2021 5:52 AM'),
-	(6,7, '04/26/2021 5:52 AM'),
-	(6,8, '04/15/2021 5:58 AM'),
+
+	(6,1, '05/15/2021 5:52 AM'),
+	(6,2, '05/15/2021 5:52 AM'),
+	(6,3, '05/12/2021 5:52 AM'),
+	(6,4, '05/12/2021 5:52 AM'),
+	(6,5, '05/11/2021 5:52 AM'),
+
+	(6,8, '05/1/2021 5:58 AM'),
 	
-	(7,1, '04/13/2021 5:33 AM'),
-	(7,2, '04/13/2021 5:33 AM'),
-	(7,3, '04/13/2021 5:33 AM'),
-	(7,4, '04/13/2021 5:33 AM'),
-	(7,5, '04/13/2021 5:33 AM'),
-	(7,6, '04/13/2021 5:35 AM'),
-	(7,8, '04/13/2021 5:37 AM'),
+	(7,1, '05/13/2021 5:33 AM'),
 
-	(8,1, '04/13/2021 5:54 AM'),
-	(8,2, '04/13/2021 5:54 AM'),
-	(8,3, '04/13/2021 5:54 AM'),
+	(7,3, '05/12/2021 5:33 AM'),
+	(7,4, '05/12/2021 5:33 AM'),
+	(7,5, '05/6/2021 5:33 AM'),
+	(7,6, '05/2/2021 5:35 AM'),
+
+
+	(8,1, '05/1/2021 5:54 AM'),
+	(8,2, '05/1/2021 5:54 AM'),
+
 	(8,4, '04/13/2021 5:54 AM'),
 	(8,5, '04/13/2021 5:54 AM'),
-	(8,6, '04/13/2021 5:55 AM'),
+
 	(8,7, '04/13/2021 5:56 AM');
 
 
@@ -442,8 +441,8 @@ INSERT INTO [Follow] (follower,followed,began) VALUES
 /*--------    TaliaK / knott@example.com  iCollections  -----------*/
 
 INSERT INTO [Collection](name,visibility,user_id,date_made,Description,route) VALUES
-	('Royal Ocean', 1, '1', '2021-05-22 00:59:39.713','Royal Caribbean ', 'ocean_environment'),
-	('Card Gallery', 1, '1', '2021-05-22 01:01:58.080','The only Cards I got left', 'gallery_environment');
+	('Royal Ocean', 1, '1', '2021-05-20 00:59:39.713','Royal Caribbean ', 'ocean_environment'),
+	('Card Gallery', 1, '1', '2021-05-15 01:01:58.080','The only Cards I got left', 'gallery_environment');
 
 INSERT INTO [CollectionPhoto] (collect_id,photo_id,photo_rank,title,Description,date_added) VALUES
 	(1,12,1,'collection photo title','collection photo description','2021-05-22 00:59:41.063'),
@@ -491,8 +490,8 @@ INSERT INTO [CollectionKeyword] (collect_id,keyword_id) VALUES
 /*--------    ZaydenC / clark@example.com  iCollections  -----------*/
 
 INSERT INTO [Collection](name,visibility,user_id,date_made,Description,route) VALUES
-	('Dog Toy Gallery', 1, '2', '2021-05-22 00:10:29.843','This is the dog toy gallery description section area that ha', 'gallery_environment'),
-	('Toys Overboard', 1, '2', '2021-05-22 00:14:44.517','THIS IS THE DESCRIPTION ICEBERG', 'ocean_environment');
+	('Dog Toy Gallery', 1, '2', '2021-05-21 00:10:29.843','This is the dog toy gallery description section area that ha', 'gallery_environment'),
+	('Toys Overboard', 1, '2', '2021-05-14 00:14:44.517','THIS IS THE DESCRIPTION ICEBERG', 'ocean_environment');
 
 INSERT INTO [CollectionPhoto] (collect_id,photo_id,photo_rank,title,Description,date_added) VALUES
 	(3,54,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
@@ -530,8 +529,8 @@ INSERT INTO [CollectionKeyword] (collect_id,keyword_id) VALUES
 /*--------    DavilaH / hareem@example.com  iCollections  -----------*/
 
 INSERT INTO [Collection](name,visibility,user_id,date_made,Description,route) VALUES
-	('Fish Gallery', 1, '3', '2021-05-22 01:58:51.560','The fish in the gallery', 'gallery_environment'),
-	('How did I get Here Ocean', 1, '3', '2021-05-22 02:00:25.123','How did he get there', 'ocean_environment');
+	('Fish Gallery', 1, '3', '2021-05-20 01:58:51.560','The fish in the gallery', 'gallery_environment'),
+	('How did I get Here Ocean', 1, '3', '2021-05-16 02:00:25.123','How did he get there', 'ocean_environment');
 
 INSERT INTO [CollectionPhoto] (collect_id,photo_id,photo_rank,title,Description,date_added) VALUES
 	(5,69,1,'collection photo title','collection photo description','2021-05-22 02:00:25.123'),
@@ -564,8 +563,8 @@ INSERT INTO [CollectionKeyword] (collect_id,keyword_id) VALUES
 /*--------    KrzysztofP / krzysztof@example.com  iCollections  -----------*/
 
 INSERT INTO [Collection](name,visibility,user_id,date_made,Description,route) VALUES
-	('Puzzel Gallery', 1, '4', '2021-05-22 02:24:24.547','All the covid puzzels', 'gallery_environment'),
-	('Water Puzzels in Ocean', 1, '4', '2021-05-22 02:22:55.863','The puzzels that have ocean in them or water', 'ocean_environment');
+	('Puzzel Gallery', 1, '4', '2021-05-19 02:24:24.547','All the covid puzzels', 'gallery_environment'),
+	('Water Puzzels in Ocean', 1, '4', '2021-05-12 02:22:55.863','The puzzels that have ocean in them or water', 'ocean_environment');
 
 INSERT INTO [CollectionPhoto] (collect_id,photo_id,photo_rank,title,Description,date_added) VALUES
 	(7,78,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
@@ -619,8 +618,8 @@ INSERT INTO [CollectionKeyword] (collect_id,keyword_id) VALUES
 /*--------    AlphaTester1 / alphatester1@example.com  iCollections  -----------*/
 
 INSERT INTO [Collection](name,visibility,user_id,date_made,Description,route) VALUES
-	('Tool Gallery', 1, '5', '2021-05-22 02:52:19.063','Some of my most used tools', 'gallery_environment'),
-	('sea saws and clam clamps', 1, '5', '2021-05-22 02:53:23.683','oh noes the rust is coming', 'ocean_environment');
+	('Tool Gallery', 1, '5', '2021-05-18 02:52:19.063','Some of my most used tools', 'gallery_environment'),
+	('sea saws and clam clamps', 1, '5', '2021-05-11 02:53:23.683','oh noes the rust is coming', 'ocean_environment');
 
 INSERT INTO [CollectionPhoto] (collect_id,photo_id,photo_rank,title,Description,date_added) VALUES
 	(9,108,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
@@ -657,8 +656,8 @@ INSERT INTO [CollectionKeyword] (collect_id,keyword_id) VALUES
 /*--------    AlphaTester2 / alphatester2@example.com  iCollections   -----------*/
 
 INSERT INTO [Collection](name,visibility,user_id,date_made,Description,route) VALUES
-	('FLUFFYS FRIENDS', 1, '6', '2021-05-22 03:10:00.987','toys', 'gallery_environment'),
-	('Bath Time Buddies', 1, '6', '2021-05-22 03:10:38.337','baths', 'ocean_environment');
+	('FLUFFYS FRIENDS', 1, '6', '2021-05-17 03:10:00.987','toys', 'gallery_environment'),
+	('Bath Time Buddies', 1, '6', '2021-05-10 03:10:38.337','baths', 'ocean_environment');
 
 INSERT INTO [CollectionPhoto] (collect_id,photo_id,photo_rank,title,Description,date_added) VALUES
 	(11,130,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
@@ -691,7 +690,7 @@ INSERT INTO [CollectionKeyword] (collect_id,keyword_id) VALUES
 
 INSERT INTO [Collection](name,visibility,user_id,date_made,Description,route) VALUES
 	('8 puzzel gallery', 1, '7', '2021-05-22 03:17:56.970','blah', 'gallery_environment'),
-	('puzzel ocean', 1, '7', '2021-05-22 03:19:32.743','tired', 'ocean_environment');
+	('puzzel ocean', 1, '7', '2021-05-15 03:19:32.743','tired', 'ocean_environment');
 
 INSERT INTO [CollectionPhoto] (collect_id,photo_id,photo_rank,title,Description,date_added) VALUES
 	(13,145,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
@@ -717,8 +716,8 @@ INSERT INTO [CollectionKeyword] (collect_id,keyword_id) VALUES
 /*--------    AlphaTester4 / alphatester4@example.com  iCollections   -----------*/
 
 INSERT INTO [Collection](name,visibility,user_id,date_made,Description,route) VALUES
-	('plyer screwdriver gallery', 1, '8', '2021-05-22 03:24:08.420','last one', 'gallery_environment'),
-	('ocean with the allens and phil', 1, '8', '2021-05-22 03:25:12.740','get it', 'ocean_environment');
+	('plyer screwdriver gallery', 1, '8', '2021-05-12 03:24:08.420','last one', 'gallery_environment'),
+	('ocean with the allens and phil', 1, '8', '2021-05-15 03:25:12.740','get it', 'ocean_environment');
 
 INSERT INTO [CollectionPhoto] (collect_id,photo_id,photo_rank,title,Description,date_added) VALUES
 	(15,177,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
@@ -738,3 +737,37 @@ INSERT INTO [CollectionPhoto] (collect_id,photo_id,photo_rank,title,Description,
 INSERT INTO [CollectionKeyword] (collect_id,keyword_id) VALUES	
 	(15,2),
 	(16,1);
+
+
+
+/*--------    ALL 8 Seed Users / 1 private collection each  iCollections   -----------*/
+
+INSERT INTO [Collection](name,visibility,user_id,date_made,Description,route) VALUES
+	('Private iCollection DONT LOOK', 0, '1', '2021-05-22 03:24:08.420','this should be private', 'gallery_environment'),
+	('Private iCollection DONT LOOK', 0, '2', '2021-05-22 03:24:08.420','this should be private', 'gallery_environment'),
+	('Private iCollection DONT LOOK', 0, '3', '2021-05-22 03:24:08.420','this should be private', 'gallery_environment'),
+	('Private iCollection DONT LOOK', 0, '4', '2021-05-22 03:24:08.420','this should be private', 'gallery_environment'),
+	('Private iCollection DONT LOOK', 0, '5', '2021-05-22 03:24:08.420','this should be private', 'gallery_environment'),
+	('Private iCollection DONT LOOK', 0, '6', '2021-05-22 03:24:08.420','this should be private', 'gallery_environment'),
+	('Private iCollection DONT LOOK', 0, '7', '2021-05-22 03:24:08.420','this should be private', 'gallery_environment'),
+	('Private iCollection DONT LOOK', 0, '8', '2021-05-22 03:24:08.420','this should be private', 'gallery_environment');
+
+INSERT INTO [CollectionPhoto] (collect_id,photo_id,photo_rank,title,Description,date_added) VALUES
+	(17,51,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
+	(18,57,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
+	(19,74,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
+	(20,95,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
+	(21,109,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
+	(22,131,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
+	(23,150,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843'),
+	(24,179,1,'collection photo title','collection photo description','2021-05-22 00:10:29.843');
+
+INSERT INTO [CollectionKeyword] (collect_id,keyword_id) VALUES	
+	(17,2),
+	(18,2),
+	(19,2),
+	(20,2),
+	(21,2),
+	(22,2),
+	(23,2),
+	(24,1);
