@@ -95,7 +95,7 @@ namespace iCollections.BDDTests.Steps
             _driver.Navigate().GoToUrl(_hostBaseName + @"Identity/Account/Login");
             _driver.FindElement(By.Id("Input_Email")).SendKeys(u.Email);
             _driver.FindElement(By.Id("Input_Password")).SendKeys(u.Password);
-            _driver.FindElement(By.Id("account")).FindElement(By.CssSelector("button[type=submit]")).Click();
+            _driver.FindElement(By.Id("login-form")).FindElement(By.CssSelector("button[type=submit]")).Click();
             _driver.Navigate().GoToUrl(_hostBaseName);
         }
 
