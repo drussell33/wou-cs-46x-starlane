@@ -49,3 +49,38 @@ Scenario Outline: Creating a new collection, User can select an environment and 
 	| ocean_environment   | PhotoSelection  |
 	| gallery_environment | PhotoSelection  |
 	| null                | EnvironmentSelection  |
+
+
+Scenario Outline: A Logged In User can view all the public seeded gallery iCollections
+	Given I am a User
+	  And I am a logged in user on the HomePage
+	  When I view the gallery iCollection with '<CollectionId>' as the Id
+	Then I can view the '<CollectionTitle>' title on the page
+	And I can view the '<CollectionDescription>' description on the page
+	Examples:
+	| CollectionId | CollectionDescription                                        | CollectionTitle           |
+	| 2            | The only Cards I got left                                    | Card Gallery              |
+	| 3            | This is the dog toy gallery description section area that ha | Dog Toy Gallery           |
+	| 5            | The fish in the gallery                                      | Fish Gallery              |
+	| 7            | All the covid puzzels                                        | Puzzel Gallery            |
+	| 9            | Some of my most used tools                                   | Tool Gallery              |
+	| 11           | toys                                                         | FLUFFYS FRIENDS           |
+	| 13           | blah                                                         | 8 puzzel gallery          |
+	| 15           | last one                                                     | plyer screwdriver gallery |                                         
+
+Scenario Outline: A Logged In User can view all the public seeded ocean iCollections
+	Given I am a User
+	  And I am a logged in user on the HomePage
+	  When I view the ocean iCollection with '<CollectionId>' as the Id
+	Then I can view the '<CollectionTitle>' title on the page
+	And I can view the '<CollectionDescription>' description on the page
+	Examples:
+	| CollectionId | CollectionDescription                        | CollectionTitle                |
+	| 1            | Royal Caribbean                              | Royal Ocean                    |
+	| 4            | THIS IS THE DESCRIPTION ICEBERG              | Toys Overboard                 |
+	| 6            | How did he get there                         | How did I get Here Ocean       |
+	| 8            | The puzzels that have ocean in them or water | Water Puzzels in Ocean         |
+	| 10           | oh noes the rust is coming                   | sea saws and clam clamps       |
+	| 12           | baths                                        | Bath Time Buddies              |
+	| 14           | tired                                        | puzzel ocean                   |
+	| 16           | get it                                       | ocean with the allens and phil |

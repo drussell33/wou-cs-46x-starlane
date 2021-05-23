@@ -55,5 +55,36 @@ namespace iCollections.BDDTests.Steps
             }
         }
 
+        [When(@"I view the gallery iCollection with '(.*)' as the Id")]
+        public void IViewThegalleryiCollectionWithAstheId(int collectionID)
+        {
+            _driver.Navigate().GoToUrl(_hostBaseName + @"gallery_environment?collectionID=" + collectionID);
+        }
+
+        [When(@"I view the ocean iCollection with '(.*)' as the Id")]
+        public void IViewTheoceaniCollectionWithAstheId(int collectionID)
+        {
+            _driver.Navigate().GoToUrl(_hostBaseName + @"ocean_environment?collectionID=" + collectionID);
+        }
+
+        [Then(@"I can view the '(.*)' title on the page")]
+        public void ICanViewThetitleOnThePage(string collectionTitle)
+        {
+            var thatTitle = _driver.FindElement(By.Id("iCollection-title"));
+            if (thatTitle != null)
+            {
+                Assert.That(thatTitle.Text, Is.EqualTo(collectionTitle));
+            }
+        }
+
+        [Then(@"I can view the '(.*)' description on the page")]
+        public void ICanViewThedescriptionOnThePage(string collectionTitle)
+        {
+            var thatTitle = _driver.FindElement(By.Id("iCollection-description"));
+            if (thatTitle != null)
+            {
+                Assert.That(thatTitle.Text, Is.EqualTo(collectionTitle));
+            }
+        }
     }
 }

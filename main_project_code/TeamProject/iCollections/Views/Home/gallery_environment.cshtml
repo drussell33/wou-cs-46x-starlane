@@ -7,7 +7,7 @@
 @{
     if (ViewData["collectionTitle"] != null)
     {
-        <h1 class="creation-page-title">@ViewData["collectionTitle"].ToString()</h1>
+        <h1 id="iCollection-title" class="creation-page-title">@ViewData["collectionTitle"].ToString()</h1>
     }
 }
 
@@ -50,7 +50,7 @@
     {
 
         <div>
-            <h3 class="creation-page-title">@ViewData["collectionDescription"].ToString()</h3>
+            <h3 id="iCollection-description" class="creation-page-title">@ViewData["collectionDescription"].ToString()</h3>
         </div>
 
     }

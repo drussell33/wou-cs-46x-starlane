@@ -279,6 +279,126 @@ this.FeatureBackground();
             }
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("A Logged In User can view all the public seeded gallery iCollections")]
+        [NUnit.Framework.TestCaseAttribute("2", "The only Cards I got left", "Card Gallery", null)]
+        [NUnit.Framework.TestCaseAttribute("3", "This is the dog toy gallery description section area that ha", "Dog Toy Gallery", null)]
+        [NUnit.Framework.TestCaseAttribute("5", "The fish in the gallery", "Fish Gallery", null)]
+        [NUnit.Framework.TestCaseAttribute("7", "All the covid puzzels", "Puzzel Gallery", null)]
+        [NUnit.Framework.TestCaseAttribute("9", "Some of my most used tools", "Tool Gallery", null)]
+        [NUnit.Framework.TestCaseAttribute("11", "toys", "FLUFFYS FRIENDS", null)]
+        [NUnit.Framework.TestCaseAttribute("13", "blah", "8 puzzel gallery", null)]
+        [NUnit.Framework.TestCaseAttribute("15", "last one", "plyer screwdriver gallery", null)]
+        public virtual void ALoggedInUserCanViewAllThePublicSeededGalleryICollections(string collectionId, string collectionDescription, string collectionTitle, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("CollectionId", collectionId);
+            argumentsOfScenario.Add("CollectionDescription", collectionDescription);
+            argumentsOfScenario.Add("CollectionTitle", collectionTitle);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A Logged In User can view all the public seeded gallery iCollections", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 54
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 13
+this.FeatureBackground();
+#line hidden
+#line 55
+ testRunner.Given("I am a User", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 56
+   testRunner.And("I am a logged in user on the HomePage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 57
+   testRunner.When(string.Format("I view the gallery iCollection with \'{0}\' as the Id", collectionId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 58
+ testRunner.Then(string.Format("I can view the \'{0}\' title on the page", collectionTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 59
+ testRunner.And(string.Format("I can view the \'{0}\' description on the page", collectionDescription), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("A Logged In User can view all the public seeded ocean iCollections")]
+        [NUnit.Framework.TestCaseAttribute("1", "Royal Caribbean", "Royal Ocean", null)]
+        [NUnit.Framework.TestCaseAttribute("4", "THIS IS THE DESCRIPTION ICEBERG", "Toys Overboard", null)]
+        [NUnit.Framework.TestCaseAttribute("6", "How did he get there", "How did I get Here Ocean", null)]
+        [NUnit.Framework.TestCaseAttribute("8", "The puzzels that have ocean in them or water", "Water Puzzels in Ocean", null)]
+        [NUnit.Framework.TestCaseAttribute("10", "oh noes the rust is coming", "sea saws and clam clamps", null)]
+        [NUnit.Framework.TestCaseAttribute("12", "baths", "Bath Time Buddies", null)]
+        [NUnit.Framework.TestCaseAttribute("14", "tired", "puzzel ocean", null)]
+        [NUnit.Framework.TestCaseAttribute("16", "get it", "ocean with the allens and phil", null)]
+        public virtual void ALoggedInUserCanViewAllThePublicSeededOceanICollections(string collectionId, string collectionDescription, string collectionTitle, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("CollectionId", collectionId);
+            argumentsOfScenario.Add("CollectionDescription", collectionDescription);
+            argumentsOfScenario.Add("CollectionTitle", collectionTitle);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A Logged In User can view all the public seeded ocean iCollections", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 71
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 13
+this.FeatureBackground();
+#line hidden
+#line 72
+ testRunner.Given("I am a User", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 73
+   testRunner.And("I am a logged in user on the HomePage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 74
+   testRunner.When(string.Format("I view the ocean iCollection with \'{0}\' as the Id", collectionId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 75
+ testRunner.Then(string.Format("I can view the \'{0}\' title on the page", collectionTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 76
+ testRunner.And(string.Format("I can view the \'{0}\' description on the page", collectionDescription), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
