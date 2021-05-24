@@ -162,7 +162,6 @@ function errorOnAjax() {
 }
 
 
-
 //MyCollection visibility checkboxes.
 pvt_btns = document.getElementsByClassName("pvt_btn");
 for (var i = 0; i < pvt_btns.length; i++) {
@@ -183,11 +182,41 @@ for (var i = 0; i < pvt_btns.length; i++) {
                 visibility: visibility,
                 activeuser: activeuser
             },
-            success: addFavorite,
             error: errorOnAjax
         });
 
     });
+}
+
+
+//Remove favorites button
+rem_fav_btns = document.getElementsByClassName("rem_fav");
+for (var i = 0; i < rem_fav_btns.length; i++) {
+    rem_fav_btns[i].addEventListener("click", function () {
+
+        let collection = $(this).attr('id');
+        let username = $(this).attr('name');
+
+        let address = "/Collections/" + username + "/RemoveFavorite";
+
+        $.ajax({
+            type: "Post",
+            dataType: "json",
+            url: address,
+            data: {
+                collection: collection,
+                username: username
+            },
+            success: FavoriteRemoved,
+            error: errorOnAjax
+        });
+
+    });
+}
+
+function FavoriteRemoved(data)
+{
+    window.location.reload(true);
 }
 
 
