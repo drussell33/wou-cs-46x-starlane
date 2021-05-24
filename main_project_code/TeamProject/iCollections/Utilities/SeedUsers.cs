@@ -2,6 +2,7 @@
 using iCollections.Data;
 using iCollections.Models;
 using iCollections.Utilities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ namespace iCollections.Utilities
 {
     public static class SeedUsers
     {
+
         /// <summary>
         /// Initialize seed data for users.  Creates users for login using Identity and also application users.  One password
         /// is used for all accounts.
@@ -26,10 +28,16 @@ namespace iCollections.Utilities
         /// <param name="seedData">Array of seed data holding all the attributes needed to create the user objects</param>
         /// <param name="testUserPw">Password for all seed accounts</param>
         /// <returns></returns>
-        public static async Task Initialize(IServiceProvider serviceProvider, UserInfoData[] seedData, string testUserPw)
+        public static async Task Initialize(IServiceProvider serviceProvider, UserInfoData[] seedData, string testUserPw, IWebHostEnvironment hostEnvironment, string[][] photoData)
         {
+            //Need the hosting environment in order to seed the photos from the wwwroot to the sql server db
+            IWebHostEnvironment webHostEnvironment = hostEnvironment;
+            string wwwPath = webHostEnvironment.WebRootPath;
+            string contentPath = webHostEnvironment.ContentRootPath;
+            
             try
             {
+             
                 // Get our application db context
                 //   For later reference -- this uses the "Service Locator anti-pattern", not usually a good pattern
                 //   but unavoidable here
@@ -38,6 +46,8 @@ namespace iCollections.Utilities
                     // Get the Identity user manager
                     var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
+                    var profilePhotoPosition = 0;
+                    var photoAlbumPerUser = 1;
                     foreach (var u in seedData)
                     {
                         // Ensure this user exists or is newly created (Email is used for username since that is the default in Register and Login -- change those and then use username here if you want it different than email
@@ -52,41 +62,38 @@ namespace iCollections.Utilities
                             context.Add(fu);
                             await context.SaveChangesAsync();
 
-                            //Hmmm.From what I'm reading now, maybe try going through IWebHostEnvironment to get both the WebRootPath and a WebRootFileProvider
+
+                            //Gets that new user created just above
+                            var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
+     
+                            //uploads a profile picture for that user
+                            var src = wwwPath + photoData[0][profilePhotoPosition];
+                            byte[] imgdata = System.IO.File.ReadAllBytes(src);
+                            Photo profile_pic = new Photo { Name = "profile_pic", Data = imgdata, DateUploaded = DateTime.Now, UserId = thatNewUser.Id };
+                            context.Add(profile_pic);
+                            await context.SaveChangesAsync();
+                            
+                            //sets the profile picture as that new users profile picture, whoa.
+                            var thatNewPhotoId = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
+                            thatNewUser.ProfilePicId = thatNewPhotoId.Id;
+                            context.Update(thatNewUser);
+                            await context.SaveChangesAsync();
 
 
-                            //var thatNewUser = context.IcollectionUsers.Where(x => x.AspnetIdentityId == fu.AspnetIdentityId).FirstOrDefault();
-                            //var src = "~/images/profile_pics/profile_pic_4.jpg";
-                            //IFileProvider physicalProvider = new PhysicalFileProvider(src); 
-                            //var img = File.Create(src);
-                            //System.Drawing.Image img = System.Drawing.Image.FromFile(src);
-                            //byte[] imgdata = System.IO.File.ReadAllBytes(src);
-                            //byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
-                            //Photo profile_pic = new Photo { Name = "profile_pic", /*Data = imgdata,*/ DateUploaded = DateTime.Now, UserId = thatNewUser.Id };
-                            //context.Add(profile_pic);
-                            //await context.SaveChangesAsync();
-
-                            //var thatNewPhoto = context.Photos.Where(x => x.UserId == thatNewUser.Id).FirstOrDefault();
-                            //thatNewUser.ProfilePicId = profile_pic.Id;
-                            //await context.SaveChangesAsync();
+                            //uploads an alubum for photos for the user.
+                            foreach (var albumphoto in photoData[photoAlbumPerUser])
+                            {
+                                var albumPhotoSrc = wwwPath + albumphoto;
+                                byte[] albumPhotoImageData = File.ReadAllBytes(albumPhotoSrc);
+                                Photo NewAlbumPhoto = new Photo { Name = "seeded photo", Data = albumPhotoImageData, DateUploaded = DateTime.Now, UserId = thatNewUser.Id };
+                                context.Add(NewAlbumPhoto);
+                                await context.SaveChangesAsync();
+                            }
                         }
-                        /*var src = "images/profile_pics/profile_pic_4.jpg";
-                        System.Drawing.Image img = System.Drawing.Image.FromFile(src);
-                        byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
-                        Photo profile_pic = new Photo { Name = "profile_pic", Data = bytes, DateUploaded = DateTime.Now*//*, UserId = fu.Id *//*};
-                        context.Photos.Add(profile_pic);
-                        await context.SaveChangesAsync();*/
 
-                        //second attempts
-                        /*var src = "~/images/profile_pics/profile_pic_4.jpg";
-                        System.Drawing.Image img = System.Drawing.Image.FromFile(src);
-                        byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
-                        Photo profile_pic = new Photo { Name = "profile_pic", Data = bytes, DateUploaded = DateTime.Now, UserId = fu.Id };
-                        context.Add(profile_pic);
-                        await context.SaveChangesAsync();*/
-                        /*Now making sure that the admin role exists and give it to this user.
-                        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                        await EnsureRoleForUser(roleManager, userManager, identityID, "admin");*/
+                        ++photoAlbumPerUser;
+                        ++profilePhotoPosition;
+
                     }
                 }
             }

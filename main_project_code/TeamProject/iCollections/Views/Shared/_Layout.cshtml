@@ -20,15 +20,14 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between navbars">
                     <ul class="navbar-nav flex-grow-1">
-
-                        <!--Browse-->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Browse" asp-action="Index">Browse</a>
-                        </li>
-
-                        <!--Dashboard-->
                         @if (SignInManager.IsSignedIn(User))
                         {
+                            <!--Browse-->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Browse" asp-action="Index">Browse</a>
+                            </li>
+                            
+                            <!--Dashboard-->
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                             </li>

@@ -36,22 +36,6 @@
             <div class="row">
                 @foreach (var photo in AppContext.Photos.Where(u => u.UserId == appUser.Id).ToList())
                 {
-
-                    <!--<div class="collection-container">
-                    <div class="row">
-                        <div class="col-2">
-                            <div class="form-group align-content-center environment-select-checkbox">
-
-                                <input type="checkbox" id="photo_checkbox" name="selectedPhotos" value="@photo.Id" />-->
-                    @*<label class="form-check-label" for="photosSelected">@photo.Name</label>*@
-                    <!--</div>
-                            </div>
-                            <div class="col-10">
-                                <img class="user-profile-img" src="data:image;base64,@System.Convert.ToBase64String(photo.Data)" />
-                            </div>
-                        </div>
-                    </div>-->
-
                     <div class="col-xl-3 col-lg-4 col-md-6 mb-4 card">
                         <div class="bg-white rounded pic-thumbnail">
                             <img src="data:image;base64,@System.Convert.ToBase64String(photo.Data)" alt="" class="img-fluid card-img-top">
@@ -70,8 +54,6 @@
 
     }
 
-   
-    @* <button type="submit" class="btn btn-primary">Continue</button>*@
 
     <div class="row justify-content-end environment-buttons">
         <div class="col-1">

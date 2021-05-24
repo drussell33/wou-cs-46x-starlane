@@ -91,7 +91,7 @@ namespace iCollections.BDDTests.Steps
             _driver.FindElement(By.Id("Input_Email")).SendKeys(u.Email);
             _driver.FindElement(By.Id("Input_Password")).SendKeys(u.Password);  // could submit form by "hitting enter" with (u.Password + Keys.Enter)
             // can "submit" the form by calling submit on any element in the form or actually click the submit button
-            _driver.FindElement(By.Id("account")).FindElement(By.CssSelector("button[type=submit]")).Click();
+            _driver.FindElement(By.Id("login-form")).FindElement(By.CssSelector("button[type=submit]")).Click();
         }
 
 
