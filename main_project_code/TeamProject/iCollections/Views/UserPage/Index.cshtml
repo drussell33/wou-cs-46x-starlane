@@ -56,7 +56,7 @@
                                 else
                                 {
                                     // follow option but links to some action that requires login
-                                    <a href="#" class="btn btn-primary follow-button btn-sm btn-block">Follow</a>
+                                    <a href="#" class="btn btn-primary follow-button btn-sm btn-block" id="follow_btn_visitor">Follow</a>
                                 }
                             }
                         </div>
@@ -80,6 +80,8 @@
                     </ul>
                 </div>
                 <div class="px-4 py-3">
+                    <div id="follow_btn_warning" role="alert">
+                    </div>
                     <h5 class="mb-0">About</h5>
                     <div class="p-4 rounded shadow-sm bg-light">
                         <p class="font-italic mb-0">@Model.ProfileOwner.AboutMe</p>

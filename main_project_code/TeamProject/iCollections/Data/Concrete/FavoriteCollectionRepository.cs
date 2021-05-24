@@ -18,5 +18,13 @@ namespace iCollections.Data.Concrete
             return _dbSet.Include(c => c.Collect).Where(u => u.User == user && u.Name == "My Favorites").ToList();
         }
 
+        public void DeleteByCollectionId(int id)
+        {
+            FavoriteCollection favorite = _dbSet.Where(s => s.CollectId == id).FirstOrDefault();
+            _dbSet.Remove(favorite);
+            _context.SaveChanges();
+
+        }
+
     }
 }

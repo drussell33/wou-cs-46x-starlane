@@ -8,7 +8,7 @@ namespace iCollections.Data.Abstract
     {
         List<FavoriteCollection> GetMyFavoritesByUser(IcollectionUser user);
 
-
+        void DeleteByCollectionId(int id);
 
     }
 }
