@@ -55,5 +55,11 @@ namespace iCollections.Controllers
         {
             return View("Success", "Your photo was uploaded.");
         }
+
+        [HttpGet]
+        public IActionResult NeedHelp()
+        {
+            return View();
+        }
     }
 }
