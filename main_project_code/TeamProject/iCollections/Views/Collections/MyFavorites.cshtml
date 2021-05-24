@@ -4,27 +4,96 @@
     ViewData["Title"] = "Collections";
 }
 
-<div class="row">
-    <div class="col">
-        @if (Model.MyFavorites.Count() > 0)
+
+<div class="container">
+
+    @if (Model != null)
+    {
+        if (Model.SearchResults.Count() == 0)
         {
-            <h1>Collections:</h1>
-            @if (Model.SearchResults.Count() == 0)
-            {
-                <h2>It looks like this user doesn't have any Collections yet. Bummer!</h2>
-            }
-            @foreach (FavoriteCollection c in Model.MyFavorites)
-            {
-                <div class="collection-container">
-                    <a class="btn btn-primary" asp-controller="Home" asp-action="" asp-route-name="">@c.Collect.Name</a>
-                    <p>Owner: @c.User.UserName</p>
-                    <p>@c.DateMade</p>
-                </div>
-            }
+            <div class="text-center">
+                <h1>@Model.VisitedUser.FirstName does not have any favorites yet!</h1>
+            </div>
         }
+
         else
         {
-            <h1>You Currently Do Not have Any Favorites!</h1>
+            <div class="justify-content-center"> <h1 class="text-center">My Favorite Collections</h1> </div>
+
+            string[] colls = { "/images/card_pics/IMG-0833.JPG", "/images/dogtoy_pics/IMG-0869.JPG",
+    "/images/fish_pics/fish3.png", "/images/puzzel_pics/image_123923953(14).JPG", "/images/tool_pics/IMG-0837.JPG",
+    "/img/2D_example.jpg" };
+
+            Random rand = new Random();
+
+            <h5>Result(s): @Model.MyFavorites.Count() Collection(s)</h5>
+            @if (ViewBag.SuccessMessage != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @ViewBag.SuccessMessage
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
+                <table class="table table-bordered border-primary">
+                    <thead>
+                        <tr>
+                            <th scope="col">Preview Photo</th>
+                            <th scope="col"><div style="color:black;">Name</div></th>
+                            <th scope="col"><div style="color:black;">Owner</div></th>
+                            <th scope="col">
+                                <div style="color:black;">Keyword(s)</div>
+                            </th>
+                            <th scope="col">
+                                <div style="color:black;"> Date Created </div>
+                            </th>
+                            <th scope="col"><span style="color:black;">Remove</span></th>
+                        </tr>
+                    </thead>
+                    @foreach (CollectionKeyword ck in Model.SearchResults)
+                    {
+                        if (ck.Collect.Visibility == 1)
+                        {
+
+                            <tr>
+                                <td>
+                                    <img src=@colls[rand.Next(6)] width="118" height="118" alt="" />
+                                </td>
+                                <td>
+                                    <div> @ck.Collect.Name </div>
+                                </td>
+                                <td>
+                                    <div> @ck.Collect.User.UserName </div>
+                                </td>
+                                <td>
+                                    <a href="/Browse/?keywords=@ck.Keyword.Name">@ck.Keyword.Name</a>
+                                <td>
+                                    @ck.Collect.DateMade
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-danger btn-sm rem_fav" name="@Model.LoggedInUser.UserName" id="@ck.Collect.Id">Remove</button>
+                                    
+                                </td>
+                            </tr>
+                        }
+
+                    }
+
+                </table>
+
         }
-    </div>
+
+
+     }
+
+
+     else
+     {
+        <div class="text-center">
+            <h1>@Model.VisitedUser.FirstName does not have any Favorites yet!</h1>
+        </div>
+     }
+
 </div>
