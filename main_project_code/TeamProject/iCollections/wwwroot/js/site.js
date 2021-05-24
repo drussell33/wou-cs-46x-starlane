@@ -227,5 +227,3 @@ function FavoriteRemoved(data)
 
 
 
-
-
