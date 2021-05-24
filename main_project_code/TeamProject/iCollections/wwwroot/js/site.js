@@ -219,7 +219,17 @@ function FavoriteRemoved(data)
     window.location.reload(true);
 }
 
+//Follow button alert for unauthenticated visitor
+$("#follow_btn_visitor").click(function () {
 
+    $("#follow_btn_warning").addClass('alert');
+    $("#follow_btn_warning").addClass('alert-warning');
+    $("#follow_btn_warning").addClass('alert-dismissible');
+    $("#follow_btn_warning").addClass('fade');
+    $("#follow_btn_warning").addClass('show');
+    $("#follow_btn_warning").html("You need to <a href='../Identity/Account/Login'>log in</a> or <a href='../Identity/Account/Register'>Register</a> to follow a user!");
+
+});
 
 
 
