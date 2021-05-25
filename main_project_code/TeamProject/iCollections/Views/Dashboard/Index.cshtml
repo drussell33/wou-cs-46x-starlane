@@ -1,4 +1,6 @@
-﻿@model ActivityEvents
+﻿@using iCollections.Data;
+@model ActivityEvents
+@inject ICollectionsDbContext AppContext;
 @functions {
     string ShowHowManyDaysAgo(DateTime? when)
     {
@@ -59,7 +61,14 @@
                                     Model.recentCollections.RemoveAt(0);
                                     <div class="post feed-object">
                                         <div class="post-header">
-                                            <div class="fake-image"></div>
+                                        @if (event1.User.ProfilePicId.HasValue)
+                                        {
+                                            <img src="@AppContext.Photos.FirstOrDefault(p => p.Id == event1.User.ProfilePicId).GetPhotoUrl()" alt="crocs" class="profile-pic">
+                                        }
+                                        else
+                                        {
+                                            <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="null avatar" class="profile-pic">
+                                        }                                            
                                             <div class="post-info">
                                                 <div class="activity"><a href="userpage/@event1.User.UserName">@event1.User.FirstName</a> made an
                                                     iCollection</div>
@@ -87,7 +96,14 @@
                                 Model.recentCollections.RemoveAt(0);
                                 <div class="post feed-object">
                                     <div class="post-header">
-                                        <div class="fake-image"></div>
+                                    @if (event1.User.ProfilePicId.HasValue)
+                                    {
+                                        <img src="@AppContext.Photos.FirstOrDefault(p => p.Id == event1.User.ProfilePicId).GetPhotoUrl()" alt="crocs" class="profile-pic">
+                                    }
+                                    else
+                                    {
+                                        <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="null avatar" class="profile-pic">
+                                    }                                        
                                         <div class="post-info">
                                             <div class="activity"><a href="userpage/@event1.User.UserName">@event1.User.FirstName</a> made an iCollection</div>
                                             <div class="date">@string.Format("{0:MMMM dd, yyyy}", event1.DateMade)</div>
@@ -115,7 +131,15 @@
                         Model.recentCollections.RemoveAt(0);
                         <div class="post feed-object">
                             <div class="post-header">
-                                <div class="fake-image"></div>
+                                @if (event1.User.ProfilePicId.HasValue)
+                                {
+                                    <img src="@AppContext.Photos.FirstOrDefault(p => p.Id == event1.User.ProfilePicId).GetPhotoUrl()" alt="crocs" class="profile-pic">
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="null avatar" class="profile-pic">
+
+                                }
                                 <div class="post-info">
                                     <div class="activity"><a href="userpage/@event1.User.UserName">@event1.User.FirstName</a> made an iCollection</div>
                                     <div class="date">@string.Format("{0:MMMM dd, yyyy}", event1.DateMade)</div>

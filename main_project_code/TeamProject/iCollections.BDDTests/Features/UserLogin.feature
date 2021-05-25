@@ -23,6 +23,7 @@ Background:
 	  | AndreC   | colea@example.com   | Andre     | Cole     | 0a9dfi3.a |
 	  | JoannaV  | valdezJ@example.com | Joanna    | Valdez   | d9u(*dsF4 |
 
+@ignore
 Scenario Outline: Existing user can login
 	Given I am a user with first name '<FirstName>'
 	When I login
@@ -36,6 +37,7 @@ Scenario Outline: Existing user can login
 	| Hareem    | Home |
 	| Krzysztof | Home |
 
+@ignore
 Scenario Outline: Non-user cannot login
 	Given I am a user with first name '<FirstName>'
 	When I login
@@ -46,6 +48,7 @@ Scenario Outline: Non-user cannot login
 	| Andre     |
 	| Joanna    |
 
+@ignore
 Scenario Outline: Non-user attempting to login is logged
 	Given I am a user with first name '<FirstName>'
 	When I login

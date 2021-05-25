@@ -93,10 +93,9 @@ body {
   text-align: right;
 }
 
-.fake-image {
+.profile-pic {
   height: 50px;
   width: 50px;
-  background-color: black;
   display: inline-block;
 }
 
@@ -504,7 +503,15 @@ h1 {
   display: block;
 }
 
+.something-inside {
+  position: relative;
+}
+
+.place-at-bottom {
+  position: absolute;
+  bottom: 11px;
+}
+
 .my-hidden-object {
     display: none;
 }
-

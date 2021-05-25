@@ -209,7 +209,7 @@ Going through the process from logging in,  to publishing a newly made iCollecti
                         "new byte[] {1,2,3}",
                         "64",
                         "new Guid()"});
-#line 13
+#line 12
  testRunner.Given("the following photos exist", ((string)(null)), table1, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -242,7 +242,7 @@ Going through the process from logging in,  to publishing a newly made iCollecti
                         "9001",
                         "64",
                         "new Guid()"});
-#line 36
+#line 35
  testRunner.And("the following photos do not exist", ((string)(null)), table2, "And ");
 #line hidden
         }
@@ -250,19 +250,26 @@ Going through the process from logging in,  to publishing a newly made iCollecti
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Clicking on The Create Collection button in the nav bar will direct to the enviro" +
             "nment selection page.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         [NUnit.Framework.TestCaseAttribute("Talia", "EnvironmentSelection", null)]
         [NUnit.Framework.TestCaseAttribute("Zayden", "EnvironmentSelection", null)]
         [NUnit.Framework.TestCaseAttribute("Hareem", "EnvironmentSelection", null)]
         [NUnit.Framework.TestCaseAttribute("Krzysztof", "EnvironmentSelection", null)]
         public virtual void ClickingOnTheCreateCollectionButtonInTheNavBarWillDirectToTheEnvironmentSelectionPage_(string firstName, string page, string[] exampleTags)
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "ignore"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("FirstName", firstName);
             argumentsOfScenario.Add("Page", page);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking on The Create Collection button in the nav bar will direct to the enviro" +
                     "nment selection page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 45
+#line 44
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -285,16 +292,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 11
 this.FeatureBackground();
 #line hidden
-#line 46
+#line 45
  testRunner.Given(string.Format("I am a logged in user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 47
+#line 46
  testRunner.When("I Click Create new Collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 48
+#line 47
  testRunner.Then(string.Format("I am redirected to the \'{0}\' page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 49
+#line 48
    testRunner.And("I can see the two differnt environment options for me to select", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -304,17 +311,24 @@ this.FeatureBackground();
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Non-user cannot click on The Create Collection button in the nav bar will direct " +
             "to the environment selection page.")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         [NUnit.Framework.TestCaseAttribute("Andre", null)]
         [NUnit.Framework.TestCaseAttribute("Joanna", null)]
         [NUnit.Framework.TestCaseAttribute("People", null)]
         public virtual void Non_UserCannotClickOnTheCreateCollectionButtonInTheNavBarWillDirectToTheEnvironmentSelectionPage_(string firstName, string[] exampleTags)
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "ignore"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("FirstName", firstName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Non-user cannot click on The Create Collection button in the nav bar will direct " +
                     "to the environment selection page.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 58
+#line 57
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -337,13 +351,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 11
 this.FeatureBackground();
 #line hidden
-#line 59
+#line 58
  testRunner.Given(string.Format("I am a logged in user with first name \'{0}\'", firstName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 60
+#line 59
  testRunner.When("I Click Create new Collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 61
+#line 60
  testRunner.Then("I can see a 404 error message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
