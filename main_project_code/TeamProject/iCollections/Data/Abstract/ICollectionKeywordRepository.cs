@@ -10,5 +10,7 @@ namespace iCollections.Data.Abstract
         List<CollectionKeyword> GetPublicCollectionKeywordsByUserSortedAscending(IcollectionUser user, string sort);
 
         List<CollectionKeyword> GetUserPublicCollectionKeywordsByKeyword(IcollectionUser user, string keyword);
+
+        List<CollectionKeyword> GetMyFavoriteCollectionsByUser(IcollectionUser user);
     }
 }

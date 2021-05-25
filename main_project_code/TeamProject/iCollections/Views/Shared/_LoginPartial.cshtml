@@ -25,6 +25,8 @@
                 <a class="dropdown-item" id="create_collection" asp-controller="CreateCollection" asp-action="EnvironmentSelection">Create iCollection</a>
                 <!--User iCollection-->
                 <a class="dropdown-item" asp-controller="Collections" asp-action="MyCollections" asp-route-name="@appUser.UserName">My iCollections</a>
+                <!--Favorite iCollection-->
+                <a class="dropdown-item" asp-controller="Collections" asp-action="MyFavorites" asp-route-name="@appUser.UserName">My Favorites</a>
                 <!--Upload Photo-->
                 <a class="dropdown-item" asp-area="" asp-controller="UploadPhoto" asp-action="Index">Upload Photo</a>
                 <!-- View photos -->
