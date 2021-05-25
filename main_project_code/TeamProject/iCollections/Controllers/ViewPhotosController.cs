@@ -43,15 +43,31 @@ namespace iCollections.Controllers
             int userId = _userRepo.GetReadableUserID(userAspId);
             var photos = _photoRepo.GetMyPhotosInfo(userId);
             var uploader = new PhotoUploader(_photoRepo, userId);
-            if (String.IsNullOrEmpty(name))
+            if (uploader.isProperImage(photo.ContentType))
             {
-                uploader.UploadImage(photo.FileName, photo);
-            }
+                if (String.IsNullOrEmpty(name))
+                {
+                    uploader.UploadImage(photo.FileName, photo);
+                }
+                else
+                {
+                    try
+                    {
+                        uploader.UploadImage(name, photo);
+                    }
+                    catch (Exception) {
+                        ModelState.AddModelError(String.Empty, "Please enter a proper filename");
+                        return View("Index", photos);
+                    }
+                }
+            } 
             else
             {
-                uploader.UploadImage(name, photo);
+                ModelState.AddModelError(String.Empty, "Pictures may be of type .jpeg, .png, or .gif");
+                return View("Index", photos);
             }
-            return RedirectToAction("Index");
+            ModelState.AddModelError(String.Empty, "Something happened");
+            return RedirectToAction("Index", photos);
         }
 
         [Authorize]
@@ -60,6 +76,10 @@ namespace iCollections.Controllers
         public async Task<JsonResult> DeletePhoto(string photoId)
         {
             var photo = _photoRepo.GetPhoto(Guid.Parse(photoId));
+            if (photo.UserId != DatabaseHelper.GetReadableUserID(_userManager.GetUserId(User), _userRepo))
+            {
+                return Json(new { success = false });
+            }
             await _photoRepo.DeleteAsync(photo);   
             return Json(new { success = true });
         }

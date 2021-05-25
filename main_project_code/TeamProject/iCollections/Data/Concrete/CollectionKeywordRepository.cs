@@ -45,5 +45,10 @@ namespace iCollections.Data.Concrete
         {
             return _dbSet.Include(c => c.Collect).Include(k => k.Keyword).Where(c => c.Collect.User == user && c.Collect.Visibility == 1 && c.Keyword.Name.Contains(keyword)).OrderBy(c => c.Collect.Name).ToList();
         }
+
+        public List<CollectionKeyword> GetMyFavoriteCollectionsByUser(IcollectionUser user)
+        {
+            return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).ThenInclude(u => u.User).ThenInclude(u => u.FavoriteCollections).Where(c => c.Collect.FavoriteCollections.FirstOrDefault().User == user && c.Collect.Visibility == 1).ToList();
+        }
     }
 }

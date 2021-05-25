@@ -225,12 +225,47 @@ namespace iCollections.Controllers
                 LoggedInUser = user,
                 VisitedUser = user,
                 MyFavorites = _favoritecollectionRepo.GetMyFavoritesByUser(user),
-                SearchResults = _collectionkeywordRepo.GetPublicCollectionKeywordsByUser(user),
+                SearchResults = _collectionkeywordRepo.GetMyFavoriteCollectionsByUser(user),
                 SuggestedKeywords = null
 
             };
 
             return View(collectionlist);
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        [Route("Collections/{name}/RemoveFavorite")]
+        public IActionResult RemoveFavorite(string username, int? collection)
+        {
+            if (collection == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            IcollectionUser user = _userRepo.GetIcollectionUserByUsername(username);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            string sessionusername = _userManager.GetUserId(User);
+            if (sessionusername != user.AspnetIdentityId)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Collection mycollection = _collectionRepo.GetCollectionById((int)collection);
+            if (mycollection == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (mycollection != null)
+            {
+                _favoritecollectionRepo.DeleteByCollectionId(mycollection.Id);
+
+            }
+
+            return Json("success");
         }
 
         [Authorize]
