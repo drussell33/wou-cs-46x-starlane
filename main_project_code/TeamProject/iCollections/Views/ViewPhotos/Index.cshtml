@@ -33,10 +33,11 @@
                             <h5 id="uploadNewPhoto" class="text-dark">Upload New Photo</h5>
                             <p class="small text-muted mb-0"><span class="glyphicon glyphicon-plus">+</span></p>
                             <div class="form-group my-hidden-object">
-                                <input type="file" name="photo" />
+                                <input type="file" accept="image/*" class="form-control border-0" name="photo">
                                 <input class="form-control" type="text" name="name" placeholder="Optional name" />
                                 <button class="btn btn-dark" type="submit">Upload</button>
                             </div>
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger font-weight-bold" })
                         </div>
                     </form>
                 </div>
@@ -58,6 +59,7 @@
                                 <input class="form-control" type="text" name="name" placeholder="Optional name" />
                                 <button class="btn btn-dark" type="submit">Upload</button>
                             </div>
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger font-weight-bold" })
                         </div>
                     </form>
                 </div>
