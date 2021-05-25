@@ -27,6 +27,7 @@ namespace iCollections.Controllers
 
         public void UploadImage(string customName, Microsoft.AspNetCore.Http.IFormFile file)
         {
+            if (customName.Length > 32) { throw new PathTooLongException(); }
             if (isProperImage(file.ContentType))
             {
                 Photo photo = new Photo();
@@ -39,8 +40,6 @@ namespace iCollections.Controllers
                 ms.Close();
                 ms.Dispose();
                 _photoRepo.AddOrUpdate(photo);
-                //_collectionsDbContext.Photos.Add(photo);
-                //_collectionsDbContext.SaveChanges();
             }
         }   
 

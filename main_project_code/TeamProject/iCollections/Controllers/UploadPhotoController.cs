@@ -29,6 +29,7 @@ namespace iCollections.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            if (TempData["SuccessMessage"] != null) { ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString(); }
             return View();
         }
 
@@ -43,7 +44,8 @@ namespace iCollections.Controllers
             {
                 var photoUploader = new PhotoUploader(_photoRepo, userId);
                 photoUploader.UploadImage(customName, Request.Form.Files[0]);
-                return RedirectToAction("Success");
+                TempData["SuccessMessage"] = "Photo uploaded successfully";
+                return RedirectToAction("Index");
             }
             catch (Exception)
             {
