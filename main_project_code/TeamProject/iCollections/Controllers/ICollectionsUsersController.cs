@@ -54,6 +54,11 @@ namespace iCollections.Controllers
         public async Task<IActionResult> IsUserNameAvailable(string UserName)
         {
             Console.WriteLine("Validation called");
+            string curUser = _userManager.GetUserName(User);
+            if (curUser == UserName)
+            {
+                return Json(true);
+            }
             return Json(!await _context.IcollectionUsers.AnyAsync(u => u.UserName.ToLower() == UserName.ToLower()));
         }
 

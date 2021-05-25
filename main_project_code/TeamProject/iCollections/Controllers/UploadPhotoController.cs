@@ -32,6 +32,7 @@ namespace iCollections.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult UploadImage(string customName)
         {
@@ -46,7 +47,8 @@ namespace iCollections.Controllers
             }
             catch (Exception)
             {
-                return RedirectToAction("Index");
+                ModelState.AddModelError(String.Empty, "Please enter a proper filename");
+                return View("Index");
             }
         }
 
