@@ -20,7 +20,7 @@ namespace iCollections.Controllers
             _userId = userId;
         }
 
-        private bool isProperImage(string type)
+        public bool isProperImage(string type)
         {
             return type == "image/jpeg" || type == "image/png" || type == "image/gif";
         }

@@ -19,12 +19,12 @@
     <div class="row py-4">
         <div class="col-lg-6 mx-auto">
 
-            <form id="photoUpload" asp-action="UploadImage" asp-controller="UploadPhoto" method="POST"
+            <form id="photoUpload" asp-controller="UploadPhoto" asp-action="UploadImage" method="POST"
                 enctype="multipart/form-data">
                 <div class="middle-input">
-                    <input id="customName" type="text" class="form-control" name="customName"
-                        placeholder="Optional name">
+                    <input id="customName" type="text" class="form-control" name="customName" placeholder="Optional name">
                     <span id="customNameError"></span>
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger font-weight-bold" })
                 </div>
 
                 <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">

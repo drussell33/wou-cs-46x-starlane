@@ -39,15 +39,15 @@ namespace iCollections.Controllers
         {
             string sessionUserId = _userManager.GetUserId(User);
             IcollectionUser sessionUser = null;
-            var myId = _userRepo.GetReadableID(name);
-            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(myId, _userRepo, _photoRepo);
+            var profileId = _userRepo.GetReadableID(name);
+            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(profileId, _userRepo, _photoRepo);
 
             if (name == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            if (sessionUserId != null)
+            if (!string.IsNullOrEmpty(sessionUserId))
             {
                 sessionUser = _userRepo.GetSessionUser(sessionUserId);
             }
@@ -58,9 +58,9 @@ namespace iCollections.Controllers
             {
                 return RedirectToAction("Index", "Error", new ErrorMessage { StatusCode = 404, Message = $"User {name} was not found. Try using the search bar!" });
             }
-
-            var recentiCollections = _colRepo.GetMostRecentiCollections(myId, 4);
-            
+            Console.WriteLine("before getting collections");
+            var recentiCollections = _colRepo.GetMostRecentiCollections(profileId, 4);
+            Console.WriteLine("after getting collections");            
             return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser, recentCollections = recentiCollections });
         }
 
