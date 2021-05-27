@@ -27,45 +27,55 @@
         <div class="container-fluid cf-padding">
             <div class="row">
                 <div class="col-lg-4 col-xs-12 text-center">
-                    <div class="box">
-                        <img src="~/img/homepage/photo_feature.jpg" class="box-photo img-responsive" alt="Store and Manager Photo Alt" />
-                        <div class="box-title">
-                            <h3>Upload, Store and Manage your Photos</h3>
-                        </div>
-                        <hr />
-                        <div class="box-text">
-                            <span>When you sign up for an account, you'll be able to store your photos online</span>
-                            <span>By storing your photos, you can re-use them for multiple iCollections, THat way as your collection grows, your work to display it doesnt..</span>
-                        </div>
+                    <a asp-controller="UploadPhoto" asp-action="Index">
+                        <div class="box">
+
+                            <img src="~/img/homepage/photo_feature.jpg" class="box-photo img-responsive" alt="Store and Manager Photo Alt" />
+                    
+                    <div class="box-title">
+                        <h3>Upload, Store and Manage your Photos</h3>
                     </div>
+                    <hr />
+                    <div class="box-text">
+                        <span>When you sign up for an account, you'll be able to store your photos online</span>
+                        <span>By storing your photos, you can re-use them for multiple iCollections, THat way as your collection grows, your work to display it doesnt..</span>
+                    </div>
+                </div>
+                    </a>
                 </div>
 
                 <div class="col-lg-4 col-xs-12 text-center">
-                    <div class="box">
-                        <img src="~/img/homepage/editing_feature.png" class="box-photo img-responsive" alt="Save and Edit your iCollections" />
-                        <div class="box-title">
-                            <h3>Select an Environment and Save your iCollection</h3>
+                    <a asp-controller="CreateCollection" asp-action="EnvironmentSelection">
+                        <div class="box">
+                            <img src="~/img/homepage/editing_feature.png" class="box-photo img-responsive" alt="Save and Edit your iCollections" />
+                            <div class="box-title">
+                                <h3>Select an Environment and Save your iCollection</h3>
+                            </div>
+                            <hr />
+                            <div class="box-text">
+                                <span>Let your iCollection change overtime with ease.</span>
+                                <span>You can edit your existing iCollection so that when you need to add another item, you simply add that one item, with no additional work.</span>
+                            </div>
                         </div>
-                        <hr />
-                        <div class="box-text">
-                            <span>Let your iCollection change overtime with ease.</span>
-                            <span>You can edit your existing iCollection so that when you need to add another item, you simply add that one item, with no additional work.</span>
-                        </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-lg-4 col-xs-12 text-center">
-                    <div class="box">
-                        <img src="~/img/homepage/share_feature.png" class="box-photo img-responsive" alt="Publish and Share your iCollections" />
-                        <div class="box-title">
-                            <h3>Publish and Share your iCollections</h3>
+                    <a asp-controller="Dashboard" asp-action="Index">
+                        <div class="box">
+
+                            <img src="~/img/homepage/share_feature.png" class="box-photo img-responsive" alt="Publish and Share your iCollections" />
+                            <div class="box-title">
+                                <h3>Publish and Share your iCollections</h3>
+                            </div>
+                            <hr />
+                            <div class="box-text">
+                                <span>iCollection can be private if you wish, or you can publish them and share them with the public or just your friends!</span>
+                                <span>You can use the iCollections social media features to publish and share your collections with your friends and followers with ease!</span>
+                            </div>
+
                         </div>
-                        <hr />
-                        <div class="box-text">
-                            <span>iCollection can be private if you wish, or you can publish them and share them with the public or just your friends!</span>
-                            <span>You can use the iCollections social media features to publish and share your collections with your friends and followers with ease!</span>
-                        </div>
-                    </div>
+                    </a>
                 </div>
 
             </div>
@@ -87,9 +97,9 @@
         <!-- Upload Photos -->
         <div class="row">
             <div class="col-md-7">
-                <a href="#">
+                
                     <img class="img-fluid rounded mb-3 mb-md-0" src="~/img/homepage/upload_photos_feature.png" alt="">
-                </a>
+                
             </div>
             <div class="col-md-5 center">
                 <h3>Upload Photos</h3>
@@ -106,9 +116,9 @@
                 <p>View all the photos that have been uploaded and manage their title</p>
             </div>
             <div class="col-md-7">
-                <a href="#">
+                
                     <img class="img-fluid rounded mb-3 mb-md-0" src="~/img/homepage/view_photos_feature.png" alt="">
-                </a>
+                
             </div>
 
         </div>
@@ -119,9 +129,9 @@
         <!-- Profile Page -->
         <div class="row">
             <div class="col-md-7">
-                <a href="#">
+                
                     <img class="img-fluid rounded mb-3 mb-md-0" src="~/img/homepage/profile_page_feature.png" alt="">
-                </a>
+                
             </div>
             <div class="col-md-5 center">
                 <h3>Every User has a Profile</h3>
@@ -139,9 +149,9 @@
                 <p>Have a feed of all changes that you and the people you follow have made</p>
             </div>
             <div class="col-md-7">
-                <a href="#">
+                
                     <img class="img-fluid rounded mb-3 mb-md-0" src="~/img/homepage/dashboard_feature.png" alt="">
-                </a>
+                
             </div>
 
         </div>
@@ -152,9 +162,9 @@
         <div class="row">
 
             <div class="col-md-7">
-                <a href="#">
+                
                     <img class="img-fluid rounded mb-3 mb-md-0" src="~/img/homepage/browse_collections_feature.png" alt="">
-                </a>
+                
             </div>
             <div class="col-md-5 center">
                 <h3>Browse Collection</h3>
@@ -172,9 +182,9 @@
                 <p>Select an iCollection environment that you what to showcase your photos</p>
             </div>
             <div class="col-md-7">
-                <a href="#">
+                
                     <img class="img-fluid rounded mb-3 mb-md-0" src="~/img/homepage/create_collections_feature.png" alt="">
-                </a>
+                
             </div>
 
         </div>

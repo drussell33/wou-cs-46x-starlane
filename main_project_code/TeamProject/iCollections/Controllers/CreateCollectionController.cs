@@ -40,13 +40,14 @@ namespace iCollections.Controllers
             _collectionKeywords = collectionKeywords;
             _keywordRepo = keywords;
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult EnvironmentSelection()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EnvironmentSelection([Bind("Route")] CreateCollectionRoute collection)
@@ -67,7 +68,7 @@ namespace iCollections.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult PhotoSelection()
         {
@@ -75,6 +76,7 @@ namespace iCollections.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult PhotoSelection(string[] selectedPhotos)
@@ -110,7 +112,7 @@ namespace iCollections.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult PublishingOptionsSelection()
         {
@@ -124,6 +126,7 @@ namespace iCollections.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description", "SelectedKeyword")]CreateCollectionPublishing collection)
@@ -213,6 +216,7 @@ namespace iCollections.Controllers
             return View("PublishingOptionsSelection", collection);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult PublishingSuccess()
         {
