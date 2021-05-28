@@ -64,7 +64,7 @@ namespace iCollections.Controllers
                     return RedirectToAction("PhotoSelection");
                 }
             }
-            return View("EnvironmentSelection", collection);
+            return View("EnvironmentSelection");
         }
 
 

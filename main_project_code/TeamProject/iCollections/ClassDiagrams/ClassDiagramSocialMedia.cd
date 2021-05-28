@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iCollections.Controllers.BrowseController">
+    <Position X="11.25" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABQAAAAAAAAAAAAAAQAAAAAAAAAAAAAEAAAAAEAA=</HashCode>
+      <FileName>Controllers\BrowseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Controllers.DashboardController">
+    <Position X="8.75" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AQAgBQAAAAAAAUAAAAAAAAAQIAAAAIAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\DashboardController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Controllers.DatabaseEditor">
+    <Position X="9.5" Y="10.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Controllers\DatabaseEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Controllers.DatabaseHelper">
+    <Position X="11.5" Y="8.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ACgARQAAAAAAAwQAAABAAAAAAAAAAQAEAgAAIAAAEAA=</HashCode>
+      <FileName>Controllers\DatabaseHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Controllers.ErrorController">
+    <Position X="7.5" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ErrorController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Controllers.FollowsController">
+    <Position X="3.75" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAABAACAQQAAAAAAAAEAAEACAAEAAAAAEAE=</HashCode>
+      <FileName>Controllers\FollowsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Controllers.ICollectionsUsersController">
+    <Position X="1" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAABBACEAAAAAAAAAAEAAEACAAGAAAAAAAA=</HashCode>
+      <FileName>Controllers\ICollectionsUsersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Controllers.SearchController">
+    <Position X="13.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAhAAAAAAAAAAAAAAAAAAgIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\SearchController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Controllers.UserPageController">
+    <Position X="6.25" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAhAAAAAAQAQggSAAAAAEAAAAAAAACAAEAAAAAEAE=</HashCode>
+      <FileName>Controllers\UserPageController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Data.Concrete.FollowRepository">
+    <Position X="3.5" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAQAAAAAoAAAAAAAAAAAAAgAAAAAAAAEAAIA=</HashCode>
+      <FileName>Data\Concrete\FollowRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="iCollections.Data.Concrete.IcollectionUserRepository">
+    <Position X="0.75" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAA4AEIAAAAAAIAAAAAAAAAAAAAAAAAEACAAAEAAAA=</HashCode>
+      <FileName>Data\Concrete\IcollectionUserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="iCollections.Models.BrowseList">
+    <Position X="11.5" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAABAAAEAAAAAAAAAQAAAAABAAAAAAAA=</HashCode>
+      <FileName>Models\BrowseList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.ErrorMessage">
+    <Position X="7.5" Y="11" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAIAAAAAA=</HashCode>
+      <FileName>Models\ErrorMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.Follow">
+    <Position X="3.75" Y="10.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAgAAAAAAQAAAAAgBAAAAABAAAAAAA=</HashCode>
+      <FileName>Models\Follow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.SearchList">
+    <Position X="14" Y="5.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SearchList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.ActivityEvents">
+    <Position X="9" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIEAgAAAAABAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Models\ActivityEvents.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.IcollectionUser">
+    <Position X="0.75" Y="10.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAEAAAAAAACACAAAAAAAAiACAgAQAAQAAAIABAIg=</HashCode>
+      <FileName>Models\IcollectionUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
