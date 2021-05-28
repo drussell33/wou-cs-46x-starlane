@@ -49,6 +49,7 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult EnvironmentSelection([Bind("Route")] CreateCollectionRoute collection)
         {
             if (ModelState.IsValid)
@@ -77,6 +78,7 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult PhotoSelection(string[] selectedPhotos)
         {
             //Add in the ability to give a title and description for the photo to be used in the collection
@@ -126,6 +128,7 @@ namespace iCollections.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> PublishingOptionsSelection([Bind("CollectionName", "Visibility", "Description", "SelectedKeyword")]CreateCollectionPublishing collection)
         {
             string id = _userManager.GetUserId(User);
