@@ -29,7 +29,7 @@
 
         @if (AppContext.Photos.Where(u => u.UserId == appUser.Id).ToList().Count == 0)
         {
-            <h2>It looks like you don't have any photos. Go upload photos and try again.</h2>
+            <h2>It looks like you don't have any photos. Go <a asp-controller="UploadPhoto" asp-action="Index">upload photos</a> in order to create an iCollection</h2>
         }
         @if (AppContext.Photos.Where(u => u.UserId == appUser.Id).ToList().Count > 0)
         {
