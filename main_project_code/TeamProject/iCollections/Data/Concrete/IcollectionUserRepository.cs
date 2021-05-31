@@ -54,10 +54,11 @@ namespace iCollections.Data.Concrete
             return _dbSet.Include(u => u.FollowFollowerNavigations).Include(u => u.FollowFollowedNavigations).FirstOrDefault(m => m.AspnetIdentityId == sessionUserId);
         }
 
+        //This is whats slowing down the userpage load. it never used the photos so I commented that out and now it seems chill.
         public IcollectionUser GetTargetUser(string name)
         {
             return _dbSet
-                .Include(u => u.Photos)
+                //.Include(u => u.Photos)
                 .Include(u => u.FollowFollowerNavigations)
                 .Include(u => u.FollowFollowedNavigations)
                 .ThenInclude(f => f.FollowerNavigation)

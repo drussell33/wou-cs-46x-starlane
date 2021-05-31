@@ -40,13 +40,14 @@ namespace iCollections.Controllers
             _collectionKeywords = collectionKeywords;
             _keywordRepo = keywords;
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult EnvironmentSelection()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -64,11 +65,11 @@ namespace iCollections.Controllers
                     return RedirectToAction("PhotoSelection");
                 }
             }
-            return View("EnvironmentSelection", collection);
+            return View("EnvironmentSelection");
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult PhotoSelection()
         {
@@ -76,6 +77,7 @@ namespace iCollections.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -112,7 +114,7 @@ namespace iCollections.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult PublishingOptionsSelection()
         {
@@ -126,6 +128,7 @@ namespace iCollections.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -216,6 +219,7 @@ namespace iCollections.Controllers
             return View("PublishingOptionsSelection", collection);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult PublishingSuccess()
         {
