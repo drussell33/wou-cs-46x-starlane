@@ -14,11 +14,13 @@
     @if (Model != null)
     {
 
-        string[] colls = { "/images/card_pics/IMG-0833.JPG", "/images/dogtoy_pics/IMG-0869.JPG",
-    "/images/fish_pics/fish3.png", "/images/puzzel_pics/image_123923953(14).JPG", "/images/tool_pics/IMG-0837.JPG",
-    "/img/2D_example.jpg" };
+        <!--
+            string[] colls = { "/images/card_pics/IMG-0833.JPG", "/images/dogtoy_pics/IMG-0869.JPG",
+        "/images/fish_pics/fish3.png", "/images/puzzel_pics/image_123923953(14).JPG", "/images/tool_pics/IMG-0837.JPG",
+        "/img/2D_example.jpg" };
 
-        Random rand = new Random();
+            Random rand = new Random();
+                -->
 
         <h5>Result(s): @Model.SearchResults.Count() Collection(s)</h5>
         @if (ViewBag.SuccessMessage != null)
@@ -60,7 +62,7 @@
                     <td>
                         <div class="row-auto">
                             <div class="col">
-                                <img src=@colls[rand.Next(6)] width="118" height="118" alt="" />
+                                <img src="data:image;base64,@System.Convert.ToBase64String(ck.Collect.CollectionPhotoes.FirstOrDefault().Photo.Data)" width="118" height="118" alt="" />
                             </div>
                             <div class="col"><button type="button" class="btn btn-outline-primary btn-sm fav_btn" data-bs-toggle="button" id="@ck.CollectId" value="@Model.VisitedUser.UserName" name="@Model.LoggedInUser.UserName">Add to Favorites</button></div>
                         </div>
