@@ -4,6 +4,8 @@
     ViewData["Title"] = "Collections";
 }
 
+@using iCollections.Data;
+@inject ICollectionsDbContext AppContext
 
 <div class="container">
 
@@ -59,7 +61,9 @@
 
                             <tr>
                                 <td>
-                                    <img src=@colls[rand.Next(6)] width="118" height="118" alt="" />
+                                    @{CollectionPhoto cp = AppContext.CollectionPhotos.Where(c => c.CollectId == ck.CollectId).FirstOrDefault();
+                                        Photo photo = AppContext.Photos.Where(p => p.CollectionPhotoes.FirstOrDefault() == cp).FirstOrDefault();}
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(ck.Collect.CollectionPhotoes.FirstOrDefault().Photo.Data)" width="118" height="118" alt="" />
                                 </td>
                                 <td>
                                     <div> @ck.Collect.Name </div>
