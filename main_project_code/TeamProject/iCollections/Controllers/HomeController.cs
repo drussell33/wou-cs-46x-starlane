@@ -44,6 +44,11 @@ namespace iCollections.Controllers
             return View();
         }
 
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+
         [Authorize]
         public IActionResult Privacy()
         {

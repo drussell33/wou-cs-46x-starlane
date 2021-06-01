@@ -1,6 +1,4 @@
 import {GatherPhotoData} from '../../iCollections/wwwroot/js/jest_testing_functions'
-//import { screen } from '@testing-library/jest-dom'
-//import '@testing-library/jest-dom/extend-expect';
 import {toHaveClass} from '@testing-library/jest-dom/matchers'
 
 //Derek Russell
@@ -25,14 +23,14 @@ import {toHaveClass} from '@testing-library/jest-dom/matchers'
         //Arrange
         document.body.innerHTML =
             '<table>' +
-            '  <tr data-title="photo1" data-photodata="NOPENOPENOPE" data-rank=1 data-description="description1" />' +
-            '  <tr data-title="photo2" data-photodata="NOPENOPENOPE" data-rank=2 data-description="description2"/>' +
-            '  <tr data-title="photo3" data-photodata="NOPENOPENOPE" data-rank=3 data-description="description3"/>' +
-            '  <tr data-title="photo4" data-photodata="NOPENOPENOPE" data-rank=4 data-description="description4"/>' +
-            '  <tr data-title="photo5" data-photodata="NOPENOPENOPE" data-rank=5 data-description="description5"/>' +
-            '  <tr data-title="photo6" data-photodata="NOPENOPENOPE" data-rank=6 data-description="description6"/>' +
-            '  <tr data-title="photo7" data-photodata="NOPENOPENOPE" data-rank=7 data-description="description7"/>' +
-            '  <tr data-title="photo8" data-photodata="NOPENOPENOPE" data-rank=8 data-description="description8"/>' +
+            '  <tr data-title="photo1" data-photodata="NotRealAndNotNeededForThisTest" data-rank=1 data-description="description1" />' +
+            '  <tr data-title="photo2" data-photodata="NotRealAndNotNeededForThisTest" data-rank=2 data-description="description2"/>' +
+            '  <tr data-title="photo3" data-photodata="NotRealAndNotNeededForThisTest" data-rank=3 data-description="description3"/>' +
+            '  <tr data-title="photo4" data-photodata="NotRealAndNotNeededForThisTest" data-rank=4 data-description="description4"/>' +
+            '  <tr data-title="photo5" data-photodata="NotRealAndNotNeededForThisTest" data-rank=5 data-description="description5"/>' +
+            '  <tr data-title="photo6" data-photodata="NotRealAndNotNeededForThisTest" data-rank=6 data-description="description6"/>' +
+            '  <tr data-title="photo7" data-photodata="NotRealAndNotNeededForThisTest" data-rank=7 data-description="description7"/>' +
+            '  <tr data-title="photo8" data-photodata="NotRealAndNotNeededForThisTest" data-rank=8 data-description="description8"/>' +
             '</table>';
         //Act
         var photoData = [];
@@ -84,14 +82,14 @@ test('GatherPhotoData_TestingThatPhotosOrganizedByRankAsOutput_mightWorkAgain', 
     //Arrange
     document.body.innerHTML =
         '<table>' +
-        '  <tr data-title="photo1" data-photodata="NOPENOPENOPE" data-rank=1 data-description="description1" />' +
-        '  <tr data-title="photo2" data-photodata="NOPENOPENOPE" data-rank=7 data-description="description2"/>' +
-        '  <tr data-title="photo3" data-photodata="NOPENOPENOPE" data-rank=3 data-description="description3"/>' +
-        '  <tr data-title="photo4" data-photodata="NOPENOPENOPE" data-rank=4 data-description="description4"/>' +
-        '  <tr data-title="photo5" data-photodata="NOPENOPENOPE" data-rank=5 data-description="description5"/>' +
-        '  <tr data-title="photo6" data-photodata="NOPENOPENOPE" data-rank=8 data-description="description6"/>' +
-        '  <tr data-title="photo7" data-photodata="NOPENOPENOPE" data-rank=6 data-description="description7"/>' +
-        '  <tr data-title="photo8" data-photodata="NOPENOPENOPE" data-rank=2 data-description="description8"/>' +
+        '  <tr data-title="photo1" data-photodata="NotRealAndNotNeededForThisTest" data-rank=1 data-description="description1" />' +
+        '  <tr data-title="photo2" data-photodata="NotRealAndNotNeededForThisTest" data-rank=7 data-description="description2"/>' +
+        '  <tr data-title="photo3" data-photodata="NotRealAndNotNeededForThisTest" data-rank=3 data-description="description3"/>' +
+        '  <tr data-title="photo4" data-photodata="NotRealAndNotNeededForThisTest" data-rank=4 data-description="description4"/>' +
+        '  <tr data-title="photo5" data-photodata="NotRealAndNotNeededForThisTest" data-rank=5 data-description="description5"/>' +
+        '  <tr data-title="photo6" data-photodata="NotRealAndNotNeededForThisTest" data-rank=8 data-description="description6"/>' +
+        '  <tr data-title="photo7" data-photodata="NotRealAndNotNeededForThisTest" data-rank=6 data-description="description7"/>' +
+        '  <tr data-title="photo8" data-photodata="NotRealAndNotNeededForThisTest" data-rank=2 data-description="description8"/>' +
         '</table>';
     //Act
     var photoData = [];
@@ -112,14 +110,14 @@ test('GatherPhotoData_TestingThatPhotosOrganizedByRankForTitle_SHouldWork', () =
     //Arrange
     document.body.innerHTML =
         '<table>' +
-        '  <tr data-title="photo1" data-photodata="NOPENOPENOPE" data-rank=1 data-description="description1" />' +
-        '  <tr data-title="photo2" data-photodata="NOPENOPENOPE" data-rank=7 data-description="description2"/>' +
-        '  <tr data-title="photo3" data-photodata="NOPENOPENOPE" data-rank=3 data-description="description3"/>' +
-        '  <tr data-title="photo4" data-photodata="NOPENOPENOPE" data-rank=4 data-description="description4"/>' +
-        '  <tr data-title="photo5" data-photodata="NOPENOPENOPE" data-rank=5 data-description="description5"/>' +
-        '  <tr data-title="photo6" data-photodata="NOPENOPENOPE" data-rank=8 data-description="description6"/>' +
-        '  <tr data-title="photo7" data-photodata="NOPENOPENOPE" data-rank=6 data-description="description7"/>' +
-        '  <tr data-title="photo8" data-photodata="NOPENOPENOPE" data-rank=2 data-description="description8"/>' +
+        '  <tr data-title="photo1" data-photodata="NotRealAndNotNeededForThisTest" data-rank=1 data-description="description1" />' +
+        '  <tr data-title="photo2" data-photodata="NotRealAndNotNeededForThisTest" data-rank=7 data-description="description2"/>' +
+        '  <tr data-title="photo3" data-photodata="NotRealAndNotNeededForThisTest" data-rank=3 data-description="description3"/>' +
+        '  <tr data-title="photo4" data-photodata="NotRealAndNotNeededForThisTest" data-rank=4 data-description="description4"/>' +
+        '  <tr data-title="photo5" data-photodata="NotRealAndNotNeededForThisTest" data-rank=5 data-description="description5"/>' +
+        '  <tr data-title="photo6" data-photodata="NotRealAndNotNeededForThisTest" data-rank=8 data-description="description6"/>' +
+        '  <tr data-title="photo7" data-photodata="NotRealAndNotNeededForThisTest" data-rank=6 data-description="description7"/>' +
+        '  <tr data-title="photo8" data-photodata="NotRealAndNotNeededForThisTest" data-rank=2 data-description="description8"/>' +
         '</table>';
     //Act
     var photoData = [];
@@ -140,14 +138,14 @@ test('GatherPhotoData_TestingThatPhotosOrganizedByRankForTitle_SHouldWork', () =
     //Arrange
     document.body.innerHTML =
         '<table>' +
-        '  <tr data-title="photo1" data-photodata="NOPENOPENOPE" data-rank=1 data-description="description1" />' +
-        '  <tr data-title="photo2" data-photodata="NOPENOPENOPE" data-rank=7 data-description="description2"/>' +
-        '  <tr data-title="photo3" data-photodata="NOPENOPENOPE" data-rank=3 data-description="description3"/>' +
-        '  <tr data-title="photo4" data-photodata="NOPENOPENOPE" data-rank=4 data-description="description4"/>' +
-        '  <tr data-title="photo5" data-photodata="NOPENOPENOPE" data-rank=5 data-description="description5"/>' +
-        '  <tr data-title="photo6" data-photodata="NOPENOPENOPE" data-rank=8 data-description="description6"/>' +
-        '  <tr data-title="photo7" data-photodata="NOPENOPENOPE" data-rank=6 data-description="description7"/>' +
-        '  <tr data-title="photo8" data-photodata="NOPENOPENOPE" data-rank=2 data-description="description8"/>' +
+        '  <tr data-title="photo1" data-photodata="NotRealAndNotNeededForThisTest" data-rank=1 data-description="description1" />' +
+        '  <tr data-title="photo2" data-photodata="NotRealAndNotNeededForThisTest" data-rank=7 data-description="description2"/>' +
+        '  <tr data-title="photo3" data-photodata="NotRealAndNotNeededForThisTest" data-rank=3 data-description="description3"/>' +
+        '  <tr data-title="photo4" data-photodata="NotRealAndNotNeededForThisTest" data-rank=4 data-description="description4"/>' +
+        '  <tr data-title="photo5" data-photodata="NotRealAndNotNeededForThisTest" data-rank=5 data-description="description5"/>' +
+        '  <tr data-title="photo6" data-photodata="NotRealAndNotNeededForThisTest" data-rank=8 data-description="description6"/>' +
+        '  <tr data-title="photo7" data-photodata="NotRealAndNotNeededForThisTest" data-rank=6 data-description="description7"/>' +
+        '  <tr data-title="photo8" data-photodata="NotRealAndNotNeededForThisTest" data-rank=2 data-description="description8"/>' +
         '</table>';
     //Act
     var photoData = [];

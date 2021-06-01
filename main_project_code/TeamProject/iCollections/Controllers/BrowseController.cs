@@ -2,6 +2,7 @@
 using iCollections.Data.Abstract;
 using iCollections.Models;
 using iCollections.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ namespace iCollections.Controllers
             dbHelper = new DatabaseHelper(_userManager, _collectionsDbContext, _userRepo);
         }
 
+        [Authorize]
         public IActionResult Index(string keywords)
         {
             var init_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));

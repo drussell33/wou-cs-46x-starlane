@@ -52,6 +52,7 @@ namespace iCollections.Controllers
                 sessionUser = _userRepo.GetSessionUser(sessionUserId);
             }
 
+            //6,850ms elapsed
             var targetUser = _userRepo.GetTargetUser(name);
 
             if (targetUser == null)

@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-2">
                     <div class="form-group environment-select-checkbox">
-                        <input asp-for="Route" type="checkbox" class="form-control" id="gallery_environment" value="gallery_environment" data-val-required="The AcceptsTerms field is required." />
+                        <input asp-for="Route" type="checkbox" class="form-control" id="gallery_environment" value="gallery_environment" />
                         <span asp-validation-for="Route" class="text-danger"></span>
                     </div>
 
@@ -82,3 +82,5 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script src="~/js/checkbox_selection.js" asp-append-version="true" type="module"></script>
