@@ -7,6 +7,8 @@ namespace iCollections.Data.Abstract
     {
         List<CollectionKeyword> GetPublicCollectionKeywordsByUser(IcollectionUser user);
 
+        List<CollectionKeyword> GetPublicAndPrivateCollectionKeywordsByUser(IcollectionUser user);
+
         List<CollectionKeyword> GetPublicCollectionKeywordsByUserSortedAscending(IcollectionUser user, string sort);
 
         List<CollectionKeyword> GetUserPublicCollectionKeywordsByKeyword(IcollectionUser user, string keyword);

@@ -55,7 +55,14 @@ namespace iCollections.Controllers
         {
             Console.WriteLine("Validation called");
             string curUser = _userManager.GetUserName(User);
-            if (curUser == UserName)
+
+            //added to fix bug where the user editing their profile couldnt keep the same user name.
+            string sessionUserId = _userManager.GetUserId(User);
+            var actualCurUser = await _context.IcollectionUsers.FirstOrDefaultAsync(m => m.AspnetIdentityId == sessionUserId);
+            string mightWork = actualCurUser.UserName;
+
+            //if (curUser == UserName)
+            if (mightWork == UserName)
             {
                 return Json(true);
             }

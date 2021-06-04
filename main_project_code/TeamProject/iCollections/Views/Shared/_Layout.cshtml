@@ -33,6 +33,8 @@
                             </li>
                         }
                     </ul>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
                     <!--Search Bar-->
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item">
@@ -44,6 +46,7 @@
                             </div>
                         </li>
                     </ul>
+                    }
 
                     <partial name="_LoginPartial" />
                 </div>
