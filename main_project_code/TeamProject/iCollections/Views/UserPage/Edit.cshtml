@@ -18,7 +18,8 @@
                     <div class="media align-items-end profile-head">
                         <div class="profile mr-3">
                             @{
-                                string profilePicSource = Model.Photos.FirstOrDefault(p => p.Id == Model.ProfilePicId).GetPhotoUrl();
+                                @*string profilePicSource = Model.Photos.FirstOrDefault(p => p.Id == Model.ProfilePicId).GetPhotoUrl();*@
+                                string profilePicSource = ViewBag.ProfilePicUrl;
                                 if (profilePicSource == null)
                                 {
                                     <img src="@Url.Content("~/img/default_profile_pic.jpg")" alt="..." width="130" class="rounded mb-2 img-thumbnail">
