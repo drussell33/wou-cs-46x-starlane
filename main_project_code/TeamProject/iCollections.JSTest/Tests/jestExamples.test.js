@@ -1,6 +1,6 @@
-import {sum} from '../../iCollections/wwwroot/js/sum'
+import {sum} from '../../iCollections/wwwroot/js/jest_testing_functions'
 //const sum = require('./sum');
-
+//Derek Sprint 3
 test('3 to equal 3', () => {
     //Arrange
     

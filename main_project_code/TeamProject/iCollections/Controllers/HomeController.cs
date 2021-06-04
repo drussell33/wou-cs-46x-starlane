@@ -9,6 +9,11 @@ using Microsoft.Extensions.Logging;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Net.Http.Json;
+using iCollections.Data.Abstract;
+
 
 namespace iCollections.Controllers
 {
@@ -16,54 +21,31 @@ namespace iCollections.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly ICollectionsDbContext _collectionsDbContext;
+        //private readonly ICollectionsDbContext _collectionsDbContext;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
+        private readonly IIcollectionUserRepository _userRepo;
+        private readonly IPhotoRepository _photoRepo;
+        private readonly IcollectionRepository _colRepo;
+        private readonly ICollectionPhotoRepository _collectionPhotoRepo;
+
+        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, /*ICollectionsDbContext collectionsDbContext,*/ IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo, ICollectionPhotoRepository collectionphotoRepo)
         {
             _logger = logger;
             _userManager = userManager;
-            _collectionsDbContext = collectionsDbContext;
+            //_collectionsDbContext = collectionsDbContext;
+            _userRepo = userRepo;
+            _photoRepo = photoRepo;
+            _colRepo = colRepo;
+            _collectionPhotoRepo = collectionphotoRepo;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            /*bool isAuthenticated = User.Identity.IsAuthenticated;
-            if (isAuthenticated)
-            {
-                //return RedirectToAction("Index", "DashboardController");
-                return RedirectToAction("Index", "Dashboard");
-            }*/
-            // Information straight from the Controller (does not need to do to the database)
+            return View();
+        }
 
-/*            // Information straight from the Controller (does not need to do to the database)
-            bool isAdmin = User.IsInRole("Admin");
-            string name = User.Identity.Name;
-            string authType = User.Identity.AuthenticationType;
-
-            // Information from Identity through the user manager
-            string id = _userManager.GetUserId(User);         // reportedly does not need to hit db
-            IdentityUser user = await _userManager.GetUserAsync(User);  // does go to the db
-            string email = user?.Email ?? "no email";
-            string phone = user?.PhoneNumber ?? "no phone number";
-            IcollectionUser cu = null;
-            int numberOfFollowers = 0;
-            int numberOfFriends = 0;
-            string aboutMe = null;
-           
-            if (id != null)
-            {
-                cu = _collectionsDbContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-                
-                aboutMe = cu?.AboutMe ?? "no about me";
-                numberOfFollowers = _collectionsDbContext.Follows.Where(u => u.Followed == cu.Id).Count();
-                numberOfFriends = _collectionsDbContext.FriendsWiths.Where(u => u.User1Id == cu.Id).Count();
-            }*/
-
-
-            /*ViewBag.Message = $"User {name} is authenticated? {isAuthenticated} using type {authType} and is an" +
-                              $" Admin? {isAdmin}. ID from Identity {id}, email is {email}, and phone is {phone}, and about me is {aboutMe}" +
-                              $"Number of followers is {numberOfFollowers} Number of friends is {numberOfFriends}";
-            */
+        public IActionResult AboutUs()
+        {
             return View();
         }
 
@@ -74,15 +56,97 @@ namespace iCollections.Controllers
         }
 
         [Route("/ocean_environment")]
-        public IActionResult Ocean_environment(Collection collection)
+        public IActionResult ocean_environment(int? collectionID)
         {
-            return View();
+            List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
+            
+            if (collectionID == null)
+            {
+                ViewData["collectionTitle"] = "Example Ocean Environment";
+                ViewData["collectionDescription"] = "This is the 360 Degree View environment with the Ocean Setting.";
+                return View();
+            }
+            else
+            {
+                Collection newCollection = new Collection();
+                //newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
+                newCollection = _colRepo.GetCollectionById((int)collectionID);
+
+                if (newCollection != null)
+                {
+                    int collectionId = (int)collectionID;
+                    int collectionOwnerId = (int)newCollection.UserId;
+                    var collectionPhotos = _collectionPhotoRepo.GetAllCollectionPhotosbyCollectionId(collectionId);
+                    //var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
+
+                    var photos = _photoRepo.GetAllUserPhotos(collectionOwnerId);
+
+                    foreach (var image in collectionPhotos)
+                    {
+                        foreach (var photo in photos)
+                        {
+                            if (image.PhotoId == photo.Id)
+                            {
+                                RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), photo.Name, image.PhotoRank, image.Description);
+                                AllPhotos.Add(renderingPhoto);
+                            }
+                        }
+                    }
+                    ViewData["collectionTitle"] = newCollection.Name;
+                    ViewData["collectionDescription"] = newCollection.Description;
+                    return View(AllPhotos);
+                }
+
+
+                return View(AllPhotos);
+            }
+            
+            
+            
         }
 
+        
         [Route("/gallery_environment")]
-        public IActionResult gallery_environment(Collection collection)
+        public IActionResult gallery_environment(int? collectionID)
         {
-            return View();
+            if (collectionID == null)
+            {
+                ViewData["collectionTitle"] = "Example Gallery Environment";
+                ViewData["collectionDescription"] = "This is the full virtual environment in an evening gallery setting";
+                return View();
+            }
+            List<RenderingPhoto> AllPhotos = new List<RenderingPhoto>();
+            Collection newCollection = new Collection();
+            //newCollection = _collectionsDbContext.Collections.Where(m => m.Id == collectionID).Include(s => s.CollectionPhotoes).ThenInclude(x => x.Photo).FirstOrDefault();
+            newCollection = _colRepo.GetCollectionById((int)collectionID);
+
+            if (newCollection != null)
+            {
+                int collectionId = (int)collectionID;
+                int collectionOwnerId = (int)newCollection.UserId;
+                var collectionPhotos = _collectionPhotoRepo.GetAllCollectionPhotosbyCollectionId(collectionId);
+                //var photos = _collectionsDbContext.Photos.Where(p => p.UserId == newCollection.UserId);
+
+                var photos = _photoRepo.GetAllUserPhotos(collectionOwnerId);
+
+                foreach (var image in collectionPhotos)
+                {
+                    foreach (var photo in photos)
+                    {
+                        if (image.PhotoId == photo.Id)
+                        {
+                            RenderingPhoto renderingPhoto = new RenderingPhoto(Convert.ToBase64String(photo.Data), photo.Name, image.PhotoRank, image.Description);
+                            AllPhotos.Add(renderingPhoto);
+                        }
+                    }
+                }
+                ViewData["collectionTitle"] = newCollection.Name;
+                ViewData["collectionDescription"] = newCollection.Description;
+                return View(AllPhotos);
+            }
+
+
+            return View(AllPhotos);
         }
 
 
@@ -92,11 +156,5 @@ namespace iCollections.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        // Users not logged in who try to upload photos will be redirected to the login page.
-        [Authorize]
-        public IActionResult PhotoUpload()
-        {
-            return View();
-        }
     }
 }

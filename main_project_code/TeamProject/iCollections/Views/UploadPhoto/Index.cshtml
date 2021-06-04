@@ -6,25 +6,34 @@
 
     <header class="text-center">
         <h1>@ViewData["Title"]</h1>
-        <p class="lead mb-0">Add your iCollection photos here. Press the button to select a photo from your computer.
+        <p class="lead mb-0">Add your iCollection photos here. Press the "Choose file" button to select a photo from your computer.
         </p>
         <p class="mb-5 font-weight-light">
-            <a href="https://bootstrapious.com">
+            <a asp-action="NeedHelp">
                 <u>Need help?</u>
             </a>
         </p>
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <p class="alert alert-success alert-dismissible fade show" role="alert">
+                @ViewBag.SuccessMessage
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </p>;
+        }
     </header>
 
 
     <div class="row py-4">
         <div class="col-lg-6 mx-auto">
 
-            <form id="photoUpload" asp-action="UploadImage" asp-controller="UploadPhoto" method="POST"
+            <form id="photoUpload" asp-controller="UploadPhoto" asp-action="UploadImage" method="POST"
                 enctype="multipart/form-data">
                 <div class="middle-input">
-                    <input id="customName" type="text" class="form-control" name="customName"
-                        placeholder="Optional name">
+                    <input id="customName" type="text" class="form-control" name="customName" placeholder="Optional name">
                     <span id="customNameError"></span>
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger font-weight-bold" })
                 </div>
 
                 <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">

@@ -20,31 +20,21 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between navbars">
                     <ul class="navbar-nav flex-grow-1">
-
-                        <!--Browse-->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Browse" asp-action="Index">Browse</a>
-                        </li>
-
-                        <!--Dashboard-->
                         @if (SignInManager.IsSignedIn(User))
                         {
+                            <!--Browse-->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Browse" asp-action="Index">Browse</a>
+                            </li>
+                            
+                            <!--Dashboard-->
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                             </li>
                         }
-                        <!--Upload-->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UploadPhoto" asp-action="Index">Upload Photo</a>
-                        </li>
-                        <!-- View photos -->
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ViewPhotos" asp-action="Index">View Photos</a>
-                        </li>
-                        }
                     </ul>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
                     <!--Search Bar-->
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item">
@@ -56,47 +46,31 @@
                             </div>
                         </li>
                     </ul>
+                    }
 
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
-@*        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 navbar-secondary" aria-label="Secondary Nav">
-            <div class="container">
-                <div class="navbar-collapse collapse d-sm-inline-flex navbars">
-                    <ul class="navbar-nav flex-grow-1 justify-content-between">
-                        <li class="nav-item">
-                            <a class="nav-link text-light">Generic Item 1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light">Generic Item 2</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light">Generic Item 3</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>*@
+
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 mt-5">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - iCollections - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - iCollections - <a asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/follows.js" asp-append-version="true"></script>
-    <script src="~/js/ocean_example.js" asp-append-version="true" type="module"></script>
-    <script src="~/js/puzzel_example.js" asp-append-version="true" type="module"></script>
-    <script src="~/js/sum.js" asp-append-version="true" type="module"></script>
+    <script src="~/js/manage_photos.js" asp-append-version="true"></script>
+    <script src="~/js/back_button.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

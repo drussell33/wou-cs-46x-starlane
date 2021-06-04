@@ -14,6 +14,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using iCollections.Models;
+using iCollections.Data.Abstract;
+using iCollections.Data.Concrete;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace iCollections
 {
@@ -34,16 +37,25 @@ namespace iCollections
             var appBuilder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("ICollectionsConnection"));
             authBuilder.Password = Configuration["ICollections:ServerPassword"];
             appBuilder.Password = Configuration["ICollections:ServerPassword"];
-            //authBuilder.Password = "nju8*ikm";
-            //appBuilder.Password = "nju8*ikm";
+
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(authBuilder.ConnectionString));
-                        //Configuration.GetConnectionString("AuthenticationConnection"));
+            //Configuration.GetConnectionString("AuthenticationConnection"));
             services.AddDbContext<ICollectionsDbContext>(options =>
                  options.UseSqlServer(appBuilder.ConnectionString));
-                       //Configuration.GetConnectionString("ICollectionsConnection"));
+            //Configuration.GetConnectionString("ICollectionsConnection"));
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.AddScoped<ICollectionKeywordRepository, CollectionKeywordRepository>();
+            services.AddScoped<IIcollectionUserRepository, IcollectionUserRepository>();
+            services.AddScoped<IcollectionRepository, CollectionRepository>();
+            services.AddScoped<IFriendsWithRepository, FriendsWithRepository>();
+            services.AddScoped<IFollowRepository, FollowRepository>();
+            services.AddScoped<ICollectionPhotoRepository, CollectionPhotoRepository>();
+            services.AddScoped<IFavoriteCollectionRepository, FavoriteCollectionRepository>();
+            services.AddScoped<IKeywordRepository, KeywordRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
@@ -52,11 +64,14 @@ namespace iCollections
             services.Configure<IdentityOptions>(opts =>
             {
                 opts.User.RequireUniqueEmail = true;
-                
+
             });
             services.AddControllersWithViews();
             // Added to enable runtime compilation.
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            //Added for TempData use for icollection creation() 
+            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,9 +100,9 @@ namespace iCollections
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name:"thumbnails",
+                    name: "thumbnails",
                     pattern: "api/image/thumbnail/{id?}",
-                    defaults: new { controller = "ImageApi", action = "Thumbnail"}                
+                    defaults: new { controller = "ImageApi", action = "Thumbnail" }
                     );
 
                 endpoints.MapControllerRoute(

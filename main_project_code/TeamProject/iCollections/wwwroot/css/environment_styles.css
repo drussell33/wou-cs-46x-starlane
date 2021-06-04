@@ -1,8 +1,14 @@
 ﻿#blocker {
-    position: absolute;
-    width: 80%;
-    height: 70%;
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background-color: rgba(0,0,0,0.5);
+}
+
+#gallery_environment {
+    position: relative;
 }
 
 #instructions {
@@ -32,6 +38,137 @@
     margin: 0;
     position: absolute;
     top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%)
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.photo-select-checkbox {
+    margin: auto;
+    width: 100%;
+    height: 2rem;
+}
+
+.checkboxWarning {
+    color: red;
+}
+
+.text-responsive {
+    font-size: calc(100% + 1vw + 1vh);
+}
+
+
+/*Home Page Refactored Styles */
+
+.clear-section {
+    background-color: #fff;
+}
+
+.silver-section {
+    background-color: #e5e5e5;
+}
+
+.container-fluid {
+    /*padding: 7% 15%;*/
+}
+
+.cf-padding {
+    padding: 7% 15%;
+}
+
+#landing-area {
+    padding: 2%;
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+
+.main-title {
+    font-size: 3.0rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.main-sub-title {
+    font-size: 1.0rem;
+}
+
+.landing-image {
+    max-width: 110%;
+    height: auto;
+    /* padding-left: 110px; */
+    margin: 2px;
+}
+
+.horizontal-center {
+    padding-top: 100px;
+}
+
+.section_title {
+    font-size: 3rem;
+    text-align: center;
+}
+
+.feature_section_title {
+    font-size: 3rem;
+    padding-bottom: 10%;
+    text-align: center;
+}
+
+.center {
+    margin: auto;
+    width: 100%;
+}
+
+/*New Features section */
+
+.social-box .box {
+    background: #FFF;
+    border-radius: 10px;
+    padding: 40px 10px;
+    margin: 20px 0px;
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+
+.social-box .box:hover {
+    box-shadow: 0 0 6px #4183D7;
+}
+
+.social-box .box .box-text {
+    margin: 20px 0px;
+    font-size: 15px;
+    line-height: 30px;
+}
+
+.social-box .box .box-btn a {
+    text-decoration: none;
+    color: #4183D7;
+    font-size: 16px;
+}
+
+.line-padding {
+    padding-bottom: 4%;
+}
+
+
+/*How Does site Work section */
+
+.box-photo {
+    max-width: 90%;
+    /* padding-left: 110px; */
+    margin: 2px;
+}
+
+.environment-buttons {
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+
+.creation-page-title {
+    padding-bottom: 1%;
+}
+
+.anchor_center {
+    text-align: center;
 }

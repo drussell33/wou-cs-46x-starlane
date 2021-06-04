@@ -6,6 +6,7 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
+using iCollections.Data.Abstract;
 
 namespace iCollections.Controllers
 {
@@ -14,45 +15,24 @@ namespace iCollections.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ICollectionsDbContext _collectionsDbContext;
+        private readonly IIcollectionUserRepository _userRepo;
 
-        public DatabaseHelper(UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext)
+        public DatabaseHelper(UserManager<IdentityUser> userManager, ICollectionsDbContext collectionsDbContext, IIcollectionUserRepository userRepo)
         {
             _userManager = userManager;
             _collectionsDbContext = collectionsDbContext;
+            _userRepo = userRepo;
         }
 
-        public bool isKeyInFriendship(IcollectionUser user1, IcollectionUser user2, int key)
+        public static bool isKeyInFriendship(IcollectionUser user1, IcollectionUser user2, int key)
         {
-            Path.GetFileNameWithoutExtension("sdsdf");
             return key == user1.Id || key == user2.Id;
         }
 
-        public List<IcollectionUser> GetMyFriends(int myId)
+        public static int GetReadableUserID(string aspNetId, IIcollectionUserRepository userRepo)
         {
-            var myFriendsQuery = _collectionsDbContext.FriendsWiths
-                .Include(f => f.User1)
-                .Include(f => f.User2)
-                .Where(friendship => friendship.User1.Id == myId || friendship.User2.Id == myId)
-                .Select(friendship => friendship.User1.SelectOtherUser(friendship.User2, myId))
-                .ToList();
-
-            var myFriends = myFriendsQuery.GroupBy(f => f.Id).Select(f => f.FirstOrDefault()).ToList();
-            return myFriends;
-        }
-
-        public List<IcollectionUser> GetMyFollowees(int myId)
-        {
-            var whoIFollow = _collectionsDbContext.Follows
-                .Where(f => f.FollowerNavigation.Id == myId)
-                .Select(f => f.FollowedNavigation)
-                .ToList();
-
-            return whoIFollow;
-        }
-
-        public static int GetReadableUserID(string complexId, ICollectionsDbContext _collectionsDbContext)
-        {
-            var user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(i => i.AspnetIdentityId == complexId);
+            //var user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(i => i.AspnetIdentityId == aspNetId);
+            var user = userRepo.GetIcollectionUserByIdentityId(aspNetId);
             return user.Id;
         }
 
@@ -70,83 +50,103 @@ namespace iCollections.Controllers
         // removes duplicates from list (list of mutual friends)
         // remove duplicate friendships 
         // (assuming all friendships have at least one of my friends in them)
+        // want ships in this format (directFriend, secondHandFriend)
         public static void RemoveDuplicates(ref List<FriendsWith> friendships, List<IcollectionUser> directFriends)
         {
             if (friendships == null || directFriends == null) throw new NullReferenceException("Cannot access null lists");
             
             var filtered = new List<FriendsWith>();
-            var bothDirectFriends = new List<FriendsWith>();
             foreach (var ship in friendships)
             {
-                if (directFriends.Any(r => r.Id == ship.User1.Id)
-                    && !bothDirectFriends.Any(r => r.User1.Id == ship.User2.Id && r.User2.Id == ship.User1.Id))
+                if (!directFriends.Any(df => df.Id == ship.User1.Id)) // if user1 != df -> skip
                 {
-                    filtered.Add(ship);
-
-                    if (IsBothFriendsOfMine(directFriends, ship.User1, ship.User2))
+                    continue;
+                }
+                else
+                {
+                    // if (df, other) actually already in filtered as (other, df) -> skip
+                    if (filtered.Any(existing => existing.User1.Id == ship.User2.Id && existing.User2.Id == ship.User1.Id))
                     {
-                        bothDirectFriends.Add(ship);
+                        continue;
+                    }
+                    // if (df, other) not in filtered -> add
+                    else if (!filtered.Any(existing => existing.User1.Id == ship.User1.Id && existing.User2.Id == ship.User2.Id))
+                    {
+                        filtered.Add(ship);
                     }
                 }
             }
             friendships = filtered;
         }
 
-        public void ReadDistantFriends(List<IcollectionUser> myFriends, List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId)
+        public static void ReadDistantFriends(List<IcollectionUser> myFriends, ref List<FriendsWith> myFriendsFriends, List<Collection> myFriendCollections, int userId, IFriendsWithRepository friends, IcollectionRepository collections)
         {
+            // iterate through all my direct friends
             foreach (var directFriend in myFriends)
             {
-                var directFriendsFriend = _collectionsDbContext.FriendsWiths
-                    .Include(f => f.User1)
-                    .Include(f => f.User2)
-                    .Where(row => row.User1.Id == directFriend.Id || row.User2.Id == directFriend.Id)
-                    .ToList();
+                // add friendships with my direct friend in it
+                var directFriendsFriend = friends.GetFriendshipsInvolvingThisUser(directFriend.Id);
 
-                var myBuddyCollections = _collectionsDbContext
-                    .Collections
-                    .Include(r => r.User)
-                    .Where(r => r.User.Id == directFriend.Id)
-                    .ToList();
+                // add my direct friend's collections
+                var myBuddyCollections = collections.GetICollectionsForThisUser(directFriend.Id);
 
+                // append to my lists
                 myFriendCollections.AddRange(myBuddyCollections);
                 myFriendsFriends.AddRange(directFriendsFriend);
             }
 
+            // take out friendships involving me personally
             myFriendsFriends.RemoveAll(friendship => isKeyInFriendship(friendship.User1, friendship.User2, userId));
             RemoveDuplicates(ref myFriendsFriends, myFriends);
         }
 
-        public void ReadFollowees(List<IcollectionUser> followees, List<Follow> topFollow, List<Collection> followeesCollections, int userId)
+        public static void ReadFollowees(List<IcollectionUser> followees, List<Follow> topFollow, List<Collection> followeesCollections, int userId, IFollowRepository follow, IcollectionRepository cols)
         {
             foreach (var myFollowee in followees)
             {
-                var followeeFollowees = _collectionsDbContext.Follows
-                    .Include(f => f.FollowedNavigation)
-                    .Include(f => f.FollowerNavigation)
-                    .Where(row => row.FollowerNavigation.Id == myFollowee.Id && row.FollowedNavigation.Id != userId)
-                    .ToList();
-
-                var myFolloweeCollections = _collectionsDbContext.Collections
-                    .Include(r => r.User)
-                    .Where(c => c.User.Id == myFollowee.Id)
-                    .ToList();
-
+                var followeeFollowees = follow.GetFolloweesForUserExcludingMe(myFollowee.Id, userId);
+                var myFolloweeCollections = cols.GetICollectionsForThisUser(myFollowee.Id);
                 topFollow.AddRange(followeeFollowees);
                 followeesCollections.AddRange(myFolloweeCollections);
             }
         }
 
-        public void OrderLists(List<FriendsWith> myFriendsFriends, List<Follow> topFollow, List<Collection> extractedCollections)
+        public static void OrderLists(ref List<FriendsWith> myFriendsFriends, ref List<Follow> topFollow, ref List<Collection> extractedCollections)
         {
             myFriendsFriends = myFriendsFriends.OrderByDescending(r => r.Began).ToList();
             topFollow = topFollow.OrderByDescending(r => r.Began).ToList();
             extractedCollections = extractedCollections.OrderByDescending(r => r.DateMade).ToList();
         }
 
+        public static string GetMyProfilePicUrl(int myId, IIcollectionUserRepository usersRepo, IPhotoRepository photoRepo)
+        {
+            string address = "/api/image/thumbnail/";
+            int profile_pic_id = usersRepo.GetProfilePicID(myId);
+            
+            if(profile_pic_id != 0)
+            {
+                try
+                {
+                    var guid = photoRepo.GetProfilePicGuid(profile_pic_id);
+                    string url = address + guid;
+                    return url;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+              
+        }
+
         public List<PhotoInfo> GetMyPhotosInfo(int myId)
         {
-            string address = "https://localhost:5001/api/image/thumbnail/";
-            //string address = "https://icollections.azurewebsites.net/api/image/thumbnail/";
+            //string address = "https://localhost:5001/api/image/thumbnail/";
+            string address = "https://icollections.azurewebsites.net/api/image/thumbnail/";
             var photosInformation = _collectionsDbContext.Photos
                                 .Where(row => row.User.Id == myId)
                                 .Select(myRows => new PhotoInfo { Url = address + myRows.PhotoGuid, PhotoName = myRows.Name })

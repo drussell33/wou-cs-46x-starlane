@@ -4,6 +4,9 @@
     ViewData["Title"] = "Browse";
 }
 
+@using iCollections.Data;
+@inject ICollectionsDbContext AppContext
+
 <div class="container">
 
     <div class="row justify-content-center p-3">
@@ -53,35 +56,51 @@
 
                     <div class="container">
                         <br />
-                        <div>
+                        <div class="row">
                             @if (Model.SearchResults != null)
                             {
-                                //string[] colls = { "'/images/card_pics/IMG-0833.JPG'", "'/images/dogtoy_pics/IMG-0869.JPG'", "'/images/fish_pics/fish3.png'", "'/images/puzzel_pics/image_123923953(14).JPG'", "'/images/tool_pics/IMG-0837.JPG'", "'/img/2D_example.jpg'" };
+                                <!--
+                                string[] colls = { "/images/card_pics/IMG-0833.JPG", "/images/dogtoy_pics/IMG-0869.JPG", "/images/fish_pics/fish3.png", "/images/puzzel_pics/image_123923953(14).JPG", "/images/tool_pics/IMG-0837.JPG", "/img/2D_example.jpg" };
 
 
-                                //Random rand = new Random();
+                                Random rand = new Random();
+                                -->
 
 
-                                <div class="row">
-                                    @foreach (CollectionKeyword ck in Model.SearchResults)
-                                    {
-                                        <a class="col-2 p-3  text-center " href="#">
-                                            <code><img src="/img/2D_example.jpg" width="100" height="100" alt="" /></code>
+                                @foreach (CollectionKeyword ck in Model.SearchResults)
+                                {
+                                    <div class="row-cols-auto px-3 browse-result-txt" id="browse-result-txt">
+                                        <a class="text-center " href="#">
+                                            <code>
+                                                <!--<img src=colls[rand.Next(6)] width="100" height="100" alt="" />-->
+                                                @{CollectionPhoto cp = AppContext.CollectionPhotos.Where(c => c.CollectId == ck.CollectId).FirstOrDefault();
+                                                    Photo photo = AppContext.Photos.Where(p => p.CollectionPhotoes.FirstOrDefault() == cp).FirstOrDefault();}
+                                                <img src="data:image;base64,@System.Convert.ToBase64String(ck.Collect.CollectionPhotoes.FirstOrDefault().Photo.Data)" width="100" height="100" alt="" />
+                                            </code>
                                             <div class="row text-center justify-content-center btn-outline-dark">
                                                 <strong>@ck.Collect.Name</strong>
                                             </div>
-                                            <div class="row justify-content-center browse-result-txt" id="browse-result-txt">
-                                                <div class="text-dark">Owner:&nbsp</div>
-                                                <div>@ck.Collect.User.FirstName</div>
-                                            </div>
-                                            <div class="row justify-content-center browse-result-txt" id="browse-result-txt">
-                                                <div class="text-dark">Keyword(s):&nbsp</div>
-                                                <div>@ck.Keyword.Name</div>
-                                            </div>
                                         </a>
-                                    }
-                                </div>
+                                        <div class="row g-0 text-dark justify-content-center">
+                                            <button type="button" class="btn btn-outline-primary btn-sm fav_btn" data-bs-toggle="button" id="@ck.CollectId" value="@ck.Collect.User.UserName" name="@Model.LoggedInUser.UserName">Add to Favorites</button>
+                                        </div>
+                                        <div class="row g-0 text-dark justify-content-center">
+                                            <div class="col-auto px-0"><em>Owner:&nbsp</em></div>
+                                            <div class="col-auto px-0">
+                                                <a href="/Collections/@ck.Collect.User.UserName">@ck.Collect.User.UserName</a>
+                                            </div>
+                                        </div>
+                                        <div class="row g-0 text-dark justify-content-center">
+                                            <div class="text-dark"><em>Keyword(s):&nbsp</em></div>
+                                            <div>
+                                                <a href="?keywords=@ck.Keyword.Name">@ck.Keyword.Name</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
                             }
+
                         </div>
                     </div>
                 </div>

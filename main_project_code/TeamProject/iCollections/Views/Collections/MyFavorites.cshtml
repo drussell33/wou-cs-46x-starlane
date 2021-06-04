@@ -1,0 +1,97 @@
+﻿@model BrowseList
+
+@{
+    ViewData["Title"] = "Collections";
+}
+
+@using iCollections.Data;
+@inject ICollectionsDbContext AppContext
+
+<div class="container">
+
+    @if (Model != null)
+    {
+        if (Model.SearchResults.Count() == 0)
+        {
+            <div class="text-center">
+                <h1>@Model.VisitedUser.FirstName does not have any favorites yet!</h1>
+            </div>
+        }
+
+        else
+        {
+            <div class="justify-content-center"> <h1 class="text-center">My Favorite Collections</h1> </div>
+
+            <h5>Result(s): @Model.MyFavorites.Count() Collection(s)</h5>
+            @if (ViewBag.SuccessMessage != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @ViewBag.SuccessMessage
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
+                <table class="table table-bordered border-primary">
+                    <thead>
+                        <tr>
+                            <th scope="col">Preview Photo</th>
+                            <th scope="col"><div style="color:black;">Name</div></th>
+                            <th scope="col"><div style="color:black;">Owner</div></th>
+                            <th scope="col">
+                                <div style="color:black;">Keyword(s)</div>
+                            </th>
+                            <th scope="col">
+                                <div style="color:black;"> Date Created </div>
+                            </th>
+                            <th scope="col"><span style="color:black;">Remove</span></th>
+                        </tr>
+                    </thead>
+                    @foreach (CollectionKeyword ck in Model.SearchResults)
+                    {
+                        if (ck.Collect.Visibility == 1)
+                        {
+
+                            <tr>
+                                <td>
+                                    @{CollectionPhoto cp = AppContext.CollectionPhotos.Where(c => c.CollectId == ck.CollectId).FirstOrDefault();
+                                        Photo photo = AppContext.Photos.Where(p => p.CollectionPhotoes.FirstOrDefault() == cp).FirstOrDefault();}
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(ck.Collect.CollectionPhotoes.FirstOrDefault().Photo.Data)" width="118" height="118" alt="" />
+                                </td>
+                                <td>
+                                    <div> @ck.Collect.Name </div>
+                                </td>
+                                <td>
+                                    <div> @ck.Collect.User.UserName </div>
+                                </td>
+                                <td>
+                                    <a href="/Browse/?keywords=@ck.Keyword.Name">@ck.Keyword.Name</a>
+                                <td>
+                                    @ck.Collect.DateMade
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-danger btn-sm rem_fav" name="@Model.LoggedInUser.UserName" id="@ck.Collect.Id">Remove</button>
+                                    
+                                </td>
+                            </tr>
+                        }
+
+                    }
+
+                </table>
+
+        }
+
+
+     }
+
+
+     else
+     {
+        <div class="text-center">
+            <h1>@Model.VisitedUser.FirstName does not have any Favorites yet!</h1>
+        </div>
+     }
+
+</div>

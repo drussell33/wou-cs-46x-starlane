@@ -8,24 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using iCollections.Data;
 using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
-
+using iCollections.Data.Abstract;
 
 namespace iCollections.Controllers
 {
     public class FollowsController : Controller
     {
-        private readonly ICollectionsDbContext _db;
-
-        public FollowsController(ICollectionsDbContext context)
+        private readonly IFollowRepository _followRepo;
+        private readonly IIcollectionUserRepository _userRepo;
+        public FollowsController(IFollowRepository followRepo, IIcollectionUserRepository userRepo)
         {
-            _db = context;
+            _followRepo = followRepo;
+            _userRepo = userRepo;
         }
 
         // GET: Follows
         public async Task<IActionResult> Index()
         {
-            var iCollectionsDbContext = _db.Follows.Include(f => f.FollowedNavigation).Include(f => f.FollowerNavigation);
-            return View(await iCollectionsDbContext.ToListAsync());
+            var allFollows = _followRepo.GetAll();
+            return View(await allFollows.ToListAsync());
         }
 
         // GET: Follows/Details/5
@@ -36,10 +37,7 @@ namespace iCollections.Controllers
                 return NotFound();
             }
 
-            var follow = await _db.Follows
-                .Include(f => f.FollowedNavigation)
-                .Include(f => f.FollowerNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var follow = await _followRepo.GetFollowAsync(id.Value);
             if (follow == null)
             {
                 return NotFound();
@@ -51,8 +49,8 @@ namespace iCollections.Controllers
         // GET: Follows/Create
         public IActionResult Create()
         {
-            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName");
-            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName");
+            ViewData["Followed"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName");
+            ViewData["Follower"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName");
             return View();
         }
 
@@ -61,16 +59,16 @@ namespace iCollections.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Follower,Followed,Began")] Follow follow)
         {
             if (ModelState.IsValid)
             {
-                _db.Add(follow);
-                await _db.SaveChangesAsync();
+                await _followRepo.AddOrUpdateAsync(follow);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Followed);
-            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            ViewData["Followed"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Follower);
             return View(follow);
         }
 
@@ -82,13 +80,13 @@ namespace iCollections.Controllers
                 return NotFound();
             }
 
-            var follow = await _db.Follows.FindAsync(id);
+            var follow = await _followRepo.FindByIdAsync(id.Value);
             if (follow == null)
             {
                 return NotFound();
             }
-            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Followed);
-            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            ViewData["Followed"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Follower);
             return View(follow);
         }
 
@@ -97,6 +95,7 @@ namespace iCollections.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Follower,Followed,Began")] Follow follow)
         {
             if (id != follow.Id)
@@ -108,8 +107,7 @@ namespace iCollections.Controllers
             {
                 try
                 {
-                    _db.Update(follow);
-                    await _db.SaveChangesAsync();
+                    await _followRepo.AddOrUpdateAsync(follow);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,8 +122,8 @@ namespace iCollections.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Followed"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Followed);
-            ViewData["Follower"] = new SelectList(_db.IcollectionUsers, "Id", "FirstName", follow.Follower);
+            ViewData["Followed"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Followed);
+            ViewData["Follower"] = new SelectList(_userRepo.GetAll(), "Id", "FirstName", follow.Follower);
             return View(follow);
         }
 
@@ -136,11 +134,7 @@ namespace iCollections.Controllers
             {
                 return NotFound();
             }
-
-            var follow = await _db.Follows
-                .Include(f => f.FollowedNavigation)
-                .Include(f => f.FollowerNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var follow = await _followRepo.GetFollowAsync(id.Value);
             if (follow == null)
             {
                 return NotFound();
@@ -152,17 +146,17 @@ namespace iCollections.Controllers
         // POST: Follows/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var follow = await _db.Follows.FindAsync(id);
-            _db.Follows.Remove(follow);
-            await _db.SaveChangesAsync();
+            var follow = await _followRepo.FindByIdAsync(id);
+            await _followRepo.DeleteAsync(follow);
             return RedirectToAction(nameof(Index));
         }
 
         private bool FollowExists(int id)
         {
-            return _db.Follows.Any(e => e.Id == id);
+            return _followRepo.Exists(id);
         }
 
         // POST: FollowController/Follow
@@ -175,15 +169,18 @@ namespace iCollections.Controllers
             {
                 return Json(new { success = false, follower = follower, followed = followed, message = "can't follow yourself" });
             }
-            var user_1 = _db.IcollectionUsers.FirstOrDefault(x => x.Id == follower);
-            var user_2 = _db.IcollectionUsers.FirstOrDefault(x => x.Id == followed);
-            if (_db.Follows.FirstOrDefault(x => x.Follower == follower && x.Followed == followed) == null)
+            var user_1 = _userRepo.GetUserById(follower);
+            var user_2 = _userRepo.GetUserById(followed);
+            if (user_1 == null || user_2 == null)
+            {
+                return Json(new { success = false, follower = follower, followed = followed, message = "User does not exist." });
+            }
+            if (_followRepo.GetFollowLight(x => x.Follower == follower && x.Followed == followed) == null)
             {
                 var newFollow = new Follow { Follower = follower, FollowerNavigation = user_1, Followed = followed, FollowedNavigation = user_2, Began = DateTime.Now };
-                _db.Follows.Add(newFollow);
                 try
                 {
-                    _db.SaveChanges();
+                    _followRepo.AddOrUpdate(newFollow);
                 }
                 catch (DbUpdateException dbe)
                 {
@@ -198,17 +195,13 @@ namespace iCollections.Controllers
         [Authorize]
         [HttpPost]
         [Route("api/unfollow")]
-        public JsonResult Unfollow(int follower, int followed)
+        public async Task<JsonResult> Unfollow(int follower, int followed)
         {
-            Follow follow = _db.Follows
-                                .Include(f => f.FollowedNavigation)
-                                .Include(f => f.FollowerNavigation)
-                                .FirstOrDefault(x => x.Follower == follower && x.Followed == followed);
+            Follow follow = _followRepo.GetFollow(x => x.Follower == follower && x.Followed == followed);
             if (follow != null)
             {
-                _db.Follows.Remove(follow);
-                try { 
-                    _db.SaveChanges(); 
+                try {
+                    await _followRepo.DeleteAsync(follow);
                 }
                 catch (DbUpdateException dbe)
                 {

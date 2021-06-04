@@ -10,7 +10,9 @@ using iCollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
-
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using iCollections.Data.Abstract;
 
 namespace iCollections.Controllers
 {
@@ -19,10 +21,17 @@ namespace iCollections.Controllers
         private readonly ICollectionsDbContext _db;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager)
+        private readonly IIcollectionUserRepository _userRepo;
+        private readonly IPhotoRepository _photoRepo;
+        private readonly IcollectionRepository _colRepo;
+
+        public UserPageController(ICollectionsDbContext db, UserManager<IdentityUser> userManager, IIcollectionUserRepository userRepo, IPhotoRepository photoRepo, IcollectionRepository colRepo)
         {
             _db = db;
             _userManager = userManager;
+            _userRepo = userRepo;
+            _photoRepo = photoRepo;
+            _colRepo = colRepo;
         }
 
         [Route("userpage/{name}")]
@@ -30,34 +39,35 @@ namespace iCollections.Controllers
         {
             string sessionUserId = _userManager.GetUserId(User);
             IcollectionUser sessionUser = null;
+            var profileId = _userRepo.GetReadableID(name);
+            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(profileId, _userRepo, _photoRepo);
 
             if (name == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            if (sessionUserId != null)
+            if (!string.IsNullOrEmpty(sessionUserId))
             {
-                sessionUser = _db.IcollectionUsers
-                .Include(u => u.FollowFollowerNavigations)
-                .Include(u => u.FollowFollowedNavigations)
-                .FirstOrDefault(m => m.AspnetIdentityId == sessionUserId);
+                sessionUser = _userRepo.GetSessionUser(sessionUserId);
             }
 
-            var targetUser = _db.IcollectionUsers
-                .Include(u => u.Photos)
-                .Include(u => u.FollowFollowerNavigations)
-                .Include(u => u.FollowFollowedNavigations)
-                .ThenInclude(f => f.FollowerNavigation)
-                .FirstOrDefault(m => m.UserName == name);
-            
-            return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser });
+            var targetUser = _userRepo.GetTargetUser(name);
+
+            if (targetUser == null)
+            {
+                return RedirectToAction("Index", "Error", new ErrorMessage { StatusCode = 404, Message = $"User {name} was not found. Try using the search bar!" });
+            }
+            Console.WriteLine("before getting collections");
+            var recentiCollections = _colRepo.GetMostRecentiCollections(profileId, 4);
+            Console.WriteLine("after getting collections");            
+            return View(new UserProfile { ProfileVisitor = sessionUser, ProfileOwner = targetUser, recentCollections = recentiCollections });
         }
-        
+
         [Route("userpage/{name}/followers")]
         public IActionResult Followers(string name)
         {
-            if (name == null )
+            if (name == null)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -92,33 +102,74 @@ namespace iCollections.Controllers
             return View(new FollowList { TargetUser = user, Follows = following });
         }
 
-        [Route("userpage/{name}/collections")]
-        public IActionResult Collections(string name)
+        [Authorize]
+        [Route("userpage/{name}/edit")]
+        public IActionResult Edit(string name)
         {
-            if (name == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            IcollectionUser user = _db.IcollectionUsers.FirstOrDefault(m => m.UserName == name);
+            var user = _userRepo.GetTargetUser(name);
+
+            //string sessionUserId = _userManager.GetUserId(User);
+            //IcollectionUser sessionUser = null;
+            var profileId = _userRepo.GetReadableID(name);
+            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(profileId, _userRepo, _photoRepo);
+
             if (user == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            var collections = _db.IcollectionUsers.Include("Collections").FirstOrDefault(m => m.UserName == name).Collections;
-            return View(collections);
+            if (user.AspnetIdentityId == _userManager.GetUserId(User))
+            {
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [Authorize]
-        [Route("api/sessionuser")]
-        public async Task<JsonResult> GetUserNameFromAspId()
+        [Route("userpage/{name}/edit")]
+        [HttpPost]
+        public IActionResult EditPost(IcollectionUser fu, int id, IFormFile profileimg)
         {
-            var sessionUser = _userManager.GetUserId(User);
-            var username = await _db.IcollectionUsers.FirstOrDefaultAsync(x => x.AspnetIdentityId == sessionUser);
-            if (username == null)
+            var user = _userRepo.GetUserById(id);
+            //var user = _db.IcollectionUsers.FirstOrDefault(u => u.Id == id);
+            if (ModelState.IsValid)
             {
-                return Json(new { username = "" });
+                Console.WriteLine("Valid");
+                if (user != null && fu.UserName != null && fu.FirstName != null && fu.LastName != null && fu.AboutMe != null)
+                {
+                    if (!_userRepo.Exists(fu.UserName))
+                    {
+                        user.UserName = fu.UserName;
+                    }
+                    user.FirstName = fu.FirstName;
+                    user.LastName = fu.LastName;
+                    user.AboutMe = fu.AboutMe;
+
+                    if (profileimg != null)
+                    {
+                        MemoryStream ms = new MemoryStream();
+                        profileimg.CopyTo(ms);
+                        var profileImg = new Photo { Name = profileimg.FileName, Data = ms.ToArray(), DateUploaded = DateTime.Now, UserId = user.Id };
+                        ms.Close();
+                        ms.Dispose();
+                        //_db.Photos.Add(profileImg);
+                        _photoRepo.AddOrUpdate(profileImg);
+                        //_db.SaveChanges();
+                        user.ProfilePicId = profileImg.Id;
+                    }
+                    _userRepo.AddOrUpdate(user);
+                    //_db.IcollectionUsers.Update(user);
+                    //_db.SaveChanges();
+                }
+                return RedirectToAction("Index", "UserPage", new { name = user.UserName });
             }
-            return Json(new { username = username.UserName, id = username.Id });
+            else
+            {
+                Console.WriteLine("Not Valid");
+                return RedirectToAction("Index", "UserPage", new { name = user.UserName });
+            }
         }
 
         [HttpPost]

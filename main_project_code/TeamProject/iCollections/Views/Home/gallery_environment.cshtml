@@ -1,21 +1,70 @@
-﻿@{
+﻿@model List<RenderingPhoto>;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-    <h1>Gallery Environment Example</h1>
-    <div id="puzzel_environment">
-        <div id="blocker">
+@{
+    if (ViewData["collectionTitle"] != null)
+    {
+        <h1 id="iCollection-title" class="creation-page-title">@ViewData["collectionTitle"].ToString()</h1>
+    }
+}
 
-            <div id="instructions">
-                <span style="font-size:36px">Click to Explore</span>
-                <br /><br />
-                Move: WASD or ARROW KEYS<br />
-                Look: MOUSE<br />
-                Exit: ESC
-            </div>
 
+<div id="gallery_environment">
+    <div id="blocker">
+
+        <div id="instructions">
+            <span style="font-size:36px">Click to Explore</span>
+            <br /><br />
+            Move: WASD or ARROW KEYS<br />
+            Look: MOUSE<br />
+            Exit: ESC
+        </div>
+
+    </div>
+</div>
+
+
+@{
+    if (Model != null)
+    {
+        var counter = 1;
+        <table hidden>
+            @foreach (var photo in Model)
+            {
+                string thisId = "photo" + counter.ToString();
+
+                <tr id="@thisId" data-rank="@photo.Rank" data-title="@photo.Title" data-description="@photo.Description" data-photodata="@photo.Data" hidden></tr>
+
+                counter = counter + 1;
+            }
+
+        </table>
+    }
+}
+
+@{
+    if (ViewData["collectionDescription"] != null)
+    {
+
+        <div>
+            <h3 id="iCollection-description" class="creation-page-title">@ViewData["collectionDescription"].ToString()</h3>
+        </div>
+
+    }
+}
+
+<div class="row justify-content-end environment-buttons">
+    <div class="col-2">
+        <div class="">
+            <button class="btn btn-primary" onclick="goBack()">Go Back</button>
         </div>
     </div>
-   
+</div>
+
+<script src="~/js/gallery_environment.js" asp-append-version="true" type="module"></script>
+
 
 

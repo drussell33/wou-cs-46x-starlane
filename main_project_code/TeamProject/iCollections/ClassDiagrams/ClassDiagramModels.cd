@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iCollections.Models.IcollectionUser">
+    <Position X="3" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AABCAEAAAAAAACACAAAAAAAAiACAgAQAAQAAAIABAIg=</HashCode>
+      <FileName>Models\IcollectionUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.Photo">
+    <Position X="5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgDAAAAAAAAAAAAAAAIAAwAIAAAABAAAIAAAAAAAAA=</HashCode>
+      <FileName>Models\Photo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.Follow">
+    <Position X="2.75" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAgAAAAAAQAAAAAgBAAAAABAAAAAAA=</HashCode>
+      <FileName>Models\Follow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.CreateCollectionPublishing">
+    <Position X="10.25" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEEAQAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CreateCollectionEnvironment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.RenderingPhoto">
+    <Position X="10.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAgAEAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CreateCollectionEnvironment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.CollectionPhoto">
+    <Position X="6.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAmAAAAAAAAAAAAAAAAAQAQACEAAAAAA=</HashCode>
+      <FileName>Models\CollectionPhoto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.Collection">
+    <Position X="8.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEADAAAAAAAgAAACAEAAABwAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Models\Collection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.ActivityEvents">
+    <Position X="6.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIEAgAAAAABAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Models\ActivityEvents.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.BrowseList">
+    <Position X="8.25" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAABAAAEAAAAAAAAAQAAAAABAAAAAAAA=</HashCode>
+      <FileName>Models\BrowseList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.CollectionKeyword">
+    <Position X="10.75" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAgAAAAAAAAAAAAAAAQAIAQAAEAAAAAA=</HashCode>
+      <FileName>Models\CollectionKeyword.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.Keyword">
+    <Position X="12.5" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Keyword.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.FavoriteCollection">
+    <Position X="12.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEADAAAAAAAAAgAAAEAAABwAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Models\FavoriteCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.PhotoInfo">
+    <Position X="6.75" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAACAAAAAAIAAA=</HashCode>
+      <FileName>Models\PhotoInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iCollections.Models.UserProfile">
+    <Position X="4.5" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACADA=</HashCode>
+      <FileName>Models\UserProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

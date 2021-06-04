@@ -49,6 +49,26 @@ namespace iCollections.Controllers
             return View(icollectionUser);
         }
 
+        [AcceptVerbs("GET", "POST")]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsUserNameAvailable(string UserName)
+        {
+            Console.WriteLine("Validation called");
+            string curUser = _userManager.GetUserName(User);
+
+            //added to fix bug where the user editing their profile couldnt keep the same user name.
+            string sessionUserId = _userManager.GetUserId(User);
+            var actualCurUser = await _context.IcollectionUsers.FirstOrDefaultAsync(m => m.AspnetIdentityId == sessionUserId);
+            string mightWork = actualCurUser.UserName;
+
+            //if (curUser == UserName)
+            if (mightWork == UserName)
+            {
+                return Json(true);
+            }
+            return Json(!await _context.IcollectionUsers.AnyAsync(u => u.UserName.ToLower() == UserName.ToLower()));
+        }
+
         // GET: ICollectionsUsers/Create
         public IActionResult Create()
         {
@@ -60,6 +80,7 @@ namespace iCollections.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,AspnetIdentityId,FirstName,LastName,UserName,DateJoined,AboutMe")] IcollectionUser icollectionUser)
         {
             if (ModelState.IsValid)
@@ -92,6 +113,7 @@ namespace iCollections.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,AspnetIdentityId,FirstName,LastName,UserName,DateJoined,AboutMe")] IcollectionUser icollectionUser)
         {
             if (id != icollectionUser.Id)
@@ -143,6 +165,7 @@ namespace iCollections.Controllers
         // POST: ICollectionsUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var icollectionUser = await _context.IcollectionUsers

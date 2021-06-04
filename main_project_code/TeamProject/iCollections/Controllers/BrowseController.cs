@@ -1,5 +1,8 @@
 ﻿using iCollections.Data;
+using iCollections.Data.Abstract;
 using iCollections.Models;
+using iCollections.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +18,7 @@ namespace iCollections.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ICollectionsDbContext _collectionsDbContext;
+        private readonly IIcollectionUserRepository _userRepo;
 
         private DatabaseHelper dbHelper;
 
@@ -22,9 +26,10 @@ namespace iCollections.Controllers
         {
             _userManager = userManager;
             _collectionsDbContext = collectionsDbContext;
-            dbHelper = new DatabaseHelper(_userManager, _collectionsDbContext);
+            dbHelper = new DatabaseHelper(_userManager, _collectionsDbContext, _userRepo);
         }
 
+        [Authorize]
         public IActionResult Index(string keywords)
         {
             var init_user = _collectionsDbContext.IcollectionUsers.FirstOrDefault(u => u.AspnetIdentityId == _userManager.GetUserId(User));
@@ -44,11 +49,12 @@ namespace iCollections.Controllers
 
             else
             {
-                string[] keys = keywords.Split(" "); // parse strings separated by space or whitespace
+                //string[] keys = keywords.Split(" "); // parse strings separated by space or whitespace
+                string[] keys = StringUtilities.SplitBySpace(keywords); // parse strings separated by space or whitespace
                 List<CollectionKeyword> filtered = new List<CollectionKeyword>();
                 foreach(string token in keys)
                 {
-                    var coll_keys = _collectionsDbContext.CollectionKeywords.Include(c=>c.Collect).ThenInclude(u=>u.User).Where(k => k.Keyword.Name == token).ToList();
+                    var coll_keys = _collectionsDbContext.CollectionKeywords.Include(c=>c.Collect).ThenInclude(u=>u.User).Where(k => k.Keyword.Name == token && k.Collect.Visibility == 1).ToList();
                     
                     filtered.AddRange(coll_keys);
                                        
