@@ -16,7 +16,7 @@ namespace iCollections.Data.Concrete
 
         public List<CollectionKeyword> GetPublicCollectionKeywordsByUser(IcollectionUser user)
         {
-            return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).Where(c => c.Collect.User == user && c.Collect.Visibility == 1).ToList();
+            return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).ThenInclude(cp=>cp.CollectionPhotoes).ThenInclude(p=>p.Photo).Where(c => c.Collect.User == user && c.Collect.Visibility == 1).ToList();
         }
 
         public List<CollectionKeyword> GetPublicCollectionKeywordsByUserSortedAscending(IcollectionUser user, string sort)

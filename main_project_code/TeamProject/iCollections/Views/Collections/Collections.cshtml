@@ -4,14 +4,18 @@
     ViewData["Title"] = "Collections";
 }
 
+@using iCollections.Data;
+@inject ICollectionsDbContext AppContext
 
 <div class="container p-3">
 
     <div class="jumbotron px-sm pt-4 pb-sm-1"
-        style="background:url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);">
+         style="background:url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);">
 
-        <h1 class="text-center text-white"><a class="text-white" asp-controller="Collections"
-                asp-action="Collections">@Model.VisitedUser.FirstName's Collections</a></h1>
+        <h1 class="text-center text-white">
+            <a class="text-white" asp-controller="Collections"
+               asp-action="Collections">@Model.VisitedUser.FirstName's Collections</a>
+        </h1>
 
         <div class="row">
             <div class="col-2 something-inside" style="padding-right:0;">
@@ -48,7 +52,7 @@
                 <label><strong>Search @Model.VisitedUser.FirstName's Collections:</strong></label>
                 <div class="custom-control-inline">
                     <input class="form-control" type="text" minlength="3" title="Use at least 3 characters"
-                        name="keywords" required pattern=".*\S+.*" />
+                           name="keywords" required pattern=".*\S+.*" />
                     <input class="form-control" type="hidden" name="name" value="@Model.VisitedUser.UserName" />
                     <br />
                     <button type="submit" class="btn btn-outline-dark"> Search </button>
@@ -110,11 +114,15 @@
                 <tr>
                     <th scope="col">Preview Photo</th>
                     <th scope="col"><a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=name">Name</a></th>
-                    <th scope="col"><a style="color:black;"
-                        href="?name=@Model.VisitedUser.UserName&sort=keyword">Keyword(s)</a></th>
                     <th scope="col">
-                        <a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=date">Date
-                            Created</a>
+                        <a style="color:black;"
+                           href="?name=@Model.VisitedUser.UserName&sort=keyword">Keyword(s)</a>
+                    </th>
+                    <th scope="col">
+                        <a style="color:black;" href="?name=@Model.VisitedUser.UserName&sort=date">
+                            Date
+                            Created
+                        </a>
                     </th>
                     <!-- <th scope="col"><span style="color:black;">Delete</span></th> -->
                 </tr>
@@ -125,7 +133,9 @@
                     <td>
                         <div class="row-auto">
                             <div class="col">
-                                <img src=@colls[rand.Next(6)] width="118" height="118" alt="" />
+                                @{CollectionPhoto cp = AppContext.CollectionPhotos.Where(c => c.CollectId == ck.CollectId).FirstOrDefault();
+                                    Photo photo = AppContext.Photos.Where(p => p.CollectionPhotoes.FirstOrDefault() == cp).FirstOrDefault();}
+                                <img src="data:image;base64,@System.Convert.ToBase64String(ck.Collect.CollectionPhotoes.FirstOrDefault().Photo.Data)" width="118" height="118" alt="" />
                             </div>
                             @if (Model.LoggedInUser != null)
                             {
@@ -144,11 +154,11 @@
                     </td>
 
                     <!--
-                    
+
                     <td>
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@ck.Collect.Id">Delete</a>
-                    </td> 
-                    
+                    </td>
+
                     -->
 
                 </tr>
