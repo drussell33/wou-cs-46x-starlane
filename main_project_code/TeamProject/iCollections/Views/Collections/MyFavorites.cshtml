@@ -4,6 +4,8 @@
     ViewData["Title"] = "Collections";
 }
 
+@using iCollections.Data;
+@inject ICollectionsDbContext AppContext
 
 <div class="container">
 
@@ -19,12 +21,6 @@
         else
         {
             <div class="justify-content-center"> <h1 class="text-center">My Favorite Collections</h1> </div>
-
-            string[] colls = { "/images/card_pics/IMG-0833.JPG", "/images/dogtoy_pics/IMG-0869.JPG",
-    "/images/fish_pics/fish3.png", "/images/puzzel_pics/image_123923953(14).JPG", "/images/tool_pics/IMG-0837.JPG",
-    "/img/2D_example.jpg" };
-
-            Random rand = new Random();
 
             <h5>Result(s): @Model.MyFavorites.Count() Collection(s)</h5>
             @if (ViewBag.SuccessMessage != null)
@@ -59,7 +55,9 @@
 
                             <tr>
                                 <td>
-                                    <img src=@colls[rand.Next(6)] width="118" height="118" alt="" />
+                                    @{CollectionPhoto cp = AppContext.CollectionPhotos.Where(c => c.CollectId == ck.CollectId).FirstOrDefault();
+                                        Photo photo = AppContext.Photos.Where(p => p.CollectionPhotoes.FirstOrDefault() == cp).FirstOrDefault();}
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(ck.Collect.CollectionPhotoes.FirstOrDefault().Photo.Data)" width="118" height="118" alt="" />
                                 </td>
                                 <td>
                                     <div> @ck.Collect.Name </div>

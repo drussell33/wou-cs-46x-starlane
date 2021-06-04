@@ -35,7 +35,9 @@
                     {
                         string id = UserManager.GetUserId(User);
                         IcollectionUser appUser = AppContext.IcollectionUsers.Where(u => u.AspnetIdentityId == id).FirstOrDefault();
-                        if (appUser.FollowFollowerNavigations.Any(f => f.Followed == follow.Follower))
+                        List<Follow> following = AppContext.Follows.Where(f => f.Follower == appUser.Id).ToList();
+                        <!--if (appUser.FollowFollowerNavigations.Any(f => f.Followed == follow.Follower))-->
+                        if (following.Any(f => f.Followed == follow.Follower))
                         {
                             <td id="unfollow-button">
                                 <button value-user="@appUser.Id" value-target="@follow.Follower" class="btn btn-primary following-button text-light" for="option3">Following</button>

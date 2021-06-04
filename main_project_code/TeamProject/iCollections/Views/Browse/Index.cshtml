@@ -4,6 +4,9 @@
     ViewData["Title"] = "Browse";
 }
 
+@using iCollections.Data;
+@inject ICollectionsDbContext AppContext
+
 <div class="container">
 
     <div class="row justify-content-center p-3">
@@ -56,10 +59,12 @@
                         <div class="row">
                             @if (Model.SearchResults != null)
                             {
+                                <!--
                                 string[] colls = { "/images/card_pics/IMG-0833.JPG", "/images/dogtoy_pics/IMG-0869.JPG", "/images/fish_pics/fish3.png", "/images/puzzel_pics/image_123923953(14).JPG", "/images/tool_pics/IMG-0837.JPG", "/img/2D_example.jpg" };
 
 
                                 Random rand = new Random();
+                                -->
 
 
                                 @foreach (CollectionKeyword ck in Model.SearchResults)
@@ -67,7 +72,10 @@
                                     <div class="row-cols-auto px-3 browse-result-txt" id="browse-result-txt">
                                         <a class="text-center " href="#">
                                             <code>
-                                                <img src=@colls[rand.Next(6)] width="100" height="100" alt="" />
+                                                <!--<img src=colls[rand.Next(6)] width="100" height="100" alt="" />-->
+                                                @{CollectionPhoto cp = AppContext.CollectionPhotos.Where(c => c.CollectId == ck.CollectId).FirstOrDefault();
+                                                    Photo photo = AppContext.Photos.Where(p => p.CollectionPhotoes.FirstOrDefault() == cp).FirstOrDefault();}
+                                                <img src="data:image;base64,@System.Convert.ToBase64String(ck.Collect.CollectionPhotoes.FirstOrDefault().Photo.Data)" width="100" height="100" alt="" />
                                             </code>
                                             <div class="row text-center justify-content-center btn-outline-dark">
                                                 <strong>@ck.Collect.Name</strong>
@@ -89,7 +97,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 }
                             }
 
