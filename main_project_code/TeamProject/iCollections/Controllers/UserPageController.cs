@@ -52,7 +52,6 @@ namespace iCollections.Controllers
                 sessionUser = _userRepo.GetSessionUser(sessionUserId);
             }
 
-            //6,850ms elapsed
             var targetUser = _userRepo.GetTargetUser(name);
 
             if (targetUser == null)
@@ -108,7 +107,11 @@ namespace iCollections.Controllers
         public IActionResult Edit(string name)
         {
             var user = _userRepo.GetTargetUser(name);
-            // var recentiCollections = _colRepo.GetMostRecentiCollections(user.Id, 4);
+
+            //string sessionUserId = _userManager.GetUserId(User);
+            //IcollectionUser sessionUser = null;
+            var profileId = _userRepo.GetReadableID(name);
+            ViewBag.ProfilePicUrl = DatabaseHelper.GetMyProfilePicUrl(profileId, _userRepo, _photoRepo);
 
             if (user == null)
             {
