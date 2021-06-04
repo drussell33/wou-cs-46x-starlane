@@ -192,7 +192,7 @@ namespace iCollections.Controllers
             {
                 LoggedInUser = user,
                 VisitedUser = user,
-                SearchResults = _collectionkeywordRepo.GetPublicCollectionKeywordsByUser(user),
+                SearchResults = _collectionkeywordRepo.GetPublicAndPrivateCollectionKeywordsByUser(user),
                 SuggestedKeywords = null
                 
             };

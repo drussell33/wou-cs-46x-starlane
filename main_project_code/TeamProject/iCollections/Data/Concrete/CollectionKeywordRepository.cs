@@ -19,6 +19,11 @@ namespace iCollections.Data.Concrete
             return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).ThenInclude(cp=>cp.CollectionPhotoes).ThenInclude(p=>p.Photo).Where(c => c.Collect.User == user && c.Collect.Visibility == 1).ToList();
         }
 
+        public List<CollectionKeyword> GetPublicAndPrivateCollectionKeywordsByUser(IcollectionUser user)
+        {
+            return _dbSet.Include(ck => ck.Keyword).Include(c => c.Collect).ThenInclude(cp => cp.CollectionPhotoes).ThenInclude(p => p.Photo).Where(c => c.Collect.User == user).ToList();
+        }
+
         public List<CollectionKeyword> GetPublicCollectionKeywordsByUserSortedAscending(IcollectionUser user, string sort)
         {
             if (sort == "name")
